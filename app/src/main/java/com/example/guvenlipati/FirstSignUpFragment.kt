@@ -9,6 +9,10 @@ import android.widget.Button
 
 
 class FirstSignUpFragment : Fragment() {
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,8 +25,14 @@ class FirstSignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.buttonUserSave).setOnClickListener {
-            (activity as MainActivity).goFragment2()
+
+
+
+
+            //(activity as MainActivity).goFragment2()
         }
+
+
     }
 
 }

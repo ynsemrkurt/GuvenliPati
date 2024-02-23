@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    //Added Firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -47,4 +49,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     //Added CircleImageView Library
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    //Added Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
 }

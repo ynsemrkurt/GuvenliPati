@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "216550129313",
+    "project_id": "guvenlipati",
+    "storage_bucket": "guvenlipati.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216550129313:android:ac6584bb70349e9a7a7ae0",
+        "android_client_info": {
+          "package_name": "com.example.guvenlipati"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwajII5_Tc-ssPCQRrbtFkLwW2HqRAxCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
