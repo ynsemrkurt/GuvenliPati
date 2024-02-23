@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="city_array">
+        <item>İzmir</item>
+    </string-array>
+    <string-array name="town_array">
+        <item>Aliağa</item>
+        <item>Bayındır</item>
+        <item>Bergama</item>
+        <item>Beydağ</item>
+        <item>Bornova</item>
+        <item>Çeşme</item>
+        <item>Çiğli</item>
+        <item>Dikili</item>
+        <item>Foça</item>
+        <item>Gaziemir</item>
+        <item>Güzelbahçe</item>
+        <item>Karabağlar</item>
+        <item>Karaburun</item>
+        <item>Karşıyaka</item>
+        <item>Kemalpaşa</item>
+        <item>Kınık</item>
+        <item>Kiraz</item>
+        <item>Konak</item>
+        <item>Menderes</item>
+        <item>Menemen</item>
+        <item>Narlıdere</item>
+        <item>Ödemiş</item>
+        <item>Seferihisar</item>
+        <item>Selçuk</item>
+        <item>Tire</item>
+        <item>Torbalı</item>
+        <item>Urla</item>
+    </string-array>
+</resources>

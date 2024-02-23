@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/signUpFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
-    android:gravity="center"
     android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".SecondSignUpFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageProfilePhoto"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/black"
-        />
+        android:background="@color/black" />
 
     <TextView
         android:id="@+id/textView1"
@@ -82,10 +80,12 @@
         android:id="@+id/spinnerProvince"
         android:layout_width="245dp"
         android:layout_height="29dp" />
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="İlçe"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="İlçe" />
+
     <Spinner
         android:id="@+id/spinnerTown"
         android:layout_width="247dp"
