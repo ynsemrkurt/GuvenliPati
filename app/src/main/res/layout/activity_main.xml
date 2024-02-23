@@ -9,9 +9,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="230dp"
+        android:layout_width="match_parent"
         android:layout_height="170dp"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.569"
@@ -22,9 +23,8 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             style="@android:style/Widget.Button"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
+            android:layout_width="220dp"
+            android:layout_height="65dp"
             android:background="@drawable/button_background"
             android:drawableRight="@drawable/paw6"
             android:paddingRight="10dp"
@@ -36,9 +36,9 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signUpButton"
             style="@android:style/Widget.Button"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
+            android:layout_width="220dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button_background"
             android:drawableRight="@drawable/paw6"
             android:paddingRight="10dp"
