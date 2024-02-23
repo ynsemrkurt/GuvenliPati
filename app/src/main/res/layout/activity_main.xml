@@ -7,25 +7,148 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="32dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/signUpButton"
-        app:layout_constraintStart_toStartOf="@+id/signUpButton" />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="230dp"
+        android:layout_height="170dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.946">
 
-    <Button
-        android:id="@+id/signUpButton"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginButton"
+            style="@android:style/Widget.Button"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_background"
+            android:drawableRight="@drawable/paw6"
+            android:paddingRight="10dp"
+            android:text="Giriş Yap"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signUpButton"
+            style="@android:style/Widget.Button"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_background"
+            android:drawableRight="@drawable/paw6"
+            android:paddingRight="10dp"
+            android:text="Kayıt Ol"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="408dp"
+        android:layout_height="356dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="90dp"
+            app:srcCompat="@drawable/heartchat" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="230dp"
+            app:srcCompat="@drawable/paw2" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="310dp"
+            android:layout_height="290dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="1dp"
+            app:srcCompat="@drawable/shape2" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="250dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@drawable/bg" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="100dp"
+            app:srcCompat="@drawable/paw2" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="330dp"
+            android:layout_marginTop="200dp"
+            app:srcCompat="@drawable/paw3" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginTop="36dp"
+        android:padding="10dp"
+        android:text="Hoşgeldiniz"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="349dp"
+        android:layout_height="59dp"
+        android:padding="10dp"
+        android:text="Evcil dostlarınız için en iyi bakıcıları bulmanın\n\t\t\t\t kolay ve keyifli yolu: Güvenli Pati"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.145" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
