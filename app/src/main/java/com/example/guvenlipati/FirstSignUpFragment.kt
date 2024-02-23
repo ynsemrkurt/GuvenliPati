@@ -1,17 +1,20 @@
 package com.example.guvenlipati
 
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 
 
 class FirstSignUpFragment : Fragment() {
 
-
-
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,13 +29,45 @@ class FirstSignUpFragment : Fragment() {
 
         view.findViewById<Button>(R.id.buttonUserSave).setOnClickListener {
 
+            auth = FirebaseAuth.getInstance()
 
+            val userEmail = view.findViewById<EditText>(R.id.editTextEmail)
+            val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
+            val userConfirmPassword = view.findViewById<EditText>(R.id.editTextRepassword)
 
+            if (userEmail.text.toString().isEmpty() || !controlEmail(userEmail.text.toString())){
+                showToast("Hatalı ya da eksik E-posta!")
+                return@setOnClickListener
+            }
 
-            //(activity as MainActivity).goFragment2()
+            if (userPassword.text.toString().length < 8){
+                showToast("Şifre 8 karakterden kısa olamaz!")
+                return@setOnClickListener
+            }
+
+            if (userPassword.text.toString()!=userConfirmPassword.text.toString()){
+                showToast("Şifreler uyuşmuyor!")
+                userPassword.setText("")
+                userConfirmPassword.setText("")
+                return@setOnClickListener
+            }
+
+            auth.createUserWithEmailAndPassword(userEmail.text.toString(), userPassword.text.toString())
+                .addOnCompleteListener() {
+                    if (it.isSuccessful) {
+                        (activity as MainActivity).goFragment2()
+                    } else {
+                        showToast("Bilinmeyen hata!")
+                    }
+                }
         }
-
-
     }
 
+    private fun showToast(message:String){
+        Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
+    }
+
+    private fun controlEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
 }
