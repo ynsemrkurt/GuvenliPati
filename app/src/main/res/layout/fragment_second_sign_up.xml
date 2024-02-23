@@ -17,8 +17,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/black"
-        app:border_width="2dp"
-        app:border_color="@color/black"
         />
 
     <TextView
