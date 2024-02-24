@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,18 +7,18 @@
     tools:context=".FirstSignUpFragment"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:gravity="center"
     android:background="@drawable/sign_up_background">
 
     <LinearLayout
+        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_width="41dp"
-            android:layout_height="41dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/button_background"
             android:backgroundTint="@color/white"
@@ -27,10 +27,10 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="33dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="23sp"
+            android:textSize="35sp"
             android:textStyle="bold"
             android:paddingRight="60dp"
             android:text="Güvenli Pati" />
@@ -40,69 +40,70 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="35dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/editTextEmail"
-            android:layout_width="276dp"
-            android:layout_height="47dp"
+            android:layout_width="340dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/mail_ico"
-            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/mail"
+            android:drawablePadding="6dp"
             android:hint="Email giriniz..."
             android:paddingStart="10dp"
-            android:textSize="12sp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/editTextPassword"
-            android:layout_width="276dp"
-            android:layout_height="47dp"
+            android:layout_width="340dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/password_ico"
-            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/password"
+            android:drawablePadding="6dp"
             android:hint="Şifre giriniz..."
             android:paddingStart="10dp"
-            android:textSize="12sp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/editTextRepassword"
-            android:layout_width="276dp"
-            android:layout_height="47dp"
+            android:layout_width="340dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/confirm_password_ico"
-            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/confirm_password"
+            android:drawablePadding="6dp"
             android:hint="Tekrar şifre giriniz..."
             android:paddingStart="10dp"
-            android:textSize="12sp" />
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="bottom"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center|bottom"
         >
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signUpButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="237dp"
-        android:layout_height="82dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/button_background"
-        android:drawableRight="@drawable/paw6"
-        android:paddingRight="13dp"
-        android:text="Kayıt Ol"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signUpButton"
+            style="@android:style/Widget.Button"
+            android:layout_width="237dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_background"
+            android:drawableRight="@drawable/paw7"
+            android:paddingRight="13dp"
+            android:text="Kayıt Ol"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:elevation="10dp"/>
+
 </LinearLayout>
-</FrameLayout>
+
+
+</LinearLayout>

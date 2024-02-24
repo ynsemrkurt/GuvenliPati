@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     fun goFragment1(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.main, FirstSignUpFragment())
+            .addToBackStack(null)
             .commit()
     }
     fun goFragment2(){
