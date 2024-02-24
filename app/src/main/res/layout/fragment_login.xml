@@ -40,7 +40,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="70dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -50,8 +50,6 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/mail"
-            android:drawablePadding="6dp"
             android:inputType="textEmailAddress"
             android:hint="Email giriniz..."
             android:paddingStart="15dp"
@@ -64,26 +62,13 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/password"
-            android:drawablePadding="6dp"
+            android:drawableEnd="@drawable/password"
+            android:drawableEndPadding="10dp"
             android:inputType="textPassword"
             android:hint="Şifre giriniz..."
             android:paddingStart="15dp"
             android:textSize="17sp" />
 
-        <EditText
-            android:id="@+id/editTextRepassword"
-            android:layout_width="340dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/confirm_password"
-            android:drawablePadding="6dp"
-            android:inputType="textPassword"
-            android:hint="Tekrar şifre giriniz..."
-            android:paddingStart="15dp"
-            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,12 +86,10 @@
             android:background="@drawable/button_bg_signup"
             android:drawableRight="@drawable/paw7"
             android:paddingRight="13dp"
-            android:text="Kayıt Ol"
+            android:text="Giriş Yap"
             android:textColor="@color/white"
             android:textSize="19sp"
             android:elevation="10dp"/>
 
-</LinearLayout>
-
-
+    </LinearLayout>
 </LinearLayout>

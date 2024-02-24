@@ -10,6 +10,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        findViewById<Button>(R.id.loginButton).setOnClickListener {
+            goFragment3()
+        }
+
         findViewById<Button>(R.id.signUpButton).setOnClickListener {
             goFragment1()
         }
@@ -23,6 +27,11 @@ class MainActivity : AppCompatActivity() {
     fun goFragment2(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.main, SecondSignUpFragment())
+            .commit()
+    }
+    fun goFragment3(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main, LoginFragment())
             .commit()
     }
 }
