@@ -86,7 +86,7 @@
         android:id="@+id/imageView7"
         android:layout_width="250dp"
         android:layout_height="200dp"
-        android:layout_marginStart="90dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="80dp"
         android:src="@drawable/logo" />
 
@@ -100,7 +100,7 @@
     <EditText android:id="@+id/editTextEmail"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="325dp"
         android:drawableStart="@drawable/email"
         android:drawablePadding="10dp"
@@ -117,7 +117,7 @@
     <EditText android:id="@+id/editTextPassword"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="430dp"
         android:drawableStart="@drawable/password"
         android:drawablePadding="10dp"
@@ -135,7 +135,7 @@
     <EditText android:id="@+id/editTextRepassword"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="530dp"
         android:drawableStart="@drawable/password"
         android:drawablePadding="10dp"
@@ -146,7 +146,7 @@
         android:id="@+id/imageView15"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="285dp"
+        android:layout_marginStart="275dp"
         android:layout_marginTop="593dp"
         android:src="@drawable/cat2" />
     <ImageView
@@ -162,7 +162,7 @@
         style="@android:style/Widget.Button"
         android:layout_width="160dp"
         android:layout_height="50dp"
-        android:layout_marginStart="135dp"
+        android:layout_marginStart="125dp"
         android:layout_marginTop="603dp"
         android:background="@drawable/button_background"
         android:drawableRight="@drawable/paw6"

@@ -51,7 +51,7 @@ class SecondSignUpFragment : Fragment() {
         spinnerTown.adapter = adapter2
 
 
-        view.findViewById<Button>(R.id.buttonUserInfoSave).setOnClickListener {
+        view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
 
             firebaseUser = FirebaseAuth.getInstance().currentUser!!
             databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)

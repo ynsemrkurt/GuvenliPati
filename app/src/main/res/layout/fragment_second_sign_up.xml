@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/signUpFragment"
@@ -13,91 +13,140 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageProfilePhoto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="30dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/paw6"
         app:civ_border_color="@color/black"
         app:civ_border_width="1sp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageProfilePhoto2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="241dp"
+        android:layout_marginTop="140dp"
+        android:src="@drawable/tide"
+        app:civ_border_color="@color/black" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="190dp"
+        android:text="" />
 
     <EditText
         android:id="@+id/editTextUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="220dp"
+        android:drawableStart="@drawable/name"
+        android:drawablePadding="10dp"
         android:inputType="text"
-        android:text="Name" />
+        android:textSize="14sp"
+        android:hint="İsim giriniz..." />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="290dp"
+        android:text="" />
 
     <EditText
         android:id="@+id/editTextUserSurname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="320dp"
+        android:drawableStart="@drawable/name"
+        android:drawablePadding="10dp"
         android:inputType="text"
-        android:text="Name" />
+        android:textSize="14sp"
+        android:hint="Soyisim giriniz..." />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="390dp"
+        android:text="Cinsiyet seçiniz"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <RadioGroup
         android:id="@+id/radioGroup2"
-        android:layout_width="184dp"
-        android:layout_height="50dp"
+        android:layout_width="182dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="420dp"
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/radioButtonFemale"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="Kadın" />
 
         <RadioButton
             android:id="@+id/radioButtonMale"
             android:layout_width="86dp"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="Erkek" />
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="485dp"
+        android:text="İl"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <Spinner
         android:id="@+id/spinnerProvince"
         android:layout_width="245dp"
-        android:layout_height="29dp" />
+        android:layout_height="29dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="510dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="İlçe" />
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="560dp"
+        android:text="İlçe"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <Spinner
         android:id="@+id/spinnerTown"
         android:layout_width="247dp"
-        android:layout_height="38dp" />
+        android:layout_height="38dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="590dp"/>
 
-    <Button
-        android:id="@+id/buttonUserInfoSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signUpButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="163dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="650dp"
+        android:background="@drawable/button_background"
+        android:drawableRight="@drawable/paw6"
+        android:paddingRight="10dp"
+        android:text="Kaydı Tamamla"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
-</LinearLayout>
+</FrameLayout>
