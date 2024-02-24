@@ -27,7 +27,7 @@ class FirstSignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
+        view.findViewById<Button>(R.id.singUpButton).setOnClickListener {
 
             auth = FirebaseAuth.getInstance()
 
