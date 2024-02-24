@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.lang.ref.Reference
 
 class SecondSignUpFragment : Fragment() {
 
@@ -51,7 +50,7 @@ class SecondSignUpFragment : Fragment() {
         spinnerTown.adapter = adapter2
 
 
-        view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
+        view.findViewById<Button>(R.id.loginButton).setOnClickListener {
 
             firebaseUser = FirebaseAuth.getInstance().currentUser!!
             databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)

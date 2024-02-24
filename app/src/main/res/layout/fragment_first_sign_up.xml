@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstSignUpFragment"
-    android:orientation="vertical"
     android:layout_gravity="center"
-    android:background="@drawable/sign_up_background">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".FirstSignUpFragment">
 
     <LinearLayout
-        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -30,17 +30,37 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="35sp"
-            android:textStyle="bold"
             android:paddingRight="60dp"
-            android:text="Güvenli Pati" />
+            android:text="Güvenli Pati"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/bird_image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Evcil Dostunun en iyi yardımcısı \n Güvenli Patiye \n Hoş geldin..."
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -52,8 +72,8 @@
             android:background="@drawable/edit_text_background"
             android:drawableStart="@drawable/mail"
             android:drawablePadding="6dp"
-            android:inputType="textEmailAddress"
             android:hint="Email giriniz..."
+            android:inputType="textEmailAddress"
             android:paddingStart="15dp"
             android:textSize="17sp" />
 
@@ -62,12 +82,12 @@
             android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_background"
             android:drawableStart="@drawable/password"
             android:drawablePadding="6dp"
-            android:inputType="textPassword"
             android:hint="Şifre giriniz..."
+            android:inputType="textPassword"
             android:paddingStart="15dp"
             android:textSize="17sp" />
 
@@ -76,37 +96,32 @@
             android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_background"
             android:drawableStart="@drawable/confirm_password"
             android:drawablePadding="6dp"
-            android:inputType="textPassword"
             android:hint="Tekrar şifre giriniz..."
+            android:inputType="textPassword"
             android:paddingStart="15dp"
             android:textSize="17sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|bottom"
-        >
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signUpButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="237dp"
-            android:layout_height="75dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_bg_signup"
-            android:drawableRight="@drawable/paw7"
-            android:paddingRight="13dp"
-            android:text="Kayıt Ol"
-            android:textColor="@color/white"
-            android:textSize="19sp"
-            android:elevation="10dp"/>
+        android:id="@+id/singUpButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="237dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/button_bg_signup"
+        android:drawableRight="@drawable/paw7"
+        android:elevation="10dp"
+        android:paddingRight="13dp"
+        android:text="Kayıt Ol"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+    </LinearLayout>
 
-</LinearLayout>
+
+
 
 
 </LinearLayout>
