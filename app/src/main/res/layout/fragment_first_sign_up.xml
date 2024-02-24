@@ -107,7 +107,6 @@
 
         <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/singUpButton"
-        style="@android:style/Widget.Button"
         android:layout_width="237dp"
         android:layout_height="75dp"
         android:layout_marginTop="25dp"

@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,6 +33,9 @@ class SecondSignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var userGender: Boolean? = null
+        val buttonFemale=view.findViewById<Button>(R.id.buttonFemale)
+        val buttonMale=view.findViewById<Button>(R.id.buttonMale)
 
         val spinnerProvince: Spinner = view.findViewById(R.id.spinnerProvince)
         val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
@@ -49,21 +53,30 @@ class SecondSignUpFragment : Fragment() {
         )
         spinnerTown.adapter = adapter2
 
+        buttonFemale.setOnClickListener {
+            userGender = true
+            buttonFemale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
+            buttonFemale.setTextColor(Color.WHITE)
+            buttonMale.setBackgroundResource(R.drawable.sign2_edittext_bg)
+            buttonMale.setTextColor(Color.BLACK)
+        }
 
-        view.findViewById<Button>(R.id.loginButton).setOnClickListener {
+        buttonMale.setOnClickListener {
+            userGender = false
+            buttonMale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
+            buttonMale.setTextColor(Color.WHITE)
+            buttonFemale.setBackgroundResource(R.drawable.sign2_edittext_bg)
+            buttonFemale.setTextColor(Color.BLACK)
+        }
+
+
+        view.findViewById<Button>(R.id.saveProfileButton).setOnClickListener {
 
             firebaseUser = FirebaseAuth.getInstance().currentUser!!
             databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
             val userName=view.findViewById<EditText>(R.id.editTextUserName)
             val userSurname=view.findViewById<EditText>(R.id.editTextUserSurname)
-            val radioGroup: RadioGroup = view.findViewById(R.id.radioGroup2)
-            val selectedRadioButtonId: Int = radioGroup.checkedRadioButtonId
-            val userGender: Boolean? = when (selectedRadioButtonId) {
-                R.id.radioButtonMale -> true
-                R.id.radioButtonFemale -> false
-                else -> null
-            }
             val userProvince=view.findViewById<Spinner>(R.id.spinnerProvince).selectedItem.toString()
             val userTown=view.findViewById<Spinner>(R.id.spinnerTown).selectedItem.toString()
 

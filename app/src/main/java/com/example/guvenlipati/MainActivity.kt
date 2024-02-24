@@ -9,11 +9,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.loginButton).setOnClickListener {
+        findViewById<Button>(R.id.loginPageButton).setOnClickListener {
             goFragment3()
         }
 
-        findViewById<Button>(R.id.signUpButton).setOnClickListener {
+        findViewById<Button>(R.id.signUpPageButton).setOnClickListener {
             goFragment1()
         }
     }
