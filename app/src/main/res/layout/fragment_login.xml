@@ -63,7 +63,6 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_background"
             android:drawableEnd="@drawable/password"
-            android:drawableEndPadding="10dp"
             android:inputType="textPassword"
             android:hint="Şifre giriniz..."
             android:paddingStart="15dp"
@@ -78,7 +77,7 @@
         >
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signUpButton"
+            android:id="@+id/loginButton"
             style="@android:style/Widget.Button"
             android:layout_width="237dp"
             android:layout_height="75dp"
