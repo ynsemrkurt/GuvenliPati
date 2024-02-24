@@ -53,4 +53,6 @@ dependencies {
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     //Added Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+
+
 }

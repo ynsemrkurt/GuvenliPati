@@ -1,18 +1,23 @@
 package com.example.guvenlipati
 
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
 
 class LoginFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
+    private var isPasswordVisible = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,6 +61,25 @@ class LoginFragment : Fragment() {
                        }
                    }
             }
+        }
+
+        view.findViewById<ImageButton>(R.id.lockPassword).setOnClickListener {
+            val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
+            val lockPassword = view.findViewById<ImageButton>(R.id.lockPassword)
+
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible)
+            {
+                //Şifreyi göster
+                userPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                lockPassword.setBackgroundResource(com.google.android.material.R.drawable.design_ic_visibility)
+            }
+            else
+            {
+                userPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                lockPassword.setBackgroundResource(com.google.android.material.R.drawable.design_ic_visibility_off)
+            }
+
         }
     }
 
