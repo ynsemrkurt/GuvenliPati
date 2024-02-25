@@ -3,7 +3,6 @@ package com.example.guvenlipati
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -24,13 +25,19 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val loginButton=view.findViewById<Button>(R.id.loginButton)
-        val progressCard=view.findViewById<CardView>(R.id.progressCard)
+        //Eğer geri dönüş kodunun altında olursa çalışmıyor
+        fun showToast(message: String) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+
+        val loginButton = view.findViewById<Button>(R.id.loginButton)
+        val progressCard = view.findViewById<CardView>(R.id.progressCard)
 
         loginButton.setOnClickListener {
 
@@ -43,8 +50,8 @@ class LoginFragment : Fragment() {
                 showToast("Hiçbir alan boş bırakılamaz!")
             } else {
 
-                loginButton.visibility=View.INVISIBLE
-                progressCard.visibility=View.VISIBLE
+                loginButton.visibility = View.INVISIBLE
+                progressCard.visibility = View.VISIBLE
 
                 auth.signInWithEmailAndPassword(
                     userEmail.text.toString(),
@@ -60,10 +67,11 @@ class LoginFragment : Fragment() {
                             showToast("Hatalı Giriş!")
                             view.findViewById<EditText>(R.id.editTextPassword).setText("")
                         }
-                        loginButton.visibility=View.VISIBLE
-                        progressCard.visibility=View.INVISIBLE
+                        loginButton.visibility = View.VISIBLE
+                        progressCard.visibility = View.INVISIBLE
                     }
             }
+
         }
 
         view.findViewById<ImageButton>(R.id.lockPassword).setOnClickListener {
@@ -72,7 +80,8 @@ class LoginFragment : Fragment() {
 
             isPasswordVisible = !isPasswordVisible
             if (isPasswordVisible) {
-                userPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                userPassword.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
                 lockPassword.setBackgroundResource(R.drawable.password_eye_ico)
             } else {
                 userPassword.transformationMethod = PasswordTransformationMethod.getInstance()
@@ -81,13 +90,14 @@ class LoginFragment : Fragment() {
 
         }
 
-        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
+        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
             (activity as MainActivity).goSplashFragment()
         }
-    }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            (requireActivity() as MainActivity).goSplashFragment()
+        }
 
 
     }

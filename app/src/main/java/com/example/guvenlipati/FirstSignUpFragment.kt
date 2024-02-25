@@ -2,7 +2,6 @@ package com.example.guvenlipati
 
 import android.os.Bundle
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -77,6 +78,10 @@ class FirstSignUpFragment : Fragment() {
 
         view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
             (activity as MainActivity).goSplashFragment()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            (requireActivity() as MainActivity).goSplashFragment()
         }
 
     }
