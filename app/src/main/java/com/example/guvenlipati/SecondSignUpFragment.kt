@@ -13,11 +13,13 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -44,6 +46,8 @@ class SecondSignUpFragment : Fragment() {
     private lateinit var strgRef: StorageReference
     private var imageUrl: String = ""
 
+    private var progressIndicator: ProgressBar? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +64,9 @@ class SecondSignUpFragment : Fragment() {
         var userGender: Boolean? = null
         val buttonFemale = view.findViewById<Button>(R.id.buttonFemale)
         val buttonMale = view.findViewById<Button>(R.id.buttonMale)
+        val saveProfileButton = view.findViewById<Button>(R.id.saveProfileButton)
+        val progressCard=view.findViewById<CardView>(R.id.progressCard)
+
 
         val spinnerProvince: Spinner = view.findViewById(R.id.spinnerProvince)
         val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
@@ -102,7 +109,9 @@ class SecondSignUpFragment : Fragment() {
         strgRef = storage.reference
 
 
-        view.findViewById<Button>(R.id.saveProfileButton).setOnClickListener {
+        saveProfileButton.setOnClickListener {
+
+
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
@@ -127,6 +136,9 @@ class SecondSignUpFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            saveProfileButton.visibility=View.INVISIBLE
+            progressCard.visibility=View.VISIBLE
+
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
             hashMap["userPhoto"] = imageUrl
@@ -142,6 +154,8 @@ class SecondSignUpFragment : Fragment() {
                 } else {
                     showToast("Hatalı işlem!")
                 }
+                saveProfileButton.visibility=View.VISIBLE
+                progressCard.visibility=View.INVISIBLE
             }
         }
 
@@ -167,7 +181,7 @@ class SecondSignUpFragment : Fragment() {
                 val originalBitmap: Bitmap1 =
                     MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
                 val imageStream = ByteArrayOutputStream()
-                originalBitmap.compress(Bitmap1.CompressFormat.PNG, 18, imageStream)
+                originalBitmap.compress(Bitmap1.CompressFormat.PNG, 30, imageStream)
                 val imageArray = imageStream.toByteArray()
 
                 val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)

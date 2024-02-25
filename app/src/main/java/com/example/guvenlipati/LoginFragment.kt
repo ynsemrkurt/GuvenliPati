@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -28,7 +29,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.loginButton).setOnClickListener {
+        val loginButton=view.findViewById<Button>(R.id.loginButton)
+        val progressCard=view.findViewById<CardView>(R.id.progressCard)
+
+        loginButton.setOnClickListener {
 
             auth = FirebaseAuth.getInstance()
 
@@ -38,6 +42,10 @@ class LoginFragment : Fragment() {
             if (userEmail.text.toString().isEmpty() || userPassword.text.toString().isEmpty()) {
                 showToast("Hiçbir alan boş bırakılamaz!")
             } else {
+
+                loginButton.visibility=View.INVISIBLE
+                progressCard.visibility=View.VISIBLE
+
                 auth.signInWithEmailAndPassword(
                     userEmail.text.toString(),
                     userPassword.text.toString()
@@ -52,6 +60,8 @@ class LoginFragment : Fragment() {
                             showToast("Hatalı Giriş!")
                             view.findViewById<EditText>(R.id.editTextPassword).setText("")
                         }
+                        loginButton.visibility=View.VISIBLE
+                        progressCard.visibility=View.INVISIBLE
                     }
             }
         }

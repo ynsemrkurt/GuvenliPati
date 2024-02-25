@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -26,6 +27,9 @@ class FirstSignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val signUpButton=view.findViewById<Button>(R.id.signUpButton)
+        val progressCard=view.findViewById<CardView>(R.id.progressCard)
 
         view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
 
@@ -52,6 +56,9 @@ class FirstSignUpFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            signUpButton.visibility=View.INVISIBLE
+            progressCard.visibility=View.VISIBLE
+
             auth.createUserWithEmailAndPassword(
                 userEmail.text.toString(),
                 userPassword.text.toString()
@@ -60,8 +67,10 @@ class FirstSignUpFragment : Fragment() {
                     if (it.isSuccessful) {
                         (activity as MainActivity).goFragment2()
                     } else {
-                        showToast("Bilinmeyen hata!")
+                        showToast("Farklı E-posta Giriniz!")
                     }
+                    signUpButton.visibility=View.VISIBLE
+                    progressCard.visibility=View.INVISIBLE
                 }
         }
     }
