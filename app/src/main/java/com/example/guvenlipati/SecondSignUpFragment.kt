@@ -2,7 +2,9 @@ package com.example.guvenlipati
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +17,20 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
+import de.hdodenhof.circleimageview.CircleImageView
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import android.graphics.Bitmap as Bitmap1
 
 class SecondSignUpFragment : Fragment() {
 
@@ -27,6 +39,10 @@ class SecondSignUpFragment : Fragment() {
 
     private lateinit var getContent: ActivityResultLauncher<Intent>
     private var request: Int = 2020
+    private var filePath: Uri? = null
+    private lateinit var storage: FirebaseStorage
+    private lateinit var strgRef: StorageReference
+    private var imageUrl: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +54,8 @@ class SecondSignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        firebaseUser = FirebaseAuth.getInstance().currentUser!!
 
         var userGender: Boolean? = null
         val buttonFemale = view.findViewById<Button>(R.id.buttonFemale)
@@ -80,10 +98,11 @@ class SecondSignUpFragment : Fragment() {
                 onActivityResult(request, result.resultCode, result.data)
             }
 
+        storage = Firebase.storage
+        strgRef = storage.reference
+
 
         view.findViewById<Button>(R.id.saveProfileButton).setOnClickListener {
-
-            firebaseUser = FirebaseAuth.getInstance().currentUser!!
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
@@ -110,7 +129,7 @@ class SecondSignUpFragment : Fragment() {
 
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
-            hashMap["userPhoto"] = ""
+            hashMap["userPhoto"] = imageUrl
             hashMap["userName"] = userName.text.toString()
             hashMap["userSurname"] = userSurname.text.toString()
             hashMap["userGender"] = userGender.toString()
@@ -136,5 +155,38 @@ class SecondSignUpFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
+            filePath = data.data
+            try {
+                showToast("Image is uploading...")
+
+                val originalBitmap: Bitmap1 =
+                    MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
+                val imageStream = ByteArrayOutputStream()
+                originalBitmap.compress(Bitmap1.CompressFormat.PNG, 18, imageStream)
+                val imageArray = imageStream.toByteArray()
+
+                val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
+                ref.putBytes(imageArray)
+                    .addOnSuccessListener {
+                        showToast("Uploaded image!")
+                        ref.downloadUrl.addOnSuccessListener { uri ->
+                            imageUrl = uri.toString()
+                        }
+                    }
+                    .addOnFailureListener {
+                        showToast("Failed, please try again!")
+                    }
+
+                view?.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
+                    ?.setImageBitmap(originalBitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 }
