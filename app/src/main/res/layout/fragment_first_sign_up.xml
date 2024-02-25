@@ -106,21 +106,18 @@
             android:textSize="17sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/singUpButton"
-        android:layout_width="237dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/button_bg_signup"
-        android:drawableRight="@drawable/paw7"
-        android:elevation="10dp"
-        android:paddingRight="13dp"
-        android:text="Kayıt Ol"
-        android:textColor="@color/white"
-        android:textSize="19sp" />
+            android:id="@+id/signUpButton"
+            android:layout_width="237dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_bg_signup"
+            android:drawableRight="@drawable/paw7"
+            android:elevation="10dp"
+            android:paddingRight="13dp"
+            android:text="Kayıt Ol"
+            android:textColor="@color/white"
+            android:textSize="19sp" />
     </LinearLayout>
-
-
-
 
 
 </LinearLayout>

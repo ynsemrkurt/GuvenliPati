@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -34,8 +33,8 @@ class SecondSignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var userGender: Boolean? = null
-        val buttonFemale=view.findViewById<Button>(R.id.buttonFemale)
-        val buttonMale=view.findViewById<Button>(R.id.buttonMale)
+        val buttonFemale = view.findViewById<Button>(R.id.buttonFemale)
+        val buttonMale = view.findViewById<Button>(R.id.buttonMale)
 
         val spinnerProvince: Spinner = view.findViewById(R.id.spinnerProvince)
         val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
@@ -73,54 +72,50 @@ class SecondSignUpFragment : Fragment() {
         view.findViewById<Button>(R.id.saveProfileButton).setOnClickListener {
 
             firebaseUser = FirebaseAuth.getInstance().currentUser!!
-            databaseReference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
+            databaseReference =
+                FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
-            val userName=view.findViewById<EditText>(R.id.editTextUserName)
-            val userSurname=view.findViewById<EditText>(R.id.editTextUserSurname)
-            val userProvince=view.findViewById<Spinner>(R.id.spinnerProvince).selectedItem.toString()
-            val userTown=view.findViewById<Spinner>(R.id.spinnerTown).selectedItem.toString()
+            val userName = view.findViewById<EditText>(R.id.editTextUserName)
+            val userSurname = view.findViewById<EditText>(R.id.editTextUserSurname)
+            val userProvince = spinnerProvince.selectedItem.toString()
+            val userTown = spinnerTown.selectedItem.toString()
 
 
-            if (userName.text.isEmpty()){
+            if (userName.text.isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
-            if (userSurname.text.isEmpty()){
+            if (userSurname.text.isEmpty()) {
                 showToast("Soyadınızı giriniz!")
                 return@setOnClickListener
             }
 
-            if (userGender==null){
+            if (userGender == null) {
                 showToast("Cinsiyetinizi seçiniz!")
                 return@setOnClickListener
             }
 
-            if (userProvince==null || userTown==null){
-                showToast("Şehir ve İlçe seçiniz!")
-                return@setOnClickListener
-            }
-
             val hashMap: HashMap<String, Any> = HashMap()
-            hashMap["userId"]=firebaseUser.uid
-            hashMap["userPhoto"]=""
-            hashMap["userName"]=userName.text.toString()
-            hashMap["userSurname"]=userSurname.text.toString()
-            hashMap["userGender"]=userGender.toString()
-            hashMap["userProvince"]=userProvince.toString()
-            hashMap["userTown"]=userTown.toString()
+            hashMap["userId"] = firebaseUser.uid
+            hashMap["userPhoto"] = ""
+            hashMap["userName"] = userName.text.toString()
+            hashMap["userSurname"] = userSurname.text.toString()
+            hashMap["userGender"] = userGender.toString()
+            hashMap["userProvince"] = userProvince
+            hashMap["userTown"] = userTown
 
-            databaseReference.setValue(hashMap).addOnCompleteListener{task ->
-                if (task.isSuccessful){
+            databaseReference.setValue(hashMap).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
                     showToast("Profil kaydı başarılı :)")
-                }
-                else{
+                } else {
                     showToast("Hatalı işlem!")
                 }
             }
         }
     }
-    private fun showToast(message:String){
-        Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

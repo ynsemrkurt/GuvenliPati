@@ -104,8 +104,7 @@
             android:scaleType="fitCenter"
             android:layout_marginTop="-46dp"
             android:layout_marginRight="-145dp"
-            android:src="@drawable/looking_password"
-            android:background="@color/white"
+            android:background="@drawable/secret_password_eye"
             />
 
         <TextView

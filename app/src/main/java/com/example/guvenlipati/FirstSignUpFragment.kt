@@ -27,7 +27,7 @@ class FirstSignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.singUpButton).setOnClickListener {
+        view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
 
             auth = FirebaseAuth.getInstance()
 
@@ -35,25 +35,28 @@ class FirstSignUpFragment : Fragment() {
             val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
             val userConfirmPassword = view.findViewById<EditText>(R.id.editTextRepassword)
 
-            if (userEmail.text.toString().isEmpty() || !controlEmail(userEmail.text.toString())){
+            if (userEmail.text.toString().isEmpty() || !controlEmail(userEmail.text.toString())) {
                 showToast("Hatalı ya da eksik E-posta!")
                 return@setOnClickListener
             }
 
-            if (userPassword.text.toString().length < 8){
+            if (userPassword.text.toString().length < 8) {
                 showToast("Şifre 8 karakterden kısa olamaz!")
                 return@setOnClickListener
             }
 
-            if (userPassword.text.toString()!=userConfirmPassword.text.toString()){
+            if (userPassword.text.toString() != userConfirmPassword.text.toString()) {
                 showToast("Şifreler uyuşmuyor!")
                 userPassword.setText("")
                 userConfirmPassword.setText("")
                 return@setOnClickListener
             }
 
-            auth.createUserWithEmailAndPassword(userEmail.text.toString(), userPassword.text.toString())
-                .addOnCompleteListener() {
+            auth.createUserWithEmailAndPassword(
+                userEmail.text.toString(),
+                userPassword.text.toString()
+            )
+                .addOnCompleteListener {
                     if (it.isSuccessful) {
                         (activity as MainActivity).goFragment2()
                     } else {
@@ -63,8 +66,8 @@ class FirstSignUpFragment : Fragment() {
         }
     }
 
-    private fun showToast(message:String){
-        Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun controlEmail(email: String): Boolean {

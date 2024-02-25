@@ -1,7 +1,6 @@
 package com.example.guvenlipati
 
 import android.os.Bundle
-import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
@@ -29,37 +28,31 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.loginButton).setOnClickListener{
+        view.findViewById<Button>(R.id.loginButton).setOnClickListener {
 
             auth = FirebaseAuth.getInstance()
 
-            val userEmail= view.findViewById<EditText>(R.id.editTextEmail)
+            val userEmail = view.findViewById<EditText>(R.id.editTextEmail)
             val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
 
-            if (userEmail.text.toString().isEmpty() || userPassword.text.toString().isEmpty())
-            {
+            if (userEmail.text.toString().isEmpty() || userPassword.text.toString().isEmpty()) {
                 showToast("Hiçbir alan boş bırakılamaz!")
-            }
-            else
-            {
-               auth.signInWithEmailAndPassword(
-                   userEmail.text.toString(),
-                   userPassword.text.toString()
-               )
-                   .addOnCompleteListener()
-                   {
-                       if (it.isSuccessful)
-                       {
+            } else {
+                auth.signInWithEmailAndPassword(
+                    userEmail.text.toString(),
+                    userPassword.text.toString()
+                )
+                    .addOnCompleteListener()
+                    {
+                        if (it.isSuccessful) {
                             showToast("Giriş başarılı!")
                             userEmail.setText("")
                             userPassword.setText("")
-                       }
-                       else
-                       {
+                        } else {
                             showToast("Hatalı Giriş!")
                             view.findViewById<EditText>(R.id.editTextPassword).setText("")
-                       }
-                   }
+                        }
+                    }
             }
         }
 
@@ -68,22 +61,18 @@ class LoginFragment : Fragment() {
             val lockPassword = view.findViewById<ImageButton>(R.id.lockPassword)
 
             isPasswordVisible = !isPasswordVisible
-            if (isPasswordVisible)
-            {
-                //Şifreyi göster
+            if (isPasswordVisible) {
                 userPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                lockPassword.setBackgroundResource(com.google.android.material.R.drawable.design_ic_visibility)
-            }
-            else
-            {
+                lockPassword.setBackgroundResource(R.drawable.password_eye)
+            } else {
                 userPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                lockPassword.setBackgroundResource(com.google.android.material.R.drawable.design_ic_visibility_off)
+                lockPassword.setBackgroundResource(R.drawable.secret_password_eye)
             }
 
         }
     }
 
-    private fun showToast(message:String){
-        Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
