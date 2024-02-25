@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FirstSignUpFragment"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_marginTop="0dp"
@@ -18,11 +17,12 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/button_background"
             android:backgroundTint="@color/white"
+            android:contentDescription="@string/back_button"
             android:elevation="3dp"
             android:src="@drawable/back_ico" />
 
@@ -33,8 +33,9 @@
             android:gravity="center"
             android:textSize="35sp"
             android:textStyle="bold"
-            android:paddingRight="60dp"
-            android:text="Güvenli Pati" />
+            android:paddingEnd="60dp"
+            android:paddingStart="0dp"
+            android:text="@string/app_name"/>
 
     </LinearLayout>
 
@@ -44,11 +45,11 @@
         android:gravity="center">
 
         <ImageView
-            android:background="@drawable/cat5"
+            android:background="@drawable/login_background"
             android:layout_width="200dp"
             android:layout_height="230dp"
             android:layout_gravity="center"
-            />
+            android:contentDescription="@string/sweet_pet" />
 
     </LinearLayout>
 
@@ -59,11 +60,12 @@
         android:layout_marginTop="20dp">
 
         <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Evcil Dostunun en iyi yardımcısı \nGüvenli Pati'ye tekrar \nHoş geldin..." />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/advertisement_login"
+            tools:ignore="TextSizeCheck" />
 
     </LinearLayout>
 
@@ -77,40 +79,48 @@
 
         <EditText
             android:id="@+id/editTextEmail"
+            android:maxLines="1"
             android:layout_width="360dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
+            android:autofillHints="emailAddress"
             android:background="@drawable/edit_text_background"
             android:inputType="textEmailAddress"
-            android:hint="Email giriniz..."
+            android:hint="@string/email_hint"
             android:paddingStart="15dp"
+            android:paddingEnd="0dp"
             android:textSize="17sp" />
 
         <EditText
             android:id="@+id/editTextPassword"
+            android:maxLines="1"
             android:layout_width="360dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:autofillHints="password"
             android:background="@drawable/edit_text_background"
             android:inputType="textPassword"
-            android:hint="Şifre giriniz..."
+            android:hint="@string/password_hint"
             android:paddingStart="15dp"
+            android:paddingEnd="0dp"
             android:textSize="17sp" />
+
         <ImageButton
             android:id="@+id/lockPassword"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:scaleType="fitCenter"
             android:layout_marginTop="-46dp"
-            android:layout_marginRight="-145dp"
-            android:background="@drawable/secret_password_eye"
-            />
+            android:layout_marginEnd="-145dp"
+            android:background="@drawable/secret_password_eye_ico"
+            android:contentDescription="@string/password_visibility"
+            android:scaleType="fitCenter"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Şifrenizi mi Unuttunuz?"
+            android:text="@string/password_forgot"
             android:layout_marginTop="31dp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -120,9 +130,10 @@
         android:layout_height="75dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_bg_signup"
-        android:drawableRight="@drawable/paw7"
-        android:paddingRight="13dp"
-        android:text="Giriş Yap"
+        android:drawableEnd="@drawable/blue_paw_ico"
+        android:paddingEnd="13dp"
+        android:paddingStart="0dp"
+        android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="19sp"
         android:elevation="10dp"/>

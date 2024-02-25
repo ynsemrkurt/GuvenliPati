@@ -1,6 +1,25 @@
 <resources>
-    <string name="app_name">GuvenliPati</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Güvenli Pati</string>
+    <string name="back_button">Back</string>
+    <string name="sweet_pet">Sweet Pet</string>
+    <string name="advertisement_fist_signup">Evcil Dostunun en iyi yardımcısı \n Güvenli Patiye \n Hoş geldin...</string>
+    <string name="email_hint">Email giriniz...</string>
+    <string name="password_hint">Şifre giriniz...</string>
+    <string name="confirm_password_hint">Tekrar şifre giriniz...</string>
+    <string name="sign_up_text">Kayıt Ol</string>
+    <string name="advertisement_login">Evcil Dostunun en iyi yardımcısı \nGüvenli Pati\'ye tekrar \nHoş geldin...</string>
+    <string name="password_visibility">Password Visibility</string>
+    <string name="password_forgot">Şifrenizi mi Unuttunuz?</string>
+    <string name="login">Giriş Yap</string>
+    <string name="add_profile_image">Add Profile Image</string>
+    <string name="user_name_hint">Adınızı giriniz...</string>
+    <string name="user_surname_hint">Soyadınızı giriniz...</string>
+    <string name="women">Kadın</string>
+    <string name="Men">Erkek</string>
+    <string name="save_profile_text">Profili Kaydet</string>
+    <string name="love">love</string>
+    <string name="paw">paw</string>
+    <string name="welcome">Hoşgeldiniz</string>
+    <string name="advertisement_splash">Evcil dostlarınız için en iyi bakıcıları bulmanın\n\t\t\t\t kolay ve keyifli yolu: Güvenli Pati</string>
 </resources>
 

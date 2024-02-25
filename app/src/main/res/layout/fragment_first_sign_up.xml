@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,11 +16,12 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/button_background"
             android:backgroundTint="@color/white"
+            android:contentDescription="@string/back_button"
             android:elevation="3dp"
             android:src="@drawable/back_ico" />
 
@@ -30,8 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingRight="60dp"
-            android:text="Güvenli Pati"
+            android:paddingEnd="60dp"
+            android:paddingStart="0dp"
+            android:text="@string/app_name"
             android:textSize="35sp"
             android:textStyle="bold" />
 
@@ -41,18 +42,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/bird_image" />
+            android:contentDescription="@string/sweet_pet"
+            android:src="@drawable/first_sign_up_background"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Evcil Dostunun en iyi yardımcısı \n Güvenli Patiye \n Hoş geldin..."
+            android:text="@string/advertisement_fist_signup"
             android:textAlignment="center" />
 
     </LinearLayout>
@@ -66,43 +70,52 @@
 
         <EditText
             android:id="@+id/editTextEmail"
+            android:maxLines="1"
             android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
+            android:autofillHints="emailAddress"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/mail"
+            android:drawableStart="@drawable/mail_ico"
             android:drawablePadding="6dp"
-            android:hint="Email giriniz..."
+            android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
             android:paddingStart="15dp"
+            android:paddingEnd="0dp"
             android:textSize="17sp" />
 
         <EditText
             android:id="@+id/editTextPassword"
+            android:maxLines="1"
             android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:autofillHints="password"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/password"
+            android:drawableStart="@drawable/password_ico"
             android:drawablePadding="6dp"
-            android:hint="Şifre giriniz..."
+            android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:paddingStart="15dp"
+            android:paddingEnd="0dp"
             android:textSize="17sp" />
 
         <EditText
-            android:id="@+id/editTextRepassword"
+            android:id="@+id/editTextConfirmPassword"
+            android:maxLines="1"
             android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:autofillHints="no"
             android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/confirm_password"
+            android:drawableStart="@drawable/confirm_password_ico"
             android:drawablePadding="6dp"
-            android:hint="Tekrar şifre giriniz..."
+            android:hint="@string/confirm_password_hint"
             android:inputType="textPassword"
-            android:paddingStart="15dp"
+            android:paddingStart="13dp"
+            android:paddingEnd="0dp"
             android:textSize="17sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -111,10 +124,11 @@
             android:layout_height="75dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_bg_signup"
-            android:drawableRight="@drawable/paw7"
+            android:drawableEnd="@drawable/blue_paw_ico"
             android:elevation="10dp"
-            android:paddingRight="13dp"
-            android:text="Kayıt Ol"
+            android:paddingStart="13dp"
+            android:paddingEnd="13dp"
+            android:text="@string/sign_up_text"
             android:textColor="@color/white"
             android:textSize="19sp" />
     </LinearLayout>

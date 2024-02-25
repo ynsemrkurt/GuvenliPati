@@ -63,10 +63,10 @@ class LoginFragment : Fragment() {
             isPasswordVisible = !isPasswordVisible
             if (isPasswordVisible) {
                 userPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                lockPassword.setBackgroundResource(R.drawable.password_eye)
+                lockPassword.setBackgroundResource(R.drawable.password_eye_ico)
             } else {
                 userPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                lockPassword.setBackgroundResource(R.drawable.secret_password_eye)
+                lockPassword.setBackgroundResource(R.drawable.secret_password_eye_ico)
             }
 
         }

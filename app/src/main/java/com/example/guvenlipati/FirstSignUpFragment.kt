@@ -33,7 +33,7 @@ class FirstSignUpFragment : Fragment() {
 
             val userEmail = view.findViewById<EditText>(R.id.editTextEmail)
             val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
-            val userConfirmPassword = view.findViewById<EditText>(R.id.editTextRepassword)
+            val userConfirmPassword = view.findViewById<EditText>(R.id.editTextConfirmPassword)
 
             if (userEmail.text.toString().isEmpty() || !controlEmail(userEmail.text.toString())) {
                 showToast("Hatalı ya da eksik E-posta!")

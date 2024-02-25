@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     fun goFragment1() {
         supportFragmentManager.beginTransaction()
             .replace(
-                R.id.fragmentContainerView3, FirstSignUpFragment
+                R.id.fragmentContainerView, FirstSignUpFragment
                     ()
             )
             .commit()
@@ -22,13 +22,13 @@ class MainActivity : AppCompatActivity() {
 
     fun goFragment2() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView3, SecondSignUpFragment())
+            .replace(R.id.fragmentContainerView, SecondSignUpFragment())
             .commit()
     }
 
     fun goFragment3() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView3, LoginFragment())
+            .replace(R.id.fragmentContainerView, LoginFragment())
             .commit()
     }
 }

@@ -28,9 +28,10 @@
             android:layout_width="220dp"
             android:layout_height="65dp"
             android:background="@drawable/button_background"
-            android:drawableRight="@drawable/paw6"
-            android:paddingRight="10dp"
-            android:text="Giriş Yap"
+            android:drawableEnd="@drawable/button_paw_ico"
+            android:paddingEnd="10dp"
+            android:paddingStart="0dp"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -42,9 +43,10 @@
             android:layout_height="65dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_background"
-            android:drawableRight="@drawable/paw6"
-            android:paddingRight="10dp"
-            android:text="Kayıt Ol"
+            android:drawableEnd="@drawable/button_paw_ico"
+            android:paddingEnd="10dp"
+            android:paddingStart="0dp"
+            android:text="@string/sign_up_text"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -67,7 +69,8 @@
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="90dp"
-            app:srcCompat="@drawable/heartchat" />
+            android:contentDescription="@string/love"
+            app:srcCompat="@drawable/love_chat" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -75,7 +78,9 @@
             android:layout_height="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="230dp"
-            app:srcCompat="@drawable/paw2" />
+            android:contentDescription="@string/paw"
+            app:srcCompat="@drawable/green_paw_ico"
+            tools:ignore="ImageContrastCheck" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -83,7 +88,9 @@
             android:layout_height="290dp"
             android:layout_marginStart="60dp"
             android:layout_marginTop="1dp"
-            app:srcCompat="@drawable/shape2" />
+            android:contentDescription="@string/sweet_pet"
+            app:srcCompat="@drawable/splash_shape_image"
+            tools:ignore="ImageContrastCheck" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -91,7 +98,8 @@
             android:layout_height="300dp"
             android:layout_marginStart="60dp"
             android:layout_marginTop="50dp"
-            app:srcCompat="@drawable/bg" />
+            android:contentDescription="@string/sweet_pet"
+            app:srcCompat="@drawable/splash_background" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -99,7 +107,9 @@
             android:layout_height="25dp"
             android:layout_marginStart="250dp"
             android:layout_marginTop="100dp"
-            app:srcCompat="@drawable/paw2" />
+            android:contentDescription="@string/paw"
+            app:srcCompat="@drawable/green_paw_ico"
+            tools:ignore="ImageContrastCheck" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -107,7 +117,9 @@
             android:layout_height="30dp"
             android:layout_marginStart="330dp"
             android:layout_marginTop="200dp"
-            app:srcCompat="@drawable/paw3" />
+            android:contentDescription="@string/paw"
+            app:srcCompat="@drawable/orange_paw"
+            tools:ignore="ImageContrastCheck" />
     </FrameLayout>
 
     <TextView
@@ -116,7 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:padding="10dp"
-        android:text="Hoşgeldiniz"
+        android:text="@string/welcome"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -127,10 +139,10 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="349dp"
+        android:layout_width="wrap_content"
         android:layout_height="59dp"
         android:padding="10dp"
-        android:text="Evcil dostlarınız için en iyi bakıcıları bulmanın\n\t\t\t\t kolay ve keyifli yolu: Güvenli Pati"
+        android:text="@string/advertisement_splash"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="15sp"
