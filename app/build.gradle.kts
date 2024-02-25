@@ -52,7 +52,7 @@ dependencies {
     //Added CircleImageView Library
     implementation (libs.circleimageview)
     //Added Firebase
-    implementation(libs.firebase.bom)
+    implementation(platform(libs.firebase.bom))
 
 
 }

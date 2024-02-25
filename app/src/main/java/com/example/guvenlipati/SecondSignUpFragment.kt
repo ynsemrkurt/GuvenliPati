@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +10,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -20,6 +24,9 @@ class SecondSignUpFragment : Fragment() {
 
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var databaseReference: DatabaseReference
+
+    private lateinit var getContent: ActivityResultLauncher<Intent>
+    private var request: Int = 2020
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +75,11 @@ class SecondSignUpFragment : Fragment() {
             buttonFemale.setTextColor(Color.BLACK)
         }
 
+        getContent =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                onActivityResult(request, result.resultCode, result.data)
+            }
+
 
         view.findViewById<Button>(R.id.saveProfileButton).setOnClickListener {
 
@@ -112,6 +124,13 @@ class SecondSignUpFragment : Fragment() {
                     showToast("Hatalı işlem!")
                 }
             }
+        }
+
+        view.findViewById<ImageButton>(R.id.buttonAddProfileImage).setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
     }
 
