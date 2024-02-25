@@ -3,47 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:weightSum="11"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".SecondSignUpFragment">
 
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/first"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/backToSplash"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/button_background"
             android:backgroundTint="@color/white"
             android:contentDescription="@string/back_button"
             android:elevation="3dp"
-            android:src="@drawable/back_ico" />
+            android:src="@drawable/back_ico"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingStart="0dp"
-            android:paddingEnd="60dp"
             android:text="@string/app_name"
             android:textSize="35sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/second"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="3.65"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@color/white">
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageProfilePhoto"
@@ -53,27 +65,47 @@
             android:elevation="3dp"
             android:src="@drawable/men_image"
             app:civ_border_color="#2B2D30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
             tools:ignore="ImageContrastCheck" />
-
 
         <ImageButton
             android:id="@+id/buttonAddProfileImage"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginTop="-30dp"
+            android:layout_marginBottom="-15dp"
             android:background="@drawable/add_image_bg"
             android:contentDescription="@string/add_profile_image"
             android:elevation="3dp"
             android:padding="12dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/add_profile_ico" />
+            android:src="@drawable/add_profile_ico"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/third"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <EditText
             android:id="@+id/editTextUserName"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="1dp"
             android:autofillHints="username"
             android:background="@drawable/edit_text_background"
             android:drawablePadding="6dp"
@@ -81,14 +113,17 @@
             android:inputType="text"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
 
         <EditText
             android:id="@+id/editTextUserSurname"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:autofillHints="username"
             android:background="@drawable/edit_text_background"
             android:drawablePadding="6dp"
@@ -96,99 +131,147 @@
             android:inputType="text"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
-            android:textSize="17sp" />
-    </LinearLayout>
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUserName"
+            app:layout_constraintVertical_bias="0.393"
+            tools:layout_editor_absoluteX="16dp" />
 
-    <LinearLayout
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fourth"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
             android:drawableStart="@drawable/women_ico"
             android:paddingStart="0dp"
             android:paddingEnd="10dp"
             android:text="@string/women"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonMale"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonMale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
             android:drawableStart="@drawable/boy_ico"
             android:paddingStart="0dp"
             android:paddingEnd="10dp"
             android:text="@string/Men"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fifth"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="2.2"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <Spinner
             android:id="@+id/spinnerProvince"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/edit_text_background" />
+            android:background="@drawable/edit_text_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerTown" />
 
         <Spinner
             android:id="@+id/spinnerTown"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_background" />
+            android:layout_marginTop="2dp"
+            android:background="@drawable/edit_text_background"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="40dp" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sixth"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:paddingLeft="70dp"
+        android:paddingTop="0dp"
+        android:paddingRight="70dp"
+        android:paddingBottom="0dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveProfileButton"
             style="@android:style/Widget.Button"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:elevation="10dp"
             android:background="@drawable/button_background"
             android:drawableEnd="@drawable/green_paw_ico"
+            android:elevation="10dp"
             android:paddingStart="0dp"
-            android:paddingEnd="13dp"
+            android:paddingEnd="15dp"
             android:text="@string/save_profile_text"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/progressCard"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="30dp"
             android:elevation="10dp"
+            android:visibility="invisible"
             app:cardBackgroundColor="#1E1F22"
-            android:layout_marginStart="-200dp"
-            android:visibility="invisible">
+            app:cardCornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="@id/saveProfileButton"
+            app:layout_constraintEnd_toEndOf="@id/saveProfileButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/saveProfileButton"
+            app:layout_constraintTop_toTopOf="@id/saveProfileButton"
+            app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:indicatorColor="@color/white"
-                android:indeterminate="true"/>
+                android:indeterminate="true"
+                app:indicatorColor="@color/white" />
 
         </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
