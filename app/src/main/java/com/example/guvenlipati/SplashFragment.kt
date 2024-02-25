@@ -21,11 +21,11 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.loginPageButton).setOnClickListener {
-            (activity as MainActivity).goFragment3()
+            (activity as MainActivity).goLoginFragment()
         }
 
         view.findViewById<Button>(R.id.signUpPageButton).setOnClickListener {
-            (activity as MainActivity).goFragment1()
+            (activity as MainActivity).goFirstSignUpFragment()
         }
     }
 }

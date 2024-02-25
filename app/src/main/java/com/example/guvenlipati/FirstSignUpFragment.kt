@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
@@ -58,12 +59,17 @@ class FirstSignUpFragment : Fragment() {
             )
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        (activity as MainActivity).goFragment2()
+                        (activity as MainActivity).goSecondSignUpFragment()
                     } else {
                         showToast("Bilinmeyen hata!")
                     }
                 }
         }
+
+        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
+            (activity as MainActivity).goSplashFragment()
+        }
+
     }
 
     private fun showToast(message: String) {

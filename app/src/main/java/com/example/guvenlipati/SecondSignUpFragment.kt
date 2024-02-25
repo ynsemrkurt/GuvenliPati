@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -113,7 +115,43 @@ class SecondSignUpFragment : Fragment() {
                 }
             }
         }
+
+        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
+            showAlertDialog()
+        }
     }
+    private fun deleteUserData() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.delete()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                showToast("Kullanıcı silindi.")
+                (activity as MainActivity).goSplashFragment()
+                showToast("Kayıt Silindi")
+            } else {
+                showToast("Silme işlemi başarısız!")
+                task.exception
+            }
+        }
+    }
+
+    private fun showAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+
+        alertDialogBuilder.setTitle("Geri dönmek istediğinize emin misiniz?")
+        alertDialogBuilder.setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+
+        alertDialogBuilder.setPositiveButton("Sil") { _, _ ->
+            deleteUserData()
+        }
+
+        alertDialogBuilder.setNegativeButton("İptal") { _, _ ->
+            showToast("İptal Edildi")
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
