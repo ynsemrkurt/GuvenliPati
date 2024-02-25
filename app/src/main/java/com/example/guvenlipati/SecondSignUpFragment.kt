@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -64,7 +65,8 @@ class SecondSignUpFragment : Fragment() {
         val buttonFemale = view.findViewById<Button>(R.id.buttonFemale)
         val buttonMale = view.findViewById<Button>(R.id.buttonMale)
         val saveProfileButton = view.findViewById<Button>(R.id.saveProfileButton)
-        val progressCard=view.findViewById<CardView>(R.id.progressCard)
+        val progressCard = view.findViewById<CardView>(R.id.progressCard)
+        val buttonPaw = view.findViewById<ImageView>(R.id.buttonPaw)
 
 
         val spinnerProvince: Spinner = view.findViewById(R.id.spinnerProvince)
@@ -135,8 +137,9 @@ class SecondSignUpFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            saveProfileButton.visibility=View.INVISIBLE
-            progressCard.visibility=View.VISIBLE
+            saveProfileButton.visibility = View.INVISIBLE
+            progressCard.visibility = View.VISIBLE
+            buttonPaw.visibility = View.INVISIBLE
 
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
@@ -153,8 +156,9 @@ class SecondSignUpFragment : Fragment() {
                 } else {
                     showToast("Hatalı işlem!")
                 }
-                saveProfileButton.visibility=View.VISIBLE
-                progressCard.visibility=View.INVISIBLE
+                saveProfileButton.visibility = View.VISIBLE
+                progressCard.visibility = View.INVISIBLE
+                buttonPaw.visibility = View.VISIBLE
             }
         }
 
@@ -165,13 +169,14 @@ class SecondSignUpFragment : Fragment() {
             getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
-        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
+        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
             showAlertDialog()
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             showAlertDialog()
         }
     }
+
     private fun deleteUserData() {
         val user = FirebaseAuth.getInstance().currentUser
         user?.delete()?.addOnCompleteListener { task ->

@@ -136,7 +136,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/secret_password_eye_ico"
+            android:src="@drawable/secret_password_eye_ico"
+            android:background="#00FFFFFF"
             android:contentDescription="@string/password_visibility"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@+id/editTextPassword"
@@ -167,13 +168,25 @@
         android:paddingRight="70dp"
         android:paddingBottom="0dp">
 
+        <ImageView
+            android:id="@+id/buttonPaw"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="10dp"
+            android:src="@drawable/blue_paw_ico"
+            android:tint="#77E2FF"
+            app:layout_constraintBottom_toBottomOf="@+id/loginButton"
+            app:layout_constraintEnd_toEndOf="@+id/loginButton"
+            app:layout_constraintTop_toTopOf="@+id/loginButton"
+            tools:ignore="UseAppTint" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="60dp"
             android:background="@drawable/button_bg_signup"
-            android:drawableEnd="@drawable/blue_paw_ico"
             android:elevation="10dp"
             android:paddingStart="0dp"
             android:paddingEnd="13dp"
@@ -188,7 +201,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/progressCard"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="60dp"
             android:elevation="10dp"
             android:visibility="invisible"
             app:cardBackgroundColor="#019EC8"

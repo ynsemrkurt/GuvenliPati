@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
@@ -30,8 +31,9 @@ class FirstSignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val signUpButton=view.findViewById<Button>(R.id.signUpButton)
-        val progressCard=view.findViewById<CardView>(R.id.progressCard)
+        val signUpButton = view.findViewById<Button>(R.id.signUpButton)
+        val progressCard = view.findViewById<CardView>(R.id.progressCard)
+        val buttonPaw = view.findViewById<ImageView>(R.id.buttonPaw)
 
         view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
 
@@ -58,8 +60,9 @@ class FirstSignUpFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            signUpButton.visibility=View.INVISIBLE
-            progressCard.visibility=View.VISIBLE
+            signUpButton.visibility = View.INVISIBLE
+            progressCard.visibility = View.VISIBLE
+            buttonPaw.visibility = View.INVISIBLE
 
             auth.createUserWithEmailAndPassword(
                 userEmail.text.toString(),
@@ -71,12 +74,13 @@ class FirstSignUpFragment : Fragment() {
                     } else {
                         showToast("Farklı E-posta Giriniz!")
                     }
-                    signUpButton.visibility=View.VISIBLE
-                    progressCard.visibility=View.INVISIBLE
+                    signUpButton.visibility = View.VISIBLE
+                    progressCard.visibility = View.INVISIBLE
+                    buttonPaw.visibility = View.VISIBLE
                 }
         }
 
-        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
+        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
             (activity as MainActivity).goSplashFragment()
         }
 

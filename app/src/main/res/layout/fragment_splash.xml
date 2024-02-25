@@ -87,6 +87,18 @@
         android:paddingRight="70dp"
         android:paddingBottom="0dp">
 
+        <ImageView
+            android:id="@+id/buttonPaw"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="10dp"
+            android:src="@drawable/button_paw_ico"
+            app:layout_constraintBottom_toBottomOf="@+id/loginPageButton"
+            app:layout_constraintEnd_toEndOf="@+id/loginPageButton"
+            app:layout_constraintTop_toTopOf="@+id/loginPageButton"
+            tools:ignore="UseAppTint" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginPageButton"
             style="@android:style/Widget.Button"
@@ -94,8 +106,7 @@
             android:layout_height="65dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_background"
-            android:drawableEnd="@drawable/button_paw_ico"
-            android:paddingEnd="10dp"
+            android:paddingEnd="50dp"
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -105,6 +116,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/buttonPaw2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="10dp"
+            android:src="@drawable/button_paw_ico"
+            app:layout_constraintBottom_toBottomOf="@+id/signUpPageButton"
+            app:layout_constraintEnd_toEndOf="@+id/signUpPageButton"
+            app:layout_constraintTop_toTopOf="@+id/signUpPageButton"
+            tools:ignore="UseAppTint" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signUpPageButton"
             style="@android:style/Widget.Button"
@@ -112,8 +135,7 @@
             android:layout_height="65dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_background"
-            android:drawableEnd="@drawable/button_paw_ico"
-            android:paddingEnd="10dp"
+            android:paddingEnd="50dp"
             android:text="@string/sign_up_text"
             android:textColor="@color/white"
             android:textSize="16sp"

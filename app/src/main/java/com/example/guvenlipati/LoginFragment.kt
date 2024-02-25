@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
@@ -38,6 +39,7 @@ class LoginFragment : Fragment() {
 
         val loginButton = view.findViewById<Button>(R.id.loginButton)
         val progressCard = view.findViewById<CardView>(R.id.progressCard)
+        val buttonPaw = view.findViewById<ImageView>(R.id.buttonPaw)
 
         loginButton.setOnClickListener {
 
@@ -52,6 +54,7 @@ class LoginFragment : Fragment() {
 
                 loginButton.visibility = View.INVISIBLE
                 progressCard.visibility = View.VISIBLE
+                buttonPaw.visibility = View.INVISIBLE
 
                 auth.signInWithEmailAndPassword(
                     userEmail.text.toString(),
@@ -69,6 +72,7 @@ class LoginFragment : Fragment() {
                         }
                         loginButton.visibility = View.VISIBLE
                         progressCard.visibility = View.INVISIBLE
+                        buttonPaw.visibility = View.VISIBLE
                     }
             }
 
@@ -82,10 +86,10 @@ class LoginFragment : Fragment() {
             if (isPasswordVisible) {
                 userPassword.transformationMethod =
                     HideReturnsTransformationMethod.getInstance()
-                lockPassword.setBackgroundResource(R.drawable.password_eye_ico)
+                lockPassword.setImageResource(R.drawable.password_eye_ico)
             } else {
                 userPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                lockPassword.setBackgroundResource(R.drawable.secret_password_eye_ico)
+                lockPassword.setImageResource(R.drawable.secret_password_eye_ico)
             }
 
         }

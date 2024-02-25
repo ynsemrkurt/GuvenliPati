@@ -149,17 +149,30 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
 
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/women_ico"
+            android:elevation="10dp"
+            android:tint="#FB01F8"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonFemale"
+            app:layout_constraintStart_toStartOf="@+id/buttonFemale"
+            app:layout_constraintTop_toTopOf="@+id/buttonFemale"
+            app:layout_constraintVertical_bias="0.5"
+            tools:ignore="UseAppTint" />
+
         <androidx.appcompat.widget.AppCompatButton
+            style="@android:style/Widget.Button"
             android:id="@+id/buttonFemale"
-            android:layout_width="110dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
-            android:drawableStart="@drawable/women_ico"
-            android:paddingStart="0dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/women"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -169,16 +182,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/boy_ico"
+            android:elevation="10dp"
+            android:tint="#018FFB"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonMale"
+            app:layout_constraintStart_toStartOf="@+id/buttonMale"
+            app:layout_constraintTop_toTopOf="@+id/buttonMale"
+            app:layout_constraintVertical_bias="0.5"
+            tools:ignore="UseAppTint" />
+
         <androidx.appcompat.widget.AppCompatButton
+            style="@android:style/Widget.Button"
             android:id="@+id/buttonMale"
-            android:layout_width="110dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
-            android:drawableStart="@drawable/boy_ico"
-            android:paddingStart="0dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:text="@string/Men"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -230,13 +256,25 @@
         android:paddingRight="70dp"
         android:paddingBottom="0dp">
 
+        <ImageView
+            android:id="@+id/buttonPaw"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="10dp"
+            android:src="@drawable/blue_paw_ico"
+            android:tint="#77E2FF"
+            app:layout_constraintBottom_toBottomOf="@+id/saveProfileButton"
+            app:layout_constraintEnd_toEndOf="@+id/saveProfileButton"
+            app:layout_constraintTop_toTopOf="@+id/saveProfileButton"
+            tools:ignore="UseAppTint" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveProfileButton"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/button_background"
-            android:drawableEnd="@drawable/green_paw_ico"
+            android:background="@drawable/button_bg_signup"
             android:elevation="10dp"
             android:paddingStart="0dp"
             android:paddingEnd="15dp"
