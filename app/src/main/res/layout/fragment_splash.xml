@@ -65,62 +65,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="90dp"
-            android:contentDescription="@string/love"
-            app:srcCompat="@drawable/love_chat" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="230dp"
-            android:contentDescription="@string/paw"
-            app:srcCompat="@drawable/green_paw_ico"
-            tools:ignore="ImageContrastCheck" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="310dp"
-            android:layout_height="290dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="1dp"
-            android:contentDescription="@string/sweet_pet"
-            app:srcCompat="@drawable/splash_shape_image"
-            tools:ignore="ImageContrastCheck" />
-
-        <ImageView
             android:id="@+id/imageView"
-            android:layout_width="250dp"
-            android:layout_height="300dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="50dp"
-            android:contentDescription="@string/sweet_pet"
-            app:srcCompat="@drawable/splash_background" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="100dp"
-            android:contentDescription="@string/paw"
-            app:srcCompat="@drawable/green_paw_ico"
-            tools:ignore="ImageContrastCheck" />
-
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="330dp"
-            android:layout_marginTop="200dp"
-            android:contentDescription="@string/paw"
-            app:srcCompat="@drawable/orange_paw"
-            tools:ignore="ImageContrastCheck" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash_background" />
     </FrameLayout>
 
     <TextView
