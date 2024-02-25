@@ -80,9 +80,15 @@ class LoginFragment : Fragment() {
             }
 
         }
+
+        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
+            (activity as MainActivity).goSplashFragment()
+        }
     }
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+
     }
 }
