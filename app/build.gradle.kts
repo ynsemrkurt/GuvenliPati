@@ -50,11 +50,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //Added CircleImageView Library
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation (libs.circleimageview)
     //Added Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
-    //Added Google Material Library
-    implementation("com.google.android.material:material:1.12.0-alpha03")
+    implementation(libs.firebase.bom)
 
 
 }
