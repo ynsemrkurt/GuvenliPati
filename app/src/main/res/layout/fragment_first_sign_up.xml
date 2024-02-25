@@ -55,7 +55,7 @@
         android:layout_weight="5.25"
         android:orientation="vertical"
         android:paddingLeft="30dp"
-        android:paddingRight="20dp"
+        android:paddingRight="30dp"
         android:background="@color/white">
 
         <ImageView
@@ -190,9 +190,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/progressCard"
-            android:layout_width="237dp"
+            android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:layout_marginTop="-75dp"
             android:elevation="10dp"
             android:visibility="invisible"
             app:cardBackgroundColor="#019EC8"
@@ -200,8 +199,7 @@
             app:layout_constraintBottom_toBottomOf="@id/signUpButton"
             app:layout_constraintEnd_toEndOf="@id/signUpButton"
             app:layout_constraintStart_toStartOf="@id/signUpButton"
-            app:layout_constraintTop_toTopOf="@id/signUpButton"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toTopOf="@id/signUpButton">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="wrap_content"
