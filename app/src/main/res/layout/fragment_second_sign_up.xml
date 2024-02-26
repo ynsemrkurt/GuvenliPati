@@ -150,12 +150,11 @@
         android:paddingRight="40dp">
 
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="3dp"
             android:src="@drawable/women_ico"
             android:elevation="10dp"
-            android:tint="#FB01F8"
             app:layout_constraintBottom_toBottomOf="@+id/buttonFemale"
             app:layout_constraintStart_toStartOf="@+id/buttonFemale"
             app:layout_constraintTop_toTopOf="@+id/buttonFemale"
@@ -171,7 +170,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
-            android:paddingStart="20dp"
+            android:paddingStart="42dp"
             android:paddingEnd="0dp"
             android:text="@string/women"
             android:textSize="12sp"
@@ -183,12 +182,11 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="3dp"
             android:src="@drawable/boy_ico"
             android:elevation="10dp"
-            android:tint="#018FFB"
             app:layout_constraintBottom_toBottomOf="@+id/buttonMale"
             app:layout_constraintStart_toStartOf="@+id/buttonMale"
             app:layout_constraintTop_toTopOf="@+id/buttonMale"
@@ -203,7 +201,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
-            android:paddingStart="20dp"
+            android:paddingStart="42dp"
             android:paddingEnd="0dp"
             android:text="@string/Men"
             android:textSize="12sp"
