@@ -219,24 +219,24 @@ class SecondSignUpFragment : Fragment() {
         if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
             filePath = data.data
             try {
-                showToast("Image is uploading...")
+                showToast("Fotoğraf yükleniyor...")
 
                 val originalBitmap: Bitmap1 =
                     MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
                 val imageStream = ByteArrayOutputStream()
-                originalBitmap.compress(Bitmap1.CompressFormat.PNG, 30, imageStream)
+                originalBitmap.compress(Bitmap1.CompressFormat.JPEG, 30, imageStream)
                 val imageArray = imageStream.toByteArray()
 
                 val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
                 ref.putBytes(imageArray)
                     .addOnSuccessListener {
-                        showToast("Uploaded image!")
+                        showToast("Fotoğraf yüklendi!")
                         ref.downloadUrl.addOnSuccessListener { uri ->
                             imageUrl = uri.toString()
                         }
                     }
                     .addOnFailureListener {
-                        showToast("Failed, please try again!")
+                        showToast("Başarısız, lütfen yeniden deneyin!")
                     }
 
                 view?.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)

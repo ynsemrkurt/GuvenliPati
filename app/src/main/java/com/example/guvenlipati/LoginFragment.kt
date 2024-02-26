@@ -32,7 +32,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Eğer geri dönüş kodunun altında olursa çalışmıyor
         fun showToast(message: String) {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
