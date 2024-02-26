@@ -152,7 +152,7 @@ class SecondSignUpFragment : Fragment() {
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showToast("Profil kaydı başarılı :)")
+                    (activity as MainActivity).goHomeActivity()
                 } else {
                     showToast("Hatalı işlem!")
                 }
@@ -194,7 +194,7 @@ class SecondSignUpFragment : Fragment() {
     private fun showAlertDialog() {
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
 
-        alertDialogBuilder.setTitle("Geri dönmek istediğinize emin misiniz?")
+        alertDialogBuilder.setTitle("Emin Misiniz?")
         alertDialogBuilder.setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
 
         alertDialogBuilder.setPositiveButton("Sil") { _, _ ->

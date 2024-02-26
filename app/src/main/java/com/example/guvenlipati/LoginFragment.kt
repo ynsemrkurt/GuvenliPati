@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
                     .addOnCompleteListener()
                     {
                         if (it.isSuccessful) {
-                            showToast("Giriş başarılı!")
+                            (activity as MainActivity).goHomeActivity()
                             userEmail.setText("")
                             userPassword.setText("")
                         } else {
