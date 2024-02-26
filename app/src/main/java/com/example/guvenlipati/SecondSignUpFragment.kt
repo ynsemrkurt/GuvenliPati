@@ -33,7 +33,7 @@ import com.google.firebase.storage.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import android.graphics.Bitmap as Bitmap1
+import android.graphics.Bitmap as uploadBitmap
 
 class SecondSignUpFragment : Fragment() {
 
@@ -177,6 +177,7 @@ class SecondSignUpFragment : Fragment() {
         }
     }
 
+
     private fun deleteUserData() {
         val user = FirebaseAuth.getInstance().currentUser
         user?.delete()?.addOnCompleteListener { task ->
@@ -214,6 +215,7 @@ class SecondSignUpFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
@@ -221,10 +223,10 @@ class SecondSignUpFragment : Fragment() {
             try {
                 showToast("Fotoğraf yükleniyor...")
 
-                val originalBitmap: Bitmap1 =
+                val originalBitmap: uploadBitmap =
                     MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
                 val imageStream = ByteArrayOutputStream()
-                originalBitmap.compress(Bitmap1.CompressFormat.JPEG, 30, imageStream)
+                originalBitmap.compress(uploadBitmap.CompressFormat.JPEG, 30, imageStream)
                 val imageArray = imageStream.toByteArray()
 
                 val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
