@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    android:background="@color/white">
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,7 +17,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/home_navigation_menu"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            android:background="@drawable/navigation_bar_background"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
