@@ -3,6 +3,8 @@ package com.example.guvenlipati
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -223,10 +225,28 @@ class SecondSignUpFragment : Fragment() {
             try {
                 showToast("Fotoğraf yükleniyor...")
 
-                val originalBitmap: uploadBitmap =
-                    MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
+                val inputStream = requireActivity().contentResolver.openInputStream(filePath!!)
+                val exif = ExifInterface(inputStream!!)
+                val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+
+                val originalBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
+
+                //  Bitmape döndürürken yönünü kaybetmemesi için;
+                val rotationAngle = when (orientation) {
+                    ExifInterface.ORIENTATION_ROTATE_90 -> 90
+                    ExifInterface.ORIENTATION_ROTATE_180 -> 180
+                    ExifInterface.ORIENTATION_ROTATE_270 -> 270
+                    else -> 0
+                }
+
+
+                val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
+                val rotatedBitmap = uploadBitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true)
+
                 val imageStream = ByteArrayOutputStream()
-                originalBitmap.compress(uploadBitmap.CompressFormat.JPEG, 30, imageStream)
+
+                rotatedBitmap.compress(uploadBitmap.CompressFormat.JPEG, 30, imageStream)
+
                 val imageArray = imageStream.toByteArray()
 
                 val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
@@ -242,10 +262,12 @@ class SecondSignUpFragment : Fragment() {
                     }
 
                 view?.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-                    ?.setImageBitmap(originalBitmap)
+                    ?.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
     }
+
+
 }

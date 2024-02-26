@@ -50,6 +50,6 @@ class MainActivity : AppCompatActivity() {
         fun goHomeActivity() {
             val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
-            finish()
+            //finish()
         }
     }
