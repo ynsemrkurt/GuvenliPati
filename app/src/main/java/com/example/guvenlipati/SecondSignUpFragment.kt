@@ -35,6 +35,7 @@ import com.google.firebase.storage.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.time.LocalDate
 import android.graphics.Bitmap as uploadBitmap
 
 class SecondSignUpFragment : Fragment() {
@@ -143,6 +144,14 @@ class SecondSignUpFragment : Fragment() {
             progressCard.visibility = View.VISIBLE
             buttonPaw.visibility = View.INVISIBLE
 
+            //Kayıt tarihi
+            val currentDate = LocalDate.now()
+
+            val currentDay = currentDate.dayOfMonth
+            val currentMonth = currentDate.monthValue
+            val currentYear = currentDate.year
+
+
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
             hashMap["userPhoto"] = imageUrl
@@ -151,6 +160,7 @@ class SecondSignUpFragment : Fragment() {
             hashMap["userGender"] = userGender.toString()
             hashMap["userProvince"] = userProvince
             hashMap["userTown"] = userTown
+            hashMap["userRegisterDate"] = "$currentDay/$currentMonth/$currentYear"
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
