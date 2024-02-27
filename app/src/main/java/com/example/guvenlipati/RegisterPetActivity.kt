@@ -17,21 +17,30 @@ class RegisterPetActivity : AppCompatActivity() {
 
         val petType = intent.getStringExtra("petType")
 
-        val petTypeCombo=findViewById<AutoCompleteTextView>(R.id.typeCombo)
+        val petTypeCombo = findViewById<AutoCompleteTextView>(R.id.typeCombo)
 
-        if (petType=="dog"){
-            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, resources.getStringArray(R.array.dog_types_array))
+        if (petType == "dog") {
+            val adapter = ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                resources.getStringArray(R.array.dog_types_array)
+            )
             petTypeCombo.setAdapter(adapter)
-        }
-        else if (petType=="cat"){
-            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, resources.getStringArray(R.array.cat_types_array))
+        } else if (petType == "cat") {
+            val adapter = ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                resources.getStringArray(R.array.cat_types_array)
+            )
             petTypeCombo.setAdapter(adapter)
-        }
-        else if (petType=="bird"){
-            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, resources.getStringArray(R.array.bird_types_array))
+        } else if (petType == "bird") {
+            val adapter = ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                resources.getStringArray(R.array.bird_types_array)
+            )
             petTypeCombo.setAdapter(adapter)
-        }
-        else{
+        } else {
             finish()
         }
 
@@ -48,17 +57,17 @@ class RegisterPetActivity : AppCompatActivity() {
 
         buttonPetFemale.setOnClickListener {
             petGender = true
-            selectMethod(buttonPetFemale,buttonPetMale)
+            selectMethod(buttonPetFemale, buttonPetMale)
         }
 
         buttonPetMale.setOnClickListener {
             petGender = false
-            selectMethod(buttonPetMale,buttonPetFemale)
+            selectMethod(buttonPetMale, buttonPetFemale)
         }
 
         buttonPetVaccine.setOnClickListener {
             petVaccine = true
-            selectMethod(buttonPetVaccine,buttonPetUnVaccine)
+            selectMethod(buttonPetVaccine, buttonPetUnVaccine)
         }
 
         buttonPetUnVaccine.setOnClickListener {
@@ -67,10 +76,10 @@ class RegisterPetActivity : AppCompatActivity() {
             buttonPetVaccine.setTextColor(Color.BLACK)
             buttonPetUnVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg2)
             buttonPetUnVaccine.setTextColor(Color.WHITE)
-            selectMethod(buttonPetUnVaccine,buttonPetVaccine)
+            selectMethod(buttonPetUnVaccine, buttonPetVaccine)
         }
 
-        findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
+        findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
             showAlertDialog()
         }
     }
@@ -98,11 +107,12 @@ class RegisterPetActivity : AppCompatActivity() {
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
     }
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun selectMethod(selected:Button,unselected:Button) {
+    fun selectMethod(selected: Button, unselected: Button) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
         selected.setTextColor(Color.WHITE)
         unselected.setBackgroundResource(R.drawable.sign2_edittext_bg)

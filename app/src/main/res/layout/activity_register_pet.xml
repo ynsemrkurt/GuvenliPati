@@ -214,6 +214,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <AutoCompleteTextView
+                        android:id="@+id/typeCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
@@ -349,8 +350,10 @@
                     android:background="@drawable/edit_text_background"
                     android:ems="10"
                     android:gravity="start|top"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:maxLines="3"
                     android:hint="@string/friendsInfo"
-                    android:inputType="text"
                     android:paddingStart="15dp"
                     android:paddingTop="20dp"
                     android:paddingEnd="10dp"
