@@ -20,8 +20,20 @@
     <string name="love">love</string>
     <string name="paw">paw</string>
     <string name="welcome">Hoşgeldiniz</string>
+    <string name="age">Yaşı…</string>
+    <string name="weight">Ağırlığı…</string>
+    <string name="type">Türü…</string>
+    
     <string name="advertisement_splash">Evcil dostlarınız için en iyi bakıcıları bulmanın\nkolay ve keyifli yolu: Güvenli Pati</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="petGender">Dişi</string>
+    <string name="vaccinate">Yapılıyor</string>
+    <string name="unVaccinate">Aşısız</string>
+    <string name="gender2">Cinsiyet:</string>
+    <string name="petName">Adı...</string>
+    <string name="vaccinateState">Aşı Durumu:</string>
+    <string name="petRegisterButton">Dostunu Kaydet</string>
+    <string name="about">About</string>
 </resources>
 
