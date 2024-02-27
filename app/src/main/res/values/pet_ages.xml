@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pet_ages_array">
+        <item>0-1</item>
+        <item>1-2</item>
+        <item>2-4</item>
+        <item>4-6</item>
+        <item>6-8</item>
+        <item>8-10</item>
+        <item>10-12</item>
+        <item>12-14</item>
+        <item>14-16</item>
+        <item>16+</item>
+    </string-array>
+</resources>
