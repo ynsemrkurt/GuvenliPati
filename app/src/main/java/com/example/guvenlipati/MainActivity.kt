@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         if (auth.currentUser!=null){
             goHomeActivity()
+            finish()
         }
     }
 
