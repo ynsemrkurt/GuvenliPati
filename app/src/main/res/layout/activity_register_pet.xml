@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,19 +17,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/backToSplash"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/button_background"
-                android:backgroundTint="@color/white"
-                android:contentDescription="@string/back_button"
-                android:elevation="3dp"
-                android:src="@drawable/back_ico"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <ImageButton
+                    android:id="@+id/backToSplash"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="@string/back_button"
+                    android:elevation="3dp"
+                    android:src="@drawable/back_ico"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/second"
@@ -89,12 +98,12 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:autofillHints="username"
-                    android:maxLines="1"
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
                     android:hint="@string/petName"
                     android:inputType="text"
+                    android:maxLines="1"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
@@ -123,14 +132,25 @@
                     android:fontFamily="@font/alata"
                     android:hint="@string/weight"
                     android:inputType="numberDecimal"
+                    android:maxLines="1"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
-                    android:maxLines="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.51" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/kg"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/editTextWeight"
+                    app:layout_constraintTop_toTopOf="@+id/editTextWeight" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/menuAge"
@@ -138,7 +158,7 @@
                     android:layout_width="140dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="40dp"
-                    android:hint="@string/type"
+                    android:hint="@string/age"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -306,15 +326,15 @@
 
                 <EditText
                     android:id="@+id/editTextAbout"
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:gravity="start|top"
                     android:background="@drawable/edit_text_background"
                     android:ems="10"
-                    android:inputType="text"
+                    android:gravity="start|top"
                     android:hint="@string/friendsInfo"
-                    android:paddingTop="20dp"
+                    android:inputType="text"
                     android:paddingStart="15dp"
+                    android:paddingTop="20dp"
                     android:paddingEnd="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -329,8 +349,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:paddingRight="90dp"
-                android:paddingLeft="90dp">
+                android:paddingLeft="90dp"
+                android:paddingRight="90dp">
 
                 <ImageView
                     android:id="@+id/buttonPaw2"
@@ -351,11 +371,11 @@
                     android:layout_height="65dp"
                     android:background="@drawable/button_background"
                     android:fontFamily="@font/alata"
+                    android:paddingRight="50dp"
                     android:text="@string/petRegisterButton"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:paddingRight="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"

@@ -36,5 +36,6 @@
     <string name="petRegisterButton">Dostunu Kaydet</string>
     <string name="about">About</string>
     <string name="friendsInfo">Dostun hakkında bilgiler...</string>
+    <string name="kg">KG.</string>
 </resources>
 
