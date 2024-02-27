@@ -1,12 +1,13 @@
 package com.example.guvenlipati
 
 import android.app.AlertDialog
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class RegisterPetActivity : AppCompatActivity() {
