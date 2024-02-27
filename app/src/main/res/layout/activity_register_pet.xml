@@ -188,6 +188,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
                         android:inputType="none"
+                        app:simpleItems="@array/pet_ages_array"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>

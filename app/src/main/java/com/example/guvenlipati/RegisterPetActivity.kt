@@ -9,6 +9,7 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -16,9 +17,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -57,34 +56,6 @@ class RegisterPetActivity : AppCompatActivity() {
 
         val petType = intent.getStringExtra("petType")
 
-        val petTypeCombo = findViewById<AutoCompleteTextView>(R.id.typeCombo)
-
-        if (petType == "dog") {
-            val adapter = ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                resources.getStringArray(R.array.dog_types_array)
-            )
-            petTypeCombo.setAdapter(adapter)
-        } else if (petType == "cat") {
-            val adapter = ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                resources.getStringArray(R.array.cat_types_array)
-            )
-            petTypeCombo.setAdapter(adapter)
-        } else if (petType == "bird") {
-            val adapter = ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                resources.getStringArray(R.array.bird_types_array)
-            )
-            petTypeCombo.setAdapter(adapter)
-        } else {
-            finish()
-        }
-
-
         val buttonPetFemale = findViewById<Button>(R.id.buttonPetFemale)
         val buttonPetMale = findViewById<Button>(R.id.buttonPetMale)
         val buttonPetVaccine = findViewById<Button>(R.id.buttonPetVaccine)
@@ -97,8 +68,15 @@ class RegisterPetActivity : AppCompatActivity() {
         var petVaccine: Boolean? = null
         val editTextAbout = findViewById<EditText>(R.id.editTextAbout)
         val addPetButton = findViewById<Button>(R.id.petRegisterButton)
-        val buttonPaw=findViewById<ImageView>(R.id.buttonPaw2)
+        val buttonPaw = findViewById<ImageView>(R.id.buttonPaw2)
         val progressCard = findViewById<CardView>(R.id.progressCard)
+        val backButton=findViewById<ImageButton>(R.id.backToSplash)
+
+
+        backButton.setOnClickListener{
+            showAlertDialog()
+        }
+
 
         when (petType) {
             "dog" -> {
@@ -134,9 +112,6 @@ class RegisterPetActivity : AppCompatActivity() {
         }
 
 
-
-
-
         buttonPetFemale.setOnClickListener {
             petGender = true
             selectMethod(buttonPetFemale, buttonPetMale)
@@ -154,11 +129,6 @@ class RegisterPetActivity : AppCompatActivity() {
 
         buttonPetUnVaccine.setOnClickListener {
             petVaccine = false
-            selectMethod(buttonPetUnVaccine, buttonPetVaccine)
-            buttonPetVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg)
-            buttonPetVaccine.setTextColor(Color.BLACK)
-            buttonPetUnVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg2)
-            buttonPetUnVaccine.setTextColor(Color.WHITE)
             selectMethod(buttonPetUnVaccine, buttonPetVaccine)
         }
 
@@ -178,49 +148,36 @@ class RegisterPetActivity : AppCompatActivity() {
         }
 
         addPetButton.setOnClickListener {
-        findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
-            showAlertDialog()
-        }
-    }
-
-    private fun showAlertDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-
-        alertDialogBuilder.setTitle("Emin Misiniz?")
-        alertDialogBuilder.setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
-
-        alertDialogBuilder.setPositiveButton("Sil") { _, _ ->
-            showToast("Kaydınız iptal edildi.")
-
             databaseReference =
-                FirebaseDatabase.getInstance().getReference("pets").child(firebaseUser.uid+editTextPetName.text.toString())
+                FirebaseDatabase.getInstance().getReference("pets")
+                    .child(firebaseUser.uid + editTextPetName.text.toString())
 
-            if (editTextPetName.text.toString().isEmpty()){
+            if (editTextPetName.text.toString().isEmpty()) {
                 showToast("Lütfen ad giriniz!")
                 return@setOnClickListener
             }
 
-            if (editTextPetWeight.text.toString().isEmpty()){
+            if (editTextPetWeight.text.toString().isEmpty()) {
                 showToast("Lütfen ağırlık giriniz!")
                 return@setOnClickListener
             }
 
-            if (petAgeCombo.text.toString().isEmpty()){
+            if (petAgeCombo.text.toString().isEmpty()) {
                 showToast("Lütfen yaş giriniz!")
                 return@setOnClickListener
             }
 
-            if (petGender==null){
+            if (petGender == null) {
                 showToast("Lütfen cinsiyet seçiniz!")
                 return@setOnClickListener
             }
 
-            if (petVaccine==null){
+            if (petVaccine == null) {
                 showToast("Lütfen aşı bilgisi seçiniz!")
                 return@setOnClickListener
             }
 
-            if (editTextAbout.text.toString().isEmpty()){
+            if (editTextAbout.text.toString().isEmpty()) {
                 showToast("Lütfen tüm alanları doldurunuz!")
                 return@setOnClickListener
             }
@@ -232,15 +189,15 @@ class RegisterPetActivity : AppCompatActivity() {
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
             hashMap["petPhoto"] = imageUrl
-            hashMap["petSpecies"]=petType.toString()
+            hashMap["petSpecies"] = petType.toString()
             hashMap["petName"] = editTextPetName.text.toString()
             hashMap["petWeight"] = editTextPetWeight.text.toString()
             hashMap["petAge"] = petAgeCombo.text.toString()
             hashMap["petBreed"] = petTypeCombo.text.toString()
             hashMap["petGender"] = petGender.toString()
             hashMap["petVaccinate"] = petVaccine.toString()
-            hashMap["petAbout"]=editTextAbout.text.toString()
-            hashMap["petAdoptionStatus"]=false
+            hashMap["petAbout"] = editTextAbout.text.toString()
+            hashMap["petAdoptionStatus"] = false
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -248,7 +205,7 @@ class RegisterPetActivity : AppCompatActivity() {
                     addPetButton.visibility = View.VISIBLE
                     progressCard.visibility = View.INVISIBLE
                     buttonPaw.visibility = View.VISIBLE
-                    val intent=Intent(this,HomeActivity::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                 } else {
                     showToast("Hatalı işlem!")
@@ -257,28 +214,29 @@ class RegisterPetActivity : AppCompatActivity() {
                     buttonPaw.visibility = View.VISIBLE
                 }
             }
-
         }
-            val containerId = R.id.fragmentContainerView2
-            val fragmentManager = supportFragmentManager
-            val fragment = AddPetFragment()
-            fragmentManager.beginTransaction().replace(containerId, fragment).commit()
+    }
 
+    private fun showAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+
+        alertDialogBuilder.setTitle("Emin Misiniz?")
+        alertDialogBuilder.setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+
+        alertDialogBuilder.setPositiveButton("Sil") { _, _ ->
+            showToast("Kaydınız iptal edildi.")
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
-
         alertDialogBuilder.setNegativeButton("İptal") { _, _ ->
             showToast("İptal Edildi")
         }
 
-        val alertDialog = alertDialogBuilder.create()
+        val alertDialog=alertDialogBuilder.create()
         alertDialog.show()
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    fun selectMethod(selected: Button, unselected: Button) {
+    private fun selectMethod(selected: Button, unselected: Button) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
         selected.setTextColor(Color.WHITE)
         unselected.setBackgroundResource(R.drawable.sign2_edittext_bg)
@@ -353,3 +311,6 @@ class RegisterPetActivity : AppCompatActivity() {
     }
 
 }
+
+
+
