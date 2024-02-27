@@ -168,6 +168,7 @@
                     >
 
                     <AutoCompleteTextView
+                        android:id="@+id/ageCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
@@ -354,6 +355,28 @@
                 android:layout_height="100dp"
                 android:paddingLeft="90dp"
                 android:paddingRight="90dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/progressCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:elevation="10dp"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#1E1F22"
+                    app:cardCornerRadius="30dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/petRegisterButton"
+                    app:layout_constraintEnd_toEndOf="@+id/petRegisterButton"
+                    app:layout_constraintStart_toStartOf="@+id/petRegisterButton"
+                    app:layout_constraintTop_toTopOf="@+id/petRegisterButton">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        app:indicatorColor="@color/white" />
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <ImageView
                     android:id="@+id/buttonPaw2"

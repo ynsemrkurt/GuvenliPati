@@ -144,7 +144,6 @@ class SecondSignUpFragment : Fragment() {
             progressCard.visibility = View.VISIBLE
             buttonPaw.visibility = View.INVISIBLE
 
-            //Kayıt tarihi
             val currentDate = LocalDate.now()
 
             val currentDay = currentDate.dayOfMonth
@@ -237,9 +236,13 @@ class SecondSignUpFragment : Fragment() {
 
                 val inputStream = requireActivity().contentResolver.openInputStream(filePath!!)
                 val exif = ExifInterface(inputStream!!)
-                val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+                val orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL
+                )
 
-                val originalBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
+                val originalBitmap =
+                    MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
 
                 //  Bitmape döndürürken yönünü kaybetmemesi için;
                 val rotationAngle = when (orientation) {
@@ -251,7 +254,15 @@ class SecondSignUpFragment : Fragment() {
 
 
                 val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
-                val rotatedBitmap = uploadBitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true)
+                val rotatedBitmap = uploadBitmap.createBitmap(
+                    originalBitmap,
+                    0,
+                    0,
+                    originalBitmap.width,
+                    originalBitmap.height,
+                    matrix,
+                    true
+                )
 
                 val imageStream = ByteArrayOutputStream()
 
@@ -278,6 +289,4 @@ class SecondSignUpFragment : Fragment() {
             }
         }
     }
-
-
 }
