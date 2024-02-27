@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -42,5 +43,11 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, HomeFragment()
             )
             .commit()
+    }
+
+    fun goRegisterPetActivity(petType: String) {
+        val intent=Intent(this,RegisterPetActivity::class.java)
+        intent.putExtra("petType", petType)
+        startActivity(intent)
     }
 }
