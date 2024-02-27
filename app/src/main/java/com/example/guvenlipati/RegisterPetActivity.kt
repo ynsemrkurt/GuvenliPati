@@ -2,6 +2,7 @@ package com.example.guvenlipati
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
@@ -12,6 +13,8 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Toast
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -53,6 +56,33 @@ class RegisterPetActivity : AppCompatActivity() {
 
 
         val petType = intent.getStringExtra("petType")
+
+        val petTypeCombo = findViewById<AutoCompleteTextView>(R.id.typeCombo)
+
+        if (petType == "dog") {
+            val adapter = ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                resources.getStringArray(R.array.dog_types_array)
+            )
+            petTypeCombo.setAdapter(adapter)
+        } else if (petType == "cat") {
+            val adapter = ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                resources.getStringArray(R.array.cat_types_array)
+            )
+            petTypeCombo.setAdapter(adapter)
+        } else if (petType == "bird") {
+            val adapter = ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                resources.getStringArray(R.array.bird_types_array)
+            )
+            petTypeCombo.setAdapter(adapter)
+        } else {
+            finish()
+        }
 
 
         val buttonPetFemale = findViewById<Button>(R.id.buttonPetFemale)
@@ -105,6 +135,8 @@ class RegisterPetActivity : AppCompatActivity() {
 
 
 
+
+
         buttonPetFemale.setOnClickListener {
             petGender = true
             selectMethod(buttonPetFemale, buttonPetMale)
@@ -122,6 +154,11 @@ class RegisterPetActivity : AppCompatActivity() {
 
         buttonPetUnVaccine.setOnClickListener {
             petVaccine = false
+            selectMethod(buttonPetUnVaccine, buttonPetVaccine)
+            buttonPetVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg)
+            buttonPetVaccine.setTextColor(Color.BLACK)
+            buttonPetUnVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg2)
+            buttonPetUnVaccine.setTextColor(Color.WHITE)
             selectMethod(buttonPetUnVaccine, buttonPetVaccine)
         }
 
@@ -141,6 +178,19 @@ class RegisterPetActivity : AppCompatActivity() {
         }
 
         addPetButton.setOnClickListener {
+        findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
+            showAlertDialog()
+        }
+    }
+
+    private fun showAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+
+        alertDialogBuilder.setTitle("Emin Misiniz?")
+        alertDialogBuilder.setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+
+        alertDialogBuilder.setPositiveButton("Sil") { _, _ ->
+            showToast("Kaydınız iptal edildi.")
 
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("pets").child(firebaseUser.uid+editTextPetName.text.toString())
@@ -209,6 +259,23 @@ class RegisterPetActivity : AppCompatActivity() {
             }
 
         }
+            val containerId = R.id.fragmentContainerView2
+            val fragmentManager = supportFragmentManager
+            val fragment = AddPetFragment()
+            fragmentManager.beginTransaction().replace(containerId, fragment).commit()
+
+        }
+
+        alertDialogBuilder.setNegativeButton("İptal") { _, _ ->
+            showToast("İptal Edildi")
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     fun selectMethod(selected: Button, unselected: Button) {
