@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="turkish_dog_breeds_array">
+    <string-array name="dog_types_array">
         <item>Bulldog</item> <!-- Boğazköpeği -->
         <item>German Shepherd</item> <!-- Alman Çoban Köpeği -->
         <item>Golden Retriever</item> <!-- Altın Tüy Toplayıcı -->
@@ -32,7 +32,7 @@
         <item>French Bulldog</item> <!-- Fransız Boğazköpeği -->
     </string-array>
 
-    <string-array name="turkish_cat_breeds_array">
+    <string-array name="cat_types_array">
         <item>British Shorthair</item> <!-- İngiliz Kısa Tüylü -->
         <item>Persian</item> <!-- İran Kedisi -->
         <item>Maine Coon</item> <!-- Maine Coon -->
@@ -63,7 +63,7 @@
         <item>Bombay</item> <!-- Bombay -->
     </string-array>
 
-    <string-array name="turkish_bird_breeds_array">
+    <string-array name="bird_types_array">
         <item>Avustralya Muhabbet Kuşu</item> <!-- Budgerigar -->
         <item>Tepeli Papağan</item> <!-- Cockatiel -->
         <item>Kanarya</item> <!-- Canary -->

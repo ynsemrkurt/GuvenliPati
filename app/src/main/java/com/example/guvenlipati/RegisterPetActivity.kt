@@ -1,11 +1,12 @@
 package com.example.guvenlipati
 
 import android.app.AlertDialog
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class RegisterPetActivity : AppCompatActivity() {
@@ -13,11 +14,32 @@ class RegisterPetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_pet)
 
+        val petType = intent.getStringExtra("petType")
+
+        val petTypeCombo=findViewById<AutoCompleteTextView>(R.id.typeCombo)
+
+        if (petType=="dog"){
+            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, resources.getStringArray(R.array.dog_types_array))
+            petTypeCombo.setAdapter(adapter)
+        }
+        else if (petType=="cat"){
+            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, resources.getStringArray(R.array.cat_types_array))
+            petTypeCombo.setAdapter(adapter)
+        }
+        else if (petType=="bird"){
+            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, resources.getStringArray(R.array.bird_types_array))
+            petTypeCombo.setAdapter(adapter)
+        }
+        else{
+            finish()
+        }
+
 
         val buttonPetFemale = findViewById<Button>(R.id.buttonPetFemale)
         val buttonPetMale = findViewById<Button>(R.id.buttonPetMale)
         val buttonPetVaccine = findViewById<Button>(R.id.buttonPetVaccine)
         val buttonPetUnVaccine = findViewById<Button>(R.id.buttonPetUnVaccine)
+
         var petGender: Boolean? = null
         var petVaccine: Boolean? = null
 
@@ -25,26 +47,17 @@ class RegisterPetActivity : AppCompatActivity() {
 
         buttonPetFemale.setOnClickListener {
             petGender = true
-            buttonPetFemale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
-            buttonPetFemale.setTextColor(Color.WHITE)
-            buttonPetMale.setBackgroundResource(R.drawable.sign2_edittext_bg)
-            buttonPetMale.setTextColor(Color.BLACK)
+            selectMethod(buttonPetFemale,buttonPetMale)
         }
 
         buttonPetMale.setOnClickListener {
             petGender = false
-            buttonPetMale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
-            buttonPetMale.setTextColor(Color.WHITE)
-            buttonPetFemale.setBackgroundResource(R.drawable.sign2_edittext_bg)
-            buttonPetFemale.setTextColor(Color.BLACK)
+            selectMethod(buttonPetMale,buttonPetFemale)
         }
 
         buttonPetVaccine.setOnClickListener {
             petVaccine = true
-            buttonPetVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg2)
-            buttonPetVaccine.setTextColor(Color.WHITE)
-            buttonPetUnVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg)
-            buttonPetUnVaccine.setTextColor(Color.BLACK)
+            selectMethod(buttonPetVaccine,buttonPetUnVaccine)
         }
 
         buttonPetUnVaccine.setOnClickListener {
@@ -53,6 +66,7 @@ class RegisterPetActivity : AppCompatActivity() {
             buttonPetVaccine.setTextColor(Color.BLACK)
             buttonPetUnVaccine.setBackgroundResource(R.drawable.sign2_edittext_bg2)
             buttonPetUnVaccine.setTextColor(Color.WHITE)
+            selectMethod(buttonPetUnVaccine,buttonPetVaccine)
         }
 
         findViewById<ImageButton>(R.id.backToSplash).setOnClickListener{
@@ -85,6 +99,13 @@ class RegisterPetActivity : AppCompatActivity() {
     }
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun selectMethod(selected:Button,unselected:Button) {
+        selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
+        selected.setTextColor(Color.WHITE)
+        unselected.setBackgroundResource(R.drawable.sign2_edittext_bg)
+        unselected.setTextColor(Color.BLACK)
     }
 
 }

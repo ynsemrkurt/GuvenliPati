@@ -3,353 +3,394 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="20"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".RegisterPetActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/first"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.8"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/backToSplash"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/button_background"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/back_button"
-            android:elevation="3dp"
-            android:src="@drawable/back_ico"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/second"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
-        android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:background="@color/white">
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageProfilePhoto"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:elevation="3dp"
-            android:src="@drawable/pet_default_image"
-            app:civ_border_color="#2B2D30"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.51"
-            tools:ignore="ImageContrastCheck" />
-
-        <ImageButton
-        android:id="@+id/buttonAddProfileImage"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="-15dp"
-        android:background="@drawable/add_image_bg"
-        android:contentDescription="@string/add_profile_image"
-        android:elevation="3dp"
-        android:padding="12dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/add_profile_ico"
-        app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/third"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
-
-        <EditText
-            android:id="@+id/editTextPetName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:autofillHints="username"
-            android:background="@drawable/edit_text_background"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/alata"
-            android:hint="@string/petName"
-            android:inputType="text"
-            android:paddingStart="15dp"
-            android:paddingEnd="0dp"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fourth"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:paddingRight="40dp"
-        android:paddingLeft="40dp">
-
-        <EditText
-            android:id="@+id/editTextWeight"
-            android:layout_width="140dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:autofillHints="username"
-            android:background="@drawable/edit_text_background"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/alata"
-            android:hint="@string/weight"
-            android:inputType="numberDecimal"
-            android:paddingStart="15dp"
-            android:paddingEnd="0dp"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.51" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/menuAge"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-            android:layout_width="140dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="40dp"
-            android:hint="@string/type"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editTextWeight"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <AutoCompleteTextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_background"
-                android:inputType="none" />
+                android:layout_height="70dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <ImageButton
+                    android:id="@+id/backToSplash"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="@string/back_button"
+                    android:elevation="3dp"
+                    android:src="@drawable/back_ico"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/menu"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="@string/type"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <AutoCompleteTextView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/second"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_background"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fifth"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
+                android:layout_height="220dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/gender2"
-            app:layout_constraintBottom_toTopOf="@+id/buttonPetFemale"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circleImageProfilePhoto"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:elevation="3dp"
+                    android:src="@drawable/pet_default_image"
+                    app:civ_border_color="#2B2D30"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.496"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.107"
+                    tools:ignore="ImageContrastCheck" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonPetFemale"
-            style="@android:style/Widget.Button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/sign2_edittext_bg"
-            android:fontFamily="@font/alata"
-            android:text="@string/petGender"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPetMale"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.647" />
+                <ImageButton
+                    android:id="@+id/buttonAddProfileImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="-12dp"
+                    android:background="@drawable/add_image_bg"
+                    android:contentDescription="@string/add_profile_image"
+                    android:elevation="3dp"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/add_profile_ico"
+                    app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonPetMale"
-            style="@android:style/Widget.Button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="36dp"
-            android:background="@drawable/sign2_edittext_bg"
-            android:fontFamily="@font/alata"
-            android:text="@string/Men"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.647" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/third"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sixth"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
+                <EditText
+                    android:id="@+id/editTextPetName"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="@string/petName"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vaccinateState"
-            app:layout_constraintBottom_toTopOf="@+id/buttonPetVaccine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonPetVaccine"
-            style="@android:style/Widget.Button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/sign2_edittext_bg"
-            android:fontFamily="@font/alata"
-            android:text="@string/vaccinate"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPetUnVaccine"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.647" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fourth"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonPetUnVaccine"
-            style="@android:style/Widget.Button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/sign2_edittext_bg"
-            android:fontFamily="@font/alata"
-            android:text="@string/unVaccinate"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.647" />
+                <EditText
+                    android:id="@+id/editTextWeight"
+                    android:layout_width="140dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="@string/weight"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.51" />
 
-        <EditText
-            android:id="@+id/editTextAbout"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:ems="10"
-            android:inputType="text"
-            android:text="@string/about"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPetVaccine"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/kg"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/editTextWeight"
+                    app:layout_constraintTop_toTopOf="@+id/editTextWeight" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/menuAge"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="140dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="40dp"
+                    android:hint="@string/age"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editTextWeight"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.2"
-        android:paddingRight="100dp"
-        android:paddingLeft="100dp">
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_background"
+                        android:inputType="none"
+                        app:simpleItems="@array/pet_ages_array"/>
 
-        <ImageView
-            android:id="@+id/buttonPaw2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:elevation="10dp"
-            android:src="@drawable/button_paw_ico"
-            app:layout_constraintBottom_toBottomOf="@+id/petRegisterButton"
-            app:layout_constraintEnd_toEndOf="@+id/petRegisterButton"
-            app:layout_constraintTop_toTopOf="@+id/petRegisterButton"
-            tools:ignore="UseAppTint" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/petRegisterButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:background="@drawable/button_background"
-            android:fontFamily="@font/alata"
-            android:text="@string/petRegisterButton"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingRight="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.533" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/menu"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="@string/type"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/typeCombo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_background"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fifth"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender2"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonPetFemale"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonPetFemale"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/sign2_edittext_bg"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/petGender"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/buttonPetMale"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.647" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonPetMale"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/sign2_edittext_bg"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/Men"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.647" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sixth"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vaccinateState"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonPetVaccine"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonPetVaccine"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/sign2_edittext_bg"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/vaccinate"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/buttonPetUnVaccine"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.647" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonPetUnVaccine"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/sign2_edittext_bg"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/unVaccinate"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.647" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <EditText
+                    android:id="@+id/editTextAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/edit_text_background"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/friendsInfo"
+                    android:inputType="text"
+                    android:paddingStart="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.483"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:paddingLeft="90dp"
+                android:paddingRight="90dp">
+
+                <ImageView
+                    android:id="@+id/buttonPaw2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/button_paw_ico"
+                    app:layout_constraintBottom_toBottomOf="@+id/petRegisterButton"
+                    app:layout_constraintEnd_toEndOf="@+id/petRegisterButton"
+                    app:layout_constraintTop_toTopOf="@+id/petRegisterButton"
+                    tools:ignore="UseAppTint" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/petRegisterButton"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:background="@drawable/button_background"
+                    android:fontFamily="@font/alata"
+                    android:paddingRight="50dp"
+                    android:text="@string/petRegisterButton"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.533" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>
+
