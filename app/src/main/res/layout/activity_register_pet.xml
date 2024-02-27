@@ -6,7 +6,7 @@
     android:weightSum="20"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".RegisterPet">
+    tools:context=".RegisterPetActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first"
