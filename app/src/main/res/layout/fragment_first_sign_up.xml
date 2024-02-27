@@ -41,6 +41,7 @@
             android:text="@string/app_name"
             android:textSize="35sp"
             android:textStyle="bold"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +82,7 @@
             android:text="@string/advertisement_first_signup"
             android:textAlignment="center"
             android:textSize="17sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -111,6 +113,7 @@
             android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
             android:maxLines="1"
+            android:fontFamily="@font/alata"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
@@ -126,6 +129,7 @@
             android:background="@drawable/edit_text_background"
             android:drawablePadding="6dp"
             android:hint="@string/password_hint"
+            android:fontFamily="@font/alata"
             android:inputType="textPassword"
             android:maxLines="1"
             android:paddingStart="15dp"
@@ -150,6 +154,7 @@
             android:paddingStart="13dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="40dp" />
 
@@ -190,6 +195,7 @@
             android:paddingEnd="13dp"
             android:text="@string/sign_up_text"
             android:textColor="@color/white"
+            android:fontFamily="@font/alata"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

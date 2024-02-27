@@ -39,6 +39,7 @@
             android:text="@string/app_name"
             android:textSize="35sp"
             android:textStyle="bold"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +115,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
 
@@ -132,6 +134,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextUserName"
             app:layout_constraintVertical_bias="0.393"
@@ -174,6 +177,7 @@
             android:paddingEnd="0dp"
             android:text="@string/women"
             android:textSize="12sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonMale"
             app:layout_constraintHorizontal_bias="0.0"
@@ -205,6 +209,7 @@
             android:paddingEnd="0dp"
             android:text="@string/Men"
             android:textSize="12sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -228,7 +233,8 @@
             android:layout_height="60dp"
             android:background="@drawable/edit_text_background"
             app:layout_constraintTop_toTopOf="parent"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dialog"
+            android:fontFamily="@font/alata"/>
 
         <Spinner
             android:id="@+id/spinnerTown"
@@ -240,7 +246,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerProvince"
             tools:layout_editor_absoluteX="40dp"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dialog"
+            android:fontFamily="@font/alata"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -282,6 +289,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

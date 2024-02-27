@@ -41,6 +41,7 @@
             android:text="@string/app_name"
             android:textSize="35sp"
             android:textStyle="bold"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +82,7 @@
             android:text="@string/advertisement_first_signup"
             android:textAlignment="center"
             android:textSize="17sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -112,6 +114,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="40dp" />
 
@@ -127,6 +130,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
             tools:layout_editor_absoluteX="40dp" />
@@ -151,6 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="@string/password_forgot"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -193,6 +198,7 @@
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="19sp"
+            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
