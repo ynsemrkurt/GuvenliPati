@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="turkish_dog_breeds_array">
+        <item>Bulldog</item> <!-- Boğazköpeği -->
+        <item>German Shepherd</item> <!-- Alman Çoban Köpeği -->
+        <item>Golden Retriever</item> <!-- Altın Tüy Toplayıcı -->
+        <item>Labrador Retriever</item> <!-- Laboratuvar Köpeği -->
+        <item>Sheepdog</item> <!-- Çoban Köpeği -->
+        <item>Poodle</item> <!-- Kaniş -->
+        <item>Yorkshire Terrier</item> <!-- Yorkşire Teriyeri -->
+        <item>Chihuahua</item> <!-- Çivava -->
+        <item>Beagle</item> <!-- Av Takipçisi -->
+        <item>Pomeranian</item> <!-- Pomeranya Çöğürtüsü -->
+        <item>Shih Tzu</item> <!-- Şihtzu -->
+        <item>Dalmatian</item> <!-- Leopar Köpeği -->
+        <item>Boxer</item> <!-- Boksör -->
+        <item>Rottweiler</item> <!-- Rottweiler -->
+        <item>Cocker Spaniel</item> <!-- Avcı Cinsi -->
+        <item>Maltese</item> <!-- Malta Teriyeri -->
+        <item>Basset Hound</item> <!-- Basset -->
+        <item>Doberman</item> <!-- Doberman -->
+        <item>Siberian Husky</item> <!-- Sibirya Kurdu -->
+        <item>Boston Terrier</item> <!-- Boston Teriyeri -->
+        <item>Bull Terrier</item> <!-- Boğa Teriyeri -->
+        <item>Great Dane</item> <!-- Büyük Danua -->
+        <item>Pekingese</item> <!-- Pekin Tazısı -->
+        <item>Shar Pei</item> <!-- Köpekbalığı -->
+        <item>Shiba Inu</item> <!-- Shiba Inu -->
+        <item>Bichon Frise</item> <!-- Fransız Sevici -->
+        <item>Border Collie</item> <!-- Sınır Çoban Köpeği -->
+        <item>English Bulldog</item> <!-- İngiliz Boğazköpeği -->
+        <item>French Bulldog</item> <!-- Fransız Boğazköpeği -->
+    </string-array>
+
+    <string-array name="turkish_cat_breeds_array">
+        <item>British Shorthair</item> <!-- İngiliz Kısa Tüylü -->
+        <item>Persian</item> <!-- İran Kedisi -->
+        <item>Maine Coon</item> <!-- Maine Coon -->
+        <item>Ragdoll</item> <!-- Yumuşak Bebek -->
+        <item>Siamese</item> <!-- Siam Kedisi -->
+        <item>Sphynx</item> <!-- Sfenks -->
+        <item>Bengal</item> <!-- Bengal Kedisi -->
+        <item>Russian Blue</item> <!-- Rus Mavisi -->
+        <item>Scottish Fold</item> <!-- İskoç Kıvrık -->
+        <item>Turkish Angora</item> <!-- Türk Ankara -->
+        <item>Devon Rex</item> <!-- Devon Rex -->
+        <item>Birman</item> <!-- Birmanya -->
+        <item>Abyssinian</item> <!-- Abyssinian -->
+        <item>Norwegian Forest</item> <!-- Norveç Orman -->
+        <item>Burmese</item> <!-- Burma Kedisi -->
+        <item>Siberian</item> <!-- Sibirya Kedisi -->
+        <item>Himalayan</item> <!-- Himalaya -->
+        <item>Exotic Shorthair</item> <!-- Egzotik Kısa Tüylü -->
+        <item>Oriental</item> <!-- Doğu Kedisi -->
+        <item>American Shorthair</item> <!-- Amerikan Kısa Tüylü -->
+        <item>Egyptian Mau</item> <!-- Mısır Kedisi -->
+        <item>Cornish Rex</item> <!-- Cornish Rex -->
+        <item>Manx</item> <!-- Manx -->
+        <item>Selkirk Rex</item> <!-- Selkirk Rex -->
+        <item>Tonkinese</item> <!-- Tonkinez -->
+        <item>Turkish Van</item> <!-- Türk Van Kedisi -->
+        <item>Japanese Bobtail</item> <!-- Japon Kısa Kuyruk -->
+        <item>Bombay</item> <!-- Bombay -->
+    </string-array>
+
+    <string-array name="turkish_bird_breeds_array">
+        <item>Avustralya Muhabbet Kuşu</item> <!-- Budgerigar -->
+        <item>Tepeli Papağan</item> <!-- Cockatiel -->
+        <item>Kanarya</item> <!-- Canary -->
+        <item>Muhabbet Kuşu</item> <!-- Lovebird -->
+        <item>İspinoz</item> <!-- Finch -->
+        <item>Paraket</item> <!-- Parrotlet -->
+        <item>Muhabbet Papağanı</item> <!-- Parakeet -->
+        <item>Kakadu</item> <!-- Cockatoo -->
+        <item>Afrika Gri Papağanı</item> <!-- African Grey -->
+        <item>Mayna</item> <!-- Mynah -->
+        <item>Agapornis</item> <!-- Agapornis -->
+        <item>Kakariki</item> <!-- Kakariki -->
+        <item>Nymphensittich</item> <!-- Nimfa Papağan -->
+        <item>Zebra Finch</item> <!-- Zebra İspinozu -->
+        <item>Budgie</item> <!-- Muhabbet Kuşu -->
+        <item>Canary</item> <!-- Kanarya -->
+        <item>Fischers Lovebird</item> <!-- Fischer Muhabbet Kuşu -->
+        <item>Green Cheek Conure</item> <!-- Yeşil Yanaklı Konur -->
+        <item>Quaker Parrot</item> <!-- Quaker Papağan -->
+        <item>Ringneck Parakeet</item> <!-- Ringneck Papağan -->
+    </string-array>
+</resources>
+
