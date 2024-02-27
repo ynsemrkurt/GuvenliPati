@@ -144,13 +144,15 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/editTextWeight"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        app:simpleItems="@array/pet_ages_array"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,6 +178,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <AutoCompleteTextView
+                        android:id="@+id/typeCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
