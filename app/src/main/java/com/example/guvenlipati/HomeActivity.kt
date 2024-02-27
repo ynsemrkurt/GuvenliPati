@@ -45,8 +45,9 @@ class HomeActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun goRegisterPetActivity() {
+    fun goRegisterPetActivity(petType: String) {
         val intent=Intent(this,RegisterPetActivity::class.java)
+        intent.putExtra("petType", petType)
         startActivity(intent)
     }
 }

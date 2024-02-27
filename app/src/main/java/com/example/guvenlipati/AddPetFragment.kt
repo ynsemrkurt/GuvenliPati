@@ -31,15 +31,15 @@ class AddPetFragment : Fragment() {
         val selectBird = view.findViewById<ImageView>(R.id.select_bird)
 
         selectDog.setOnClickListener {
-            (requireActivity() as HomeActivity).goRegisterPetActivity()
+            (requireActivity() as HomeActivity).goRegisterPetActivity("dog")
         }
 
         selectCat.setOnClickListener {
-            (requireActivity() as HomeActivity).goRegisterPetActivity()
+            (requireActivity() as HomeActivity).goRegisterPetActivity("cat")
         }
 
         selectBird.setOnClickListener {
-            (requireActivity() as HomeActivity).goRegisterPetActivity()
+            (requireActivity() as HomeActivity).goRegisterPetActivity("bird")
         }
     }
 }
