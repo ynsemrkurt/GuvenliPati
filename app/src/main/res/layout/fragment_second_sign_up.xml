@@ -106,39 +106,36 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="1dp"
             android:autofillHints="username"
             android:background="@drawable/edit_text_background"
             android:drawablePadding="6dp"
+            android:fontFamily="@font/alata"
             android:hint="@string/user_name_hint"
             android:inputType="text"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
-            android:fontFamily="@font/alata"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editTextUserSurname"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:autofillHints="username"
             android:background="@drawable/edit_text_background"
             android:drawablePadding="6dp"
+            android:fontFamily="@font/alata"
             android:hint="@string/user_surname_hint"
             android:inputType="text"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
-            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUserName"
-            app:layout_constraintVertical_bias="0.393"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,25 +162,23 @@
             tools:ignore="UseAppTint" />
 
         <androidx.appcompat.widget.AppCompatButton
-            style="@android:style/Widget.Button"
             android:id="@+id/buttonFemale"
+            style="@android:style/Widget.Button"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
+            android:fontFamily="@font/alata"
             android:paddingStart="42dp"
             android:paddingEnd="0dp"
             android:text="@string/women"
             android:textSize="12sp"
-            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonMale"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:layout_width="48dp"
@@ -198,22 +193,21 @@
             tools:ignore="UseAppTint" />
 
         <androidx.appcompat.widget.AppCompatButton
-            style="@android:style/Widget.Button"
             android:id="@+id/buttonMale"
+            style="@android:style/Widget.Button"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/sign2_edittext_bg"
+            android:fontFamily="@font/alata"
             android:paddingStart="42dp"
             android:paddingEnd="0dp"
             android:text="@string/Men"
             android:textSize="12sp"
-            android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.500000" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,27 +221,55 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
 
-        <Spinner
-            android:id="@+id/spinnerProvince"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/edit_text_background"
-            app:layout_constraintTop_toTopOf="parent"
-            android:spinnerMode="dialog"
-            android:fontFamily="@font/alata"/>
-
-        <Spinner
-            android:id="@+id/spinnerTown"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/edit_text_background"
+            android:background="@color/white"
+            android:hint="İl"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <AutoCompleteTextView
+                android:fontFamily="@font/alata"
+                android:id="@+id/provinceCombo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_text_background"
+                android:inputType="none"
+                app:simpleItems="@array/city_array"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/white"
+            android:hint="İlçe"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerProvince"
-            tools:layout_editor_absoluteX="40dp"
-            android:spinnerMode="dialog"
-            android:fontFamily="@font/alata"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <AutoCompleteTextView
+                android:fontFamily="@font/alata"
+                android:id="@+id/townCombo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_text_background"
+                android:inputType="none"
+                app:simpleItems="@array/town_array"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -70,23 +71,9 @@ class SecondSignUpFragment : Fragment() {
         val saveProfileButton = view.findViewById<Button>(R.id.saveProfileButton)
         val progressCard = view.findViewById<CardView>(R.id.progressCard)
         val buttonPaw = view.findViewById<ImageView>(R.id.buttonPaw)
+        val provinceCombo=view.findViewById<AutoCompleteTextView>(R.id.provinceCombo)
+        val townCombo=view.findViewById<AutoCompleteTextView>(R.id.townCombo)
 
-
-        val spinnerProvince: Spinner = view.findViewById(R.id.spinnerProvince)
-        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.city_array,
-            android.R.layout.simple_spinner_item
-        )
-        spinnerProvince.adapter = adapter
-
-        val spinnerTown: Spinner = view.findViewById(R.id.spinnerTown)
-        val adapter2: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.town_array,
-            android.R.layout.simple_spinner_item
-        )
-        spinnerTown.adapter = adapter2
 
         buttonFemale.setOnClickListener {
             userGender = true
@@ -121,8 +108,8 @@ class SecondSignUpFragment : Fragment() {
 
             val userName = view.findViewById<EditText>(R.id.editTextUserName)
             val userSurname = view.findViewById<EditText>(R.id.editTextUserSurname)
-            val userProvince = spinnerProvince.selectedItem.toString()
-            val userTown = spinnerTown.selectedItem.toString()
+            val userProvince = provinceCombo.text.toString()
+            val userTown=townCombo.text.toString()
 
 
             if (userName.text.isEmpty()) {
@@ -137,6 +124,11 @@ class SecondSignUpFragment : Fragment() {
 
             if (userGender == null) {
                 showToast("Cinsiyetinizi seçiniz!")
+                return@setOnClickListener
+            }
+
+            if (userProvince.isEmpty() || userTown.isEmpty()){
+                showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }
 
