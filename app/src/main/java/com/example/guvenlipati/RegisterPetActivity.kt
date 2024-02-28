@@ -1,6 +1,5 @@
 package com.example.guvenlipati
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -17,10 +16,12 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -73,8 +74,15 @@ class RegisterPetActivity : AppCompatActivity() {
 
 
         backButton.setOnClickListener{
-            showAlertDialog()
+            showMaterialDialog()
         }
+        val callback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                showMaterialDialog()
+            }
+        }
+
+        this.onBackPressedDispatcher.addCallback(this, callback)
 
 
         when (petType) {
@@ -216,25 +224,20 @@ class RegisterPetActivity : AppCompatActivity() {
         }
     }
 
-    private fun showAlertDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-
-        alertDialogBuilder.setTitle("Emin Misiniz?")
-        alertDialogBuilder.setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
-
-        alertDialogBuilder.setPositiveButton("Sil") { _, _ ->
-            showToast("Kaydınız iptal edildi.")
-            val intent = Intent(applicationContext, HomeActivity::class.java)
-            startActivity(intent)
-        }
-        alertDialogBuilder.setNegativeButton("İptal") { _, _ ->
-            showToast("İptal Edildi")
-        }
-
-        val alertDialog=alertDialogBuilder.create()
-        alertDialog.show()
+    private fun showMaterialDialog(){
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Emin Misiniz?")
+            .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+            .setPositiveButton("Sil") { _, _ ->
+                showToast("Kaydınız iptal edildi.")
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(intent)
+            }
+            .setNegativeButton("İptal") { _, _ ->
+                showToast("İptal Edildi")
+            }
+            .show()
     }
-
 
 
     private fun selectMethod(selected: Button, unselected: Button) {
@@ -304,12 +307,15 @@ class RegisterPetActivity : AppCompatActivity() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+
         }
+
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
 
 }
 

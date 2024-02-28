@@ -29,21 +29,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-    private var doubleBackToExitPressedOnce = false
-    override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed()
-            return
-        }
 
-        this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Çıkmak için tekrar geri tuşuna basın", Toast.LENGTH_SHORT).show()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            doubleBackToExitPressedOnce = false
-        }, 2000)
-    }
-    //EMREYİ YEDİM
 
     fun goAddPetFragment() {
         supportFragmentManager.beginTransaction()
@@ -65,4 +51,22 @@ class HomeActivity : AppCompatActivity() {
         intent.putExtra("petType", petType)
         startActivity(intent)
     }
+
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity()
+            //finishAffinity() uygulamayı arkaplanda çalıştırmaya devam eder System.exit(0) ise bellekten de siler
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Çıkmak için tekrar geri tuşuna basın", Toast.LENGTH_SHORT).show()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000)
+    }
+    //EMREYİ YEDİM
 }

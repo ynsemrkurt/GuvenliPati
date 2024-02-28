@@ -12,47 +12,45 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        auth=FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 
-        if (auth.currentUser!=null){
+        if (auth.currentUser != null) {
             goHomeActivity()
             finish()
         }
     }
-
-
-        fun goFirstSignUpFragment() {
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.fragmentContainerView, FirstSignUpFragment
-                        ()
-                )
-                .commit()
-        }
-
-        fun goSecondSignUpFragment() {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, SecondSignUpFragment())
-                .commit()
-        }
-
-        fun goLoginFragment() {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, LoginFragment())
-                .commit()
-        }
-
-        fun goSplashFragment() {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, SplashFragment())
-                .commit()
-        }
-
-        fun goHomeActivity() {
-            val intent = Intent(this,HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-
+    fun goFirstSignUpFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView, FirstSignUpFragment
+                    ()
+            )
+            .commit()
     }
+
+    fun goSecondSignUpFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, SecondSignUpFragment())
+            .commit()
+    }
+
+    fun goLoginFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, LoginFragment())
+            .commit()
+    }
+
+    fun goSplashFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, SplashFragment())
+            .commit()
+    }
+
+    fun goHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+
+}

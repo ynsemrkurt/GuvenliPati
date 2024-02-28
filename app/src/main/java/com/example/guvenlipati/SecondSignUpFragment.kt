@@ -1,6 +1,5 @@
 package com.example.guvenlipati
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Matrix
@@ -11,13 +10,11 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -25,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -173,10 +171,10 @@ class SecondSignUpFragment : Fragment() {
         }
 
         view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
-            showAlertDialog()
+            showMaterialDialog()
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            showAlertDialog()
+            showMaterialDialog()
         }
     }
 
@@ -185,9 +183,8 @@ class SecondSignUpFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         user?.delete()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                showToast("Kullanıcı silindi.")
                 (activity as MainActivity).goSplashFragment()
-                showToast("Kayıt Silindi")
+                showToast("Kullanıcı silindi.")
             } else {
                 showToast("Silme işlemi başarısız!")
                 task.exception
@@ -195,22 +192,17 @@ class SecondSignUpFragment : Fragment() {
         }
     }
 
-    private fun showAlertDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(requireActivity())
-
-        alertDialogBuilder.setTitle("Emin Misiniz?")
-        alertDialogBuilder.setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
-
-        alertDialogBuilder.setPositiveButton("Sil") { _, _ ->
-            deleteUserData()
-        }
-
-        alertDialogBuilder.setNegativeButton("İptal") { _, _ ->
-            showToast("İptal Edildi")
-        }
-
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
+    private fun showMaterialDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Emin Misiniz?")
+            .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+            .setPositiveButton("Sil") { _, _ ->
+                deleteUserData()
+            }
+            .setNegativeButton("İptal") { _, _ ->
+                showToast("İptal Edildi")
+            }
+            .show()
     }
 
 
