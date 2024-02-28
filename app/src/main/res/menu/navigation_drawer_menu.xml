@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/x"
+        android:title="LOREM IPSUM"
+        android:icon="@drawable/home_ico" />
+
+    <item
+        android:id="@+id/y"
+        android:title="LOREM IPSUM"
+        android:icon="@drawable/jobs_ico" />
+
+    <item
+        android:id="@+id/z"
+        android:title="LOREM IPSUM"
+        android:icon="@drawable/transparent_paw_ico" />
+
+    <item
+        android:id="@+id/q"
+        android:title="LOREM IPSUM"
+        android:icon="@drawable/chat_ico" />
+
+    <item
+        android:id="@+id/w"
+        android:title="LOREM IPSUM"
+        android:icon="@drawable/profile_ico" />
+</menu>
