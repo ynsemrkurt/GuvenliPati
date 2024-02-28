@@ -1,11 +1,11 @@
 package com.example.guvenlipati
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 
 class SplashFragment : Fragment() {
 
@@ -27,5 +27,6 @@ class SplashFragment : Fragment() {
         view.findViewById<Button>(R.id.signUpPageButton).setOnClickListener {
             (activity as MainActivity).goFirstSignUpFragment()
         }
+
     }
 }
