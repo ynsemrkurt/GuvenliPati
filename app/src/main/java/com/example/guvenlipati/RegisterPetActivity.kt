@@ -1,23 +1,22 @@
 package com.example.guvenlipati
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -225,7 +224,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
         alertDialogBuilder.setPositiveButton("Sil") { _, _ ->
             showToast("Kaydınız iptal edildi.")
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
         alertDialogBuilder.setNegativeButton("İptal") { _, _ ->
@@ -235,6 +234,8 @@ class RegisterPetActivity : AppCompatActivity() {
         val alertDialog=alertDialogBuilder.create()
         alertDialog.show()
     }
+
+
 
     private fun selectMethod(selected: Button, unselected: Button) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
