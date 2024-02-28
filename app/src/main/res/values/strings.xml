@@ -37,5 +37,7 @@
     <string name="about">About</string>
     <string name="friendsInfo">Dostun hakkında bilgiler...</string>
     <string name="kg">KG.</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
 </resources>
 

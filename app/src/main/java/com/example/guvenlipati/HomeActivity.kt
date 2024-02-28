@@ -7,16 +7,32 @@ import android.os.Looper
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
 
+    private lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+       /* drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        //setSupportActionBar(toolbar)
+
+        val navigationView =findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
+
+        val toggle = ActionBarDrawerToggle(this,drawerLayout,toolbar, R.string.open_nav, R.string.close_nav)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()*/
 
         val navigationBar=findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
@@ -34,8 +50,16 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-
-
+/*
+    override fun onBackPressed(){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawers(GravityCompat.START)
+            super.onBackPressed()
+        }   else    {
+                onBackPressedDispatcher.onBackPressed()
+        }
+    }
+*/
     fun goAddPetFragment() {
         supportFragmentManager.beginTransaction()
             .replace(

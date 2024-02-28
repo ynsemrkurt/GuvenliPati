@@ -13,20 +13,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 
 class NavigationDrawerActivity : AppCompatActivity() {
-
-    lateinit var imageView: ImageView
-    lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_navigation_drawer)
-
-        drawerLayout = findViewById(R.id.drawerLayout)
-        imageView = findViewById(R.id.imageView2)
-
-        imageView.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-            Toast.makeText(this,"Sex",Toast.LENGTH_SHORT).show()
-        }
     }
 }
