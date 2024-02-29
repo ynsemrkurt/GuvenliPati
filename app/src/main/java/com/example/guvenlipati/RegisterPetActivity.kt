@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.PorterDuff
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
@@ -71,6 +72,8 @@ class RegisterPetActivity : AppCompatActivity() {
         val buttonPaw = findViewById<ImageView>(R.id.buttonPaw2)
         val progressCard = findViewById<CardView>(R.id.progressCard)
         val backButton=findViewById<ImageButton>(R.id.backToSplash)
+        val vaccineImage=findViewById<ImageView>(R.id.vaccine)
+        val unVaccineImage=findViewById<ImageView>(R.id.unVaccine)
 
 
         backButton.setOnClickListener{
@@ -132,11 +135,15 @@ class RegisterPetActivity : AppCompatActivity() {
         buttonPetVaccine.setOnClickListener {
             petVaccine = true
             selectMethod(buttonPetVaccine, buttonPetUnVaccine)
+            vaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+            unVaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         }
 
         buttonPetUnVaccine.setOnClickListener {
             petVaccine = false
             selectMethod(buttonPetUnVaccine, buttonPetVaccine)
+            unVaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+            vaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         }
 
         getContent =
