@@ -271,6 +271,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="10dp"
                     android:elevation="10dp"
+                    android:tint="#F875A2"
                     android:src="@drawable/green_paw_ico"
                     app:layout_constraintBottom_toBottomOf="@+id/buttonPetFemale"
                     app:layout_constraintStart_toStartOf="@+id/buttonPetFemale"
