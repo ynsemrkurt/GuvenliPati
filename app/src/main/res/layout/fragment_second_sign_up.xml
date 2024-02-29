@@ -317,7 +317,7 @@
             android:layout_height="60dp"
             android:elevation="10dp"
             android:visibility="invisible"
-            app:cardBackgroundColor="#1E1F22"
+            app:cardBackgroundColor="#019DC7"
             app:cardCornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="@id/saveProfileButton"
             app:layout_constraintEnd_toEndOf="@id/saveProfileButton"
