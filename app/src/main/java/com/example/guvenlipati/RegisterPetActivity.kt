@@ -22,6 +22,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -235,6 +236,7 @@ class RegisterPetActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Emin Misiniz?")
             .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+            .setBackground(ContextCompat.getDrawable(this, R.drawable.background_dialog))
             .setPositiveButton("Sil") { _, _ ->
                 showToast("Kaydınız iptal edildi.")
                 val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -245,6 +247,8 @@ class RegisterPetActivity : AppCompatActivity() {
             }
             .show()
     }
+
+
 
 
     private fun selectMethod(selected: Button, unselected: Button) {
