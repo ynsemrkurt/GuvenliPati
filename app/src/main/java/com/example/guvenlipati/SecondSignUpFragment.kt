@@ -228,7 +228,6 @@ class SecondSignUpFragment : Fragment() {
                 val originalBitmap =
                     MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
 
-                //  Bitmape döndürürken yönünü kaybetmemesi için;
                 val rotationAngle = when (orientation) {
                     ExifInterface.ORIENTATION_ROTATE_90 -> 90
                     ExifInterface.ORIENTATION_ROTATE_180 -> 180

@@ -90,7 +90,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
         when (petType) {
             "dog" -> {
-                val adapter = ArrayAdapter<String>(
+                val adapter = ArrayAdapter(
                     this,
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.dog_types_array)
@@ -99,7 +99,7 @@ class RegisterPetActivity : AppCompatActivity() {
             }
 
             "cat" -> {
-                val adapter = ArrayAdapter<String>(
+                val adapter = ArrayAdapter(
                     this,
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.cat_types_array)
@@ -108,7 +108,7 @@ class RegisterPetActivity : AppCompatActivity() {
             }
 
             "bird" -> {
-                val adapter = ArrayAdapter<String>(
+                val adapter = ArrayAdapter(
                     this,
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.bird_types_array)
@@ -256,7 +256,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
+        if (requestCode == request && resultCode == RESULT_OK && data != null && data.data != null) {
             filePath = data.data
             try {
                 showToast("Fotoğraf yükleniyor...")

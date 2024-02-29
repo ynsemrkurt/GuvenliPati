@@ -44,14 +44,14 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    fun goAddPetFragment() {
+    private fun goAddPetFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, AddPetFragment()
             )
             .commit()
     }
-    fun goHomeFragment() {
+    private fun goHomeFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, HomeFragment()
@@ -69,7 +69,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             finishAffinity()
-            //finishAffinity() uygulamayı arkaplanda çalıştırmaya devam eder System.exit(0) ise bellekten de siler
             super.onBackPressed()
             return
         }
@@ -81,5 +80,4 @@ class HomeActivity : AppCompatActivity() {
             doubleBackToExitPressedOnce = false
         }, 2000)
     }
-    //EMREYİ YEDİM
 }

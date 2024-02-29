@@ -39,5 +39,9 @@
     <string name="kg">KG.</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
+    <string name="logo">LOGO</string>
+    <string name="menu_click">menu_click</string>
+    <string name="pink_paw">pink paw</string>
+    <string name="blue_paw">blue paw</string>
 </resources>
 
