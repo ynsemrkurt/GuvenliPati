@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="11"
-    tools:context=".SecondSignUpFragment">
+    tools:context=".ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first"
