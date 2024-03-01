@@ -229,13 +229,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
-                android:fontFamily="@font/alata"
                 android:id="@+id/provinceCombo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/alata"
                 android:inputType="none"
-                app:simpleItems="@array/city_array"/>
+                app:simpleItemSelectedColor="#FFFFFF"
+                app:simpleItems="@array/city_array" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -253,13 +254,14 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <AutoCompleteTextView
-                android:fontFamily="@font/alata"
                 android:id="@+id/townCombo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/alata"
                 android:inputType="none"
-                app:simpleItems="@array/town_array"/>
+                app:simpleItemSelectedColor="#FFFFFF"
+                app:simpleItems="@array/town_array" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
