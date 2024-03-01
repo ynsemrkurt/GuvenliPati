@@ -2,13 +2,17 @@ package com.example.guvenlipati
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.adapter.PetsAdapter
+import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,6 +28,7 @@ class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var databaseReference: DatabaseReference
+    private  lateinit var databaseReferencePets: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +44,21 @@ class ProfileFragment : Fragment() {
         firebaseUser = auth.currentUser!!
         databaseReference =
             FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
+        databaseReferencePets =
+            FirebaseDatabase.getInstance().getReference("pets")
 
         val profilePhoto = view.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
         val userNameEdit = view.findViewById<EditText>(R.id.editTextUserName)
         val userSurname = view.findViewById<EditText>(R.id.editTextUserSurname)
         val provinceCombo = view.findViewById<AutoCompleteTextView>(R.id.provinceCombo)
         val townCombo = view.findViewById<AutoCompleteTextView>(R.id.townCombo)
+        val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
+
+        petRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+
+
+        val petList = ArrayList<Pet>()
+
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -69,5 +83,33 @@ class ProfileFragment : Fragment() {
             }
 
         })
+
+        databaseReferencePets.addValueEventListener(object : ValueEventListener
+        {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                petList.clear()
+                for (dataSnapShot: DataSnapshot in snapshot.children)
+                {
+                    val pet = dataSnapShot.getValue(Pet::class.java)
+
+                    if (pet?.userId==firebaseUser.uid){
+                        pet.let {
+                            petList.add(it)
+                        }
+                    }
+                }
+
+                val petAdapter = PetsAdapter(requireContext(),petList)
+                petRecyclerView.adapter = petAdapter
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
     }
 }
