@@ -33,6 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:contentDescription="@string/logo"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/logo_transparent"
@@ -67,6 +68,7 @@
             tools:ignore="ImageContrastCheck" />
 
         <TextView
+            android:contentDescription="@string/advertisement"
             android:id="@+id/textView2"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -168,6 +170,7 @@
         android:paddingBottom="0dp">
 
         <ImageView
+            android:contentDescription="@string/paw"
             android:id="@+id/buttonPaw"
             android:layout_width="50dp"
             android:layout_height="50dp"

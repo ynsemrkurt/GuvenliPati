@@ -22,6 +22,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -90,7 +91,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
         when (petType) {
             "dog" -> {
-                val adapter = ArrayAdapter<String>(
+                val adapter = ArrayAdapter(
                     this,
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.dog_types_array)
@@ -99,7 +100,7 @@ class RegisterPetActivity : AppCompatActivity() {
             }
 
             "cat" -> {
-                val adapter = ArrayAdapter<String>(
+                val adapter = ArrayAdapter(
                     this,
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.cat_types_array)
@@ -108,7 +109,7 @@ class RegisterPetActivity : AppCompatActivity() {
             }
 
             "bird" -> {
-                val adapter = ArrayAdapter<String>(
+                val adapter = ArrayAdapter(
                     this,
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.bird_types_array)
@@ -235,6 +236,7 @@ class RegisterPetActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Emin Misiniz?")
             .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+            .setBackground(ContextCompat.getDrawable(this, R.drawable.background_dialog))
             .setPositiveButton("Sil") { _, _ ->
                 showToast("Kaydınız iptal edildi.")
                 val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -247,6 +249,8 @@ class RegisterPetActivity : AppCompatActivity() {
     }
 
 
+
+
     private fun selectMethod(selected: Button, unselected: Button) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
         selected.setTextColor(Color.WHITE)
@@ -256,7 +260,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
+        if (requestCode == request && resultCode == RESULT_OK && data != null && data.data != null) {
             filePath = data.data
             try {
                 showToast("Fotoğraf yükleniyor...")

@@ -5,6 +5,5 @@
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
-
     <style name="Theme.GuvenliPati" parent="Base.Theme.GuvenliPati" />
 </resources>

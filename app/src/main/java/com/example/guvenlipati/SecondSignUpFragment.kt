@@ -21,6 +21,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
@@ -192,11 +193,13 @@ class SecondSignUpFragment : Fragment() {
         }
     }
 
-    private fun showMaterialDialog() {
+    private fun showMaterialDialog(){
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Emin Misiniz?")
             .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_dialog))
             .setPositiveButton("Sil") { _, _ ->
+                showToast("Kaydınız iptal edildi.")
                 deleteUserData()
             }
             .setNegativeButton("İptal") { _, _ ->
@@ -228,7 +231,6 @@ class SecondSignUpFragment : Fragment() {
                 val originalBitmap =
                     MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
 
-                //  Bitmape döndürürken yönünü kaybetmemesi için;
                 val rotationAngle = when (orientation) {
                     ExifInterface.ORIENTATION_ROTATE_90 -> 90
                     ExifInterface.ORIENTATION_ROTATE_180 -> 180
