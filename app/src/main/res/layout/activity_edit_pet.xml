@@ -96,75 +96,68 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/third"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="108dp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp">
-
-                <LinearLayout
-                    android:id="@+id/linearLayout4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:fontFamily="@font/alata"
-                        android:text="      Ad :"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/editTextUserName" />
-
-                    <EditText
-                        android:id="@+id/editTextPetName"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:autofillHints="username"
-                        android:background="@drawable/edit_text_background"
-                        android:fontFamily="@font/alata"
-                        android:inputType="text"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="0dp"
-                        android:textSize="17sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fourth"
-                android:layout_width="match_parent"
-                android:layout_height="92dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/alata"
+                    android:text="Ad :"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/editTextPetName"
+                    app:layout_constraintStart_toStartOf="@+id/editTextPetName" />
+
+                <EditText
+                    android:id="@+id/editTextPetName"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/alata"
+                    android:inputType="text"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fourth"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginBottom="2dp"
                     android:fontFamily="@font/alata"
                     android:text="Kilo :"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/editTextWeight"
-                    app:layout_constraintStart_toStartOf="@+id/editTextWeight"/>
+                    app:layout_constraintStart_toStartOf="@+id/editTextWeight" />
 
                 <EditText
                     android:id="@+id/editTextWeight"
                     android:layout_width="140dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
                     android:autofillHints="username"
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
@@ -177,7 +170,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.98" />
+                    app:layout_constraintVertical_bias="0.9" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -194,13 +187,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginBottom="2dp"
                     android:fontFamily="@font/alata"
                     android:text="Yaş :"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/menuAge"
-                    app:layout_constraintStart_toStartOf="@+id/menuAge"/>
+                    app:layout_constraintStart_toStartOf="@+id/menuAge" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/menuAge"
@@ -208,6 +202,7 @@
                     android:layout_width="140dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="40dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@color/white"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
@@ -215,7 +210,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/editTextWeight"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.95">
+                    app:layout_constraintVertical_bias="0.9">
 
                     <AutoCompleteTextView
                         android:id="@+id/ageCombo"
@@ -229,55 +224,48 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
+                android:layout_height="109dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="40dp">
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/alata"
+                    android:text="Tür :"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout3" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:fontFamily="@font/alata"
-                        android:text="    \t\t\tTür :"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        tools:layout_editor_absoluteY="89dp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/white"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                    <AutoCompleteTextView
+                        android:id="@+id/typeCombo"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:background="@color/white"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_background"
+                        android:fontFamily="@font/alata"
+                        android:inputType="none" />
 
-                        <AutoCompleteTextView
-                            android:id="@+id/typeCombo"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edit_text_background"
-                            android:fontFamily="@font/alata"
-                            android:inputType="none"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/sixth"
@@ -385,7 +373,7 @@
                     android:paddingEnd="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.483"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.5" />
@@ -447,10 +435,10 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.533" />
+                    app:layout_constraintVertical_bias="0.5" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
