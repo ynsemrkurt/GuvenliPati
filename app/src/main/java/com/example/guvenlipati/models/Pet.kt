@@ -2,7 +2,7 @@ package com.example.guvenlipati.models
 
 data class Pet(
     val petAbout: String = "",
-    val petAdoptionStatus: String = "",
+    val petAdoptionStatus: Boolean,
     val petAge: String = "",
     val petBreed: String = "",
     val petGender: String = "",
@@ -12,4 +12,6 @@ data class Pet(
     val petVaccinate: String = "",
     val petWeight: String = "",
     val userId: String = ""
-)
+){
+    constructor() : this("", false, "", "", "", "", "", "", "", "", "")
+}
