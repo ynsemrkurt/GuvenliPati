@@ -84,197 +84,182 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/second"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="40dp">
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/alata"
-                android:text="      Ad :"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toStartOf="@+id/editTextUserName" />
-
-            <EditText
-                android:id="@+id/editTextUserName"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/second"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:autofillHints="username"
-                android:background="@drawable/edit_text_background"
-                android:fontFamily="@font/alata"
-                android:inputType="text"
-                android:paddingStart="15dp"
-                android:paddingEnd="0dp"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-            tools:layout_editor_absoluteX="30dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/alata"
-                android:text="Soyad :"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteY="89dp" />
-
-
-            <EditText
-                android:id="@+id/editTextUserSurname"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:autofillHints="username"
-                android:background="@drawable/edit_text_background"
-                android:fontFamily="@font/alata"
-                android:inputType="text"
-                android:paddingStart="15dp"
-                android:paddingEnd="0dp"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/third"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="40dp">
-
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="40dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/alata"
-                android:text="    \t\t\tİl :"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteY="89dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="379dp"
                 android:background="@color/white"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="40dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/provinceCombo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edit_text_background"
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/alata"
-                    android:inputType="none"
-                    app:simpleItems="@array/city_array" />
+                    android:text="Ad :"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/editTextUserName"
+                    app:layout_constraintStart_toStartOf="@+id/editTextUserName" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-            tools:layout_editor_absoluteX="40dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/alata"
-                android:text="\t\t İlçe :"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteY="89dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/white"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/townCombo"
+                <EditText
+                    android:id="@+id/editTextUserName"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:autofillHints="username"
                     android:background="@drawable/edit_text_background"
+                    android:enabled="false"
                     android:fontFamily="@font/alata"
-                    android:inputType="none"
-                    app:simpleItems="@array/town_array" />
+                    android:inputType="text"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/alata"
+                    android:text="Soyad :"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/editTextUserSurname"
+                    app:layout_constraintStart_toStartOf="@+id/editTextUserSurname" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/editTextUserSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:enabled="false"
+                    android:fontFamily="@font/alata"
+                    android:inputType="text"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="İl :"
+                    android:fontFamily="@font/alata"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout2" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout2"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/white"
+                    android:enabled="false"
+                    android:hint="İl"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextUserSurname"
+                    app:layout_constraintVertical_bias="0.5">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/provinceCombo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_background"
+                        android:enabled="false"
+                        android:fontFamily="@font/alata"
+                        android:inputType="none"
+                        app:simpleItemSelectedColor="#FFFFFF"
+                        app:simpleItems="@array/city_array" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="İl :"
+                    android:fontFamily="@font/alata"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout2" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:enabled="false"
+                    android:hint="İlçe"
+                    app:boxBackgroundColor="#FFFFFF"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/townCombo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_background"
+                        android:enabled="false"
+                        android:fontFamily="@font/alata"
+                        android:inputType="none"
+                        app:simpleItemSelectedColor="#FFFFFF"
+                        app:simpleItems="@array/town_array" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/alata"
+                    android:text="İlçe :"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/petRecycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="270dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -300,8 +300,8 @@ class RegisterPetActivity : AppCompatActivity() {
                 rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 30, imageStream)
 
                 val imageArray = imageStream.toByteArray()
-
-                val ref: StorageReference = strgRef.child("pets/" + firebaseUser.uid)
+                val imageFileName = "image_${System.currentTimeMillis()}.jpg"
+                val ref: StorageReference = strgRef.child("pets/${firebaseUser.uid}/$imageFileName")
                 ref.putBytes(imageArray)
                     .addOnSuccessListener {
                         showToast("Fotoğraf yüklendi!")

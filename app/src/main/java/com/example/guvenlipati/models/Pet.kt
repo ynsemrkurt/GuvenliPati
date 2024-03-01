@@ -2,16 +2,15 @@ package com.example.guvenlipati.models
 
 data class Pet(
     val petAbout: String = "",
-    val petAdoptionStatus: Boolean,
+    val petAdoptionStatus: Boolean=false,
     val petAge: String = "",
     val petBreed: String = "",
-    val petGender: String = "",
+    val petGender: Boolean=false,
     val petName: String = "",
     val petPhoto: String = "",
     val petSpecies: String = "",
-    val petVaccinate: String = "",
+    val petVaccinate: Boolean=false,
     val petWeight: String = "",
     val userId: String = ""
 ){
-    constructor() : this("", false, "", "", "", "", "", "", "", "", "")
 }
