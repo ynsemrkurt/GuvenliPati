@@ -1,6 +1,273 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment"/>
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="11"
+    tools:context=".SecondSignUpFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.5"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-20dp"
+            android:background="none"
+            android:text="D Ü Z E N L E"
+            android:textSize="10sp"
+            android:textColor="@color/orange"
+            app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
+            app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-20dp"
+            android:background="none"
+            android:visibility="invisible"
+            android:text="K A Y D E T"
+            android:textSize="10sp"
+            android:textColor="@color/orange"
+            app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
+            app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageProfilePhoto"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:elevation="3dp"
+            android:src="@drawable/men_image"
+            app:civ_border_color="#2B2D30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/buttonAddProfileImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="-15dp"
+            android:background="@drawable/add_image_bg"
+            android:visibility="invisible"
+            android:contentDescription="@string/add_profile_image"
+            android:elevation="3dp"
+            android:padding="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/add_profile_ico"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/second"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="40dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/alata"
+                android:text="      Ad :"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/editTextUserName" />
+
+            <EditText
+                android:id="@+id/editTextUserName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:autofillHints="username"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/alata"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            tools:layout_editor_absoluteX="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/alata"
+                android:text="Soyad :"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="89dp" />
+
+
+            <EditText
+                android:id="@+id/editTextUserSurname"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:autofillHints="username"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/alata"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/third"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="40dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/alata"
+                android:text="    \t\t\tİl :"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="89dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/provinceCombo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/alata"
+                    android:inputType="none"
+                    app:simpleItems="@array/city_array" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            tools:layout_editor_absoluteX="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/alata"
+                android:text="\t\t İlçe :"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="89dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/townCombo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/alata"
+                    android:inputType="none"
+                    app:simpleItems="@array/town_array" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/petRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
