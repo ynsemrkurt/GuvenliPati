@@ -183,8 +183,8 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
                         android:inputType="none"
-                        app:simpleItems="@array/pet_ages_array"
-                        />
+                        app:simpleItemSelectedColor="#FFFFFF"
+                        app:simpleItems="@array/pet_ages_array" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,12 +211,13 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <AutoCompleteTextView
-                        android:fontFamily="@font/alata"
                         android:id="@+id/typeCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
-                        android:inputType="none" />
+                        android:fontFamily="@font/alata"
+                        android:inputType="none"
+                        app:simpleItemSelectedColor="#FFFFFF" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
