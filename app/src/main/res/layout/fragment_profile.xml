@@ -5,14 +5,22 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:weightSum="11"
     tools:context=".ProfileFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3.5"
+        android:layout_height="250dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="0dp"
@@ -79,8 +87,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/second"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5"
+        android:layout_height="160dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="20dp"
@@ -166,8 +173,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/third"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5"
+        android:layout_height="160dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="20dp"
@@ -259,8 +265,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5"
+        android:layout_height="260dp"
         android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -272,5 +277,8 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
