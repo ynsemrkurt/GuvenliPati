@@ -147,7 +147,7 @@ class SecondSignUpFragment : Fragment() {
             hashMap["userPhoto"] = imageUrl
             hashMap["userName"] = userName.text.toString()
             hashMap["userSurname"] = userSurname.text.toString()
-            hashMap["userGender"] = userGender.toString()
+            hashMap["userGender"] = userGender!!
             hashMap["userProvince"] = userProvince
             hashMap["userTown"] = userTown
             hashMap["userRegisterDate"] = "$currentDay/$currentMonth/$currentYear"

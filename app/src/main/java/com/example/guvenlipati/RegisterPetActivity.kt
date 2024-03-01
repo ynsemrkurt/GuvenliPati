@@ -209,8 +209,8 @@ class RegisterPetActivity : AppCompatActivity() {
             hashMap["petWeight"] = editTextPetWeight.text.toString()
             hashMap["petAge"] = petAgeCombo.text.toString()
             hashMap["petBreed"] = petTypeCombo.text.toString()
-            hashMap["petGender"] = petGender.toString()
-            hashMap["petVaccinate"] = petVaccine.toString()
+            hashMap["petGender"] = petGender!!
+            hashMap["petVaccinate"] = petVaccine!!
             hashMap["petAbout"] = editTextAbout.text.toString()
             hashMap["petAdoptionStatus"] = false
 
