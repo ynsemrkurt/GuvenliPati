@@ -1,7 +1,5 @@
 package com.example.guvenlipati.models
 
-import android.text.Editable
-
 data class User(
     val userGender: String = "",
     val userId: String = "",
