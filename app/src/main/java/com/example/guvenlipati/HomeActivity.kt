@@ -19,25 +19,32 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val navButton=findViewById<ImageView>(R.id.menu_nav)
+        val navButton = findViewById<ImageView>(R.id.menu_nav)
 
         navButton.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
 
-        val navigationBar=findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val navigationBar = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         navigationBar.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.menu_home -> {
                     goHomeFragment()
                     true
                 }
+
                 R.id.menu_add_friend -> {
                     goAddPetFragment()
                     true
                 }
+
+                R.id.menu_profile -> {
+                    goProfileFragment()
+                    true
+                }
+
                 else -> false
             }
         }
@@ -51,6 +58,7 @@ class HomeActivity : AppCompatActivity() {
             )
             .commit()
     }
+
     private fun goHomeFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
@@ -60,9 +68,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun goRegisterPetActivity(petType: String) {
-        val intent=Intent(this,RegisterPetActivity::class.java)
+        val intent = Intent(this, RegisterPetActivity::class.java)
         intent.putExtra("petType", petType)
         startActivity(intent)
+    }
+
+    fun goProfileFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView2, ProfileFragment()
+            )
+            .commit()
     }
 
     private var doubleBackToExitPressedOnce = false
