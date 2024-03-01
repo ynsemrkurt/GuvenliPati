@@ -252,7 +252,7 @@ class SecondSignUpFragment : Fragment() {
 
                 val imageStream = ByteArrayOutputStream()
 
-                rotatedBitmap.compress(uploadBitmap.CompressFormat.JPEG, 30, imageStream)
+                rotatedBitmap.compress(uploadBitmap.CompressFormat.JPEG, 25, imageStream)
 
                 val imageArray = imageStream.toByteArray()
 

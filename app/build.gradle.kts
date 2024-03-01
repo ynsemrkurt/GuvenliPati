@@ -55,6 +55,8 @@ dependencies {
     implementation (libs.circleimageview)
     //Added Firebase
     implementation(platform(libs.firebase.bom))
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
 
 }

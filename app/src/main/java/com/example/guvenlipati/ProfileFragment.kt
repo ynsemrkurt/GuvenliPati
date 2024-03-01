@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import com.bumptech.glide.Glide
+import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -27,7 +29,6 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
@@ -51,17 +52,20 @@ class ProfileFragment : Fragment() {
                 if (user?.userId == firebaseUser.uid) {
                     if (user.userPhoto.isEmpty()) {
                         profilePhoto.setImageResource(R.drawable.men_image)
-                    }else{
+                    } else {
                         val imageUri = Uri.parse(user.userPhoto)
                         Glide.with(this@ProfileFragment).load(imageUri)
                             .placeholder(R.drawable.men_image)
                             .into(profilePhoto)
                     }
+                    userNameEdit.setText(user.userName)
+                    userSurname.setText(user.userSurname)
+                    provinceCombo.setText(user.userProvince)
+                    townCombo.setText(user.userTown)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })
