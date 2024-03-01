@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +29,18 @@ class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var databaseReference: DatabaseReference
-    private  lateinit var databaseReferencePets: DatabaseReference
+    private lateinit var databaseReferencePets: DatabaseReference
+    private var fragmentContext: Context? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        fragmentContext = context
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        fragmentContext = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,62 +66,60 @@ class ProfileFragment : Fragment() {
         val townCombo = view.findViewById<AutoCompleteTextView>(R.id.townCombo)
         val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
 
-        petRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-
+        petRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
         val petList = ArrayList<Pet>()
 
-
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val user = snapshot.getValue(User::class.java)
-                if (user?.userId == firebaseUser.uid) {
-                    if (user.userPhoto.isEmpty()) {
-                        profilePhoto.setImageResource(R.drawable.men_image)
-                    } else {
-                        val imageUri = Uri.parse(user.userPhoto)
-                        Glide.with(this@ProfileFragment).load(imageUri)
-                            .placeholder(R.drawable.men_image)
-                            .into(profilePhoto)
+                val context = fragmentContext
+                if (context != null && isAdded) { // Kontrol eklendi
+                    val user = snapshot.getValue(User::class.java)
+                    if (user?.userId == firebaseUser.uid) {
+                        if (user.userPhoto.isEmpty()) {
+                            profilePhoto.setImageResource(R.drawable.men_image)
+                        } else {
+                            val imageUri = Uri.parse(user.userPhoto)
+                            Glide.with(requireContext()).load(imageUri)
+                                .placeholder(R.drawable.men_image)
+                                .into(profilePhoto)
+                        }
+                        userNameEdit.setText(user.userName)
+                        userSurname.setText(user.userSurname)
+                        provinceCombo.setText(user.userProvince)
+                        townCombo.setText(user.userTown)
                     }
-                    userNameEdit.setText(user.userName)
-                    userSurname.setText(user.userSurname)
-                    provinceCombo.setText(user.userProvince)
-                    townCombo.setText(user.userTown)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Hata işleme
             }
-
         })
 
-        databaseReferencePets.addValueEventListener(object : ValueEventListener
-        {
+        databaseReferencePets.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                petList.clear()
-                for (dataSnapShot: DataSnapshot in snapshot.children)
-                {
-                    val pet = dataSnapShot.getValue(Pet::class.java)
-
-                    if (pet?.userId==firebaseUser.uid){
-                        pet.let {
-                            petList.add(it)
+                val context = fragmentContext
+                if (context != null && isAdded) { // Kontrol eklendi
+                    petList.clear()
+                    for (dataSnapShot: DataSnapshot in snapshot.children) {
+                        val pet = dataSnapShot.getValue(Pet::class.java)
+                        if (pet?.userId == firebaseUser.uid) {
+                            pet.let {
+                                petList.add(it)
+                            }
                         }
                     }
+
+                    val petAdapter = PetsAdapter(requireContext(), petList)
+                    petRecyclerView.adapter = petAdapter
                 }
-
-                val petAdapter = PetsAdapter(requireContext(),petList)
-                petRecyclerView.adapter = petAdapter
-
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                // Hata işleme
             }
-
         })
-
     }
 }

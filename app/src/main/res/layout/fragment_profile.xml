@@ -16,73 +16,73 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/first"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/first"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="-20dp"
+                    android:background="#00FFFFFF"
+                    android:text="D Ü Z E N L E"
+                    android:textSize="10sp"
+                    android:textColor="@color/orange"
+                    app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
+                    app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="-20dp"
-            android:background="#00FFFFFF"
-            android:text="D Ü Z E N L E"
-            android:textSize="10sp"
-            android:textColor="@color/orange"
-            app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
-            app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="-20dp"
-            android:background="#00FFFFFF"
-            android:visibility="invisible"
-            android:text="K A Y D E T"
-            android:textSize="10sp"
-            android:textColor="@color/orange"
-            app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
-            app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="-20dp"
+                    android:background="#00FFFFFF"
+                    android:visibility="invisible"
+                    android:text="K A Y D E T"
+                    android:textSize="10sp"
+                    android:textColor="@color/orange"
+                    app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
+                    app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageProfilePhoto"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:elevation="3dp"
-            android:src="@drawable/men_image"
-            app:civ_border_color="#2B2D30"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3"
-            tools:ignore="ImageContrastCheck" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circleImageProfilePhoto"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:elevation="3dp"
+                    android:src="@drawable/men_image"
+                    app:civ_border_color="#2B2D30"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.3"
+                    tools:ignore="ImageContrastCheck" />
 
-        <ImageButton
-            android:id="@+id/buttonAddProfileImage"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="-15dp"
-            android:background="@drawable/add_image_bg"
-            android:visibility="invisible"
-            android:contentDescription="@string/add_profile_image"
-            android:elevation="3dp"
-            android:padding="12dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/add_profile_ico"
-            app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <ImageButton
+                    android:id="@+id/buttonAddProfileImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="-15dp"
+                    android:background="@drawable/add_image_bg"
+                    android:visibility="invisible"
+                    android:contentDescription="@string/add_profile_image"
+                    android:elevation="3dp"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/add_profile_ico"
+                    app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/second"
@@ -120,7 +120,6 @@
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,7 +150,6 @@
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
 
@@ -198,11 +196,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:text="İl :"
+                    android:text="İlçe :"
                     android:fontFamily="@font/alata"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-                    app:layout_constraintStart_toStartOf="@+id/textInputLayout2" />
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout"
@@ -233,35 +231,24 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:fontFamily="@font/alata"
-                    android:text="İlçe :"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-                    app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/petRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="270dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/petRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
