@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="11"
-    tools:context=".SecondSignUpFragment">
+    tools:context=".ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="-20dp"
-            android:background="none"
+            android:background="#00FFFFFF"
             android:text="D Ü Z E N L E"
             android:textSize="10sp"
             android:textColor="@color/orange"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="-20dp"
-            android:background="none"
+            android:background="#00FFFFFF"
             android:visibility="invisible"
             android:text="K A Y D E T"
             android:textSize="10sp"
