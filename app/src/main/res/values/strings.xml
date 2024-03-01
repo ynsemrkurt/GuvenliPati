@@ -43,5 +43,14 @@
     <string name="menu_click">menu_click</string>
     <string name="pink_paw">pink paw</string>
     <string name="blue_paw">blue paw</string>
+    <string name="add_pet_string">Eklemek istediğin türü seç :</string>
+    <string name="dog">Köpek :</string>
+    <string name="cat">Kedi :</string>
+    <string name="bird">Kuş :</string>
+    <string name="bird_image">bird image</string>
+    <string name="cat_image">cat image</string>
+    <string name="dog_image">dog image</string>
+    <string name="advertisement">advertisement</string>
+    <string name="ana_sayfa">ANA SAYFA</string>
 </resources>
 

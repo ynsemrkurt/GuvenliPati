@@ -12,6 +12,7 @@
         android:layout_width="350dp"
         android:layout_height="203.5dp"
         android:layout_marginBottom="16dp"
+        android:contentDescription="@string/bird_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -21,6 +22,7 @@
         android:src="@drawable/index_cat"
         android:layout_width="350dp"
         android:layout_height="203.5dp"
+        android:contentDescription="@string/cat_image"
         app:layout_constraintBottom_toTopOf="@+id/select_bird"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,8 +35,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alata"
-        android:text="Eklemek istediğin türü seç :"
-        android:textSize="16dp"
+        android:text="@string/add_pet_string"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +47,7 @@
         android:layout_width="350dp"
         android:layout_height="203.5dp"
         android:layout_marginTop="12dp"
+        android:contentDescription="@string/dog_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
@@ -57,9 +60,9 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/alata"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Köpek :"
+        android:text="@string/dog"
         app:layout_constraintStart_toStartOf="@+id/select_dog"
         app:layout_constraintTop_toTopOf="@+id/select_dog" />
 
@@ -69,9 +72,9 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/alata"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Kedi :"
+        android:text="@string/cat"
         app:layout_constraintStart_toStartOf="@+id/select_cat"
         app:layout_constraintTop_toTopOf="@+id/select_cat" />
 
@@ -81,9 +84,9 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/alata"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Kuş :"
+        android:text="@string/bird"
         app:layout_constraintStart_toStartOf="@+id/select_bird"
         app:layout_constraintTop_toTopOf="@+id/select_bird" />
 

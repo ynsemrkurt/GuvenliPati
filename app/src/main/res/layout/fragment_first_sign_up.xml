@@ -36,6 +36,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/logo_transparent"
+            android:contentDescription="@string/logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +78,7 @@
             android:textAlignment="center"
             android:textSize="17sp"
             android:fontFamily="@font/alata"
+            android:contentDescription="@string/advertisement"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -173,6 +175,7 @@
             android:elevation="10dp"
             android:src="@drawable/blue_paw_ico"
             android:tint="#77E2FF"
+            android:contentDescription="@string/paw"
             app:layout_constraintBottom_toBottomOf="@+id/signUpButton"
             app:layout_constraintEnd_toEndOf="@+id/signUpButton"
             app:layout_constraintTop_toTopOf="@+id/signUpButton"
