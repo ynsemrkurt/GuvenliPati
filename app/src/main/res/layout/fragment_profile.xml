@@ -193,7 +193,8 @@
                         android:inputType="none"
                         app:simpleItemSelectedColor="#FFFFFF"
                         android:textColor="@color/black"
-                        android:textSize="17sp"/>
+                        android:textSize="17sp"
+                        app:simpleItems="@array/city_array"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

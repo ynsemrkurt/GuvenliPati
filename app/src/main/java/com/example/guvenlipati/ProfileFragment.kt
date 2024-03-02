@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
@@ -160,6 +161,7 @@ class ProfileFragment : Fragment() {
             townComboLayout.isEnabled=true
             buttonSave.visibility=View.VISIBLE
             buttonChange.visibility=View.INVISIBLE
+            petRecyclerView.visibility=View.INVISIBLE
         }
 
         buttonSave.setOnClickListener {
@@ -202,6 +204,7 @@ class ProfileFragment : Fragment() {
                 townComboLayout.isEnabled=false
                 buttonSave.visibility=View.INVISIBLE
                 buttonChange.visibility=View.VISIBLE
+                petRecyclerView.visibility=View.VISIBLE
             }
         }
 
