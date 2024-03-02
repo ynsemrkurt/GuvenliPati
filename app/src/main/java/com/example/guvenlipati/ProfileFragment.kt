@@ -11,16 +11,17 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ import com.bumptech.glide.Glide
 import com.example.guvenlipati.adapter.PetsAdapter
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -227,11 +229,32 @@ class ProfileFragment : Fragment() {
             getContent.launch(Intent.createChooser(intent, "Select Pet Image"))
         }
 
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (buttonSave.visibility == View.VISIBLE){
+                showMaterialDialog()
+            }else{
+                requireActivity().finish()
+            }
+        }
+    }
+    private fun showMaterialDialog(){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Emin Misiniz?")
+            .setMessage("Eğer geri dönerseniz düzenlemeniz kaydedilmeyecek.")
+            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_dialog))
+            .setPositiveButton("Geri Dön") { _, _ ->
+                showToast("Değişiklikler iptal edildi.")
+                (activity as HomeActivity).goProfileFragment()
+            }
+            .setNegativeButton("İptal") { _, _ ->
+                showToast("İptal Edildi")
+            }
+            .show()
     }
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
