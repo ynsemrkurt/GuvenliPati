@@ -20,8 +20,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.models.Pet
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -183,7 +185,37 @@ class EditPetActivity : AppCompatActivity() {
                 }
             }
         }
+
+        backButton.setOnClickListener{
+            showMaterialDialog()
+        }
+
     }
+
+    //Hata gibi görünse de çalışyor
+    override fun onBackPressed() {
+        showMaterialDialog()
+    }
+
+    private fun showMaterialDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Emin Misiniz?")
+            .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+            .setBackground(ContextCompat.getDrawable(this, R.drawable.background_dialog))
+            .setPositiveButton("Sil") { _, _ ->
+                showToast("Kaydınız iptal edildi.")
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(intent)
+            }
+            .setNegativeButton("İptal") { _, _ ->
+                showToast("İptal Edildi")
+            }
+            .setOnCancelListener {
+                // Geri dönme işlemi iptal edildiğinde yapılabilecek işlemler buraya eklenir (isteğe bağlı)
+            }
+            .show()
+    }
+
 
     fun selectTypeArray(petType: String) {
         val petTyp = petType

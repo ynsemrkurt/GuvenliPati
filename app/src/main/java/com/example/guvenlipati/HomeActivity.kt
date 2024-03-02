@@ -77,6 +77,4 @@ class HomeActivity : AppCompatActivity() {
             )
             .commit()
     }
-
-
 }
