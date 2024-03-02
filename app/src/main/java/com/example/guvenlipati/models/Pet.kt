@@ -8,7 +8,7 @@ data class Pet(
     val petGender: Boolean=false,
     val petId: String = "",
     val petName: String = "",
-    val petPhoto: String = "",
+    var petPhoto: String = "",
     val petSpecies: String = "",
     val petVaccinate: Boolean=false,
     val petWeight: String = "",

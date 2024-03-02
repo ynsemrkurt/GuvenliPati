@@ -54,6 +54,8 @@ class EditPetActivity : AppCompatActivity() {
     private var imageUrl: String = ""
     private lateinit var strgRef: StorageReference
     private lateinit var storage: FirebaseStorage
+
+    private lateinit var pet: Pet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet)
@@ -66,7 +68,7 @@ class EditPetActivity : AppCompatActivity() {
         val petAgeCombo = findViewById<AutoCompleteTextView>(R.id.ageCombo)
         petTypeCombo = findViewById(R.id.typeCombo)
         val editTextAbout = findViewById<EditText>(R.id.editTextAbout)
-        val addPetButton = findViewById<Button>(R.id.petRegisterButton)
+        val editPetButton = findViewById<Button>(R.id.petRegisterButton)
         val buttonPaw = findViewById<ImageView>(R.id.buttonPaw2)
         val progressCard = findViewById<CardView>(R.id.progressCard)
         val backButton = findViewById<ImageButton>(R.id.backToSplash)
@@ -97,24 +99,24 @@ class EditPetActivity : AppCompatActivity() {
             getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
-        buttonPetVaccine.setOnClickListener{
+        buttonPetVaccine.setOnClickListener {
             petVaccine = true
-            selectMethod(buttonPetVaccine,buttonPetUnVaccine)
+            selectMethod(buttonPetVaccine, buttonPetUnVaccine)
             vaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
             unVaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         }
-        buttonPetUnVaccine.setOnClickListener{
+        buttonPetUnVaccine.setOnClickListener {
             petVaccine = false
-            selectMethod(buttonPetUnVaccine,buttonPetVaccine)
+            selectMethod(buttonPetUnVaccine, buttonPetVaccine)
             unVaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
             vaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         }
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: com.google.firebase.database.DataSnapshot) {
-                val pet = snapshot.getValue(Pet::class.java)
-                if (pet?.petId == petId) {
-                    if (pet?.petPhoto!!.isEmpty()) {
+                pet = snapshot.getValue(Pet::class.java)!!
+                if (pet.petId == petId) {
+                    if (pet.petPhoto.isEmpty()) {
                         profilePhoto.setImageResource(R.drawable.pet_default_image)
                     } else {
                         val imageUri = Uri.parse(pet.petPhoto)
@@ -127,7 +129,7 @@ class EditPetActivity : AppCompatActivity() {
                     petAgeCombo.setText(pet.petAge)
                     selectTypeArray(pet.petSpecies)
                     petTypeCombo.setText(pet.petBreed)
-                    if (pet.petVaccinate == true) {
+                    if (pet.petVaccinate) {
                         selectVaccine(
                             buttonPetVaccine,
                             buttonPetUnVaccine,
@@ -143,6 +145,7 @@ class EditPetActivity : AppCompatActivity() {
                         )
                     }
                     editTextAbout.setText(pet.petAbout)
+                    petVaccine = pet.petVaccinate
                 }
 
             }
@@ -150,6 +153,35 @@ class EditPetActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        editPetButton.setOnClickListener {
+
+            if (editTextPetWeight.text.isEmpty() || petAgeCombo.text.isEmpty() || editTextPetName.text.isEmpty() || editTextAbout.text.isEmpty()) {
+                showToast("Lütfen boş alan bırakmayınız!")
+                return@setOnClickListener
+            }
+
+            val hashMap: HashMap<String, Any> = HashMap()
+            hashMap["userId"] = firebaseUser.uid
+            hashMap["petPhoto"] = pet.petPhoto
+            hashMap["petName"] = editTextPetName.text.toString()
+            hashMap["petWeight"] = editTextPetWeight.text.toString()
+            hashMap["petSpecies"] = pet.petSpecies
+            hashMap["petAbout"] = editTextAbout.text.toString()
+            hashMap["petGender"] = pet.petGender
+            hashMap["petAge"] = petAgeCombo.text.toString()
+            hashMap["petAdoptionStatus"] = false
+            hashMap["petBreed"] = petTypeCombo.text.toString()
+            hashMap["petVaccinate"] = petVaccine!!
+
+            databaseReference.updateChildren(hashMap).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    showToast("Başarılı")
+                } else {
+                    showToast("Hatalı işlem!")
+                }
+            }
+        }
     }
 
     fun selectTypeArray(petType: String) {
@@ -183,6 +215,7 @@ class EditPetActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun selectMethod(selected: Button, unselected: Button) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
         selected.setTextColor(Color.WHITE)
@@ -256,6 +289,7 @@ class EditPetActivity : AppCompatActivity() {
                         showToast("Fotoğraf yüklendi!")
                         ref.downloadUrl.addOnSuccessListener { uri ->
                             imageUrl = uri.toString()
+                            databaseReference.child("petPhoto").setValue(imageUrl)
                         }
                     }
                     .addOnFailureListener {
