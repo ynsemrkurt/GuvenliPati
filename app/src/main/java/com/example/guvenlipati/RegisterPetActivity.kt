@@ -213,6 +213,7 @@ class RegisterPetActivity : AppCompatActivity() {
             hashMap["petVaccinate"] = petVaccine!!
             hashMap["petAbout"] = editTextAbout.text.toString()
             hashMap["petAdoptionStatus"] = false
+            hashMap["petId"]= firebaseUser.uid + editTextPetName.text.toString()
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {

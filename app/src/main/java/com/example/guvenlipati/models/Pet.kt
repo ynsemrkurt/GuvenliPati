@@ -6,6 +6,7 @@ data class Pet(
     val petAge: String = "",
     val petBreed: String = "",
     val petGender: Boolean=false,
+    val petId: String = "",
     val petName: String = "",
     val petPhoto: String = "",
     val petSpecies: String = "",
