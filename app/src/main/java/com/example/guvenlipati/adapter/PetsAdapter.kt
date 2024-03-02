@@ -9,11 +9,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.EditPetActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Pet
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.FirebaseDatabase
 
 class PetsAdapter(private val context: Context, private val petList: ArrayList<Pet>) :
     RecyclerView.Adapter<PetsAdapter.ViewHolder>() {
@@ -35,6 +39,8 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
         private val petName: TextView = view.findViewById(R.id.petName)
         private val petType: TextView = view.findViewById(R.id.petType)
         private val changePet: ImageButton = view.findViewById(R.id.buttonEditPet)
+        private val deletePet: ImageButton = view.findViewById(R.id.buttonDeletePet)
+
 
         fun bind(pet: Pet) {
             petName.text = pet.petName
@@ -50,6 +56,38 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
                 intent.putExtra("petId", pet.petId)
                 context.startActivity(intent)
             }
+
+            deletePet.setOnClickListener {
+                showDeleteConfirmationDialog(pet)
+            }
         }
+    }
+    private fun showDeleteConfirmationDialog(pet: Pet) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle("Emin Misiniz?")
+            .setMessage("Dostunuzu silersen bu işlemi geri alamazsınız.")
+            .setBackground(ContextCompat.getDrawable(context, R.drawable.background_dialog))
+            .setPositiveButton("Sil") { _, _ ->
+                deletePet(pet)
+            }
+            .setNegativeButton("İptal") { _, _ ->
+                showToast("Silme işlemi iptal edildi.")
+            }
+            .show()
+    }
+
+    private fun deletePet(pet: Pet) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("pets").child(pet.petId)
+        databaseReference.removeValue()
+            .addOnSuccessListener {
+                showToast("Dost başarıyla silindi.")
+            }
+            .addOnFailureListener {
+                showToast("Dost silme işlemi başarısız.")
+            }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }
