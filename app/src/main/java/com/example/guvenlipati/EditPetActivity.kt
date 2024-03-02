@@ -47,6 +47,7 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var unVaccineImage: ImageView
     private lateinit var buttonPetVaccine: Button
     private lateinit var buttonPetUnVaccine: Button
+    var petVaccine: Boolean? = null
     private lateinit var getContent: ActivityResultLauncher<Intent>
     private var request: Int = 2020
     private var filePath: Uri? = null
@@ -96,6 +97,18 @@ class EditPetActivity : AppCompatActivity() {
             getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
+        buttonPetVaccine.setOnClickListener{
+            petVaccine = true
+            selectMethod(buttonPetVaccine,buttonPetUnVaccine)
+            vaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+            unVaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+        }
+        buttonPetUnVaccine.setOnClickListener{
+            petVaccine = false
+            selectMethod(buttonPetUnVaccine,buttonPetVaccine)
+            unVaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+            vaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+        }
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: com.google.firebase.database.DataSnapshot) {
@@ -169,6 +182,12 @@ class EditPetActivity : AppCompatActivity() {
                 petTypeCombo.setAdapter(adapter)
             }
         }
+    }
+    private fun selectMethod(selected: Button, unselected: Button) {
+        selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
+        selected.setTextColor(Color.WHITE)
+        unselected.setBackgroundResource(R.drawable.sign2_edittext_bg)
+        unselected.setTextColor(Color.BLACK)
     }
 
     fun selectVaccine(
