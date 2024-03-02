@@ -16,12 +16,12 @@
         android:icon="@drawable/transparent_paw_ico" />
 
     <item
-        android:id="@+id/q"
-        android:title="LOREM IPSUM"
-        android:icon="@drawable/chat_ico" />
+        android:id="@+id/settings"
+        android:title="AYARLAR"
+        android:icon="@drawable/settings_ico" />
 
     <item
-        android:id="@+id/w"
-        android:title="LOREM IPSUM"
-        android:icon="@drawable/profile_ico" />
+        android:id="@+id/logout"
+        android:title="ÇIKIŞ YAP"
+        android:icon="@drawable/logout_ico" />
 </menu>
