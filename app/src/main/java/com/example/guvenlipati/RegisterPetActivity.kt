@@ -182,6 +182,11 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (petTypeCombo.text.toString().isEmpty()) {
+                showToast("Lütfen tür giriniz!")
+                return@setOnClickListener
+            }
+
             if (petGender == null) {
                 showToast("Lütfen cinsiyet seçiniz!")
                 return@setOnClickListener

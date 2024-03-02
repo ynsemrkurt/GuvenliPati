@@ -42,7 +42,7 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
 
             Glide.with(context)
                 .load(Uri.parse(pet.petPhoto))
-                .placeholder(R.drawable.index_cat)
+                .placeholder(R.drawable.default_pet_image_2)
                 .into(petPhoto)
 
             changePet.setOnClickListener {
