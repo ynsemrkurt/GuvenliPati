@@ -26,6 +26,7 @@
                 android:paddingRight="0dp">
 
                 <Button
+                    android:id="@+id/buttonChange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -38,6 +39,7 @@
                     app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
 
                 <Button
+                    android:id="@+id/buttonSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -187,8 +189,7 @@
                         android:enabled="false"
                         android:fontFamily="@font/alata"
                         android:inputType="none"
-                        app:simpleItemSelectedColor="#FFFFFF"
-                        app:simpleItems="@array/city_array" />
+                        app:simpleItemSelectedColor="#FFFFFF" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -227,7 +228,7 @@
                         android:fontFamily="@font/alata"
                         android:inputType="none"
                         app:simpleItemSelectedColor="#FFFFFF"
-                        app:simpleItems="@array/town_array" />
+                        app:simpleItems="@array/town_array"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

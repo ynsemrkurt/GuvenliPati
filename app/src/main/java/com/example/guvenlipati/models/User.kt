@@ -4,7 +4,7 @@ data class User(
     val userGender: Boolean = false,
     val userId: String = "",
     val userName: String = "",
-    val userPhoto: String = "",
+    var userPhoto: String = "",
     val userProvince: String = "",
     val userRegisterDate: String = "",
     val userSurname: String = "",
