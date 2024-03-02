@@ -213,6 +213,9 @@
                     app:layout_constraintVertical_bias="0.9">
 
                     <AutoCompleteTextView
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:paddingBottom="20dp"
                         android:id="@+id/ageCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -256,6 +259,8 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <AutoCompleteTextView
+                        android:textSize="17sp"
+                        android:paddingBottom="20dp"
                         android:id="@+id/typeCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

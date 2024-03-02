@@ -36,21 +36,13 @@
                     android:textColor="@color/orange"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
-                    app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
+                    app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" /><![CDATA[
 
-                <Button
-                    android:id="@+id/buttonSave"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="-20dp"
-                    android:background="#00FFFFFF"
-                    android:text="K A Y D E T"
-                    android:textColor="@color/orange"
-                    android:textSize="10sp"
-                    android:visibility="invisible"
+                //android:visibility="invisible"
                     app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
                     app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
+
+                ]]>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImageProfilePhoto"
@@ -253,6 +245,21 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="#00FFFFFF"
+                    android:text="K A Y D E T"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
