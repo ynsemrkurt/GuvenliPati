@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -226,8 +227,7 @@ class RegisterPetActivity : AppCompatActivity() {
                     addPetButton.visibility = View.VISIBLE
                     progressCard.visibility = View.INVISIBLE
                     buttonPaw.visibility = View.VISIBLE
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
+                    showBottomSheet()
                 } else {
                     showToast("Hatalı işlem!")
                     addPetButton.visibility = View.VISIBLE
@@ -333,6 +333,14 @@ class RegisterPetActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    fun showBottomSheet(){
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottomsheet,null)
+
+        dialog.setCancelable(false)
+        dialog.setContentView(view)
+        dialog.show()
+    }
 
 }
 
