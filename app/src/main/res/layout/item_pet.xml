@@ -27,7 +27,7 @@
                     android:id="@+id/petImage"
                     android:layout_width="200dp"
                     android:layout_height="180dp"
-                    android:src="@drawable/index_cat"
+                    android:src="@drawable/default_pet_image_2"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -40,12 +40,27 @@
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="6dp"
                     android:background="@drawable/edit_pet_image_bg"
-                    android:elevation="3dp"
+                    android:elevation="10dp"
                     android:padding="12dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_profile_ico"
                     app:layout_constraintEnd_toEndOf="@+id/petImage"
                     app:layout_constraintTop_toTopOf="@+id/petImage" />
+
+                <ImageButton
+                    android:id="@+id/buttonDeletePet"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/edit_pet_image_bg"
+                    android:elevation="10dp"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/trash_ico"
+                    app:layout_constraintEnd_toEndOf="@+id/petImage"
+                    app:layout_constraintTop_toTopOf="@+id/petImage"
+                    app:tint="#FF0000" />
 
                 <TextView
                     android:id="@+id/petName"

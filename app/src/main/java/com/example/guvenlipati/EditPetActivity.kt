@@ -176,7 +176,8 @@ class EditPetActivity : AppCompatActivity() {
 
             databaseReference.updateChildren(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showToast("Başarılı")
+                    showToast("Değişiklikler kaydedildi...")
+                    onBackPressed()
                 } else {
                     showToast("Hatalı işlem!")
                 }
