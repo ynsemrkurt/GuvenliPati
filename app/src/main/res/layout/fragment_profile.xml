@@ -19,7 +19,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/first"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="232dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingLeft="0dp"
@@ -33,8 +33,8 @@
                     android:layout_marginTop="-20dp"
                     android:background="#00FFFFFF"
                     android:text="D Ü Z E N L E"
-                    android:textSize="10sp"
                     android:textColor="@color/orange"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
                     app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
 
@@ -45,10 +45,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="-20dp"
                     android:background="#00FFFFFF"
-                    android:visibility="invisible"
                     android:text="K A Y D E T"
-                    android:textSize="10sp"
                     android:textColor="@color/orange"
+                    android:textSize="10sp"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
                     app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
 
@@ -74,12 +74,12 @@
                     android:layout_height="48dp"
                     android:layout_marginBottom="-15dp"
                     android:background="@drawable/add_image_bg"
-                    android:visibility="invisible"
                     android:contentDescription="@string/add_profile_image"
                     android:elevation="3dp"
                     android:padding="12dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_profile_ico"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -93,7 +93,7 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
-                android:paddingRight="40dp">
+                android:paddingRight="20dp">
 
                 <TextView
                     android:id="@+id/textView9"
@@ -119,6 +119,7 @@
                     android:fontFamily="@font/alata"
                     android:inputType="text"
                     android:paddingStart="15dp"
+                    android:textColor="@color/black"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -151,6 +152,7 @@
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
@@ -172,7 +174,6 @@
                     android:layout_height="60dp"
                     android:background="@color/white"
                     android:enabled="false"
-                    android:hint="İl"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
@@ -182,6 +183,7 @@
                     app:layout_constraintVertical_bias="0.5">
 
                     <AutoCompleteTextView
+                        android:paddingBottom="20dp"
                         android:id="@+id/provinceCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -189,7 +191,9 @@
                         android:enabled="false"
                         android:fontFamily="@font/alata"
                         android:inputType="none"
-                        app:simpleItemSelectedColor="#FFFFFF" />
+                        app:simpleItemSelectedColor="#FFFFFF"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,7 +215,6 @@
                     android:layout_marginBottom="10dp"
                     android:background="@color/white"
                     android:enabled="false"
-                    android:hint="İlçe"
                     app:boxBackgroundColor="#FFFFFF"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
@@ -220,6 +223,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <AutoCompleteTextView
+                        android:paddingBottom="20dp"
                         android:id="@+id/townCombo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -228,7 +232,9 @@
                         android:fontFamily="@font/alata"
                         android:inputType="none"
                         app:simpleItemSelectedColor="#FFFFFF"
-                        app:simpleItems="@array/town_array"/>
+                        app:simpleItems="@array/town_array"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

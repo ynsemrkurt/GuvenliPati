@@ -163,6 +163,22 @@ class ProfileFragment : Fragment() {
         }
 
         buttonSave.setOnClickListener {
+
+            if (userNameEdit.text.isEmpty()) {
+                showToast("İsminizi giriniz!")
+                return@setOnClickListener
+            }
+
+            if (userSurname.text.isEmpty()) {
+                showToast("Soyadınızı giriniz!")
+                return@setOnClickListener
+            }
+
+            if (provinceCombo.text.isEmpty() || townCombo.text.isEmpty()){
+                showToast("Lütfen konum bilgilerinizi doldurunuz!")
+                return@setOnClickListener
+            }
+
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
             hashMap["userPhoto"] = user!!.userPhoto
