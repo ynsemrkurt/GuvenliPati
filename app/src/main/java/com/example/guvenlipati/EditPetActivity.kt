@@ -1,26 +1,40 @@
 package com.example.guvenlipati
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.PorterDuff
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.models.Pet
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 
 class EditPetActivity : AppCompatActivity() {
 
@@ -33,7 +47,12 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var unVaccineImage: ImageView
     private lateinit var buttonPetVaccine: Button
     private lateinit var buttonPetUnVaccine: Button
-
+    private lateinit var getContent: ActivityResultLauncher<Intent>
+    private var request: Int = 2020
+    private var filePath: Uri? = null
+    private var imageUrl: String = ""
+    private lateinit var strgRef: StorageReference
+    private lateinit var storage: FirebaseStorage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet)
@@ -62,6 +81,22 @@ class EditPetActivity : AppCompatActivity() {
         databaseReference =
             FirebaseDatabase.getInstance().getReference("pets").child(petId.toString())
 
+        storage = Firebase.storage
+        strgRef = storage.reference
+
+        getContent =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                onActivityResult(request, result.resultCode, result.data)
+            }
+
+        findViewById<ImageButton>(R.id.buttonEditPetImage).setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
+        }
+
+
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: com.google.firebase.database.DataSnapshot) {
                 val pet = snapshot.getValue(Pet::class.java)
@@ -79,10 +114,20 @@ class EditPetActivity : AppCompatActivity() {
                     petAgeCombo.setText(pet.petAge)
                     selectTypeArray(pet.petSpecies)
                     petTypeCombo.setText(pet.petBreed)
-                    if (pet.petVaccinate==true){
-                        selectVaccine(buttonPetVaccine,buttonPetUnVaccine,vaccineImage,unVaccineImage)
-                    }else{
-                        selectVaccine(buttonPetUnVaccine,buttonPetVaccine,unVaccineImage,vaccineImage)
+                    if (pet.petVaccinate == true) {
+                        selectVaccine(
+                            buttonPetVaccine,
+                            buttonPetUnVaccine,
+                            vaccineImage,
+                            unVaccineImage
+                        )
+                    } else {
+                        selectVaccine(
+                            buttonPetUnVaccine,
+                            buttonPetVaccine,
+                            unVaccineImage,
+                            vaccineImage
+                        )
                     }
                     editTextAbout.setText(pet.petAbout)
                 }
@@ -95,7 +140,7 @@ class EditPetActivity : AppCompatActivity() {
     }
 
     fun selectTypeArray(petType: String) {
-        val petTyp=petType
+        val petTyp = petType
         when (petTyp) {
             "dog" -> {
                 val adapter = ArrayAdapter(
@@ -126,12 +171,83 @@ class EditPetActivity : AppCompatActivity() {
         }
     }
 
-    fun selectVaccine(selected: Button, unselected: Button, vaccineImage: ImageView, unVaccineImage: ImageView){
+    fun selectVaccine(
+        selected: Button,
+        unselected: Button,
+        vaccineImage: ImageView,
+        unVaccineImage: ImageView
+    ) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
         selected.setTextColor(Color.WHITE)
         unselected.setBackgroundResource(R.drawable.sign2_edittext_bg)
         unselected.setTextColor(Color.BLACK)
         vaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         unVaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
+            filePath = data.data
+            try {
+                showToast("Fotoğraf yükleniyor...")
+
+                val inputStream = this.contentResolver.openInputStream(filePath!!)
+                val exif = ExifInterface(inputStream!!)
+                val orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL
+                )
+
+                val originalBitmap =
+                    MediaStore.Images.Media.getBitmap(this.contentResolver, filePath)
+
+                val rotationAngle = when (orientation) {
+                    ExifInterface.ORIENTATION_ROTATE_90 -> 90
+                    ExifInterface.ORIENTATION_ROTATE_180 -> 180
+                    ExifInterface.ORIENTATION_ROTATE_270 -> 270
+                    else -> 0
+                }
+
+
+                val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
+                val rotatedBitmap = Bitmap.createBitmap(
+                    originalBitmap,
+                    0,
+                    0,
+                    originalBitmap.width,
+                    originalBitmap.height,
+                    matrix,
+                    true
+                )
+
+                val imageStream = ByteArrayOutputStream()
+
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 25, imageStream)
+
+                val imageArray = imageStream.toByteArray()
+
+                val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
+                ref.putBytes(imageArray)
+                    .addOnSuccessListener {
+                        showToast("Fotoğraf yüklendi!")
+                        ref.downloadUrl.addOnSuccessListener { uri ->
+                            imageUrl = uri.toString()
+                        }
+                    }
+                    .addOnFailureListener {
+                        showToast("Başarısız, lütfen yeniden deneyin!")
+                    }
+
+                findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
+                    ?.setImageBitmap(rotatedBitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 }
