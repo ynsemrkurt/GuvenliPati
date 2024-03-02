@@ -36,13 +36,7 @@
                     android:textColor="@color/orange"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
-                    app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" /><![CDATA[
-
-                //android:visibility="invisible"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
                     app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
-
-                ]]>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImageProfilePhoto"
