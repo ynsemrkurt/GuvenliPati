@@ -99,8 +99,8 @@
                 android:layout_height="108dp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -137,8 +137,8 @@
                 android:id="@+id/fourth"
                 android:layout_width="match_parent"
                 android:layout_height="104dp"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -154,7 +154,7 @@
 
                 <EditText
                     android:id="@+id/editTextWeight"
-                    android:layout_width="140dp"
+                    android:layout_width="160dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="8dp"
@@ -199,7 +199,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/menuAge"
                     style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                    android:layout_width="140dp"
+                    android:layout_width="160dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="40dp"
                     android:layout_marginBottom="8dp"
@@ -231,8 +231,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="109dp"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -285,6 +285,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/vaccinateState"
+                    android:fontFamily="@font/alata"
                     app:layout_constraintBottom_toTopOf="@+id/buttonPetVaccine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -360,8 +361,8 @@
                 android:layout_height="170dp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <EditText
                     android:id="@+id/editTextAbout"
