@@ -13,7 +13,7 @@
     <item
         android:id="@+id/menu_add_friend"
         android:title="Dost Ekle"
-        android:icon="@drawable/transparent_paw_ico" />
+        android:icon="@drawable/paw" />
 
     <item
         android:id="@+id/menu_chats"

@@ -224,7 +224,6 @@ class RegisterPetActivity : AppCompatActivity() {
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showToast("Dost Eklendi!")
                     addPetButton.visibility = View.VISIBLE
                     progressCard.visibility = View.INVISIBLE
                     buttonPaw.visibility = View.VISIBLE
