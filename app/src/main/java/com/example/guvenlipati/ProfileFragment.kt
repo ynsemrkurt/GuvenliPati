@@ -101,6 +101,7 @@ class ProfileFragment : Fragment() {
         val buttonChange=view.findViewById<Button>(R.id.buttonChange)
         val buttonAddProfileImage=view.findViewById<ImageButton>(R.id.buttonAddProfileImage)
         val friendsText=view.findViewById<TextView>(R.id.dostlarKahvesi)
+        val loadingCardView=view.findViewById<View>(R.id.loadingCardView)
 
 
         petRecyclerView.layoutManager =
@@ -110,8 +111,9 @@ class ProfileFragment : Fragment() {
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+
                 val context = fragmentContext
-                if (context != null && isAdded) { // Kontrol eklendi
+                if (context != null && isAdded) {
                     user = snapshot.getValue(User::class.java)
                     if (user?.userId == firebaseUser.uid) {
                         if (user?.userPhoto!!.isEmpty()) {
@@ -126,6 +128,7 @@ class ProfileFragment : Fragment() {
                         userSurname.setText(user?.userSurname)
                         provinceCombo.setText(user?.userProvince)
                         townCombo.setText(user?.userTown)
+                        loadingCardView.visibility=View.INVISIBLE
                     }
                 }
             }
