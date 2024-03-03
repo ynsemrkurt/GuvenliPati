@@ -55,7 +55,6 @@ class SecondSignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_second_sign_up, container, false)
     }
 
@@ -185,10 +184,6 @@ class SecondSignUpFragment : Fragment() {
         user?.delete()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 (activity as MainActivity).goSplashFragment()
-                showToast("Kullanıcı silindi.")
-            } else {
-                showToast("Silme işlemi başarısız!")
-                task.exception
             }
         }
     }

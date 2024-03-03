@@ -3,10 +3,14 @@ package com.example.guvenlipati
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.TransitionManager
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -31,11 +35,10 @@ class HomeActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout -> {
-                    // Kullanıcıyı çıkış yapmaya yönlendir
                     logout()
-                    true // İşlem başarıyla tamamlandı
+                    true
                 }
-                else -> false // Diğer durumlarda işlem başarısız oldu
+                else -> false
             }
         }
 
@@ -70,6 +73,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, AddPetFragment()
             )
             .commit()
+        animation()
     }
 
     private fun goHomeFragment() {
@@ -78,6 +82,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, HomeFragment()
             )
             .commit()
+        animation()
     }
 
     fun goRegisterPetActivity(petType: String) {
@@ -92,6 +97,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, ProfileFragment()
             )
             .commit()
+        animation()
     }
 
     private fun logout() {
@@ -99,7 +105,11 @@ class HomeActivity : AppCompatActivity() {
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // Bu, geri dönüldüğünde tekrar bu ekrana gelinmemesi için gereklidir
+        finish()
     }
-
+    private fun animation(){
+        val fragmentContainerView: FragmentContainerView = findViewById(R.id.fragmentContainerView2)
+        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        fragmentContainerView.startAnimation(fadeIn)
+    }
 }
