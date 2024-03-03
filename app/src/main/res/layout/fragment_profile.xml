@@ -7,13 +7,8 @@
     android:orientation="vertical"
     tools:context=".ProfileFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/loadingCardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardBackgroundColor="#F5FFFFFF">
-
         <androidx.cardview.widget.CardView
+            android:id="@+id/loadingCardView"
             android:layout_width="200dp"
             android:layout_height="200dp"
             app:cardCornerRadius="30dp"
@@ -40,278 +35,281 @@
 
         </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
-
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:foreground="@drawable/blur_background">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/first"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="232dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/buttonChange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="-20dp"
-                    android:background="#00FFFFFF"
-                    android:text="D Ü Z E N L E"
-                    android:textColor="@color/orange"
-                    android:textSize="10sp"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
-                    app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageProfilePhoto"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:elevation="3dp"
-                    android:src="@drawable/men_image"
-                    app:civ_border_color="#2B2D30"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.3"
-                    tools:ignore="ImageContrastCheck" />
-
-                <ImageButton
-                    android:id="@+id/buttonAddProfileImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="-15dp"
-                    android:background="@drawable/add_image_bg"
-                    android:contentDescription="@string/add_profile_image"
-                    android:elevation="3dp"
-                    android:padding="12dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/add_profile_ico"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/second"
-                android:layout_width="match_parent"
-                android:layout_height="379dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/alata"
-                    android:text="Ad :"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/editTextUserName"
-                    app:layout_constraintStart_toStartOf="@+id/editTextUserName" />
-
-                <EditText
-                    android:id="@+id/editTextUserName"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/first"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
-                    android:autofillHints="username"
-                    android:background="@drawable/edit_text_background"
-                    android:enabled="false"
-                    android:fontFamily="@font/alata"
-                    android:inputType="text"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/black"
-                    android:paddingEnd="0dp"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/alata"
-                    android:text="Soyad :"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/editTextUserSurname"
-                    app:layout_constraintStart_toStartOf="@+id/editTextUserSurname" />
-
-                <EditText
-                    android:id="@+id/editTextUserSurname"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
-                    android:autofillHints="username"
-                    android:background="@drawable/edit_text_background"
-                    android:enabled="false"
-                    android:fontFamily="@font/alata"
-                    android:inputType="text"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="0dp"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:text="İl :"
-                    android:fontFamily="@font/alata"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-                    app:layout_constraintStart_toStartOf="@+id/textInputLayout2" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout2"
-                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="232dp"
                     android:background="@color/white"
-                    android:enabled="false"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextUserSurname"
-                    app:layout_constraintVertical_bias="0.5">
+                    android:orientation="vertical"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp">
 
-                    <AutoCompleteTextView
-                        android:paddingBottom="20dp"
-                        android:id="@+id/provinceCombo"
+                    <Button
+                        android:id="@+id/buttonChange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="-20dp"
+                        android:background="#00FFFFFF"
+                        android:text="D Ü Z E N L E"
+                        android:textColor="@color/orange"
+                        android:textSize="10sp"
+                        app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
+                        app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/circleImageProfilePhoto"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:elevation="3dp"
+                        android:src="@drawable/men_image"
+                        app:civ_border_color="#2B2D30"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.3"
+                        tools:ignore="ImageContrastCheck" />
+
+                    <ImageButton
+                        android:id="@+id/buttonAddProfileImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="-15dp"
+                        android:background="@drawable/add_image_bg"
+                        android:contentDescription="@string/add_profile_image"
+                        android:elevation="3dp"
+                        android:padding="12dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/add_profile_ico"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/second"
+                    android:layout_width="match_parent"
+                    android:layout_height="379dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/alata"
+                        android:text="Ad :"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/editTextUserName"
+                        app:layout_constraintStart_toStartOf="@+id/editTextUserName" />
+
+                    <EditText
+                        android:id="@+id/editTextUserName"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="32dp"
+                        android:autofillHints="username"
                         android:background="@drawable/edit_text_background"
                         android:enabled="false"
                         android:fontFamily="@font/alata"
-                        android:inputType="none"
-                        app:simpleItemSelectedColor="#FFFFFF"
+                        android:inputType="text"
+                        android:paddingStart="15dp"
                         android:textColor="@color/black"
+                        android:paddingEnd="0dp"
                         android:textSize="17sp"
-                        app:simpleItems="@array/city_array"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/alata"
+                        android:text="Soyad :"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/editTextUserSurname"
+                        app:layout_constraintStart_toStartOf="@+id/editTextUserSurname" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:text="İlçe :"
-                    android:fontFamily="@font/alata"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-                    app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout"
-                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/white"
-                    android:enabled="false"
-                    app:boxBackgroundColor="#FFFFFF"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <AutoCompleteTextView
-                        android:paddingBottom="20dp"
-                        android:id="@+id/townCombo"
+                    <EditText
+                        android:id="@+id/editTextUserSurname"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="32dp"
+                        android:autofillHints="username"
                         android:background="@drawable/edit_text_background"
                         android:enabled="false"
                         android:fontFamily="@font/alata"
-                        android:inputType="none"
-                        app:simpleItemSelectedColor="#FFFFFF"
-                        app:simpleItems="@array/town_array"
+                        android:inputType="text"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="17sp"
                         android:textColor="@color/black"
-                        android:textSize="17sp"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="İl :"
+                        android:fontFamily="@font/alata"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+                        app:layout_constraintStart_toStartOf="@+id/textInputLayout2" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout2"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@color/white"
+                        android:enabled="false"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextUserSurname"
+                        app:layout_constraintVertical_bias="0.5">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:background="@color/white">
+                        <AutoCompleteTextView
+                            android:paddingBottom="20dp"
+                            android:id="@+id/provinceCombo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edit_text_background"
+                            android:enabled="false"
+                            android:fontFamily="@font/alata"
+                            android:inputType="none"
+                            app:simpleItemSelectedColor="#FFFFFF"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            app:simpleItems="@array/city_array"/>
 
-                <TextView
-                    android:id="@+id/dostlarKahvesi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/alata"
-                    android:text="D O S T L A R"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/petRecycleView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.05"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/petRecycleView"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="İlçe :"
+                        android:fontFamily="@font/alata"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                        app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        android:enabled="false"
+                        app:boxBackgroundColor="#FFFFFF"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <AutoCompleteTextView
+                            android:paddingBottom="20dp"
+                            android:id="@+id/townCombo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edit_text_background"
+                            android:enabled="false"
+                            android:fontFamily="@font/alata"
+                            android:inputType="none"
+                            app:simpleItemSelectedColor="#FFFFFF"
+                            app:simpleItems="@array/town_array"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    android:layout_height="320dp"
+                    android:background="@color/white">
 
-                <Button
-                    android:id="@+id/buttonSave"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="#00FFFFFF"
-                    android:text="K A Y D E T"
-                    android:textColor="@color/orange"
-                    android:textSize="16sp"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/dostlarKahvesi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alata"
+                        android:text="D O S T L A R"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/petRecycleView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.05"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/petRecycleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="270dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
 
+                    <Button
+                        android:id="@+id/buttonSave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="#00FFFFFF"
+                        android:text="K A Y D E T"
+                        android:textColor="@color/orange"
+                        android:textSize="16sp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-    </ScrollView>
 
 </FrameLayout>

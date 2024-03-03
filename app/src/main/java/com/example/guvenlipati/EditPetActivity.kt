@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -58,6 +59,7 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
 
     private lateinit var pet: Pet
+    private var statusRegister:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet)
@@ -179,6 +181,7 @@ class EditPetActivity : AppCompatActivity() {
             databaseReference.updateChildren(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     showToast("Değişiklikler kaydedildi...")
+                    statusRegister=true
                     onBackPressed()
                 } else {
                     showToast("Hatalı işlem!")
@@ -192,9 +195,14 @@ class EditPetActivity : AppCompatActivity() {
 
     }
 
-    //Hata gibi görünse de çalışyor
     override fun onBackPressed() {
-        showMaterialDialog()
+        if (!statusRegister){
+            showMaterialDialog()
+
+        }
+        else{
+            super.onBackPressed()
+        }
     }
 
     private fun showMaterialDialog() {
@@ -211,7 +219,6 @@ class EditPetActivity : AppCompatActivity() {
                 showToast("İptal Edildi")
             }
             .setOnCancelListener {
-                // Geri dönme işlemi iptal edildiğinde yapılabilecek işlemler buraya eklenir (isteğe bağlı)
             }
             .show()
     }

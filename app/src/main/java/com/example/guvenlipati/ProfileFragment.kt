@@ -102,6 +102,8 @@ class ProfileFragment : Fragment() {
         val buttonAddProfileImage=view.findViewById<ImageButton>(R.id.buttonAddProfileImage)
         val friendsText=view.findViewById<TextView>(R.id.dostlarKahvesi)
         val loadingCardView=view.findViewById<View>(R.id.loadingCardView)
+        val linearLayout=view.findViewById<View>(R.id.linearLayout)
+
 
 
         petRecyclerView.layoutManager =
@@ -129,6 +131,7 @@ class ProfileFragment : Fragment() {
                         provinceCombo.setText(user?.userProvince)
                         townCombo.setText(user?.userTown)
                         loadingCardView.visibility=View.INVISIBLE
+                        linearLayout.foreground=null
                     }
                 }
             }
