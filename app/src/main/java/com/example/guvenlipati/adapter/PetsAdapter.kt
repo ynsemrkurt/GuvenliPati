@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -66,7 +65,7 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
     private fun showDeleteConfirmationDialog(pet: Pet) {
         MaterialAlertDialogBuilder(context)
             .setTitle("Emin Misiniz?")
-            .setMessage("Dostunuzu silersen bu işlemi geri alamazsınız.")
+            .setMessage("Dostunuzu silerseniz bu işlemi geri alamazsınız.")
             .setBackground(ContextCompat.getDrawable(context, R.drawable.background_dialog))
             .setPositiveButton("Sil") { _, _ ->
                 deletePet(pet)

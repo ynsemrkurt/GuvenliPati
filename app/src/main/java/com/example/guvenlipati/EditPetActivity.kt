@@ -1,12 +1,11 @@
 package com.example.guvenlipati
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.PorterDuff
-import android.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,7 +19,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.models.Pet
@@ -65,19 +63,17 @@ class EditPetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_pet)
 
 
-        buttonPetVaccine = findViewById<Button>(R.id.buttonPetVaccine)
-        buttonPetUnVaccine = findViewById<Button>(R.id.buttonPetUnVaccine)
+        buttonPetVaccine = findViewById(R.id.buttonPetVaccine)
+        buttonPetUnVaccine = findViewById(R.id.buttonPetUnVaccine)
         val editTextPetName = findViewById<EditText>(R.id.editTextPetName)
         val editTextPetWeight = findViewById<EditText>(R.id.editTextWeight)
         val petAgeCombo = findViewById<AutoCompleteTextView>(R.id.ageCombo)
         petTypeCombo = findViewById(R.id.typeCombo)
         val editTextAbout = findViewById<EditText>(R.id.editTextAbout)
         val editPetButton = findViewById<Button>(R.id.petRegisterButton)
-        val buttonPaw = findViewById<ImageView>(R.id.buttonPaw2)
-        val progressCard = findViewById<CardView>(R.id.progressCard)
         val backButton = findViewById<ImageButton>(R.id.backToSplash)
-        vaccineImage = findViewById<ImageView>(R.id.vaccine)
-        unVaccineImage = findViewById<ImageView>(R.id.unVaccine)
+        vaccineImage = findViewById(R.id.vaccine)
+        unVaccineImage = findViewById(R.id.unVaccine)
         val profilePhoto = findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
 
 
@@ -225,8 +221,7 @@ class EditPetActivity : AppCompatActivity() {
 
 
     fun selectTypeArray(petType: String) {
-        val petTyp = petType
-        when (petTyp) {
+        when (petType) {
             "dog" -> {
                 val adapter = ArrayAdapter(
                     this,
@@ -283,7 +278,7 @@ class EditPetActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
+        if (requestCode == request && resultCode == RESULT_OK && data != null && data.data != null) {
             filePath = data.data
             try {
                 showToast("Fotoğraf yükleniyor...")

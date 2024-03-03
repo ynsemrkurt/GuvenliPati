@@ -9,6 +9,7 @@
 
 
     <ScrollView
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -29,9 +30,9 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/button_background"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/back_button"
-                    android:elevation="3dp"
+                    android:elevation="10dp"
                     android:src="@drawable/back_ico"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:fontFamily="@font/alata"
-                    android:text="Ad :"
+                    android:text="@string/name"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/editTextPetName"
@@ -129,7 +130,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -146,7 +148,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="2dp"
                     android:fontFamily="@font/alata"
-                    android:text="Kilo :"
+                    android:text="@string/weight2"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/editTextWeight"
@@ -170,7 +172,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.9" />
+                    app:layout_constraintVertical_bias="0.9"
+                    tools:ignore="LabelFor" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -190,7 +193,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="2dp"
                     android:fontFamily="@font/alata"
-                    android:text="Yaş :"
+                    android:text="@string/age2"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/menuAge"
@@ -221,7 +224,8 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
                         android:inputType="none"
-                        app:simpleItems="@array/pet_ages_array" />
+                        app:simpleItems="@array/pet_ages_array"
+                        tools:ignore="LabelFor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -239,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:fontFamily="@font/alata"
-                    android:text="Tür :"
+                    android:text="@string/type2"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
@@ -266,7 +270,8 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/edit_text_background"
                         android:fontFamily="@font/alata"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        tools:ignore="LabelFor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -299,7 +304,8 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="40dp"
-                    android:paddingLeft="35dp"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="0dp"
                     android:background="@drawable/sign2_edittext_bg"
                     android:fontFamily="@font/alata"
                     android:text="@string/vaccinate"
@@ -312,6 +318,7 @@
                     app:layout_constraintVertical_bias="0.647" />
 
                 <ImageView
+                    android:contentDescription="@string/vaccinate"
                     android:id="@+id/vaccine"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -331,7 +338,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="40dp"
-                    android:paddingLeft="35dp"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="0dp"
                     android:background="@drawable/sign2_edittext_bg"
                     android:fontFamily="@font/alata"
                     android:text="@string/unVaccinate"
@@ -342,6 +350,7 @@
                     app:layout_constraintVertical_bias="0.647" />
 
                 <ImageView
+                    android:contentDescription="@string/unVaccinate"
                     android:id="@+id/unVaccine"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -365,6 +374,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:autofillHints="text"
                     android:id="@+id/editTextAbout"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -382,7 +392,8 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:ignore="LabelFor" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -416,6 +427,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <ImageView
+                    android:contentDescription="@string/paw"
                     android:id="@+id/buttonPaw2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -434,7 +446,8 @@
                     android:layout_height="65dp"
                     android:background="@drawable/button_background"
                     android:fontFamily="@font/alata"
-                    android:paddingRight="50dp"
+                    android:paddingEnd="50dp"
+                    android:paddingStart="0dp"
                     android:text="@string/petRegisterButton"
                     android:textColor="@color/white"
                     android:textSize="16sp"

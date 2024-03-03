@@ -13,5 +13,4 @@ data class Pet(
     val petVaccinate: Boolean=false,
     val petWeight: String = "",
     val userId: String = ""
-){
-}
+)

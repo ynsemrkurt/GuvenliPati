@@ -52,5 +52,9 @@
     <string name="dog_image">dog image</string>
     <string name="advertisement">advertisement</string>
     <string name="ana_sayfa">ANA SAYFA</string>
+    <string name="name">Ad :</string>
+    <string name="weight2">Kilo :</string>
+    <string name="age2">Yaş :</string>
+    <string name="type2">Tür :</string>
 </resources>
 

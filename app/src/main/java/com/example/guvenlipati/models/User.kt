@@ -9,4 +9,4 @@ data class User(
     val userRegisterDate: String = "",
     val userSurname: String = "",
     val userTown: String = ""
-) {}
+)
