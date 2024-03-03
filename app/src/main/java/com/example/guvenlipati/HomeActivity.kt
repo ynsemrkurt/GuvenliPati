@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -7,14 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        auth=FirebaseAuth.getInstance()
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val navButton = findViewById<ImageView>(R.id.menu_nav)
 
@@ -22,6 +27,17 @@ class HomeActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.logout -> {
+                    // Kullanıcıyı çıkış yapmaya yönlendir
+                    logout()
+                    true // İşlem başarıyla tamamlandı
+                }
+                else -> false // Diğer durumlarda işlem başarısız oldu
+            }
+        }
 
         val navigationBar = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
@@ -77,4 +93,13 @@ class HomeActivity : AppCompatActivity() {
             )
             .commit()
     }
+
+    private fun logout() {
+        auth.signOut()
+
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish() // Bu, geri dönüldüğünde tekrar bu ekrana gelinmemesi için gereklidir
+    }
+
 }
