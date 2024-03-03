@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -17,7 +18,6 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -81,13 +81,6 @@ class RegisterPetActivity : AppCompatActivity() {
         backButton.setOnClickListener{
             showMaterialDialog()
         }
-        val callback = object : OnBackPressedCallback(true /* enabled by default */) {
-            override fun handleOnBackPressed() {
-                showMaterialDialog()
-            }
-        }
-
-        this.onBackPressedDispatcher.addCallback(this, callback)
 
 
         when (petType) {
@@ -244,8 +237,7 @@ class RegisterPetActivity : AppCompatActivity() {
             .setBackground(ContextCompat.getDrawable(this, R.drawable.background_dialog))
             .setPositiveButton("Sil") { _, _ ->
                 showToast("Kaydınız iptal edildi.")
-                val intent = Intent(applicationContext, HomeActivity::class.java)
-                startActivity(intent)
+                finish()
             }
             .setNegativeButton("İptal") { _, _ ->
                 showToast("İptal Edildi")
@@ -336,13 +328,16 @@ class RegisterPetActivity : AppCompatActivity() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottomsheet,null)
         view.findViewById<Button>(R.id.backToMain).setOnClickListener {
-            val intent = Intent(applicationContext, HomeActivity::class.java)
-            startActivity(intent)
             finish()
         }
         dialog.setCancelable(false)
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        showMaterialDialog()
     }
 
 }

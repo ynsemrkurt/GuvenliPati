@@ -57,7 +57,6 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
 
     private lateinit var pet: Pet
-    private var statusRegister:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet)
@@ -114,40 +113,45 @@ class EditPetActivity : AppCompatActivity() {
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: com.google.firebase.database.DataSnapshot) {
-                pet = snapshot.getValue(Pet::class.java)!!
-                if (pet.petId == petId) {
-                    if (pet.petPhoto.isEmpty()) {
-                        profilePhoto.setImageResource(R.drawable.pet_default_image)
-                    } else {
-                        val imageUri = Uri.parse(pet.petPhoto)
-                        Glide.with(this@EditPetActivity).load(imageUri)
-                            .placeholder(R.drawable.pet_default_image)
-                            .into(profilePhoto)
+                try {
+                    pet = snapshot.getValue(Pet::class.java)!!
+                    if (pet.petId == petId) {
+                        if (pet.petPhoto.isEmpty()) {
+                            profilePhoto.setImageResource(R.drawable.pet_default_image)
+                        } else {
+                            val imageUri = Uri.parse(pet.petPhoto)
+                            if (!isDestroyed) {
+                                Glide.with(this@EditPetActivity).load(imageUri)
+                                    .placeholder(R.drawable.pet_default_image)
+                                    .into(profilePhoto)
+                            }
+                        }
+                        editTextPetName.setText(pet.petName)
+                        editTextPetWeight.setText(pet.petWeight)
+                        petAgeCombo.setText(pet.petAge)
+                        selectTypeArray(pet.petSpecies)
+                        petTypeCombo.setText(pet.petBreed)
+                        if (pet.petVaccinate) {
+                            selectVaccine(
+                                buttonPetVaccine,
+                                buttonPetUnVaccine,
+                                vaccineImage,
+                                unVaccineImage
+                            )
+                        } else {
+                            selectVaccine(
+                                buttonPetUnVaccine,
+                                buttonPetVaccine,
+                                unVaccineImage,
+                                vaccineImage
+                            )
+                        }
+                        editTextAbout.setText(pet.petAbout)
+                        petVaccine = pet.petVaccinate
                     }
-                    editTextPetName.setText(pet.petName)
-                    editTextPetWeight.setText(pet.petWeight)
-                    petAgeCombo.setText(pet.petAge)
-                    selectTypeArray(pet.petSpecies)
-                    petTypeCombo.setText(pet.petBreed)
-                    if (pet.petVaccinate) {
-                        selectVaccine(
-                            buttonPetVaccine,
-                            buttonPetUnVaccine,
-                            vaccineImage,
-                            unVaccineImage
-                        )
-                    } else {
-                        selectVaccine(
-                            buttonPetUnVaccine,
-                            buttonPetVaccine,
-                            unVaccineImage,
-                            vaccineImage
-                        )
-                    }
-                    editTextAbout.setText(pet.petAbout)
-                    petVaccine = pet.petVaccinate
+                }catch (e: Exception){
+                    finish()
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -173,12 +177,12 @@ class EditPetActivity : AppCompatActivity() {
             hashMap["petAdoptionStatus"] = false
             hashMap["petBreed"] = petTypeCombo.text.toString()
             hashMap["petVaccinate"] = petVaccine!!
+            hashMap["petId"]=pet.petId
 
             databaseReference.updateChildren(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     showToast("Değişiklikler kaydedildi...")
-                    statusRegister=true
-                    onBackPressed()
+                    finish()
                 } else {
                     showToast("Hatalı işlem!")
                 }
@@ -191,28 +195,16 @@ class EditPetActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        if (!statusRegister){
-            showMaterialDialog()
-
-        }
-        else{
-            super.onBackPressed()
-        }
-    }
-
     private fun showMaterialDialog() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Emin Misiniz?")
-            .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
+            .setMessage("Eğer geri dönerseniz değişiklikler silinecektir.")
             .setBackground(ContextCompat.getDrawable(this, R.drawable.background_dialog))
             .setPositiveButton("Sil") { _, _ ->
-                showToast("Kaydınız iptal edildi.")
-                val intent = Intent(applicationContext, HomeActivity::class.java)
-                startActivity(intent)
+                showToast("Değişiklikler silindi.")
+                finish()
             }
             .setNegativeButton("İptal") { _, _ ->
-                showToast("İptal Edildi")
             }
             .setOnCancelListener {
             }
