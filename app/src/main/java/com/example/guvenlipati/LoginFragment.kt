@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
@@ -36,16 +37,16 @@ class LoginFragment : Fragment() {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
 
+        auth = FirebaseAuth.getInstance()
+
         val loginButton = view.findViewById<Button>(R.id.loginButton)
         val progressCard = view.findViewById<CardView>(R.id.progressCard)
         val buttonPaw = view.findViewById<ImageView>(R.id.buttonPaw)
+        val userEmail = view.findViewById<EditText>(R.id.editTextEmail)
+        val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
+
 
         loginButton.setOnClickListener {
-
-            auth = FirebaseAuth.getInstance()
-
-            val userEmail = view.findViewById<EditText>(R.id.editTextEmail)
-            val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
 
             if (userEmail.text.toString().isEmpty() || userPassword.text.toString().isEmpty()) {
                 showToast("Hiçbir alan boş bırakılamaz!")
@@ -95,6 +96,23 @@ class LoginFragment : Fragment() {
 
         view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
             (activity as MainActivity).goSplashFragment()
+        }
+
+        view.findViewById<TextView>(R.id.textView).setOnClickListener {
+
+            if (userEmail.text.toString().isEmpty()) {
+                showToast("Lütfen email adresinizi giriniz!")
+                return@setOnClickListener
+            }
+
+            auth.sendPasswordResetEmail(userEmail.text.toString())
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        showToast("Lütfen email kutunuzu kontrol ediniz!")
+                    } else {
+                        showToast("Başarısız!")
+                    }
+                }
         }
 
 
