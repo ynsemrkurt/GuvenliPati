@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
@@ -130,7 +131,7 @@ class ProfileFragment : Fragment() {
                         userSurname.setText(user?.userSurname)
                         provinceCombo.setText(user?.userProvince)
                         townCombo.setText(user?.userTown)
-                        loadingCardView.visibility=View.INVISIBLE
+                        loadingCardView.visibility=View.GONE
                         linearLayout.foreground=null
                     }
                 }
@@ -173,6 +174,12 @@ class ProfileFragment : Fragment() {
             buttonChange.visibility=View.INVISIBLE
             petRecyclerView.visibility=View.INVISIBLE
             friendsText.visibility=View.INVISIBLE
+
+            val provinceAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.city_array, android.R.layout.simple_dropdown_item_1line)
+            provinceCombo.setAdapter(provinceAdapter)
+
+            val townAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.town_array, android.R.layout.simple_dropdown_item_1line)
+            townCombo.setAdapter(townAdapter)
         }
 
         buttonSave.setOnClickListener {

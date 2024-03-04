@@ -148,6 +148,27 @@ class EditPetActivity : AppCompatActivity() {
                         }
                         editTextAbout.setText(pet.petAbout)
                         petVaccine = pet.petVaccinate
+
+                        when (pet.petSpecies) {
+                            "dog" -> {
+                                val adapter = ArrayAdapter.createFromResource(this@EditPetActivity, R.array.dog_types_array, android.R.layout.simple_dropdown_item_1line)
+                                petTypeCombo.setAdapter(adapter)
+                            }
+
+                            "cat" -> {
+                                val adapter = ArrayAdapter.createFromResource(this@EditPetActivity, R.array.cat_types_array, android.R.layout.simple_dropdown_item_1line)
+                                petTypeCombo.setAdapter(adapter)
+                            }
+
+                            "bird" -> {
+                                val adapter = ArrayAdapter.createFromResource(this@EditPetActivity, R.array.bird_types_array, android.R.layout.simple_dropdown_item_1line)
+                                petTypeCombo.setAdapter(adapter)
+                            }
+
+                            else -> {
+                                finish()
+                            }
+                        }
                     }
                 }catch (e: Exception){
                     finish()
