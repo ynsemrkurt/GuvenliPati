@@ -229,6 +229,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
+                android:popupBackground="@color/white"
                 android:id="@+id/provinceCombo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -254,6 +255,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <AutoCompleteTextView
+                android:popupBackground="@color/white"
                 android:id="@+id/townCombo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

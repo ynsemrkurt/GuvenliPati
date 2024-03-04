@@ -206,6 +206,7 @@
                         app:layout_constraintVertical_bias="0.5">
 
                         <AutoCompleteTextView
+                            android:popupBackground="@color/white"
                             android:paddingBottom="20dp"
                             android:id="@+id/provinceCombo"
                             android:layout_width="match_parent"
@@ -247,6 +248,7 @@
                         app:layout_constraintStart_toStartOf="parent">
 
                         <AutoCompleteTextView
+                            android:popupBackground="@color/white"
                             android:paddingBottom="20dp"
                             android:id="@+id/townCombo"
                             android:layout_width="match_parent"
