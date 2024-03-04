@@ -58,7 +58,9 @@ dependencies {
     //Added Firebase
     implementation(platform(libs.firebase.bom))
     //Glide
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
+    //Lottie
+    implementation (libs.lottie)
 
 
 }

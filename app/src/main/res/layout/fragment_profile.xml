@@ -16,13 +16,15 @@
             android:background="@color/white"
             android:layout_gravity="center">
 
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/black"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="25dp"
+                app:lottie_rawRes="@raw/loading_cat_anim"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,7 +33,7 @@
                 android:fontFamily="@font/alata"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="55dp"/>
 
         </androidx.cardview.widget.CardView>
 
