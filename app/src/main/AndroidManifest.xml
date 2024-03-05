@@ -13,6 +13,9 @@
         android:theme="@style/Theme.GuvenliPati"
         tools:targetApi="31">
         <activity
+            android:name=".PetBackerActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditPetActivity"
             android:exported="false" />
         <activity
