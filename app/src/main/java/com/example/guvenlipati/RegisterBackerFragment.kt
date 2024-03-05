@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -38,18 +42,18 @@ class RegisterBackerFragment : Fragment() {
         val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
         val checkBox2 = view.findViewById<CheckBox>(R.id.checkBox2)
         val checkBox3 = view.findViewById<CheckBox>(R.id.checkBox3)
-        val ConfirmBackerButton = view.findViewById<Button>(R.id.ConfirmBackerButton)
+        val confirmBackerButton = view.findViewById<Button>(R.id.ConfirmBackerButton)
         val progressCard = view.findViewById<View>(R.id.progressCard)
         val buttonPaws = view.findViewById<ImageView>(R.id.buttonPaw2)
 
             auth = FirebaseAuth.getInstance()
             val backerAge = editTextAge.text.toString().toIntOrNull()
 
-        ConfirmBackerButton.setOnClickListener {
+        confirmBackerButton.setOnClickListener {
             if (auth.currentUser != null) {
                 progressCard.visibility = View.VISIBLE
                 buttonPaws.visibility = View.INVISIBLE
-                ConfirmBackerButton.visibility = View.INVISIBLE
+                confirmBackerButton.visibility = View.INVISIBLE
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("identifies").child(firebaseUser.uid)
 
@@ -91,7 +95,7 @@ class RegisterBackerFragment : Fragment() {
                     }
                     progressCard.visibility = View.INVISIBLE
                     buttonPaws.visibility = View.VISIBLE
-                    ConfirmBackerButton.visibility = View.VISIBLE
+                    confirmBackerButton.visibility = View.VISIBLE
                 }
             }
         }
