@@ -10,7 +10,10 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -43,7 +46,7 @@ class RegisterBackerFragment : Fragment() {
         val checkBox3 = view.findViewById<CheckBox>(R.id.checkBox3)
         val ConfirmBackerButton = view.findViewById<Button>(R.id.ConfirmBackerButton)
         val progressCard = view.findViewById<View>(R.id.progressCard)
-        val buttonPaws = view.findViewById<ImageButton>(R.id.buttonPaw2)
+        val buttonPaws = view.findViewById<ImageView>(R.id.buttonPaw2)
 
         auth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().getReference("identifies")
@@ -82,4 +85,6 @@ class RegisterBackerFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
+
 }

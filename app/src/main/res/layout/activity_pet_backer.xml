@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/backToSplash"
+                android:id="@+id/backToHome"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="4dp"
@@ -41,10 +41,10 @@
                 android:layout_height="60dp"
                 android:contentDescription="@string/logo"
                 android:src="@drawable/logo_transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/backToHome"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.386"
-                app:layout_constraintStart_toEndOf="@+id/backToSplash"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/backToHome" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView2"
