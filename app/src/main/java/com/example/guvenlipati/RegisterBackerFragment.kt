@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -30,28 +28,28 @@ class RegisterBackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firebaseUser = FirebaseAuth.getInstance().currentUser!!
-
         val editTextFullName = view.findViewById<EditText>(R.id.editTextFullName)
         val editTextID = view.findViewById<EditText>(R.id.editTextID)
+        val editTextAge = view.findViewById<EditText>(R.id.editTextAge)
         val editTextAdress = view.findViewById<EditText>(R.id.editTextAdress)
         val editTextExperience = view.findViewById<EditText>(R.id.editTextExperience)
-        val editTextAge = view.findViewById<EditText>(R.id.editTextAge)
         val editTextPetNumber = view.findViewById<EditText>(R.id.editTextPetNumber)
         val editTextBackerAbout = view.findViewById<EditText>(R.id.editTextBackerAbout)
         val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
         val checkBox2 = view.findViewById<CheckBox>(R.id.checkBox2)
         val checkBox3 = view.findViewById<CheckBox>(R.id.checkBox3)
-        val confirmBackerButton = view.findViewById<Button>(R.id.ConfirmBackerButton)
-
-
-
-
-        confirmBackerButton.setOnClickListener {
+        val ConfirmBackerButton = view.findViewById<Button>(R.id.ConfirmBackerButton)
+        val progressCard = view.findViewById<View>(R.id.progressCard)
+        val buttonPaws = view.findViewById<ImageView>(R.id.buttonPaw2)
 
             auth = FirebaseAuth.getInstance()
             val backerAge = editTextAge.text.toString().toIntOrNull()
 
+        ConfirmBackerButton.setOnClickListener {
+            if (auth.currentUser != null) {
+                progressCard.visibility = View.VISIBLE
+                buttonPaws.visibility = View.INVISIBLE
+                ConfirmBackerButton.visibility = View.INVISIBLE
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("identifies").child(firebaseUser.uid)
 
@@ -84,15 +82,18 @@ class RegisterBackerFragment : Fragment() {
             hashMap["petNumber"] = editTextPetNumber.text.toString()
             hashMap["about"] = editTextBackerAbout.text.toString()
 
-            databaseReference.setValue(hashMap).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    (activity as HomeActivity).goHomeFragment()
-                    showToast("Kayıt Oluşturuldu")
-                } else {
-                    showToast("Hatalı işlem!")
+                databaseReference.setValue(hashMap).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        showToast("Hatalı işlem!")
+                    }
+                    progressCard.visibility = View.INVISIBLE
+                    buttonPaws.visibility = View.VISIBLE
+                    ConfirmBackerButton.visibility = View.VISIBLE
                 }
             }
-
         }
 
 
