@@ -32,6 +32,7 @@ class RegisterBackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val editTextFullName = view.findViewById<EditText>(R.id.editTextFullName)
         val editTextID = view.findViewById<EditText>(R.id.editTextID)
         val editTextAge = view.findViewById<EditText>(R.id.editTextAge)
@@ -46,50 +47,57 @@ class RegisterBackerFragment : Fragment() {
         val progressCard = view.findViewById<View>(R.id.progressCard)
         val buttonPaws = view.findViewById<ImageView>(R.id.buttonPaw2)
 
-            auth = FirebaseAuth.getInstance()
-            val backerAge = editTextAge.text.toString().toIntOrNull()
+        auth = FirebaseAuth.getInstance()
+        firebaseUser = auth.currentUser!!
+
 
         confirmBackerButton.setOnClickListener {
+            val backerAge = editTextAge.text.toString().toIntOrNull()
+
             if (auth.currentUser != null) {
+                databaseReference =
+                    FirebaseDatabase.getInstance().getReference("identifies")
+                        .child(firebaseUser.uid)
+
+                if (editTextFullName.text.isEmpty() || editTextAdress.text.isEmpty() || editTextExperience.text.isEmpty() || editTextBackerAbout.text.isEmpty() || editTextPetNumber.text.isEmpty()) {
+                    showToast("Lütfen boş alan bırakmayınız!")
+                    return@setOnClickListener
+                }
+                if (!isTCKNCorrect(editTextID.text.toString())) {
+                    showToast("TC kimlik numaranızı doğru giriniz!")
+                    return@setOnClickListener
+                }
+                if (backerAge != null) {
+                    if (backerAge < 18 || backerAge > 80 || editTextAge.text.toString().isEmpty()) {
+                        showToast("Yaşınız 18'in altında veya 80'in üstünde olamaz!")
+                        return@setOnClickListener
+                    }
+                }
+                if (!checkBox.isChecked || !checkBox2.isChecked || !checkBox3.isChecked) {
+                    showToast("Sözleşmeleri kabul etmeniz gerekmektedir!")
+                    return@setOnClickListener
+                }
+
+
                 progressCard.visibility = View.VISIBLE
                 buttonPaws.visibility = View.INVISIBLE
                 confirmBackerButton.visibility = View.INVISIBLE
-            databaseReference =
-                FirebaseDatabase.getInstance().getReference("identifies").child(firebaseUser.uid)
 
-            if (editTextFullName.text.isEmpty() || editTextAdress.text.isEmpty() || editTextExperience.text.isEmpty() || editTextBackerAbout.text.isEmpty() || editTextPetNumber.text.isEmpty()) {
-                showToast("Lütfen boş alan bırakmayınız!")
-                return@setOnClickListener
-            }
-            if (!isTCKNCorrect(editTextID.text.toString())) {
-                showToast("TC kimlik numaranızı doğru giriniz!")
-                return@setOnClickListener
-            }
-            if (backerAge != null) {
-                if (backerAge < 18 || backerAge > 80 || editTextAge.text.toString().isEmpty()) {
-                    showToast("Yaşınız 18'in altında veya 80'in üstünde olamaz!")
-                    return@setOnClickListener
-                }
-            }
-            if (!checkBox.isChecked || !checkBox2.isChecked || !checkBox3.isChecked) {
-                showToast("Sözleşmeleri kabul etmeniz gerekmektedir!")
-                return@setOnClickListener
-            }
-
-            val hashMap: HashMap<String, Any> = HashMap()
-            hashMap["userID"] = auth.currentUser!!.uid
-            hashMap["fullName"] = editTextFullName.text.toString()
-            hashMap["TC"] = editTextID.text.toString()
-            hashMap["age"] = editTextAge.text.toString()
-            hashMap["adress"] = editTextAdress.text.toString()
-            hashMap["experience"] = editTextExperience.text.toString()
-            hashMap["petNumber"] = editTextPetNumber.text.toString()
-            hashMap["about"] = editTextBackerAbout.text.toString()
+                val hashMap: HashMap<String, Any> = HashMap()
+                hashMap["userID"] = auth.currentUser!!.uid
+                hashMap["fullName"] = editTextFullName.text.toString()
+                hashMap["TC"] = editTextID.text.toString()
+                hashMap["age"] = editTextAge.text.toString()
+                hashMap["adress"] = editTextAdress.text.toString()
+                hashMap["experience"] = editTextExperience.text.toString()
+                hashMap["petNumber"] = editTextPetNumber.text.toString()
+                hashMap["about"] = editTextBackerAbout.text.toString()
 
                 databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        val intent = Intent(requireContext(), HomeActivity::class.java)
                         startActivity(intent)
+                        showToast("Bakıcı Kaydı Başarılı!")
                     } else {
                         showToast("Hatalı işlem!")
                     }
