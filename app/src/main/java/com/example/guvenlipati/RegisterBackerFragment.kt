@@ -21,6 +21,7 @@ class RegisterBackerFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReference2: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +50,19 @@ class RegisterBackerFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
+        databaseReference =
+            FirebaseDatabase.getInstance().getReference("identifies")
+                .child(firebaseUser.uid)
+        databaseReference2 =
+            FirebaseDatabase.getInstance().getReference("users")
+                .child(firebaseUser.uid)
 
 
         confirmBackerButton.setOnClickListener {
             val backerAge = editTextAge.text.toString().toIntOrNull()
 
             if (auth.currentUser != null) {
-                databaseReference =
-                    FirebaseDatabase.getInstance().getReference("identifies")
-                        .child(firebaseUser.uid)
+
 
                 if (editTextFullName.text.isEmpty() || editTextAdress.text.isEmpty() || editTextExperience.text.isEmpty() || editTextBackerAbout.text.isEmpty() || editTextPetNumber.text.isEmpty()) {
                     showToast("Lütfen boş alan bırakmayınız!")
@@ -93,6 +98,8 @@ class RegisterBackerFragment : Fragment() {
                 hashMap["petNumber"] = editTextPetNumber.text.toString()
                 hashMap["about"] = editTextBackerAbout.text.toString()
 
+                databaseReference2.child("userBacker").setValue(true)
+
                 databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val intent = Intent(requireContext(), HomeActivity::class.java)
@@ -107,8 +114,6 @@ class RegisterBackerFragment : Fragment() {
                 }
             }
         }
-
-
     }
 
     private fun showToast(message: String) {

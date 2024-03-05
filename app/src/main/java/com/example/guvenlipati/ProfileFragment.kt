@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import androidx.exifinterface.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -23,6 +22,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -206,6 +206,7 @@ class ProfileFragment : Fragment() {
             hashMap["userSurname"] = userSurname.text.toString()
             hashMap["userGender"] = user!!.userGender
             hashMap["userProvince"] = provinceCombo.text.toString()
+            hashMap["userBacker"] = user!!.userBacker
             hashMap["userTown"] = townCombo.text.toString()
             hashMap["userRegisterDate"] = user!!.userRegisterDate
 
