@@ -3,7 +3,6 @@ package com.example.guvenlipati
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Matrix
-import androidx.exifinterface.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
@@ -149,6 +149,7 @@ class SecondSignUpFragment : Fragment() {
             hashMap["userGender"] = userGender!!
             hashMap["userProvince"] = userProvince
             hashMap["userTown"] = userTown
+            hashMap["userBacker"] = false
             hashMap["userRegisterDate"] = "$currentDay/$currentMonth/$currentYear"
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->

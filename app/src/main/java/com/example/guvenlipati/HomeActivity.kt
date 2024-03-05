@@ -73,7 +73,8 @@ class HomeActivity : AppCompatActivity() {
         animation()
     }
 
-    private fun goHomeFragment() {
+
+    fun goHomeFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, HomeFragment()
