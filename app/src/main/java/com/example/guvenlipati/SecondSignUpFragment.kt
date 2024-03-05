@@ -174,6 +174,7 @@ class SecondSignUpFragment : Fragment() {
         view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
             showMaterialDialog()
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             showMaterialDialog()
         }

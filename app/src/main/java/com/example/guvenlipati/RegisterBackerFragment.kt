@@ -102,8 +102,7 @@ class RegisterBackerFragment : Fragment() {
 
                 databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val intent = Intent(requireContext(), HomeActivity::class.java)
-                        startActivity(intent)
+                        (activity as PetBackerActivity).goBackerPreferenceFragment()
                         showToast("Bakıcı Kaydı Başarılı!")
                     } else {
                         showToast("Hatalı işlem!")

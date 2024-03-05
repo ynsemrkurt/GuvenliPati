@@ -34,6 +34,13 @@ class PetBackerActivity : AppCompatActivity() {
         animation()
     }
 
+    fun goBackerPreferenceFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView2, BackerPreferenceFragment())
+            .commit()
+        animation()
+    }
+
     private fun animation() {
         val fragmentContainerView: FragmentContainerView = findViewById(R.id.fragmentContainerView2)
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
