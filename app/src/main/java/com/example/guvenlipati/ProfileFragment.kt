@@ -199,18 +199,11 @@ class ProfileFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val hashMap: HashMap<String, Any> = HashMap()
-            hashMap["userId"] = firebaseUser.uid
-            hashMap["userPhoto"] = user!!.userPhoto
-            hashMap["userName"] = userNameEdit.text.toString()
-            hashMap["userSurname"] = userSurname.text.toString()
-            hashMap["userGender"] = user!!.userGender
-            hashMap["userProvince"] = provinceCombo.text.toString()
-            hashMap["userBacker"] = user!!.userBacker
-            hashMap["userTown"] = townCombo.text.toString()
-            hashMap["userRegisterDate"] = user!!.userRegisterDate
-
-            databaseReference.setValue(hashMap).addOnCompleteListener { task ->
+            databaseReference.child("userName").setValue(userNameEdit.text.toString())
+            databaseReference.child("userSurname").setValue(userSurname.text.toString())
+            databaseReference.child("userProvince").setValue(provinceCombo.text.toString())
+            databaseReference.child("userPhoto").setValue(user?.userPhoto)
+            databaseReference.child("userTown").setValue(townCombo.text.toString()).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     showToast("Başarılı")
                 } else {

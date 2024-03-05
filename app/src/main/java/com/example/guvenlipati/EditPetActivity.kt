@@ -186,21 +186,13 @@ class EditPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val hashMap: HashMap<String, Any> = HashMap()
-            hashMap["userId"] = firebaseUser.uid
-            hashMap["petPhoto"] = pet.petPhoto
-            hashMap["petName"] = editTextPetName.text.toString()
-            hashMap["petWeight"] = editTextPetWeight.text.toString()
-            hashMap["petSpecies"] = pet.petSpecies
-            hashMap["petAbout"] = editTextAbout.text.toString()
-            hashMap["petGender"] = pet.petGender
-            hashMap["petAge"] = petAgeCombo.text.toString()
-            hashMap["petAdoptionStatus"] = false
-            hashMap["petBreed"] = petTypeCombo.text.toString()
-            hashMap["petVaccinate"] = petVaccine!!
-            hashMap["petId"]=pet.petId
-
-            databaseReference.updateChildren(hashMap).addOnCompleteListener { task ->
+            databaseReference.child("petPhoto").setValue(pet.petPhoto)
+            databaseReference.child("petName").setValue(editTextPetName.text.toString())
+            databaseReference.child("petWeight").setValue(editTextPetWeight.text.toString())
+            databaseReference.child("petAbout").setValue(editTextAbout.text.toString())
+            databaseReference.child("petAge").setValue(petAgeCombo.text.toString())
+            databaseReference.child("petBreed").setValue(petTypeCombo.text.toString())
+            databaseReference.child("petVaccinate").setValue(petVaccine).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     showToast("Değişiklikler kaydedildi...")
                     finish()
