@@ -5,55 +5,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterBackerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegisterBackerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register_backer, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterBackerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterBackerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val editTextFullName= view.findViewById<EditText>(R.id.editTextFullName)
+        val editTextID= view.findViewById<EditText>(R.id.editTextID)
+        val editTextAge= view.findViewById<EditText>(R.id.editTextAge)
+        val editTextAdress= view.findViewById<EditText>(R.id.editTextAdress)
+        val editTextExperience= view.findViewById<EditText>(R.id.editTextExperience)
+        val editTextPetNumber=view.findViewById<EditText>(R.id.editTextPetNumber)
+        val editTextBackerAbout=view.findViewById<EditText>(R.id.editTextBackerAbout)
+        val checkBox=view.findViewById<CheckBox>(R.id.checkBox)
+        val checkBox2=view.findViewById<CheckBox>(R.id.checkBox2)
+        val checkBox3=view.findViewById<CheckBox>(R.id.checkBox3)
+        val ConfirmBackerButton=view.findViewById<Button>(R.id.ConfirmBackerButton)
+
+        auth= FirebaseAuth.getInstance()
+        databaseReference= FirebaseDatabase.getInstance().getReference("identifies")
+
+        ConfirmBackerButton.setOnClickListener{
+            if(auth.currentUser!=null){
+
+                val hashMap: HashMap<String, Any> = HashMap()
+                hashMap["userID"]=auth.currentUser!!.uid
+                hashMap["fullName"]=editTextFullName.text.toString()
+                hashMap["TC"]=editTextID.text.toString()
+                hashMap["age"]=editTextAge.text.toString()
+                hashMap["adress"]=editTextAdress.text.toString()
+                hashMap["experience"]=editTextExperience.text.toString()
+                hashMap["petNumber"]=editTextPetNumber.text.toString()
+                hashMap["about"]=editTextBackerAbout.text.toString()
+
+                databaseReference.setValue(hashMap)
             }
+        }
+
+
     }
 }

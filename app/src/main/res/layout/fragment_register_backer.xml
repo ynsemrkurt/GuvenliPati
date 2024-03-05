@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".RegisterBackerFragment">
 
     <ScrollView
@@ -18,40 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-
-                <ImageButton
-                    android:id="@+id/backToSplash"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:background="@drawable/button_background"
-                    android:backgroundTint="@color/white"
-                    android:contentDescription="@string/back_button"
-                    android:elevation="3dp"
-                    android:src="@drawable/back_ico"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.04"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:contentDescription="@string/logo"
-                    android:src="@drawable/logo_transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -184,7 +149,7 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="Evcil hayvanlarınız.."
+                    android:hint="Dost sayınız.."
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingStart="10dp"
