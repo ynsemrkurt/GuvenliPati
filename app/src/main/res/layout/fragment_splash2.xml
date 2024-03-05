@@ -48,28 +48,6 @@
         android:paddingLeft="90dp"
         android:paddingRight="90dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/progressCard"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:elevation="10dp"
-            android:visibility="invisible"
-            app:cardBackgroundColor="#1E1F22"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-            app:layout_constraintEnd_toEndOf="@+id/nextButton"
-            app:layout_constraintStart_toStartOf="@+id/nextButton"
-            app:layout_constraintTop_toTopOf="@+id/nextButton">
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                app:indicatorColor="@color/white" />
-
-        </com.google.android.material.card.MaterialCardView>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/nextButton"
             style="@android:style/Widget.Button"

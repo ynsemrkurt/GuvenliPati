@@ -149,7 +149,7 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="Evcil hayvanlarınız.."
+                    android:hint="Dost sayınız.."
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingStart="10dp"
