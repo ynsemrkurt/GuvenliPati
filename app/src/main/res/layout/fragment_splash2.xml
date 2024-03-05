@@ -10,54 +10,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
-
-        <ImageButton
-            android:id="@+id/backToSplash"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/button_background"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/back_button"
-            android:elevation="3dp"
-            android:src="@drawable/back_ico"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/logo_transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="523dp">
+        android:layout_height="wrap_content">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
-            android:layout_width="357dp"
-            android:layout_height="328dp"
+            android:layout_width="475dp"
+            android:layout_height="442dp"
             android:layout_gravity="center"
-            android:layout_marginTop="36dp"
-            app:lottie_rawRes="@raw/loading_cat_anim"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/walking_dog_anim" />
 
         <TextView
             android:id="@+id/textView6"
@@ -66,9 +32,11 @@
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/alata"
-            android:text="Güvenli pati,\nevcil hayvanlara sevgi ve özen gösteren\ntutkulu insanları bir araya getiren bir platformdur.\nSiz de bu harika topluluğa katılarak,\nevcil hayvanlar için güvenilir bir bakıcı olabilirsiniz!"
+            android:textColor="#AD000000"
+            android:text="Güvenli pati,\nevcil dostlara sevgi ve özen gösteren\ntutkulu insanları bir araya getiren bir platformdur.\nSiz de bu harika topluluğa katılarak,\nevcil hayvanlar için güvenilir bir bakıcı olabilirsiniz!"
             android:textAlignment="center"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/animationView"
             app:layout_constraintStart_toStartOf="@+id/animationView"
             app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
@@ -76,7 +44,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:paddingLeft="90dp"
         android:paddingRight="90dp">
 
@@ -88,10 +56,10 @@
             android:visibility="invisible"
             app:cardBackgroundColor="#1E1F22"
             app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="@+id/NextButton"
-            app:layout_constraintEnd_toEndOf="@+id/NextButton"
-            app:layout_constraintStart_toStartOf="@+id/NextButton"
-            app:layout_constraintTop_toTopOf="@+id/NextButton">
+            app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+            app:layout_constraintEnd_toEndOf="@+id/nextButton"
+            app:layout_constraintStart_toStartOf="@+id/nextButton"
+            app:layout_constraintTop_toTopOf="@+id/nextButton">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="wrap_content"
@@ -103,7 +71,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/NextButton"
+            android:id="@+id/nextButton"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="65dp"
@@ -116,10 +84,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.533" />
+            app:layout_constraintVertical_bias="0.886" />
 
         <ImageView
             android:id="@+id/buttonPaw2"
@@ -128,9 +96,9 @@
             android:layout_marginEnd="16dp"
             android:elevation="10dp"
             android:src="@drawable/button_paw_ico"
-            app:layout_constraintBottom_toBottomOf="@+id/NextButton"
-            app:layout_constraintEnd_toEndOf="@+id/NextButton"
-            app:layout_constraintTop_toTopOf="@+id/NextButton"
+            app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+            app:layout_constraintEnd_toEndOf="@+id/nextButton"
+            app:layout_constraintTop_toTopOf="@+id/nextButton"
             tools:ignore="UseAppTint" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
