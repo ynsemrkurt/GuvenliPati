@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDate
 
 class RegisterBackerFragment : Fragment() {
 
@@ -33,7 +34,8 @@ class RegisterBackerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val editTextFullName = view.findViewById<EditText>(R.id.editTextFullName)
+        val editTextBackerName = view.findViewById<EditText>(R.id.editTextBackerName)
+        val editTextBackerSurname = view.findViewById<EditText>(R.id.editTextBackerSurname)
         val editTextID = view.findViewById<EditText>(R.id.editTextID)
         val editTextAge = view.findViewById<EditText>(R.id.editTextAge)
         val editTextAdress = view.findViewById<EditText>(R.id.editTextAdress)
@@ -58,12 +60,12 @@ class RegisterBackerFragment : Fragment() {
 
 
         confirmBackerButton.setOnClickListener {
-            val backerAge = editTextAge.text.toString().toIntOrNull()
+            val backerBirthYear = editTextAge.text.toString().toDoubleOrNull()
 
             if (auth.currentUser != null) {
 
 
-                if (editTextFullName.text.isEmpty() || editTextAdress.text.isEmpty() || editTextExperience.text.isEmpty() || editTextBackerAbout.text.isEmpty() || editTextPetNumber.text.isEmpty()) {
+                if (editTextBackerName.text.isEmpty() ||editTextBackerSurname.text.isEmpty() || editTextAdress.text.isEmpty() || editTextExperience.text.isEmpty() || editTextBackerAbout.text.isEmpty() || editTextPetNumber.text.isEmpty()) {
                     showToast("Lütfen boş alan bırakmayınız!")
                     return@setOnClickListener
                 }
@@ -71,9 +73,14 @@ class RegisterBackerFragment : Fragment() {
                     showToast("TC kimlik numaranızı doğru giriniz!")
                     return@setOnClickListener
                 }
-                if (backerAge != null) {
-                    if (backerAge < 18 || backerAge > 80 || editTextAge.text.toString().isEmpty()) {
-                        showToast("Yaşınız 18'in altında veya 80'in üstünde olamaz!")
+                val currentYear = LocalDate.now().year
+                val expInt = editTextExperience.text.toString().toDouble()
+
+                if (backerBirthYear != null) {
+                    val backerAge = (currentYear-backerBirthYear)
+
+                    if (backerBirthYear < currentYear-80 || backerBirthYear > currentYear-18 || editTextAge.text.toString().isEmpty() || expInt>=backerAge ) {
+                        showToast("Doğum yılınızı ve Deneyim Sürenizi doğru giriniz!")
                         return@setOnClickListener
                     }
                 }
@@ -89,9 +96,10 @@ class RegisterBackerFragment : Fragment() {
 
                 val hashMap: HashMap<String, Any> = HashMap()
                 hashMap["userID"] = auth.currentUser!!.uid
-                hashMap["fullName"] = editTextFullName.text.toString()
+                hashMap["legalName"] = editTextBackerName.text.toString()
+                hashMap["legalSurname"] = editTextBackerSurname.text.toString()
                 hashMap["TC"] = editTextID.text.toString()
-                hashMap["age"] = editTextAge.text.toString()
+                hashMap["backerBirthYear"] = editTextAge.text.toString()
                 hashMap["adress"] = editTextAdress.text.toString()
                 hashMap["experience"] = editTextExperience.text.toString()
                 hashMap["petNumber"] = editTextPetNumber.text.toString()
@@ -149,5 +157,6 @@ class RegisterBackerFragment : Fragment() {
         if ((a[0] + a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7] + a[8] + a[9]) % 10 != a[10]) return false
 
         return true
+        //EMRENİN AMINI YARARARARRRIM
     }
 }
