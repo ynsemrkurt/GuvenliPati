@@ -1,10 +1,14 @@
 package com.example.guvenlipati
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -54,8 +58,17 @@ class FirstSignUpFragment : Fragment() {
 
             if (userPassword.text.toString() != userConfirmPassword.text.toString()) {
                 showToast("Şifreler uyuşmuyor!")
-                userPassword.setText("")
-                userConfirmPassword.setText("")
+                userPassword.setTextColor(Color.RED)
+                userConfirmPassword.setTextColor(Color.RED)
+                val shake= AnimationUtils.loadAnimation(requireContext(),R.anim.shake)
+                userPassword.startAnimation(shake)
+                userConfirmPassword.startAnimation(shake)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    userPassword.text.clear()
+                    userConfirmPassword.text.clear()
+                    userPassword.setTextColor(Color.BLACK)
+                    userConfirmPassword.setTextColor(Color.BLACK)
+                }, 500)
                 return@setOnClickListener
             }
 

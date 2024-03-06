@@ -92,12 +92,12 @@
         android:layout_weight="3.60"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingLeft="40dp"
         android:paddingTop="0dp"
-        android:paddingRight="40dp"
         android:paddingBottom="0dp">
 
         <EditText
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -117,6 +117,8 @@
             tools:layout_editor_absoluteX="40dp" />
 
         <EditText
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -136,6 +138,8 @@
             tools:layout_editor_absoluteX="40dp" />
 
         <EditText
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:id="@+id/editTextConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="60dp"
