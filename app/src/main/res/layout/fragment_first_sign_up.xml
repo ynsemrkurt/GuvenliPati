@@ -205,10 +205,10 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/progressCard"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:elevation="10dp"
             android:visibility="invisible"
-            app:cardBackgroundColor="#019EC8"
+            app:cardBackgroundColor="#1E1F22"
             app:cardCornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="@id/signUpButton"
             app:layout_constraintEnd_toEndOf="@id/signUpButton"
