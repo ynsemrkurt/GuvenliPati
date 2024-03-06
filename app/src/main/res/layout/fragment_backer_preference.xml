@@ -22,8 +22,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:paddingTop="10dp">
 
                 <TextView
@@ -33,6 +31,7 @@
                     android:fontFamily="@font/alata"
                     android:text="@string/friendsToCare"
                     android:textSize="17sp"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,9 +41,10 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="110dp"
                     android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
                     android:elevation="5dp"
-                    android:textAlignment="center"
                     android:text="@string/dogs"
+                    android:textAlignment="center"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,14 +86,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:paddingTop="10dp">
 
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/alata"
                     android:text="@string/availability"
                     android:textSize="17sp"
@@ -117,6 +116,7 @@
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="110dp"
                         android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
                         android:elevation="5dp"
                         android:textAlignment="center"
                         android:text="@string/midweek"

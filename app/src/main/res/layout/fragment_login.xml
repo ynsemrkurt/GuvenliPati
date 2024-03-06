@@ -54,18 +54,18 @@
         android:paddingRight="30dp"
         android:background="@color/white">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/sweet_pet"
-            android:src="@drawable/login_background"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="529dp"
+            android:layout_height="389dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.10"
-            tools:ignore="ImageContrastCheck" />
+            app:layout_constraintVertical_bias="0.473"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/login_cat_anim"/>
 
         <TextView
             android:contentDescription="@string/advertisement"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:padding="5dp"
-            android:background="@drawable/textview_background"
+            android:background="@drawable/txtview_background"
             android:text="@string/advertisement_first_signup"
             android:textAlignment="center"
             android:textSize="17sp"
@@ -178,8 +178,7 @@
             android:layout_height="50dp"
             android:layout_marginEnd="16dp"
             android:elevation="10dp"
-            android:src="@drawable/blue_paw_ico"
-            android:tint="#77E2FF"
+            android:src="@drawable/button_paw_ico"
             app:layout_constraintBottom_toBottomOf="@+id/loginButton"
             app:layout_constraintEnd_toEndOf="@+id/loginButton"
             app:layout_constraintTop_toTopOf="@+id/loginButton"
@@ -189,8 +188,8 @@
             android:id="@+id/loginButton"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/button_bg_signup"
+            android:layout_height="65dp"
+            android:background="@drawable/button_background"
             android:elevation="10dp"
             android:paddingStart="0dp"
             android:paddingEnd="13dp"

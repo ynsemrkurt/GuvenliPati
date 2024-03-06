@@ -19,13 +19,13 @@
             android:paddingBottom="20dp"
             android:background="#FFFFFF">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/bottom_sheet_img"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_marginTop="24dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/pet_default_image"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:lottie_rawRes="@raw/bottom_cat_anim"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,14 +41,15 @@
                 app:layout_constraintBottom_toTopOf="@+id/backToMain"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_img" />
+                app:layout_constraintTop_toBottomOf="@+id/animationView"
+                app:layout_constraintVertical_bias="0.25" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/backToMain"
                 style="@android:style/Widget.Button"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="72dp"
+                android:layout_marginTop="48dp"
                 android:background="@drawable/button_bg_signup"
                 android:fontFamily="@font/alata"
                 android:text="@string/backToMain"
@@ -58,7 +59,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_img" />
+                app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
