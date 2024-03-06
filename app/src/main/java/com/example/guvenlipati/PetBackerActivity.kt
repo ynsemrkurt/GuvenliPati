@@ -8,11 +8,25 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentContainerView
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class PetBackerActivity : AppCompatActivity() {
+
+    private lateinit var auth:FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReference2: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        auth = FirebaseAuth.getInstance()
+        databaseReference = FirebaseDatabase.getInstance().getReference("identifies").child(auth.currentUser!!.uid)
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("users").child(auth.currentUser!!.uid)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_backer)
 
@@ -58,6 +72,8 @@ class PetBackerActivity : AppCompatActivity() {
                 )
             )
             .setPositiveButton("Sil") { _, _ ->
+                databaseReference.removeValue()
+                databaseReference2.child("userBacker").setValue(false)
                 showToast("Kaydınız iptal edildi.")
                 finish()
             }
