@@ -61,6 +61,6 @@ dependencies {
     implementation (libs.glide)
     //Lottie
     implementation (libs.lottie)
-
-
+    //OkHttpClient
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
 }

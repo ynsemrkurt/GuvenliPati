@@ -89,6 +89,9 @@ class RegisterBackerFragment : Fragment() {
                     return@setOnClickListener
                 }
 
+                val soapRequestTask = SoapRequestTask()
+                soapRequestTask.execute(editTextBackerName.text.toString(), editTextBackerSurname.text.toString(), editTextID.text.toString(), editTextAge.text.toString())
+
 
                 progressCard.visibility = View.VISIBLE
                 buttonPaws.visibility = View.INVISIBLE
