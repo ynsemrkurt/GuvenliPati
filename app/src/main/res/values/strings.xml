@@ -31,11 +31,11 @@
     <string name="vaccinate">Yapılıyor</string>
     <string name="unVaccinate">Aşısız</string>
     <string name="gender2">Cinsiyet:</string>
-    <string name="petName">Adı...</string>
+    <string name="petName">Adı…</string>
     <string name="vaccinateState">Aşı Durumu:</string>
     <string name="petRegisterButton">Dostunu Kaydet</string>
     <string name="about">About</string>
-    <string name="friendsInfo">Dostun hakkında bilgiler...</string>
+    <string name="friendsInfo">Dostun hakkında bilgiler…</string>
     <string name="kg">KG.</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
@@ -59,7 +59,7 @@
     <string name="province">İl</string>
     <string name="town">İlçe</string>
     <string name="saveInfo">Bilgilerimi Kaydet</string>
-    <string name="tl">TL/...</string>
+    <string name="tl">TL/…</string>
     <string name="tl_hour">TL/Saat</string>
     <string name="todo">TODO</string>
     <string name="zero">0</string>
@@ -78,7 +78,7 @@
     <string name="friendsToCare">İlgilenilecek Dostlar :</string>
     <string name="next">Devam Et</string>
     <string name="info">Güvenli pati,\nevcil dostlara sevgi ve özen gösteren\ntutkulu insanları bir araya getiren bir platformdur.\nSiz de bu harika topluluğa katılarak,\nevcil hayvanlar için güvenilir bir bakıcı olabilirsiniz!</string>
-    <string name="loading">Yükleniyor...</string>
+    <string name="loading">Yükleniyor…</string>
     <string name="edit">D Ü Z E N L E</string>
     <string name="name2">Ad :</string>
     <string name="surname">Soyad :</string>
@@ -96,5 +96,17 @@
     <string name="addFriends">Dost Ekle</string>
     <string name="chat">Sohbetler</string>
     <string name="profile">Profil</string>
+    <string name="realname">Yasal Ad</string>
+    <string name="realSurname">Yasal Soyad</string>
+    <string name="tcId">T.C Kimlik No</string>
+    <string name="adress">Adres Bilgisi</string>
+    <string name="experience">Deneyim Süresi</string>
+    <string name="friendsCount">Dost sayınız</string>
+    <string name="birthdate">Doğum Yılı</string>
+    <string name="skills">İlgi ve Yetenekler</string>
+    <string name="deal">Kullanıcı Sözleşmesini Kabul Ediyorum.</string>
+    <string name="deal2">Hizmet Şartlarını Kabul Ediyorum.</string>
+    <string name="deal3">Güvenlik Politikasını Kabul Ediyorum.</string>
+    <string name="confirm">Onayla</string>
 </resources>
 

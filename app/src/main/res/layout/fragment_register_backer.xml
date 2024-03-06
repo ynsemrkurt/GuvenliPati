@@ -11,7 +11,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,8 +28,8 @@
                 android:paddingRight="20dp">
 
                 <EditText
-                    android:id="@+id/editTextFullName"
-                    android:layout_width="match_parent"
+                    android:id="@+id/editTextBackerName"
+                    android:layout_width="170dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
@@ -36,15 +37,34 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="Adı ve Soyadı..."
+                    android:hint="@string/realname"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextBackerSurname"
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="@string/realSurname"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/editTextBackerName"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -57,13 +77,14 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="T.C Kimlik No"
+                    android:hint="@string/tcId"
                     android:inputType="number"
                     android:maxLines="1"
+                    android:maxLength="11"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextFullName"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextBackerName"
                     tools:layout_editor_absoluteX="21dp" />
 
                 <EditText
@@ -76,9 +97,10 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="Yaşınız..."
+                    android:hint="@string/birthdate"
                     android:inputType="number"
                     android:maxLines="1"
+                    android:maxLength="4"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
@@ -95,7 +117,7 @@
                     android:background="@drawable/edit_text_background"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:hint="Adres Bilgisi..."
+                    android:hint="@string/adress"
                     android:inputType="textMultiLine"
                     android:maxLines="3"
                     android:paddingStart="15dp"
@@ -105,7 +127,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextAge"
                     app:layout_constraintVertical_bias="0.028"
-                    tools:layout_editor_absoluteX="40dp" />
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:ignore="Autofill" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -127,7 +150,7 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="Deneyim Süresi..."
+                    android:hint="@string/experience"
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingStart="10dp"
@@ -149,7 +172,7 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="Dost sayınız.."
+                    android:hint="@string/friendsCount"
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingStart="10dp"
@@ -170,7 +193,7 @@
                     android:background="@drawable/edit_text_background"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:hint="İlgi ve Yetenekler..."
+                    android:hint="@string/skills"
                     android:inputType="textMultiLine"
                     android:maxLines="3"
                     android:paddingStart="15dp"
@@ -182,7 +205,8 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextExperience"
-                    app:layout_constraintVertical_bias="0.193" />
+                    app:layout_constraintVertical_bias="0.193"
+                    tools:ignore="Autofill" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -198,7 +222,7 @@
                     android:id="@+id/checkBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kullanıcı Sözleşmesini Kabul Ediyorum."
+                    android:text="@string/deal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -208,7 +232,7 @@
                     android:id="@+id/checkBox2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hizmet Şartlarını Kabul Ediyorum."
+                    android:text="@string/deal2"
                     app:layout_constraintBottom_toTopOf="@+id/checkBox3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -219,7 +243,7 @@
                     android:id="@+id/checkBox3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Güvenlik Politikasını Kabul Ediyorum."
+                    android:text="@string/deal3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -263,8 +287,8 @@
                     android:layout_height="65dp"
                     android:background="@drawable/button_background"
                     android:fontFamily="@font/alata"
-                    android:paddingRight="35dp"
-                    android:text="Onayla"
+                    android:paddingEnd="35dp"
+                    android:text="@string/confirm"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -273,7 +297,8 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.533" />
+                    app:layout_constraintVertical_bias="0.533"
+                    tools:ignore="RtlSymmetry" />
 
                 <ImageView
                     android:id="@+id/buttonPaw2"
@@ -285,7 +310,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/ConfirmBackerButton"
                     app:layout_constraintEnd_toEndOf="@+id/ConfirmBackerButton"
                     app:layout_constraintTop_toTopOf="@+id/ConfirmBackerButton"
-                    tools:ignore="UseAppTint" />
+                    tools:ignore="ContentDescription,UseAppTint" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
