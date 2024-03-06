@@ -467,7 +467,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/petRegisterButton"
                     app:layout_constraintEnd_toEndOf="@+id/petRegisterButton"
                     app:layout_constraintTop_toTopOf="@+id/petRegisterButton"
-                    tools:ignore="UseAppTint" />
+                    tools:ignore="ContentDescription,UseAppTint" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/petRegisterButton"
@@ -476,7 +476,7 @@
                     android:layout_height="65dp"
                     android:background="@drawable/button_background"
                     android:fontFamily="@font/alata"
-                    android:paddingRight="50dp"
+                    android:paddingEnd="50dp"
                     android:text="@string/petRegisterButton"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -486,7 +486,8 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.533" />
+                    app:layout_constraintVertical_bias="0.533"
+                    tools:ignore="RtlSymmetry" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,30 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="10"
     android:background="@color/white"
     tools:context=".SplashFragment2">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="8.8">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="475dp"
             android:layout_height="442dp"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
@@ -41,20 +35,24 @@
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/alata"
-            android:textColor="#AD000000"
-            android:text="Güvenli pati,\nevcil dostlara sevgi ve özen gösteren\ntutkulu insanları bir araya getiren bir platformdur.\nSiz de bu harika topluluğa katılarak,\nevcil hayvanlar için güvenilir bir bakıcı olabilirsiniz!"
+            android:text="@string/info"
             android:textAlignment="center"
+            android:textColor="#AD000000"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/animationView"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="@+id/animationView"
-            app:layout_constraintTop_toBottomOf="@+id/animationView" />
+            app:layout_constraintTop_toBottomOf="@+id/animationView"
+            app:layout_constraintVertical_bias="0.542" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
         android:paddingLeft="90dp"
         android:paddingRight="90dp">
 
@@ -63,19 +61,22 @@
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/button_background"
             android:fontFamily="@font/alata"
-            android:paddingRight="40dp"
-            android:text="Devam Et"
+            android:paddingEnd="40dp"
+            android:text="@string/next"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.886" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="RtlSymmetry" />
 
         <ImageView
             android:id="@+id/buttonPaw2"
@@ -87,11 +88,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/nextButton"
             app:layout_constraintEnd_toEndOf="@+id/nextButton"
             app:layout_constraintTop_toTopOf="@+id/nextButton"
-            tools:ignore="UseAppTint" />
+            tools:ignore="ContentDescription,UseAppTint" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

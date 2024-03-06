@@ -17,11 +17,11 @@
 
     <item
         android:id="@+id/settings"
-        android:title="AYARLAR"
+        android:title="@string/settings"
         android:icon="@drawable/settings_ico" />
 
     <item
         android:id="@+id/logout"
-        android:title="ÇIKIŞ YAP"
+        android:title="@string/logout"
         android:icon="@drawable/logout_ico" />
 </menu>

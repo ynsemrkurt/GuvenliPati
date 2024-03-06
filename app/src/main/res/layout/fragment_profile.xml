@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yükleniyor..."
+                android:text="@string/loading"
                 android:fontFamily="@font/alata"
                 android:textStyle="bold"
                 android:layout_gravity="center"
@@ -46,7 +46,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,11 +70,12 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="-20dp"
                         android:background="#00FFFFFF"
-                        android:text="D Ü Z E N L E"
+                        android:text="@string/edit"
                         android:textColor="@color/orange"
                         android:textSize="10sp"
                         app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
-                        app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto" />
+                        app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto"
+                        tools:ignore="SmallSp" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/circleImageProfilePhoto"
@@ -125,7 +127,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginBottom="4dp"
                         android:fontFamily="@font/alata"
-                        android:text="Ad :"
+                        android:text="@string/name2"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/editTextUserName"
                         app:layout_constraintStart_toStartOf="@+id/editTextUserName" />
@@ -147,7 +149,8 @@
                         android:textSize="17sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="LabelFor" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -156,7 +159,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginBottom="4dp"
                         android:fontFamily="@font/alata"
-                        android:text="Soyad :"
+                        android:text="@string/surname"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/editTextUserSurname"
                         app:layout_constraintStart_toStartOf="@+id/editTextUserSurname" />
@@ -178,13 +181,14 @@
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+                        app:layout_constraintTop_toBottomOf="@+id/editTextUserName"
+                        tools:ignore="LabelFor" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:text="İl :"
+                        android:text="@string/province"
                         android:fontFamily="@font/alata"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
@@ -218,7 +222,8 @@
                             app:simpleItemSelectedColor="#FFFFFF"
                             android:textColor="@color/black"
                             android:textSize="17sp"
-                            app:simpleItems="@array/city_array"/>
+                            app:simpleItems="@array/city_array"
+                            tools:ignore="LabelFor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -226,7 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:text="İlçe :"
+                        android:text="@string/town"
                         android:fontFamily="@font/alata"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
@@ -260,7 +265,8 @@
                             app:simpleItemSelectedColor="#FFFFFF"
                             app:simpleItems="@array/town_array"
                             android:textColor="@color/black"
-                            android:textSize="17sp"/>
+                            android:textSize="17sp"
+                            tools:ignore="LabelFor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -276,7 +282,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/alata"
-                        android:text="D O S T L A R"
+                        android:text="@string/friends"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/petRecycleView"
@@ -302,7 +308,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="#00FFFFFF"
-                        android:text="K A Y D E T"
+                        android:text="@string/save"
                         android:textColor="@color/orange"
                         android:textSize="16sp"
                         android:visibility="invisible"

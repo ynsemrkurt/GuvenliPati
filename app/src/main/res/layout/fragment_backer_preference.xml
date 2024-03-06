@@ -11,11 +11,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alata"
-                    android:text="İlgilenilecek Dostlar :"
+                    android:text="@string/friendsToCare"
                     android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +44,7 @@
                     android:layout_height="60dp"
                     android:elevation="5dp"
                     android:textAlignment="center"
-                    android:text="Köpekler"
+                    android:text="@string/dogs"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +60,7 @@
                     android:layout_marginBottom="12dp"
                     android:elevation="5dp"
                     android:textAlignment="center"
-                    android:text="Kediler"
+                    android:text="@string/cats"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/dogs" />
@@ -73,7 +74,7 @@
                     android:layout_marginBottom="12dp"
                     android:elevation="5dp"
                     android:textAlignment="center"
-                    android:text="Kuşlar"
+                    android:text="@string/birds"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alata"
-                    android:text="Müsaitlik Durumu :"
+                    android:text="@string/availability"
                     android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -118,7 +119,7 @@
                         android:layout_height="60dp"
                         android:elevation="5dp"
                         android:textAlignment="center"
-                        android:text="Hafta İçi"
+                        android:text="@string/midweek"
                         app:chipBackgroundColor="@color/white" />
 
                     <com.google.android.material.chip.Chip
@@ -128,7 +129,7 @@
                         android:layout_height="60dp"
                         android:elevation="5dp"
                         android:textAlignment="center"
-                        android:text="Hafta Sonu"
+                        android:text="@string/weekend"
                         app:chipBackgroundColor="@color/white" />
 
                     <com.google.android.material.chip.Chip
@@ -138,7 +139,7 @@
                         android:layout_height="60dp"
                         android:elevation="5dp"
                         android:textAlignment="center"
-                        android:text="Tüm Günler"
+                        android:text="@string/alldays"
                         app:chipBackgroundColor="@color/white" />
 
                 </com.google.android.material.chip.ChipGroup>
@@ -150,7 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/alata"
-                android:text="İş Durumu :"
+                android:text="@string/jobs"
                 android:textSize="17sp"
                 android:layout_marginStart="12dp"/>
 
@@ -166,7 +167,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:elevation="5dp"
-                    android:text="Evde Bakma"
+                    android:text="@string/sitting"
                     android:textAlignment="center"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
@@ -184,20 +185,21 @@
                     android:fontFamily="@font/alata"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:text="0"
+                    android:text="@string/zero"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
                     android:enabled="false"
                     app:layout_constraintStart_toEndOf="@+id/job1"
-                    app:layout_constraintTop_toTopOf="@+id/job1" />
+                    app:layout_constraintTop_toTopOf="@+id/job1"
+                    tools:ignore="Autofill,LabelFor" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/alata"
-                    android:text="TL/Gün"
+                    android:text="@string/tl_day"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextBoarding"
                     app:layout_constraintStart_toEndOf="@+id/editTextBoarding"
@@ -217,7 +219,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:elevation="5dp"
-                    android:text="Besleme"
+                    android:text="@string/feed"
                     android:textAlignment="center"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
@@ -230,7 +232,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="6dp"
-                    android:text="0"
+                    android:text="@string/zero"
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
@@ -241,14 +243,15 @@
                     android:textSize="17sp"
                     android:enabled="false"
                     app:layout_constraintStart_toEndOf="@+id/job2"
-                    app:layout_constraintTop_toTopOf="@+id/job2" />
+                    app:layout_constraintTop_toTopOf="@+id/job2"
+                    tools:ignore="Autofill,LabelFor" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/alata"
-                    android:text="TL/Gün"
+                    android:text="@string/tl_day"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextBoarding2"
                     app:layout_constraintStart_toEndOf="@+id/editTextBoarding2"
@@ -268,7 +271,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:elevation="5dp"
-                    android:text="Gezdirme"
+                    android:text="@string/walking"
                     android:textAlignment="center"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
@@ -284,7 +287,7 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:text="0"
+                    android:text="@string/zero"
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingStart="15dp"
@@ -292,14 +295,15 @@
                     android:textSize="17sp"
                     android:enabled="false"
                     app:layout_constraintStart_toEndOf="@+id/job3"
-                    app:layout_constraintTop_toTopOf="@+id/job3" />
+                    app:layout_constraintTop_toTopOf="@+id/job3"
+                    tools:ignore="Autofill,LabelFor" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/alata"
-                    android:text="TL/Saat"
+                    android:text="@string/tl_hour"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextBoarding3"
                     app:layout_constraintStart_toEndOf="@+id/editTextBoarding3"
@@ -319,7 +323,6 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:elevation="5dp"
-                    android:text="...."
                     android:textAlignment="center"
                     app:chipBackgroundColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
@@ -335,6 +338,7 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
+                    android:text="@string/zero"
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingStart="15dp"
@@ -342,14 +346,15 @@
                     android:textSize="17sp"
                     android:enabled="false"
                     app:layout_constraintStart_toEndOf="@+id/job4"
-                    app:layout_constraintTop_toTopOf="@+id/job4" />
+                    app:layout_constraintTop_toTopOf="@+id/job4"
+                    tools:ignore="Autofill,LabelFor" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/alata"
-                    android:text="TL/..."
+                    android:text="@string/tl"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextBoarding4"
                     app:layout_constraintStart_toEndOf="@+id/editTextBoarding4"
@@ -371,9 +376,9 @@
                     android:layout_height="65dp"
                     android:background="@drawable/button_background"
                     android:fontFamily="@font/alata"
-                    android:paddingRight="50dp"
+                    android:paddingEnd="50dp"
                     android:elevation="5dp"
-                    android:text="Bilgilerimi Kaydet"
+                    android:text="@string/saveInfo"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -382,13 +387,15 @@
                     app:layout_constraintHorizontal_bias="0.50"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.79" />
+                    app:layout_constraintVertical_bias="0.79"
+                    tools:ignore="RtlSymmetry" />
 
                 <ImageView
                     android:id="@+id/buttonPaw2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/todo"
                     android:elevation="10dp"
                     android:src="@drawable/button_paw_ico"
                     app:layout_constraintBottom_toBottomOf="@+id/JobOptionButton"

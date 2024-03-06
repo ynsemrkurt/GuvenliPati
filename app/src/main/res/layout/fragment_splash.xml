@@ -76,7 +76,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,7 +102,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/loginPageButton"
             app:layout_constraintEnd_toEndOf="@+id/loginPageButton"
             app:layout_constraintTop_toTopOf="@+id/loginPageButton"
-            tools:ignore="UseAppTint" />
+            tools:ignore="ContentDescription,UseAppTint" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginPageButton"
@@ -119,7 +120,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
 
         <ImageView
             android:id="@+id/buttonPaw2"
@@ -131,7 +133,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/signUpPageButton"
             app:layout_constraintEnd_toEndOf="@+id/signUpPageButton"
             app:layout_constraintTop_toTopOf="@+id/signUpPageButton"
-            tools:ignore="UseAppTint" />
+            tools:ignore="ContentDescription,UseAppTint" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signUpPageButton"
@@ -151,7 +153,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginPageButton"
-            app:layout_constraintVertical_bias="0.333" />
+            app:layout_constraintVertical_bias="0.333"
+            tools:ignore="RtlSymmetry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

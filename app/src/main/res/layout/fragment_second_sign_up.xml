@@ -37,7 +37,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -153,7 +154,7 @@
             app:layout_constraintStart_toStartOf="@+id/buttonFemale"
             app:layout_constraintTop_toTopOf="@+id/buttonFemale"
             app:layout_constraintVertical_bias="0.5"
-            tools:ignore="UseAppTint" />
+            tools:ignore="ContentDescription,UseAppTint" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonFemale"
@@ -184,7 +185,7 @@
             app:layout_constraintStart_toStartOf="@+id/buttonMale"
             app:layout_constraintTop_toTopOf="@+id/buttonMale"
             app:layout_constraintVertical_bias="0.5"
-            tools:ignore="UseAppTint" />
+            tools:ignore="ContentDescription,UseAppTint" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonMale"
@@ -221,7 +222,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="4dp"
             android:background="@color/white"
-            android:hint="İl"
+            android:hint="@string/province"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -247,7 +248,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="4dp"
             android:background="@color/white"
-            android:hint="İlçe"
+            android:hint="@string/town"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -294,7 +295,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/saveProfileButton"
             app:layout_constraintEnd_toEndOf="@+id/saveProfileButton"
             app:layout_constraintTop_toTopOf="@+id/saveProfileButton"
-            tools:ignore="UseAppTint" />
+            tools:ignore="ContentDescription,UseAppTint" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveProfileButton"

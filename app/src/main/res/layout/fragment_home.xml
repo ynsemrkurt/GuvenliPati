@@ -10,7 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,8 +30,8 @@
                     android:layout_height="70dp"
                     android:background="@drawable/button_background"
                     android:fontFamily="@font/alata"
-                    android:paddingRight="40dp"
-                    android:text="Evcil Hayvan Bakıcısı Olmak İster Misin?"
+                    android:paddingEnd="40dp"
+                    android:text="@string/backerQuestion"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -39,7 +40,8 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.533" />
+                    app:layout_constraintVertical_bias="0.533"
+                    tools:ignore="RtlSymmetry" />
 
                 <ImageView
                     android:id="@+id/goBacker"
