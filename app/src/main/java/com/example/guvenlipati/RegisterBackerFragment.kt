@@ -105,14 +105,14 @@ class RegisterBackerFragment : Fragment() {
 
                 //KPSPublic API
                 val soapRequestTask = SoapRequestTask()
-                soapRequestTask.execute(
+                val result = soapRequestTask.execute(
                     editTextBackerName.text.toString(),
                     editTextBackerSurname.text.toString(),
                     editTextID.text.toString(),
                     editTextAge.text.toString()
-                )
+                ).get()
 
-                if (!verificationStatus) {
+                if (!result) {
                     showToast("Lütfen Tc, Ad ve Soyad gibi bilgilerini doğru giriniz!")
                     return@setOnClickListener
                 }

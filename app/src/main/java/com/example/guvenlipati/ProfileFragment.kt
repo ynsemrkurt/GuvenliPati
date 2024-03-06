@@ -62,6 +62,7 @@ class ProfileFragment : Fragment() {
     private lateinit var storage: FirebaseStorage
     private lateinit var strgRef: StorageReference
     private var imageUrl: String = ""
+    private lateinit var buttonSave: Button
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -98,7 +99,7 @@ class ProfileFragment : Fragment() {
         val townCombo = view.findViewById<AutoCompleteTextView>(R.id.townCombo)
         val townComboLayout=view.findViewById<TextInputLayout>(R.id.textInputLayout2)
         val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
-        val buttonSave=view.findViewById<Button>(R.id.buttonSave)
+        buttonSave=view.findViewById<Button>(R.id.buttonSave)
         val buttonChange=view.findViewById<Button>(R.id.buttonChange)
         val buttonAddProfileImage=view.findViewById<ImageButton>(R.id.buttonAddProfileImage)
         val friendsText=view.findViewById<TextView>(R.id.dostlarKahvesi)
@@ -266,6 +267,7 @@ class ProfileFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
+            buttonSave.isEnabled = false
             filePath = data.data
             try {
                 showToast("Fotoğraf yükleniyor...")
@@ -317,7 +319,7 @@ class ProfileFragment : Fragment() {
                     .addOnFailureListener {
                         showToast("Başarısız, lütfen yeniden deneyin!")
                     }
-
+                    buttonSave.isEnabled = true
                 view?.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
                     ?.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
