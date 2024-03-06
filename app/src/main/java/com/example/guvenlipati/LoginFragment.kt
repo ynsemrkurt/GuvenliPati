@@ -1,11 +1,15 @@
 package com.example.guvenlipati
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -67,8 +71,13 @@ class LoginFragment : Fragment() {
                             userEmail.setText("")
                             userPassword.setText("")
                         } else {
-                            showToast("Hatalı Giriş!")
-                            view.findViewById<EditText>(R.id.editTextPassword).setText("")
+                            userPassword.setTextColor(Color.RED)
+                            val shake= AnimationUtils.loadAnimation(requireContext(),R.anim.shake)
+                            userPassword.startAnimation(shake)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                userPassword.text.clear()
+                                userPassword.setTextColor(Color.BLACK)
+                            }, 500)
                         }
                         loginButton.visibility = View.VISIBLE
                         progressCard.visibility = View.INVISIBLE
