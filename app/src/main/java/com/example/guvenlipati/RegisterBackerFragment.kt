@@ -97,6 +97,17 @@ class RegisterBackerFragment : Fragment() {
                 hashMap["experience"] = editTextExperience.text.toString()
                 hashMap["petNumber"] = editTextPetNumber.text.toString()
                 hashMap["about"] = editTextBackerAbout.text.toString()
+                hashMap["dogBacker"] = false
+                hashMap["catBacker"] = false
+                hashMap["birdBacker"] = false
+                hashMap["userAvailability"]=0
+                hashMap["homeJob"]=false
+                hashMap["feedingJob"]=false
+                hashMap["walkingJob"]=false
+                hashMap["homeMoney"]=0
+                hashMap["feedingMoney"]=0
+                hashMap["walkingMoney"]=0
+                //Müsaitlik durumu 1->Hafta İçi 2->Hafta Sonu 3->Tüm Günler
 
                 databaseReference2.child("userBacker").setValue(true)
 
