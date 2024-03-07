@@ -112,7 +112,7 @@
             android:id="@+id/SelectDateButton"
             style="@android:style/Widget.Button"
             android:layout_width="200dp"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_background"
             android:elevation="5dp"
@@ -132,8 +132,8 @@
 
         <ImageView
             android:id="@+id/buttonPaw"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/todo"
             android:elevation="10dp"
