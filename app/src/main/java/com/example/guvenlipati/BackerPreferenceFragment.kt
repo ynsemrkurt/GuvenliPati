@@ -1,13 +1,14 @@
 package com.example.guvenlipati
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
@@ -50,27 +51,15 @@ class BackerPreferenceFragment : Fragment() {
         val saveButton = view.findViewById<Button>(R.id.JobOptionButton)
 
         dogs.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                dogJob = true
-            } else {
-                dogJob = false
-            }
+            dogJob = isChecked
         }
 
         cats.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                catJob = true
-            } else {
-                catJob = false
-            }
+            catJob = isChecked
         }
 
         birds.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                birdJob = true
-            } else {
-                birdJob = false
-            }
+            birdJob = isChecked
         }
 
         midWeek.setOnCheckedChangeListener { _, isChecked ->
@@ -195,6 +184,7 @@ class BackerPreferenceFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("InflateParams")
     private fun showBottomSheet() {
         val dialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.bottomsheet_2, null)
