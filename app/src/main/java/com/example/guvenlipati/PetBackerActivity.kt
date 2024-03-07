@@ -86,6 +86,7 @@ class PetBackerActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+
     override fun onStop() {
         super.onStop()
         databaseReference.removeValue()
