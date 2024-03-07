@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_bg_signup"
             android:paddingEnd="50dp"
             android:text="İş Al !"
             android:textColor="@color/white"
