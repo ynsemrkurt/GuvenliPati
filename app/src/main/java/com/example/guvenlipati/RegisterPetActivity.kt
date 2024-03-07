@@ -38,7 +38,7 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 private lateinit var firebaseUser: FirebaseUser
-private lateinit var databaseReference: DatabaseReference
+lateinit var databaseReference: DatabaseReference
 private lateinit var auth: FirebaseAuth
 private lateinit var getContent: ActivityResultLauncher<Intent>
 private var request: Int = 2020
