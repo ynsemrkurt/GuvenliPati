@@ -192,6 +192,7 @@ class AdvertCreateFragment : Fragment() {
         }
     }
 
+
     private fun formatDate(timestamp: Long): String {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(Date(timestamp))
