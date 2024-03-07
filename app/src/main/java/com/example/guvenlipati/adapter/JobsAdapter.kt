@@ -1,3 +1,5 @@
+package com.example.guvenlipati.adapter
+
 import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
@@ -23,7 +25,7 @@ class JobsAdapter(
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: JobsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val job = jobList[position]
 
         val petId = job.petId
