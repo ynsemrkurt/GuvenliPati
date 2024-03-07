@@ -197,6 +197,7 @@ class AdvertCreateFragment : Fragment() {
             showMaterialDialog()
         }
     }
+
     private fun showMaterialDialog(){
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Emin Misiniz?")
