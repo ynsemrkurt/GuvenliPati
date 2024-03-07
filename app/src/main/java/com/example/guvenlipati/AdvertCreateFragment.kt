@@ -5,24 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guvenlipati.adapter.PetsAdapter
 import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.models.Pet
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class AdvertCreateFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var databaseReferencePets: DatabaseReference
+    private lateinit var petSelectID: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +43,13 @@ class AdvertCreateFragment : Fragment() {
         firebaseUser = auth.currentUser!!
         databaseReferencePets = FirebaseDatabase.getInstance().getReference("pets")
 
+        val selectDateButton = view.findViewById<Button>(R.id.selectDateButton)
         val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
-        petRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        val editTextStartDate = view.findViewById<EditText>(R.id.editTextStartDate)
+        val editTextEndDate = view.findViewById<EditText>(R.id.editTextEndDate)
+
+        petRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         val selectPetList = ArrayList<Pet>()
 
         databaseReferencePets.addValueEventListener(object : ValueEventListener {
@@ -54,7 +64,9 @@ class AdvertCreateFragment : Fragment() {
                     }
                 }
 
-                val petAdapter = SelectPetsAdapter(requireContext(), selectPetList)
+                val petAdapter = SelectPetsAdapter(requireContext(), selectPetList) { selectedPetId ->
+                    petSelectID = selectedPetId
+                }
                 petRecyclerView.adapter = petAdapter
             }
 
@@ -62,6 +74,35 @@ class AdvertCreateFragment : Fragment() {
             }
         })
 
+        val constraintsBuilder =
+            CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now())
 
+        val dateRangePicker =
+            MaterialDatePicker.Builder.dateRangePicker()
+                .setTitleText("Tarih Aralığını Seç")
+                .setCalendarConstraints(constraintsBuilder.build())
+                .build()
+
+        dateRangePicker.addOnPositiveButtonClickListener { selection ->
+            val startDate = selection.first
+            val endDate = selection.second
+
+            editTextStartDate.setText(formatDate(startDate))
+            editTextEndDate.setText(formatDate(endDate))
+        }
+
+        selectDateButton.setOnClickListener {
+            dateRangePicker.show(childFragmentManager, "date_range_picker")
+        }
+    }
+
+    private fun formatDate(timestamp: Long): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return dateFormat.format(Date(timestamp))
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

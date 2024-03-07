@@ -109,7 +109,7 @@
             app:layout_constraintTop_toTopOf="@+id/editTextStartDate" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/SelectDateButton"
+            android:id="@+id/selectDateButton"
             style="@android:style/Widget.Button"
             android:layout_width="200dp"
             android:layout_height="55dp"
@@ -138,9 +138,9 @@
             android:contentDescription="@string/todo"
             android:elevation="10dp"
             android:src="@drawable/button_paw_ico"
-            app:layout_constraintBottom_toBottomOf="@+id/SelectDateButton"
-            app:layout_constraintEnd_toEndOf="@+id/SelectDateButton"
-            app:layout_constraintTop_toTopOf="@+id/SelectDateButton"
+            app:layout_constraintBottom_toBottomOf="@+id/selectDateButton"
+            app:layout_constraintEnd_toEndOf="@+id/selectDateButton"
+            app:layout_constraintTop_toTopOf="@+id/selectDateButton"
             tools:ignore="UseAppTint" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
