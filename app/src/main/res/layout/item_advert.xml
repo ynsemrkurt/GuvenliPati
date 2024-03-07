@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white"
+    android:padding="5dp"
     android:id="@+id/petCard">
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="380dp"
+        android:layout_width="wrap_content"
         android:layout_height="175dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:backgroundTint="#A9F4F7E9"
         android:elevation="20dp"
         app:cardCornerRadius="15dp"
@@ -24,7 +23,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingEnd="20dp">
 
             <ImageView
                 android:id="@+id/petImage"
@@ -141,10 +141,10 @@
                 android:id="@+id/buttonJobConfirm"
                 android:layout_width="61dp"
                 android:layout_height="29dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="2dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_pet_image_bg"
-                android:elevation="5dp"
+                android:elevation="2dp"
                 android:padding="10dp"
                 android:rotation="180"
                 android:scaleType="fitCenter"
