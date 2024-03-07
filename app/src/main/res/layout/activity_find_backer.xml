@@ -48,7 +48,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.example.guvenlipati.BackerSplashFragment"
+                android:name="com.example.guvenlipati.AdvertCreateFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:elevation="30dp"
