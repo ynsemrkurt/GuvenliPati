@@ -85,14 +85,4 @@ class PetBackerActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
-
-    override fun onStop() {
-        super.onStop()
-        databaseReference.removeValue()
-        databaseReference2.child("userBacker").setValue(false)
-        showToast("Kaydınız iptal edildi.")
-        finish()
-    }
-
 }
