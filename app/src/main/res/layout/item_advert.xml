@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white"
-    android:padding="5dp"
     android:id="@+id/petCard">
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:backgroundTint="#A9F4F7E9"
+        android:background="@color/white"
         android:elevation="20dp"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,19 +23,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingEnd="20dp">
+            android:background="@color/white">
 
-            <ImageView
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/petImage"
-                android:layout_width="135dp"
-                android:layout_height="135dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/index_bird"
+                app:cardCornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.08"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/index_bird"/>
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/petType"
@@ -78,9 +86,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
             <TextView
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="0dp"
                 android:fontFamily="@font/alata"
                 android:text="15.04.2024"
                 android:textColor="@color/lightblack"
@@ -93,9 +102,9 @@
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="0dp"
                 android:fontFamily="@font/alata"
-                android:text="/"
+                android:text="-"
                 android:textColor="@color/lightblack"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView20"
@@ -118,11 +127,13 @@
                 android:id="@+id/imageView"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="15dp"
-                android:foreground="#39FFFFFF"
+                android:foreground="#B0FFFFFF"
                 android:src="@drawable/location_ico"
                 app:layout_constraintStart_toStartOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                app:layout_constraintTop_toBottomOf="@+id/textView20"
+                app:tint="@color/black" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -139,18 +150,19 @@
 
             <ImageButton
                 android:id="@+id/buttonJobConfirm"
-                android:layout_width="61dp"
-                android:layout_height="29dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="16dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_pet_image_bg"
-                android:elevation="2dp"
+                android:backgroundTint="#E1F3FD"
+                android:elevation="5dp"
                 android:padding="10dp"
                 android:rotation="180"
                 android:scaleType="fitCenter"
                 android:src="@drawable/back_ico"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
