@@ -48,6 +48,11 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.menu_jobs -> {
+                    goJobsFragment()
+                    true
+                }
+
                 R.id.menu_add_friend -> {
                     goAddPetFragment()
                     true
@@ -109,5 +114,14 @@ class HomeActivity : AppCompatActivity() {
         val fragmentContainerView: FragmentContainerView = findViewById(R.id.fragmentContainerView2)
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         fragmentContainerView.startAnimation(fadeIn)
+    }
+
+    fun goJobsFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView2, JobsSplashFragment()
+            )
+            .commit()
+        animation()
     }
 }

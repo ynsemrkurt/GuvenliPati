@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="10"
     android:background="@color/white"
-    tools:context=".SplashFragment2">
+    tools:context=".JobsSplashFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,8 +17,8 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
-            android:layout_width="475dp"
-            android:layout_height="442dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,17 +27,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/walking_dog_anim" />
+            app:lottie_rawRes="@raw/glass_anim" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView"
             android:layout_width="355dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/alata"
-            android:text="@string/info"
+            android:text="LOREM IPSUM AND lkfsdhfjljhasdj"
             android:textAlignment="center"
             android:textColor="#AD000000"
             android:textStyle="bold"
@@ -66,7 +66,7 @@
             android:background="@drawable/button_background"
             android:fontFamily="@font/alata"
             android:paddingEnd="40dp"
-            android:text="@string/next"
+            android:text="Aramaya Başla"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
