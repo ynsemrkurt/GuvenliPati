@@ -35,6 +35,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:chipSpacingHorizontal="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/dogs"
@@ -45,10 +55,7 @@
                     android:elevation="5dp"
                     android:text="@string/dogs"
                     android:textAlignment="center"
-                    app:chipBackgroundColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:chipBackgroundColor="@color/white" />
 
 
                 <com.google.android.material.chip.Chip
@@ -56,30 +63,22 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="110dp"
                     android:layout_height="60dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginBottom="12dp"
                     android:elevation="5dp"
                     android:textAlignment="center"
                     android:text="@string/cats"
-                    app:chipBackgroundColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/dogs" />
+                    app:chipBackgroundColor="@color/white" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/birds"
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="110dp"
                     android:layout_height="60dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="12dp"
                     android:elevation="5dp"
                     android:textAlignment="center"
                     android:text="@string/birds"
-                    app:chipBackgroundColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/cats" />
+                    app:chipBackgroundColor="@color/white" />
+
+                </com.google.android.material.chip.ChipGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,8 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:singleSelection="true"
-                    android:layout_marginBottom="16dp"
-                    app:chipSpacingHorizontal="30dp"
+                    app:chipSpacingHorizontal="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
