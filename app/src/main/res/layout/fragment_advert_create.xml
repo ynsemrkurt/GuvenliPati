@@ -18,228 +18,228 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
-        <TextView
-            android:id="@+id/selectPet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alata"
-            android:text="Dost Seç : "
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.048"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/selectPet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alata"
+                    android:text="Dost Seç : "
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.048"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/petRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selectPet" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/petRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/selectPet" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="187dp"
-        android:paddingTop="10dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="187dp"
+                android:paddingTop="10dp">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/alata"
-            android:text="İş Süresi :"
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/alata"
+                    android:text="İş Süresi :"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextStartDate"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:autofillHints="username"
-            android:background="@drawable/edit_text_background"
-            android:drawablePadding="6dp"
-            android:enabled="false"
-            android:fontFamily="@font/alata"
-            android:hint="Başlangıç Tarihi"
-            android:inputType="date"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.103" />
+                <EditText
+                    android:id="@+id/editTextStartDate"
+                    android:layout_width="170dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/alata"
+                    android:hint="Başlangıç Tarihi"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintVertical_bias="0.103" />
 
-        <EditText
-            android:id="@+id/editTextEndDate"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:autofillHints="username"
-            android:background="@drawable/edit_text_background"
-            android:drawablePadding="6dp"
-            android:enabled="false"
-            android:fontFamily="@font/alata"
-            android:hint="Bitiş Tarihi"
-            android:inputType="date"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextStartDate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toEndOf="@+id/editTextStartDate"
-            app:layout_constraintTop_toTopOf="@+id/editTextStartDate" />
+                <EditText
+                    android:id="@+id/editTextEndDate"
+                    android:layout_width="170dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/alata"
+                    android:hint="Bitiş Tarihi"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editTextStartDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.492"
+                    app:layout_constraintStart_toEndOf="@+id/editTextStartDate"
+                    app:layout_constraintTop_toTopOf="@+id/editTextStartDate" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/selectDateButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="200dp"
-            android:layout_height="55dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_background"
-            android:elevation="5dp"
-            android:fontFamily="@font/alata"
-            android:paddingEnd="50dp"
-            android:text="Tarih Seç"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="RtlSymmetry" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/selectDateButton"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="200dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/button_background"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/alata"
+                    android:paddingEnd="50dp"
+                    android:text="Tarih Seç"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:ignore="RtlSymmetry" />
 
-        <ImageView
-            android:id="@+id/buttonPaw"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/todo"
-            android:elevation="10dp"
-            android:src="@drawable/button_paw_ico"
-            app:layout_constraintBottom_toBottomOf="@+id/selectDateButton"
-            app:layout_constraintEnd_toEndOf="@+id/selectDateButton"
-            app:layout_constraintTop_toTopOf="@+id/selectDateButton"
-            tools:ignore="UseAppTint" />
+                <ImageView
+                    android:id="@+id/buttonPaw"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/todo"
+                    android:elevation="10dp"
+                    android:src="@drawable/button_paw_ico"
+                    app:layout_constraintBottom_toBottomOf="@+id/selectDateButton"
+                    app:layout_constraintEnd_toEndOf="@+id/selectDateButton"
+                    app:layout_constraintTop_toTopOf="@+id/selectDateButton"
+                    tools:ignore="UseAppTint" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="138dp"
-        android:paddingTop="10dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="138dp"
+                android:paddingTop="10dp">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/alata"
-            android:text="@string/jobs"
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/jobs"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:chipSpacingHorizontal="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:singleSelection="true">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/job1"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="110dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="10dp"
-                android:elevation="5dp"
-                android:text="@string/sitting"
-                android:textAlignment="center"
-                app:chipBackgroundColor="@color/white" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/job1"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="110dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:elevation="5dp"
+                        android:text="@string/sitting"
+                        android:textAlignment="center"
+                        app:chipBackgroundColor="@color/white" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/job2"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="110dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="10dp"
-                android:elevation="5dp"
-                android:text="@string/feed"
-                android:textAlignment="center"
-                app:chipBackgroundColor="@color/white" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/job2"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="110dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:elevation="5dp"
+                        android:text="@string/feed"
+                        android:textAlignment="center"
+                        app:chipBackgroundColor="@color/white" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/job3"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="110dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="10dp"
-                android:elevation="5dp"
-                android:text="@string/walking"
-                android:textAlignment="center"
-                app:chipBackgroundColor="@color/white" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/job3"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="110dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:elevation="5dp"
+                        android:text="@string/walking"
+                        android:textAlignment="center"
+                        app:chipBackgroundColor="@color/white" />
 
-        </com.google.android.material.chip.ChipGroup>
+                </com.google.android.material.chip.ChipGroup>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <EditText
-            android:id="@+id/editTextJobAbout"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/edit_text_background"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:singleLine="false"
-            android:maxLines="3"
-            android:hint="İş Hakkında Bilgiler"
-            android:fontFamily="@font/alata"
-            android:paddingStart="15dp"
-            android:paddingTop="20dp"
-            android:paddingEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+                <EditText
+                    android:id="@+id/editTextJobAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/edit_text_background"
+                    android:ems="10"
+                    android:fontFamily="@font/alata"
+                    android:gravity="start|top"
+                    android:hint="İş Hakkında Bilgiler"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:paddingStart="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="10dp"
+                    android:singleLine="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.483"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
