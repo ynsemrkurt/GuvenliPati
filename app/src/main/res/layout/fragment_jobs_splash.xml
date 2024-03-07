@@ -12,41 +12,100 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="704dp"
-        android:layout_weight="8.8">
+        android:layout_height="0dp"
+        android:layout_weight="7.5">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/glass_anim" />
 
-        <TextView
-            android:id="@+id/textView"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/third"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:background="@color/white"
+        android:paddingLeft="70dp"
+        android:paddingTop="0dp"
+        android:paddingRight="70dp"
+        android:paddingBottom="0dp">
+
+        <ImageView
+            android:id="@+id/buttonPaw"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="10dp"
+            android:src="@drawable/blue_paw_ico"
+            app:layout_constraintBottom_toBottomOf="@+id/loginPageButton"
+            app:layout_constraintEnd_toEndOf="@+id/loginPageButton"
+            app:layout_constraintTop_toTopOf="@+id/loginPageButton"
+            tools:ignore="ContentDescription,UseAppTint" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginPageButton"
+            style="@android:style/Widget.Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/alata"
-            android:text="Evcil dostlarınız için güvenilir bir bakıcı mı arıyorsunuz? Şimdi, evcil hayvanınıza mükemmel bir bakıcı bulmak için yolculuğunuza başlayın!"
-            android:textAlignment="center"
-            android:textColor="#AD000000"
+            android:layout_height="65dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_bg_signup"
+            android:paddingEnd="50dp"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/animationView"
+            android:fontFamily="@font/alata"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/animationView"
-            app:layout_constraintTop_toBottomOf="@+id/animationView"
-            app:layout_constraintVertical_bias="0.479" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/buttonPaw2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="10dp"
+            android:src="@drawable/blue_paw_ico"
+            app:layout_constraintBottom_toBottomOf="@+id/signUpPageButton"
+            app:layout_constraintEnd_toEndOf="@+id/signUpPageButton"
+            app:layout_constraintTop_toTopOf="@+id/signUpPageButton"
+            tools:ignore="ContentDescription,UseAppTint" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signUpPageButton"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_bg_signup"
+            android:paddingEnd="50dp"
+            android:text="@string/sign_up_text"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/alata"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginPageButton"
+            app:layout_constraintVertical_bias="0.333"
+            tools:ignore="RtlSymmetry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
