@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="704dp"
         android:layout_weight="8.8">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -20,9 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
@@ -31,64 +31,22 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="355dp"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/alata"
-            android:text="LOREM IPSUM AND lkfsdhfjljhasdj"
+            android:text="Evcil dostlarınız için güvenilir bir bakıcı mı arıyorsunuz? Şimdi, evcil hayvanınıza mükemmel bir bakıcı bulmak için yolculuğunuza başlayın!"
             android:textAlignment="center"
             android:textColor="#AD000000"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/animationView"
-            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/animationView"
             app:layout_constraintTop_toBottomOf="@+id/animationView"
-            app:layout_constraintVertical_bias="0.542" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.2"
-        android:paddingLeft="90dp"
-        android:paddingRight="90dp">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/nextButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/button_background"
-            android:fontFamily="@font/alata"
-            android:paddingEnd="40dp"
-            android:text="Aramaya Başla"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="RtlSymmetry" />
-
-        <ImageView
-            android:id="@+id/buttonPaw2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:elevation="10dp"
-            android:src="@drawable/button_paw_ico"
-            app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-            app:layout_constraintEnd_toEndOf="@+id/nextButton"
-            app:layout_constraintTop_toTopOf="@+id/nextButton"
-            tools:ignore="ContentDescription,UseAppTint" />
+            app:layout_constraintVertical_bias="0.479" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
