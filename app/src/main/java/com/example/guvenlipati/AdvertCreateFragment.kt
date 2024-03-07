@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -190,9 +193,24 @@ class AdvertCreateFragment : Fragment() {
                 }
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            showMaterialDialog()
+        }
     }
-
-
+    private fun showMaterialDialog(){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Emin Misiniz?")
+            .setMessage("Eğer geri dönerseniz iş kaydınız silinecektir.")
+            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_dialog))
+            .setPositiveButton("Geri Dön") { _, _ ->
+                showToast("Kaydınız iptal edildi.")
+                requireActivity().finish()
+            }
+            .setNegativeButton("İptal") { _, _ ->
+                showToast("İptal Edildi")
+            }
+            .show()
+    }
     private fun formatDate(timestamp: Long): String {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(Date(timestamp))
