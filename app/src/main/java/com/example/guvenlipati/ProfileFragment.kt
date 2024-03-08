@@ -132,8 +132,6 @@ class ProfileFragment : Fragment() {
                         userSurname.setText(user?.userSurname)
                         provinceCombo.setText(user?.userProvince)
                         townCombo.setText(user?.userTown)
-                        loadingCardView.visibility=View.GONE
-                        linearLayout.foreground=null
                     }
                 }
             }
@@ -158,6 +156,10 @@ class ProfileFragment : Fragment() {
 
                     val petAdapter = PetsAdapter(requireContext(), petList)
                     petRecyclerView.adapter = petAdapter
+
+
+                    loadingCardView.visibility=View.GONE
+                    linearLayout.foreground=null
                 }
             }
 
