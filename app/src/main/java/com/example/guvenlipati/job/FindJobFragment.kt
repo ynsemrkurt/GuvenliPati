@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.job
 
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +10,8 @@ import android.widget.ScrollView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.JobsAdapter
+import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 import com.google.firebase.auth.FirebaseAuth

@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.guvenlipati.EditPetActivity
+import com.example.guvenlipati.editPet.EditPetActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Pet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

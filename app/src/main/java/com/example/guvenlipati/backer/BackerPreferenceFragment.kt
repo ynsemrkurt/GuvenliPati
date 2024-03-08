@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.backer
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.guvenlipati.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
@@ -187,7 +188,7 @@ class BackerPreferenceFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun showBottomSheet() {
         val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.bottomsheet_2, null)
+        val view = layoutInflater.inflate(R.layout.bottomsheet_add_backer, null)
         view.findViewById<Button>(R.id.backToMain).setOnClickListener {
             requireActivity().finish()
         }

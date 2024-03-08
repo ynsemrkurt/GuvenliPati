@@ -48,7 +48,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.example.guvenlipati.AdvertCreateFragment"
+                android:name="com.example.guvenlipati.job.JobCreateFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:elevation="30dp"
@@ -56,7 +56,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/logo"
-                tools:layout="@layout/fragment_advert_create" />
+                tools:layout="@layout/fragment_job_create" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

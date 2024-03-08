@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.backer
 
 import android.os.AsyncTask
 import android.os.Bundle
@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.guvenlipati.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference

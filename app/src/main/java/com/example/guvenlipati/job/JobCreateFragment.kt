@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.job
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
@@ -29,7 +30,7 @@ import java.util.Date
 import java.util.HashMap
 import java.util.Locale
 
-class AdvertCreateFragment : Fragment() {
+class JobCreateFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
@@ -41,7 +42,7 @@ class AdvertCreateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_advert_create, container, false)
+        return inflater.inflate(R.layout.fragment_job_create, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

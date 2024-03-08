@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.splash
 
 import android.graphics.Color
 import android.os.Bundle
@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.example.guvenlipati.R
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -82,7 +83,7 @@ class FirstSignUpFragment : Fragment() {
             )
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        (activity as MainActivity).goSecondSignUpFragment()
+                        (activity as SplashActivity).goSecondSignUpFragment()
                     } else {
                         showToast("Farklı E-posta Giriniz!")
                     }
@@ -93,11 +94,11 @@ class FirstSignUpFragment : Fragment() {
         }
 
         view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
-            (activity as MainActivity).goSplashFragment()
+            (activity as SplashActivity).goSplashFragment()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            (requireActivity() as MainActivity).goSplashFragment()
+            (requireActivity() as SplashActivity).goSplashFragment()
         }
 
     }

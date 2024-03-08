@@ -61,7 +61,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView2"
-                android:name="com.example.guvenlipati.HomeFragment"
+                android:name="com.example.guvenlipati.home.HomeFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:elevation="30dp"

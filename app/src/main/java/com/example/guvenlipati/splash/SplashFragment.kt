@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.example.guvenlipati.R
 
 class SplashFragment : Fragment() {
 
@@ -21,11 +22,11 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.loginPageButton).setOnClickListener {
-            (activity as MainActivity).goLoginFragment()
+            (activity as SplashActivity).goLoginFragment()
         }
 
         view.findViewById<Button>(R.id.signUpPageButton).setOnClickListener {
-            (activity as MainActivity).goFirstSignUpFragment()
+            (activity as SplashActivity).goFirstSignUpFragment()
         }
 
     }

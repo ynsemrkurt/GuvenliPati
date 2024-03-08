@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.addPet
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.example.guvenlipati.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
@@ -326,7 +327,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
     private fun showBottomSheet(){
         val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottomsheet,null)
+        val view = layoutInflater.inflate(R.layout.bottomsheet_add_pet,null)
         view.findViewById<Button>(R.id.backToMain).setOnClickListener {
             finish()
         }

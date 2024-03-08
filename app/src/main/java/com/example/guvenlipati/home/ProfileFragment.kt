@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.home
 
 import android.content.Context
 import android.content.Intent
@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.PetsAdapter
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
@@ -178,10 +179,12 @@ class ProfileFragment : Fragment() {
             petRecyclerView.visibility=View.INVISIBLE
             friendsText.visibility=View.INVISIBLE
 
-            val provinceAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.city_array, android.R.layout.simple_dropdown_item_1line)
+            val provinceAdapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.city_array, android.R.layout.simple_dropdown_item_1line)
             provinceCombo.setAdapter(provinceAdapter)
 
-            val townAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.town_array, android.R.layout.simple_dropdown_item_1line)
+            val townAdapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.town_array, android.R.layout.simple_dropdown_item_1line)
             townCombo.setAdapter(townAdapter)
         }
 

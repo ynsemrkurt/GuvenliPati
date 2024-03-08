@@ -1,16 +1,17 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.job
 
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.guvenlipati.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class FindBackerActivity : AppCompatActivity() {
+class JobsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_find_backer)
+        setContentView(R.layout.activity_find_job)
 
         val backToHome = findViewById<ImageButton>(R.id.backToHome)
 

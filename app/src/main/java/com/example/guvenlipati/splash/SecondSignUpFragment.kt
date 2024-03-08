@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.splash
 
 import android.content.Intent
 import android.graphics.Color
@@ -23,6 +23,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
+import com.example.guvenlipati.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -154,7 +155,7 @@ class SecondSignUpFragment : Fragment() {
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    (activity as MainActivity).goHomeActivity()
+                    (activity as SplashActivity).goHomeActivity()
                 } else {
                     showToast("Hatalı işlem!")
                 }
@@ -185,7 +186,7 @@ class SecondSignUpFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         user?.delete()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                (activity as MainActivity).goSplashFragment()
+                (activity as SplashActivity).goSplashFragment()
             }
         }
     }

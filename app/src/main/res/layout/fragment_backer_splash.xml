@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="10"
     android:background="@color/white"
-    tools:context=".BackerSplashFragment">
+    tools:context=".backer.BackerSplashFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

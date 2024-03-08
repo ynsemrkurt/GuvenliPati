@@ -13,26 +13,26 @@
         android:theme="@style/Theme.GuvenliPati"
         tools:targetApi="31">
         <activity
-            android:name=".GetJobActivity"
+            android:name=".job.GetJobActivity"
             android:exported="false" />
         <activity
-            android:name=".FindBackerActivity"
+            android:name=".job.JobsActivity"
             android:exported="false" />
         <activity
-            android:name=".PetBackerActivity"
+            android:name=".backer.PetBackerActivity"
             android:exported="false" />
         <activity
-            android:name=".EditPetActivity"
+            android:name=".editPet.EditPetActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterPetActivity"
+            android:name=".addPet.RegisterPetActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".home.HomeActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".MainActivity"
+            android:name=".splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

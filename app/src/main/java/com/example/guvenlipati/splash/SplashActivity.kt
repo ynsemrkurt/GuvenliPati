@@ -1,18 +1,20 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
+import com.example.guvenlipati.R
+import com.example.guvenlipati.home.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 
 private lateinit var auth: FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_splash)
 
         auth = FirebaseAuth.getInstance()
 

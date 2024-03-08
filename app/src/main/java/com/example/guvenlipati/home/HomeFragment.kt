@@ -1,6 +1,5 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.home
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ScrollView
 import androidx.cardview.widget.CardView
+import com.example.guvenlipati.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot

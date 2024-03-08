@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.backer
 
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentContainerView
+import com.example.guvenlipati.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference

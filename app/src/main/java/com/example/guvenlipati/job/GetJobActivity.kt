@@ -1,8 +1,9 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.job
 
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.example.guvenlipati.R
 
 class GetJobActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

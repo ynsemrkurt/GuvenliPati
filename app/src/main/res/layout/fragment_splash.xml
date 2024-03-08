@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:weightSum="10"
     android:orientation="vertical"
-    tools:context=".SplashFragment"
+    tools:context=".splash.SplashFragment"
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout

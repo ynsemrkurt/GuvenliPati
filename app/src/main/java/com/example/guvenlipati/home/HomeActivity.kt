@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentContainerView
+import com.example.guvenlipati.backer.PetBackerActivity
+import com.example.guvenlipati.R
+import com.example.guvenlipati.addPet.RegisterPetActivity
+import com.example.guvenlipati.splash.SplashActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -113,7 +117,7 @@ class HomeActivity : AppCompatActivity() {
     private fun logout() {
         auth.signOut()
 
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, SplashActivity::class.java)
         startActivity(intent)
         finish()
     }
