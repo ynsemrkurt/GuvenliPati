@@ -103,6 +103,11 @@ class HomeActivity : AppCompatActivity() {
         animation()
     }
 
+    fun goPetBackerActivity(){
+        val intent = Intent(this, PetBackerActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun logout() {
         auth.signOut()
 

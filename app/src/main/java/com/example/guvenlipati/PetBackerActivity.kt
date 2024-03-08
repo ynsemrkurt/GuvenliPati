@@ -47,6 +47,12 @@ class PetBackerActivity : AppCompatActivity() {
         animation()
     }
 
+    fun goBackerSplashFragment(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView2, BackerSplashFragment())
+            .commit()
+        animation()
+    }
     fun goBackerPreferenceFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView2, BackerPreferenceFragment())
