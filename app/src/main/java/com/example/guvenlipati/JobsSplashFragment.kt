@@ -36,7 +36,7 @@ class JobsSplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
-        val scrollView=view.findViewById<LinearLayout>(R.id.scrollView)
+        val scrollView=view.findViewById<LinearLayout>(R.id.linearLayout)
         val createAdvertsButton = view.findViewById<Button>(R.id.createAdvertsButton)
         val findJobButton = view.findViewById<Button>(R.id.findJobButton)
 

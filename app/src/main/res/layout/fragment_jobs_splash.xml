@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -38,103 +37,111 @@
 
     </androidx.cardview.widget.CardView>
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10"
+        android:foreground="@drawable/job_splash_background">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="569dp">
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/animationView2"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/glass_anim" />
+                    android:layout_height="0dp"
+                    android:layout_weight="7.5">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animationView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/glass_anim" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/third"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingLeft="70dp"
-                android:paddingTop="0dp"
-                android:paddingRight="70dp"
-                android:paddingBottom="0dp">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/buttonPaw"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginEnd="16dp"
-                    android:elevation="10dp"
-                    android:src="@drawable/blue_paw_ico"
-                    app:layout_constraintBottom_toBottomOf="@+id/createAdvertsButton"
-                    app:layout_constraintEnd_toEndOf="@+id/createAdvertsButton"
-                    app:layout_constraintTop_toTopOf="@+id/createAdvertsButton"
-                    tools:ignore="ContentDescription,UseAppTint" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/createAdvertsButton"
-                    style="@android:style/Widget.Button"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/third"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/button_bg_signup"
-                    android:fontFamily="@font/alata"
-                    android:paddingEnd="50dp"
-                    android:text="İlan Oluştur"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="RtlSymmetry" />
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5"
+                    android:background="@color/white"
+                    android:paddingLeft="70dp"
+                    android:paddingRight="70dp">
 
-                <ImageView
-                    android:id="@+id/buttonPaw2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginEnd="16dp"
-                    android:elevation="10dp"
-                    android:src="@drawable/blue_paw_ico"
-                    app:layout_constraintBottom_toBottomOf="@+id/findJobButton"
-                    app:layout_constraintEnd_toEndOf="@+id/findJobButton"
-                    app:layout_constraintTop_toTopOf="@+id/findJobButton"
-                    tools:ignore="ContentDescription,UseAppTint" />
+                    <ImageView
+                        android:id="@+id/buttonPaw"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="16dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/blue_paw_ico"
+                        app:layout_constraintBottom_toBottomOf="@+id/createAdvertsButton"
+                        app:layout_constraintEnd_toEndOf="@+id/createAdvertsButton"
+                        app:layout_constraintTop_toTopOf="@+id/createAdvertsButton"
+                        tools:ignore="ContentDescription,UseAppTint" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/findJobButton"
-                    style="@android:style/Widget.Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button_bg_signup"
-                    android:fontFamily="@font/alata"
-                    android:paddingEnd="50dp"
-                    android:text="İş Al !"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/createAdvertsButton"
-                    app:layout_constraintVertical_bias="0.333"
-                    tools:ignore="RtlSymmetry" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/createAdvertsButton"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/button_bg_signup"
+                        android:paddingEnd="50dp"
+                        android:text="İlan Oluştur"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/alata"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlSymmetry" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/buttonPaw2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="16dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/blue_paw_ico"
+                        app:layout_constraintBottom_toBottomOf="@+id/findJobButton"
+                        app:layout_constraintEnd_toEndOf="@+id/findJobButton"
+                        app:layout_constraintTop_toTopOf="@+id/findJobButton"
+                        tools:ignore="ContentDescription,UseAppTint" />
 
-</LinearLayout>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/findJobButton"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="@drawable/button_bg_signup"
+                        android:fontFamily="@font/alata"
+                        android:paddingEnd="50dp"
+                        android:text="İş Al !"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/createAdvertsButton"
+                        app:layout_constraintVertical_bias="0.76"
+                        tools:ignore="RtlSymmetry" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+</FrameLayout>
