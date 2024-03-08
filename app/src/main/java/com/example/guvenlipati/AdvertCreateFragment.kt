@@ -196,7 +196,6 @@ class AdvertCreateFragment : Fragment() {
                                     FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
                                 reference.setValue(hashMap).addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
-                                        // İşlemin başarıyla tamamlandığını kontrol et
                                         requireActivity().finish()
                                         showToast("İş Kaydı Başarılı!")
                                     } else {

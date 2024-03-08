@@ -28,14 +28,11 @@ class JobsAdapter(
     override fun onBindViewHolder(holder: JobsAdapter.ViewHolder, position: Int) {
         val job = jobList[position]
 
-        // Job'un içindeki petID'yi al
-        val petId = job.petID // job.petId değil
+        val petId = job.petID
 
-        // PetList içinde bu petId'ye sahip olan Pet'i bul
         val matchingPet = petList.find { it.petId == petId }
         Log.d("JobsAdapter", ",asfad list size: ${matchingPet}")
 
-        // Eğer matchingPet null değilse, ViewHolder'ı bind et
         matchingPet?.let {
             holder.bind(job, it)
         }
