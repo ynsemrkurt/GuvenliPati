@@ -17,6 +17,8 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:scaleType="fitCenter"
+            android:padding="15dp"
             android:id="@+id/backToSplash"
             android:layout_width="48dp"
             android:layout_height="48dp"

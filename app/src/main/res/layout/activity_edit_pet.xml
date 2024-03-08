@@ -26,6 +26,8 @@
                 <ImageButton
                     android:id="@+id/backToSplash"
                     android:layout_width="48dp"
+                    android:scaleType="fitCenter"
+                    android:padding="15dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"

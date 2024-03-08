@@ -17,6 +17,8 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:scaleType="fitCenter"
+                android:padding="15dp"
                 android:id="@+id/backToHome"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
