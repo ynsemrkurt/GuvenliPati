@@ -99,7 +99,7 @@ class ProfileFragment : Fragment() {
         val townCombo = view.findViewById<AutoCompleteTextView>(R.id.townCombo)
         val townComboLayout=view.findViewById<TextInputLayout>(R.id.textInputLayout2)
         val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
-        buttonSave=view.findViewById<Button>(R.id.buttonSave)
+        buttonSave=view.findViewById(R.id.buttonSave)
         val buttonChange=view.findViewById<Button>(R.id.buttonChange)
         val buttonAddProfileImage=view.findViewById<ImageButton>(R.id.buttonAddProfileImage)
         val friendsText=view.findViewById<TextView>(R.id.dostlarKahvesi)

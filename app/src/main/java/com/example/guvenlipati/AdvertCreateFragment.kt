@@ -22,13 +22,11 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.HashMap
 import java.util.Locale
 
 class AdvertCreateFragment : Fragment() {
@@ -38,6 +36,7 @@ class AdvertCreateFragment : Fragment() {
     private lateinit var databaseReferencePets: DatabaseReference
     private var petSelectID: String = ""
     private lateinit var user: User
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,14 +65,14 @@ class AdvertCreateFragment : Fragment() {
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         val selectPetList = ArrayList<Pet>()
 
-        val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
+        val databaseReferenceUsers =
+            FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
         databaseReferenceUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val userData = snapshot.getValue(User::class.java)
-                    user = userData ?: User() // Kullanıcı verisi alınırsa user özelliğini başlat
+                    user = userData ?: User()
 
-                    // Kullanıcı verisi alındıktan sonra, pets verilerini almak için isteği gerçekleştirin
                     databaseReferencePets.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             selectPetList.clear()
@@ -87,7 +86,10 @@ class AdvertCreateFragment : Fragment() {
                             }
 
                             val petAdapter =
-                                SelectPetsAdapter(requireContext(), selectPetList) { selectedPetId ->
+                                SelectPetsAdapter(
+                                    requireContext(),
+                                    selectPetList
+                                ) { selectedPetId ->
                                     petSelectID = selectedPetId
                                 }
                             petRecyclerView.adapter = petAdapter
@@ -131,19 +133,19 @@ class AdvertCreateFragment : Fragment() {
 
         jobStay.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkedJobType = jobStay.text.toString()
+                checkedJobType = "homeJob"
             }
         }
 
         jobFeed.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkedJobType = jobFeed.text.toString()
+                checkedJobType = "feedingJob"
             }
         }
 
         jobWalk.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkedJobType = jobWalk.text.toString()
+                checkedJobType = "walkingJob"
             }
         }
 
@@ -155,7 +157,9 @@ class AdvertCreateFragment : Fragment() {
                     showToast("Lütfen boş alan bırakmayınız!")
                     return@setOnClickListener
                 }
-                if (editTextStartDate.text.toString().isEmpty()|| editTextEndDate.text.toString().isEmpty()) {
+                if (editTextStartDate.text.toString().isEmpty() || editTextEndDate.text.toString()
+                        .isEmpty()
+                ) {
                     showToast("Lütfen tarih seçiniz!")
                     return@setOnClickListener
                 }
@@ -163,34 +167,53 @@ class AdvertCreateFragment : Fragment() {
                     showToast("Lütfen hizmet türü seçiniz!")
                     return@setOnClickListener
                 }
-                if (petSelectID.isEmpty()){
+                if (petSelectID.isEmpty()) {
                     showToast("Lütfen dostunuzu seçiniz!")
                     return@setOnClickListener
                 }
 
-                val hashMap: HashMap<String, Any> = HashMap()
-                val jobId = firebaseUser.uid + petSelectID
-                hashMap["jobId"] = jobId
-                hashMap["jobType"] = checkedJobType
-                hashMap["jobAbout"] = jobAbout.text.toString()
-                hashMap["jobProvince"] = user.userProvince
-                hashMap["jobStatus"] = true
-                hashMap["userID"] = firebaseUser.uid
-                hashMap["petID"] = petSelectID
-                hashMap["jobTown"] = user.userTown
-                hashMap["jobStartDate"] = editTextStartDate.text.toString()
-                hashMap["jobEndDate"] = editTextEndDate.text.toString()
+                // Pet türünü almak için ValueEventListener kullanımı
+                databaseReferencePets.child(petSelectID).child("petSpecies")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                val petSpecies = snapshot.getValue(String::class.java)
+                                val hashMap: HashMap<String, Any> = HashMap()
+                                val jobId = firebaseUser.uid + petSelectID
+                                hashMap["jobId"] = jobId
+                                hashMap["jobType"] = checkedJobType
+                                hashMap["petSpecies"] = petSpecies.toString()
+                                hashMap["jobAbout"] = jobAbout.text.toString()
+                                hashMap["jobProvince"] = user.userProvince
+                                hashMap["jobStatus"] = true
+                                hashMap["userID"] = firebaseUser.uid
+                                hashMap["petID"] = petSelectID
+                                hashMap["jobTown"] = user.userTown
+                                hashMap["jobStartDate"] = editTextStartDate.text.toString()
+                                hashMap["jobEndDate"] = editTextEndDate.text.toString()
 
+                                val reference =
+                                    FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
+                                reference.setValue(hashMap).addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        // İşlemin başarıyla tamamlandığını kontrol et
+                                        requireActivity().finish()
+                                        showToast("İş Kaydı Başarılı!")
+                                    } else {
+                                        showToast("Hatalı işlem!")
+                                    }
+                                }
+                            } else {
+                                // Veri bulunamazsa veya null ise gerekli işlemleri yapabilirsiniz.
+                                showToast("Pet türü bulunamadı.")
+                            }
+                        }
 
-                val reference = FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
-                reference.setValue(hashMap).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        (activity as HomeActivity).goHomeFragment()
-                        showToast("İş Kaydı Başarılı!")
-                    } else {
-                        showToast("Hatalı işlem!")
-                    }
-                }
+                        override fun onCancelled(error: DatabaseError) {
+                            // Hata durumunda yapılacak işlemler
+                            showToast("Pet türü alınırken bir hata oluştu.")
+                        }
+                    })
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -198,11 +221,16 @@ class AdvertCreateFragment : Fragment() {
         }
     }
 
-    private fun showMaterialDialog(){
+    private fun showMaterialDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Emin Misiniz?")
             .setMessage("Eğer geri dönerseniz iş kaydınız silinecektir.")
-            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_dialog))
+            .setBackground(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_dialog
+                )
+            )
             .setPositiveButton("Geri Dön") { _, _ ->
                 showToast("Kaydınız iptal edildi.")
                 requireActivity().finish()
@@ -212,6 +240,7 @@ class AdvertCreateFragment : Fragment() {
             }
             .show()
     }
+
     private fun formatDate(timestamp: Long): String {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(Date(timestamp))

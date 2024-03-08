@@ -21,10 +21,15 @@ class JobsSplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val createAdvertsButton = view.findViewById<Button>(R.id.createAdvertsButton)
-        val loginButton = view.findViewById<Button>(R.id.loginButton)
+        val findJobButton = view.findViewById<Button>(R.id.findJobButton)
 
         createAdvertsButton.setOnClickListener {
             val intent = Intent(requireContext(), FindBackerActivity::class.java)
+            startActivity(intent)
+        }
+
+        findJobButton.setOnClickListener {
+            val intent = Intent(requireContext(), GetJobActivity::class.java)
             startActivity(intent)
         }
     }

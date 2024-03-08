@@ -1,59 +1,87 @@
 package com.example.guvenlipati
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.models.Job
+import com.example.guvenlipati.models.Pet
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FindJobFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FindJobFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var databaseReferenceJobs: DatabaseReference
+    private lateinit var jobRecyclerView: RecyclerView
+    private val jobList = ArrayList<Job>()
+    private val petList = ArrayList<Pet>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_find_job, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FindJobFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FindJobFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        jobRecyclerView = view.findViewById(R.id.jobRecycleView)
+        jobRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+        databaseReferenceJobs = FirebaseDatabase.getInstance().getReference("jobs")
+
+        val databaseReferencePets = FirebaseDatabase.getInstance().getReference("pets")
+
+        databaseReferencePets.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                petList.clear()
+                for (dataSnapShot: DataSnapshot in snapshot.children) {
+                    val pet = dataSnapShot.getValue(Pet::class.java)
+                    pet?.let {
+                        petList.add(it)
+                    }
                 }
+
+                Log.d("JobsAdapter", "Pet list size: ${petList.size}")
+
+                databaseReferenceJobs.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        jobList.clear()
+                        for (dataSnapShot: DataSnapshot in snapshot.children) {
+                            val job = dataSnapShot.getValue(Job::class.java)
+                            job?.let {
+                                jobList.add(it)
+                            }
+                        }
+
+                        Log.d("JobsAdapter", "Job list size: ${jobList.size}")
+
+                        val jobAdapter = JobsAdapter(
+                            requireContext(),
+                            jobList,
+                            petList
+                        )
+                        jobRecyclerView.adapter = jobAdapter
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("JobsAdapter", "Error reading jobs from database: ${error.message}")
+                    }
+                })
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("JobsAdapter", "Error reading pets from database: ${error.message}")
+            }
+        })
     }
 }
