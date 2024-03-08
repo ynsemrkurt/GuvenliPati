@@ -25,7 +25,6 @@ class FindJobFragment : Fragment() {
     private lateinit var jobRecyclerView: RecyclerView
     private val jobList = ArrayList<Job>()
     private val petList = ArrayList<Pet>()
-    private lateinit var databaseReferencePets: DatabaseReference
     private lateinit var databaseReferenceIdentifies: DatabaseReference
 
     override fun onCreateView(

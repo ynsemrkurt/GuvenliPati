@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.models.User
@@ -32,6 +35,8 @@ class JobsSplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
+        val scrollView=view.findViewById<LinearLayout>(R.id.scrollView)
         val createAdvertsButton = view.findViewById<Button>(R.id.createAdvertsButton)
         val findJobButton = view.findViewById<Button>(R.id.findJobButton)
 
@@ -43,10 +48,11 @@ class JobsSplashFragment : Fragment() {
                     val userData = snapshot.getValue(User::class.java)
                     user = userData ?: User()
                 }
+                loadingCardView.visibility = View.GONE
+                scrollView.foreground = null
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Hata durumunda yapılacak işlemler
                 showToast("Veritabanı hatası: ${error.message}")
             }
         })
