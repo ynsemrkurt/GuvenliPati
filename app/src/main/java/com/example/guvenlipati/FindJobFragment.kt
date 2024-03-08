@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.models.Job
@@ -35,6 +37,9 @@ class FindJobFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val scrollView=view.findViewById<ScrollView>(R.id.scrollView)
+        val loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
 
         jobRecyclerView = view.findViewById(R.id.jobRecycleView)
         jobRecyclerView.layoutManager =
@@ -79,7 +84,6 @@ class FindJobFragment : Fragment() {
                                     }
                                 }
 
-                                Log.d("JobsAdapter", "Job list size: ${jobList.size}")
 
                                 val jobAdapter = JobsAdapter(
                                     requireContext(),
@@ -87,6 +91,8 @@ class FindJobFragment : Fragment() {
                                     petList
                                 )
                                 jobRecyclerView.adapter = jobAdapter
+                                scrollView.foreground=null
+                                loadingCardView.visibility=View.GONE
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -98,7 +104,6 @@ class FindJobFragment : Fragment() {
                     }
                 })
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })
