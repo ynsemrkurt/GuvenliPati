@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,10 +54,10 @@ class FindJobFragment : Fragment() {
         databaseReferenceJobs = FirebaseDatabase.getInstance().getReference("jobs")
         val databaseReferencePets = FirebaseDatabase.getInstance().getReference("pets")
 
-        databaseReferenceIdentifies.addValueEventListener(object : ValueEventListener {
+        databaseReferenceIdentifies.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(userSnapshot: DataSnapshot) {
 
-                databaseReferencePets.addValueEventListener(object : ValueEventListener {
+                databaseReferencePets.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(petsSnapshot: DataSnapshot) {
                         petList.clear()
                         for (dataSnapshot: DataSnapshot in petsSnapshot.children) {
@@ -66,9 +67,7 @@ class FindJobFragment : Fragment() {
                             }
                         }
 
-                        Log.d("JobsAdapter", "Pet list size: ${petList.size}")
-
-                        databaseReferenceJobs.addValueEventListener(object : ValueEventListener {
+                        databaseReferenceJobs.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(jobsSnapshot: DataSnapshot) {
                                 jobList.clear()
                                 for (dataSnapshot: DataSnapshot in jobsSnapshot.children) {
@@ -97,16 +96,23 @@ class FindJobFragment : Fragment() {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
+                                showToast("Hata!")
                             }
                         })
                     }
 
                     override fun onCancelled(error: DatabaseError) {
+                        showToast("Hata!")
                     }
                 })
             }
             override fun onCancelled(error: DatabaseError) {
+                showToast("Hata!")
             }
         })
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

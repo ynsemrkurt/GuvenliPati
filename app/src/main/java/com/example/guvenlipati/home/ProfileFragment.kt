@@ -114,7 +114,7 @@ class ProfileFragment : Fragment() {
 
         val petList = ArrayList<Pet>()
 
-        databaseReference.addValueEventListener(object : ValueEventListener {
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 val context = fragmentContext
@@ -138,6 +138,7 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                showToast("Hata!")
             }
         })
 
@@ -165,6 +166,7 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                showToast("Hata!")
             }
         })
 

@@ -74,7 +74,7 @@ class JobCreateFragment : Fragment() {
                     val userData = snapshot.getValue(User::class.java)
                     user = userData ?: User()
 
-                    databaseReferencePets.addValueEventListener(object : ValueEventListener {
+                    databaseReferencePets.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             selectPetList.clear()
                             for (dataSnapShot: DataSnapshot in snapshot.children) {
@@ -97,13 +97,14 @@ class JobCreateFragment : Fragment() {
                         }
 
                         override fun onCancelled(error: DatabaseError) {
+                            showToast("Dostlar alınırken bir hata oluştu.")
                         }
                     })
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Hata durumunda yapılacak işlemler
+                showToast("Kullanıcı bilgileri alınırken bir hata oluştu.")
             }
         })
 
@@ -173,7 +174,6 @@ class JobCreateFragment : Fragment() {
                     return@setOnClickListener
                 }
 
-                // Pet türünü almak için ValueEventListener kullanımı
                 databaseReferencePets.child(petSelectID).child("petSpecies")
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -204,13 +204,11 @@ class JobCreateFragment : Fragment() {
                                     }
                                 }
                             } else {
-                                // Veri bulunamazsa veya null ise gerekli işlemleri yapabilirsiniz.
                                 showToast("Pet türü bulunamadı.")
                             }
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            // Hata durumunda yapılacak işlemler
                             showToast("Pet türü alınırken bir hata oluştu.")
                         }
                     })

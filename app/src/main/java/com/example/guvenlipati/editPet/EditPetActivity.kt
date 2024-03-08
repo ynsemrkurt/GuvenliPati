@@ -27,10 +27,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
@@ -49,7 +47,7 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var unVaccineImage: ImageView
     private lateinit var buttonPetVaccine: Button
     private lateinit var buttonPetUnVaccine: Button
-    var petVaccine: Boolean? = null
+    private var petVaccine: Boolean? = null
     private lateinit var getContent: ActivityResultLauncher<Intent>
     private var request: Int = 2020
     private var filePath: Uri? = null
@@ -58,10 +56,10 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
 
     private lateinit var pet: Pet
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet)
-
 
         buttonPetVaccine = findViewById(R.id.buttonPetVaccine)
         buttonPetUnVaccine = findViewById(R.id.buttonPetUnVaccine)
@@ -75,8 +73,6 @@ class EditPetActivity : AppCompatActivity() {
         vaccineImage = findViewById(R.id.vaccine)
         unVaccineImage = findViewById(R.id.unVaccine)
         val profilePhoto = findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-
-
 
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
@@ -112,79 +108,86 @@ class EditPetActivity : AppCompatActivity() {
             vaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         }
 
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: com.google.firebase.database.DataSnapshot) {
-                try {
-                    pet = snapshot.getValue(Pet::class.java)!!
-                    if (pet.petId == petId) {
-                        if (pet.petPhoto.isEmpty()) {
-                            profilePhoto.setImageResource(R.drawable.pet_default_image)
-                        } else {
-                            val imageUri = Uri.parse(pet.petPhoto)
-                            if (!isDestroyed) {
-                                Glide.with(this@EditPetActivity).load(imageUri)
-                                    .placeholder(R.drawable.pet_default_image)
-                                    .into(profilePhoto)
-                            }
-                        }
-                        editTextPetName.setText(pet.petName)
-                        editTextPetWeight.setText(pet.petWeight)
-                        petAgeCombo.setText(pet.petAge)
-                        selectTypeArray(pet.petSpecies)
-                        petTypeCombo.setText(pet.petBreed)
-                        if (pet.petVaccinate) {
-                            selectVaccine(
-                                buttonPetVaccine,
-                                buttonPetUnVaccine,
-                                vaccineImage,
-                                unVaccineImage
-                            )
-                        } else {
-                            selectVaccine(
-                                buttonPetUnVaccine,
-                                buttonPetVaccine,
-                                unVaccineImage,
-                                vaccineImage
-                            )
-                        }
-                        editTextAbout.setText(pet.petAbout)
-                        petVaccine = pet.petVaccinate
+        databaseReference.get().addOnSuccessListener { dataSnapshot ->
+            try {
+                pet = dataSnapshot.getValue(Pet::class.java)!!
 
-                        when (pet.petSpecies) {
-                            "dog" -> {
-                                val adapter = ArrayAdapter.createFromResource(this@EditPetActivity,
-                                    R.array.dog_types_array, android.R.layout.simple_dropdown_item_1line)
-                                petTypeCombo.setAdapter(adapter)
-                            }
-
-                            "cat" -> {
-                                val adapter = ArrayAdapter.createFromResource(this@EditPetActivity,
-                                    R.array.cat_types_array, android.R.layout.simple_dropdown_item_1line)
-                                petTypeCombo.setAdapter(adapter)
-                            }
-
-                            "bird" -> {
-                                val adapter = ArrayAdapter.createFromResource(this@EditPetActivity,
-                                    R.array.bird_types_array, android.R.layout.simple_dropdown_item_1line)
-                                petTypeCombo.setAdapter(adapter)
-                            }
-
-                            else -> {
-                                finish()
-                            }
+                if (pet.petId == petId) {
+                    if (pet.petPhoto.isEmpty()) {
+                        profilePhoto.setImageResource(R.drawable.pet_default_image)
+                    } else {
+                        val imageUri = Uri.parse(pet.petPhoto)
+                        if (!isDestroyed) {
+                            Glide.with(this@EditPetActivity).load(imageUri)
+                                .placeholder(R.drawable.pet_default_image)
+                                .into(profilePhoto)
                         }
                     }
-                }catch (e: Exception){
-                    finish()
-                }
-            }
+                    editTextPetName.setText(pet.petName)
+                    editTextPetWeight.setText(pet.petWeight)
+                    petAgeCombo.setText(pet.petAge)
+                    selectTypeArray(pet.petSpecies)
+                    petTypeCombo.setText(pet.petBreed)
+                    if (pet.petVaccinate) {
+                        selectVaccine(
+                            buttonPetVaccine,
+                            buttonPetUnVaccine,
+                            vaccineImage,
+                            unVaccineImage
+                        )
+                    } else {
+                        selectVaccine(
+                            buttonPetUnVaccine,
+                            buttonPetVaccine,
+                            unVaccineImage,
+                            vaccineImage
+                        )
+                    }
+                    editTextAbout.setText(pet.petAbout)
+                    petVaccine = pet.petVaccinate
 
-            override fun onCancelled(error: DatabaseError) {
+                    when (pet.petSpecies) {
+                        "dog" -> {
+                            val adapter = ArrayAdapter.createFromResource(
+                                this@EditPetActivity,
+                                R.array.dog_types_array,
+                                android.R.layout.simple_dropdown_item_1line
+                            )
+                            petTypeCombo.setAdapter(adapter)
+                        }
+
+                        "cat" -> {
+                            val adapter = ArrayAdapter.createFromResource(
+                                this@EditPetActivity,
+                                R.array.cat_types_array,
+                                android.R.layout.simple_dropdown_item_1line
+                            )
+                            petTypeCombo.setAdapter(adapter)
+                        }
+
+                        "bird" -> {
+                            val adapter = ArrayAdapter.createFromResource(
+                                this@EditPetActivity,
+                                R.array.bird_types_array,
+                                android.R.layout.simple_dropdown_item_1line
+                            )
+                            petTypeCombo.setAdapter(adapter)
+                        }
+
+                        else -> {
+                            finish()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                finish()
             }
-        })
+        }.addOnFailureListener {
+            // Handle failure
+            finish()
+        }
 
         editPetButton.setOnClickListener {
-
             if (editTextPetWeight.text.isEmpty() || petAgeCombo.text.isEmpty() || editTextPetName.text.isEmpty() || editTextAbout.text.isEmpty()) {
                 showToast("Lütfen boş alan bırakmayınız!")
                 return@setOnClickListener
@@ -196,20 +199,20 @@ class EditPetActivity : AppCompatActivity() {
             databaseReference.child("petAbout").setValue(editTextAbout.text.toString())
             databaseReference.child("petAge").setValue(petAgeCombo.text.toString())
             databaseReference.child("petBreed").setValue(petTypeCombo.text.toString())
-            databaseReference.child("petVaccinate").setValue(petVaccine).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    showToast("Değişiklikler kaydedildi...")
-                    finish()
-                } else {
-                    showToast("Hatalı işlem!")
+            databaseReference.child("petVaccinate").setValue(petVaccine)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        showToast("Değişiklikler kaydedildi...")
+                        finish()
+                    } else {
+                        showToast("Hatalı işlem!")
+                    }
                 }
-            }
         }
 
-        backButton.setOnClickListener{
+        backButton.setOnClickListener {
             showMaterialDialog()
         }
-
     }
 
     private fun showMaterialDialog() {
@@ -228,8 +231,7 @@ class EditPetActivity : AppCompatActivity() {
             .show()
     }
 
-
-    fun selectTypeArray(petType: String) {
+    private fun selectTypeArray(petType: String) {
         when (petType) {
             "dog" -> {
                 val adapter = ArrayAdapter(
@@ -267,7 +269,7 @@ class EditPetActivity : AppCompatActivity() {
         unselected.setTextColor(Color.BLACK)
     }
 
-    fun selectVaccine(
+    private fun selectVaccine(
         selected: Button,
         unselected: Button,
         vaccineImage: ImageView,
@@ -308,7 +310,6 @@ class EditPetActivity : AppCompatActivity() {
                     ExifInterface.ORIENTATION_ROTATE_270 -> 270
                     else -> 0
                 }
-
 
                 val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
                 val rotatedBitmap = Bitmap.createBitmap(

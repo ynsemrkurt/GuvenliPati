@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import com.example.guvenlipati.R
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +17,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
 
 class HomeFragment : Fragment() {
 
@@ -33,9 +33,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cardView= view.findViewById<CardView>(R.id.loadingCardView)
-        val scrollView=view.findViewById<ScrollView>(R.id.scrollView)
-
+        val cardView = view.findViewById<CardView>(R.id.loadingCardView)
+        val scrollView = view.findViewById<ScrollView>(R.id.scrollView)
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         databaseReference =
@@ -43,22 +42,25 @@ class HomeFragment : Fragment() {
                 .child("userBacker")
         val goBackerButton = view.findViewById<Button>(R.id.goBackerButton)
 
-        databaseReference.addValueEventListener(object : ValueEventListener {
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.getValue(Boolean::class.java) == true){
+                val isUserBacker = snapshot.getValue(Boolean::class.java) ?: false
+
+                if (isUserBacker) {
                     goBackerButton.visibility = View.GONE
                 }
-                scrollView.foreground=null
-                cardView.visibility=View.GONE
+
+                scrollView.foreground = null
+                cardView.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
             }
         })
 
-
-            goBackerButton.setOnClickListener {
-                (activity as HomeActivity).goPetBackerActivity()
-            }
+        goBackerButton.setOnClickListener {
+            (activity as HomeActivity).goPetBackerActivity()
+        }
     }
 }

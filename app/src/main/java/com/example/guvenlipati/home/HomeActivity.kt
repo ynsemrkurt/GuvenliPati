@@ -127,7 +127,7 @@ class HomeActivity : AppCompatActivity() {
         fragmentContainerView.startAnimation(fadeIn)
     }
 
-    fun goJobsFragment() {
+    private fun goJobsFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, JobsSplashFragment()
