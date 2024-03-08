@@ -92,6 +92,7 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, RegisterPetActivity::class.java)
         intent.putExtra("petType", petType)
         startActivity(intent)
+        animation()
     }
 
     fun goProfileFragment() {
@@ -100,6 +101,12 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, ProfileFragment()
             )
             .commit()
+        animation()
+    }
+
+    fun goPetBackerActivity(){
+        val intent = Intent(this, PetBackerActivity::class.java)
+        startActivity(intent)
         animation()
     }
 

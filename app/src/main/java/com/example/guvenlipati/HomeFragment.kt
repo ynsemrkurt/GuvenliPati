@@ -58,8 +58,7 @@ class HomeFragment : Fragment() {
 
 
             goBackerButton.setOnClickListener {
-                val intent = Intent(requireContext(), PetBackerActivity::class.java)
-                startActivity(intent)
+                (activity as HomeActivity).goPetBackerActivity()
             }
     }
 }
