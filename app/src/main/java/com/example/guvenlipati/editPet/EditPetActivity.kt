@@ -43,6 +43,7 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var petTypeCombo: AutoCompleteTextView
+    private lateinit var petAgeCombo: AutoCompleteTextView
     private lateinit var vaccineImage: ImageView
     private lateinit var unVaccineImage: ImageView
     private lateinit var buttonPetVaccine: Button
@@ -65,7 +66,7 @@ class EditPetActivity : AppCompatActivity() {
         buttonPetUnVaccine = findViewById(R.id.buttonPetUnVaccine)
         val editTextPetName = findViewById<EditText>(R.id.editTextPetName)
         val editTextPetWeight = findViewById<EditText>(R.id.editTextWeight)
-        val petAgeCombo = findViewById<AutoCompleteTextView>(R.id.ageCombo)
+        petAgeCombo = findViewById<AutoCompleteTextView>(R.id.ageCombo)
         petTypeCombo = findViewById(R.id.typeCombo)
         val editTextAbout = findViewById<EditText>(R.id.editTextAbout)
         val editPetButton = findViewById<Button>(R.id.petRegisterButton)
@@ -126,7 +127,6 @@ class EditPetActivity : AppCompatActivity() {
                     editTextPetName.setText(pet.petName)
                     editTextPetWeight.setText(pet.petWeight)
                     petAgeCombo.setText(pet.petAge)
-                    selectTypeArray(pet.petSpecies)
                     petTypeCombo.setText(pet.petBreed)
                     if (pet.petVaccinate) {
                         selectVaccine(
@@ -145,6 +145,13 @@ class EditPetActivity : AppCompatActivity() {
                     }
                     editTextAbout.setText(pet.petAbout)
                     petVaccine = pet.petVaccinate
+
+                    val adapter = ArrayAdapter.createFromResource(
+                        this@EditPetActivity,
+                        R.array.pet_ages_array,
+                        android.R.layout.simple_dropdown_item_1line
+                    )
+                    petAgeCombo.setAdapter(adapter)
 
                     when (pet.petSpecies) {
                         "dog" -> {
@@ -183,7 +190,6 @@ class EditPetActivity : AppCompatActivity() {
                 finish()
             }
         }.addOnFailureListener {
-            // Handle failure
             finish()
         }
 
@@ -213,13 +219,6 @@ class EditPetActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             showMaterialDialog()
         }
-
-        val adapterAge = ArrayAdapter(
-            this,
-            android.R.layout.simple_dropdown_item_1line,
-            resources.getStringArray(R.array.pet_ages_array)
-        )
-        petAgeCombo.setAdapter(adapterAge)
     }
 
     private fun showMaterialDialog() {
@@ -238,36 +237,7 @@ class EditPetActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun selectTypeArray(petType: String) {
-        when (petType) {
-            "dog" -> {
-                val adapter = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_dropdown_item_1line,
-                    resources.getStringArray(R.array.dog_types_array)
-                )
-                petTypeCombo.setAdapter(adapter)
-            }
 
-            "cat" -> {
-                val adapter = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_dropdown_item_1line,
-                    resources.getStringArray(R.array.cat_types_array)
-                )
-                petTypeCombo.setAdapter(adapter)
-            }
-
-            "bird" -> {
-                val adapter = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_dropdown_item_1line,
-                    resources.getStringArray(R.array.bird_types_array)
-                )
-                petTypeCombo.setAdapter(adapter)
-            }
-        }
-    }
 
     private fun selectMethod(selected: Button, unselected: Button) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
