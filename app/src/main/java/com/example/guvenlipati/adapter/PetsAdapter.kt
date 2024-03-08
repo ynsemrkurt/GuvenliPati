@@ -17,7 +17,11 @@ import com.example.guvenlipati.editPet.EditPetActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Pet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+
+private lateinit var firebaseUser: FirebaseUser
 
 class PetsAdapter(private val context: Context, private val petList: ArrayList<Pet>) :
     RecyclerView.Adapter<PetsAdapter.ViewHolder>() {
@@ -77,7 +81,10 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
     }
 
     private fun deletePet(pet: Pet) {
+        firebaseUser= FirebaseAuth.getInstance().currentUser!!
+        val databaseReferenceJobs= FirebaseDatabase.getInstance().getReference("jobs").child(firebaseUser.uid + pet.petId)
         val databaseReference = FirebaseDatabase.getInstance().getReference("pets").child(pet.petId)
+        databaseReferenceJobs.removeValue()
         databaseReference.removeValue()
             .addOnSuccessListener {
                 showToast("Dost başarıyla silindi.")

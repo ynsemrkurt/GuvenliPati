@@ -213,6 +213,13 @@ class EditPetActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             showMaterialDialog()
         }
+
+        val adapterAge = ArrayAdapter(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            resources.getStringArray(R.array.pet_ages_array)
+        )
+        petAgeCombo.setAdapter(adapterAge)
     }
 
     private fun showMaterialDialog() {

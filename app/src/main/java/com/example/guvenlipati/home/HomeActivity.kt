@@ -96,7 +96,6 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, RegisterPetActivity::class.java)
         intent.putExtra("petType", petType)
         startActivity(intent)
-        animation()
     }
 
     fun goProfileFragment() {
@@ -116,7 +115,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun logout() {
         auth.signOut()
-
         val intent = Intent(this, SplashActivity::class.java)
         startActivity(intent)
         finish()
