@@ -57,7 +57,6 @@ class SelectPetsAdapter(
                 notifyItemChanged(selectedPosition)
             }
 
-            // Görsel durumu güncelle
             if (position == selectedPosition) {
                 correctImage.visibility = View.VISIBLE
             } else {

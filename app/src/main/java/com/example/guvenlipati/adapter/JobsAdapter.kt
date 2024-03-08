@@ -1,8 +1,6 @@
 package com.example.guvenlipati
 
 import android.content.Context
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 
@@ -31,7 +28,6 @@ class JobsAdapter(
         val petId = job.petID
 
         val matchingPet = petList.find { it.petId == petId }
-        Log.d("JobsAdapter", ",asfad list size: ${matchingPet}")
 
         matchingPet?.let {
             holder.bind(job, it)

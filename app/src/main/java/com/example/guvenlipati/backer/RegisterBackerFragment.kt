@@ -196,7 +196,6 @@ class RegisterBackerFragment : Fragment() {
         override fun doInBackground(vararg params: String?): Boolean {
             val client = OkHttpClient()
 
-            val mediaType = "application/soap+xml; charset=utf-8".toMediaType()
             val requestBody = getSoapRequestBody(params[0], params[1], params[2], params[3])
             val request = Request.Builder()
                 .url("https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx")
