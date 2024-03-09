@@ -328,7 +328,7 @@
                     app:layout_constraintVertical_bias="0.542" />
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/jobPriceTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="150dp"
@@ -340,19 +340,6 @@
                     app:layout_constraintStart_toStartOf="@+id/textView18"
                     app:layout_constraintTop_toTopOf="@+id/textView18"
                     app:layout_constraintVertical_bias="0.5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="TL"
-                    android:textColor="#06F25F"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView17"
-                    app:layout_constraintStart_toEndOf="@+id/textView17"
-                    app:layout_constraintTop_toTopOf="@+id/textView17"
-                    app:layout_constraintVertical_bias="0.0" />
 
 
                 <ImageButton
