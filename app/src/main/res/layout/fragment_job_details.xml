@@ -9,9 +9,9 @@
     tools:context=".job.JobDetailsFragment">
 
     <ScrollView
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:scrollbars="none">
 
         <LinearLayout
@@ -21,12 +21,11 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="450dp">
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="360dp"
-                    android:layout_height="390dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="450dp"
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="@color/white"
                     android:elevation="10dp"
@@ -146,7 +145,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:fontFamily="@font/alata"
-                            android:text="Aşı Yapılıyor"
+                            android:text="Yapılıyor"
                             app:layout_constraintBottom_toBottomOf="@+id/textView3"
                             app:layout_constraintStart_toEndOf="@+id/textView3"
                             app:layout_constraintTop_toTopOf="@+id/textView3"
@@ -175,13 +174,37 @@
                             app:layout_constraintStart_toEndOf="@+id/textView4"
                             app:layout_constraintTop_toTopOf="@+id/textView4" />
 
+                        <TextView
+                            android:id="@+id/textView0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/alata"
+                            android:text="Hakkında :"
+                            android:textColor="#B1AFAF"
+                            app:layout_constraintStart_toStartOf="@+id/textView2"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                        <TextView
+                            android:id="@+id/petAboutTextView"
+                            android:layout_width="wrap_content"
+                            android:maxWidth="310dp"
+                            android:maxLines="2"
+                            android:layout_height="23dp"
+                            android:fontFamily="@font/alata"
+                            android:text="British Shorthair"
+                            app:layout_constraintStart_toStartOf="@+id/textView0"
+                            app:layout_constraintTop_toBottomOf="@+id/textView0" />
+
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="230dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImageProfilePhoto"
@@ -311,7 +334,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="100dp">
 
                 <TextView
                     android:id="@+id/textView18"
