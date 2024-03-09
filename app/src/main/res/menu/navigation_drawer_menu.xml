@@ -11,9 +11,9 @@
         android:icon="@drawable/jobs_ico" />
 
     <item
-        android:id="@+id/z"
-        android:title="LOREM IPSUM"
-        android:icon="@drawable/paw" />
+        android:id="@+id/jobs"
+        android:title="İLANLARIM"
+        android:icon="@drawable/job_menu_ico" />
 
     <item
         android:id="@+id/settings"
