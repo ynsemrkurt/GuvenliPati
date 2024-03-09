@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
@@ -23,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.concurrent.TimeUnit
 
 private var jobId: String? = null
@@ -31,6 +31,8 @@ private lateinit var firebaseUser: FirebaseUser
 private lateinit var identifies: DatabaseReference
 private var money: Int = 0
 private var jobPriceTextView: TextView? = null
+private lateinit var linearLayout: LinearLayout
+private lateinit var loadingCardView: CardView
 private var job: Job? = null
 
 class JobDetailsFragment : Fragment() {
@@ -53,7 +55,8 @@ class JobDetailsFragment : Fragment() {
         val petVaccinateTextView = view.findViewById<TextView>(R.id.petVaccinateTextView)
         val petTypeTextView = view.findViewById<TextView>(R.id.petTypeTextView)
         val petWeightTextView = view.findViewById<TextView>(R.id.petWeightTextView)
-        val circleImageProfilePhoto = view.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
+        val circleImageProfilePhoto =
+            view.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
         val userNameTextView = view.findViewById<TextView>(R.id.userNameTextView)
         val jobTypeTextView = view.findViewById<TextView>(R.id.jobTypeTextView)
         val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
@@ -61,24 +64,30 @@ class JobDetailsFragment : Fragment() {
         val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         val jobAboutTextView = view.findViewById<TextView>(R.id.jobAboutTextView)
         jobPriceTextView = view.findViewById(R.id.jobPriceTextView)
+        val petAboutTextView = view.findViewById<TextView>(R.id.petAboutTextView)
+        linearLayout=view.findViewById<LinearLayout>(R.id.linearLayout)
+        loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
 
         arguments?.let {
             jobId = it.getString("jobId")
         }
 
         val jobRef = FirebaseDatabase.getInstance().reference.child("jobs").child(jobId!!)
-        identifies = FirebaseDatabase.getInstance().reference.child("identifies").child(firebaseUser.uid)
+        identifies =
+            FirebaseDatabase.getInstance().reference.child("identifies").child(firebaseUser.uid)
 
         jobRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 job = snapshot.getValue(Job::class.java)!!
-                val userRef = FirebaseDatabase.getInstance().reference.child("users").child(job!!.userID)
+                val userRef =
+                    FirebaseDatabase.getInstance().reference.child("users").child(job!!.userID)
 
                 userRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val user = snapshot.getValue(User::class.java)!!
                         val petRef =
-                            FirebaseDatabase.getInstance().reference.child("pets").child(job!!.petID)
+                            FirebaseDatabase.getInstance().reference.child("pets")
+                                .child(job!!.petID)
 
                         petRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
@@ -91,6 +100,7 @@ class JobDetailsFragment : Fragment() {
                                     true -> {
                                         petGenderTextView.text = "Erkek"
                                     }
+
                                     false -> {
                                         petGenderTextView.text = "Kadın"
                                     }
@@ -99,6 +109,7 @@ class JobDetailsFragment : Fragment() {
                                     true -> {
                                         petVaccinateTextView.text = "Yapılıyor"
                                     }
+
                                     false -> {
                                         petVaccinateTextView.text = "Aşısız"
                                     }
@@ -113,10 +124,12 @@ class JobDetailsFragment : Fragment() {
                                         jobTypeTextView.text = "Evde Bakım"
                                         readMoney("homeMoney")
                                     }
+
                                     "feedingJob" -> {
                                         jobTypeTextView.text = "Besleme"
                                         readMoney("feedingMoney")
                                     }
+
                                     "walkingJob" -> {
                                         jobTypeTextView.text = "Gezdirme"
                                         readMoney("walkingMoney")
@@ -126,6 +139,7 @@ class JobDetailsFragment : Fragment() {
                                 startDateTextView.text = job!!.jobStartDate
                                 endDateTextView.text = job!!.jobEndDate
                                 jobAboutTextView.text = job!!.jobAbout
+                                petAboutTextView.text = pet.petAbout
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -147,20 +161,19 @@ class JobDetailsFragment : Fragment() {
     }
 
     private fun calculateAndUpdatePrice() {
-        // İşin başlangıç ve bitiş tarihlerini al
         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
         val startDate = dateFormat.parse(job!!.jobStartDate)
         val endDate = dateFormat.parse(job!!.jobEndDate)
 
-        // İki tarih arasındaki farkı milisaniye cinsinden hesapla
         val differenceInMillis = endDate.time - startDate.time
 
-        // Milisaniyeden gün cinsine çevir
-        val daysDifference = TimeUnit.MILLISECONDS.toDays(differenceInMillis)+1
+        val daysDifference = TimeUnit.MILLISECONDS.toDays(differenceInMillis) + 1
 
-        // Günlük ücret ile çarp ve jobPriceTextView'a yaz
         val totalMoney = daysDifference * money
         jobPriceTextView?.text = "$totalMoney₺"
+
+        linearLayout.foreground=null
+        loadingCardView.visibility=View.GONE
     }
 
     private fun readMoney(column: String) {

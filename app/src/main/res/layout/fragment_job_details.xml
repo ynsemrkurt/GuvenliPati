@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +8,36 @@
     android:orientation="vertical"
     tools:context=".job.JobDetailsFragment">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/loadingCardView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="30dp"
+        android:elevation="100dp"
+        android:background="@color/white"
+        android:layout_gravity="center">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            app:lottie_rawRes="@raw/loading_cat_anim"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:fontFamily="@font/alata"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="55dp"/>
+
+    </androidx.cardview.widget.CardView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,9 +45,11 @@
         android:scrollbars="none">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:foreground="@color/white">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -25,7 +57,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="360dp"
-                    android:layout_height="450dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="@color/white"
                     android:elevation="10dp"
@@ -37,7 +69,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="10dp">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/petCard"
@@ -56,17 +89,6 @@
                                 android:src="@drawable/index_cat" />
 
                         </androidx.cardview.widget.CardView>
-
-                        <ImageView
-                            android:id="@+id/infoImageView"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="16dp"
-                            android:src="@drawable/info_ico"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.935"
-                            app:layout_constraintStart_toEndOf="@+id/petNameTextView"
-                            app:layout_constraintTop_toBottomOf="@+id/petCard" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -131,13 +153,14 @@
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="66dp"
+                            android:layout_marginEnd="84dp"
                             android:fontFamily="@font/alata"
                             android:text="Aşı Durumu :"
                             android:textColor="#B1AFAF"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView1"
-                            app:layout_constraintStart_toEndOf="@+id/petGenderTextView"
-                            app:layout_constraintTop_toTopOf="@+id/petGenderTextView" />
+                            app:layout_constraintBottom_toBottomOf="@+id/petGenderTextView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/petGenderTextView"
+                            app:layout_constraintVertical_bias="0.0" />
 
                         <TextView
                             android:id="@+id/petVaccinateTextView"
@@ -188,14 +211,16 @@
 
                         <TextView
                             android:id="@+id/petAboutTextView"
-                            android:layout_width="wrap_content"
-                            android:maxWidth="310dp"
-                            android:maxLines="2"
-                            android:layout_height="23dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="12dp"
                             android:fontFamily="@font/alata"
+                            android:maxLines="3"
                             android:text="British Shorthair"
-                            app:layout_constraintStart_toStartOf="@+id/textView0"
-                            app:layout_constraintTop_toBottomOf="@+id/textView0" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView0"
+                            app:layout_constraintTop_toTopOf="@+id/textView0" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -322,7 +347,7 @@
                     android:fontFamily="@font/alata"
                     android:text="Merhaba, evimizde yaşayan sevgili evcil dostumuz için güvenilir ve sevgi dolu bir bakıcı arıyoruz. Evimizde yaşayan hayvanımız bizim için çok değerli bir üye ve ona en iyi bakımı sunacak bir bakıcı arayışındayız."
                     android:textColor="#616060"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.116"
@@ -393,4 +418,4 @@
 
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>
