@@ -1,13 +1,16 @@
 package com.example.guvenlipati
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.job.JobDetailsActivity
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 
@@ -44,6 +47,7 @@ class JobsAdapter(
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         private val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
+        private val buttonJobDetails= view.findViewById<ImageButton>(R.id.buttonJobDetails)
 
         fun bind(job: Job, pet: Pet) {
             when(job.jobType){
@@ -61,6 +65,14 @@ class JobsAdapter(
                 .load(pet.petPhoto)
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(petPhotoImageView)
+
+
+
+            buttonJobDetails.setOnClickListener {
+                val intent = Intent(context, JobDetailsActivity::class.java)
+                intent.putExtra("job", job.jobId)
+                context.startActivity(intent)
+            }
         }
     }
 }
