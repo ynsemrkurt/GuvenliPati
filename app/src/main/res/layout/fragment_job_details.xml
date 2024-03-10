@@ -38,31 +38,26 @@
 
     </androidx.cardview.widget.CardView>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:scrollbars="none">
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:weightSum="10"
             android:foreground="@color/white">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:layout_weight="6">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
                     android:backgroundTint="@color/white"
                     android:elevation="10dp"
                     app:cardCornerRadius="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -243,7 +238,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="230dp">
+                android:layout_height="0dp"
+                android:layout_weight="3">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImageProfilePhoto"
@@ -373,7 +369,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/textView18"
@@ -429,7 +426,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
-    </ScrollView>
 
 </FrameLayout>
