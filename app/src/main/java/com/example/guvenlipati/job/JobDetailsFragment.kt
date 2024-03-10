@@ -65,6 +65,7 @@ class JobDetailsFragment : Fragment() {
         val jobAboutTextView = view.findViewById<TextView>(R.id.jobAboutTextView)
         jobPriceTextView = view.findViewById(R.id.jobPriceTextView)
         val petAboutTextView = view.findViewById<TextView>(R.id.petAboutTextView)
+        val textViewAge=view.findViewById<TextView>(R.id.textViewAge)
         linearLayout=view.findViewById<LinearLayout>(R.id.linearLayout)
         loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
 
@@ -140,6 +141,7 @@ class JobDetailsFragment : Fragment() {
                                 endDateTextView.text = job!!.jobEndDate
                                 jobAboutTextView.text = job!!.jobAbout
                                 petAboutTextView.text = pet.petAbout
+                                textViewAge.text=pet.petAge+" Yaş"
                             }
 
                             override fun onCancelled(error: DatabaseError) {
