@@ -20,6 +20,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 
 private lateinit var firebaseUser: FirebaseUser
 
@@ -66,6 +67,7 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
             }
         }
     }
+
     private fun showDeleteConfirmationDialog(pet: Pet) {
         MaterialAlertDialogBuilder(context)
             .setTitle("Emin Misiniz?")
@@ -81,13 +83,25 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
     }
 
     private fun deletePet(pet: Pet) {
-        firebaseUser= FirebaseAuth.getInstance().currentUser!!
-        val databaseReferenceJobs= FirebaseDatabase.getInstance().getReference("jobs").child(firebaseUser.uid + pet.petId)
+        firebaseUser = FirebaseAuth.getInstance().currentUser!!
+        val databaseReferenceJobs =
+            FirebaseDatabase.getInstance().getReference("jobs").child(firebaseUser.uid + pet.petId)
         val databaseReference = FirebaseDatabase.getInstance().getReference("pets").child(pet.petId)
-        databaseReferenceJobs.removeValue()
+        val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(pet.petPhoto)
         databaseReference.removeValue()
             .addOnSuccessListener {
-                showToast("Dost başarıyla silindi.")
+                databaseReferenceJobs.removeValue().addOnSuccessListener {
+                    storageReference.delete()
+                        .addOnSuccessListener {
+                            showToast("Dost silme işlemi başarılı.")
+                        }
+                        .addOnFailureListener {
+                            showToast("Dost fotoğrafı silme işlemi başarısız.")
+                        }
+                }
+                    .addOnFailureListener {
+                        showToast("Dost işleri silme işlemi başarısız.")
+                    }
             }
             .addOnFailureListener {
                 showToast("Dost silme işlemi başarısız.")
