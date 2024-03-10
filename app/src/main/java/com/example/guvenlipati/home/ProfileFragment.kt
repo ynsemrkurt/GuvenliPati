@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var databaseReferencePets: DatabaseReference
     private var fragmentContext: Context? = null
-    private var user:User? = null
+    private var user: User? = null
 
     private lateinit var getContent: ActivityResultLauncher<Intent>
     private var request: Int = 2020
@@ -96,16 +96,16 @@ class ProfileFragment : Fragment() {
         val userNameEdit = view.findViewById<EditText>(R.id.editTextUserName)
         val userSurname = view.findViewById<EditText>(R.id.editTextUserSurname)
         val provinceCombo = view.findViewById<AutoCompleteTextView>(R.id.provinceCombo)
-        val provinceComboLayout=view.findViewById<TextInputLayout>(R.id.textInputLayout)
+        val provinceComboLayout = view.findViewById<TextInputLayout>(R.id.textInputLayout)
         val townCombo = view.findViewById<AutoCompleteTextView>(R.id.townCombo)
-        val townComboLayout=view.findViewById<TextInputLayout>(R.id.textInputLayout2)
+        val townComboLayout = view.findViewById<TextInputLayout>(R.id.textInputLayout2)
         val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
-        buttonSave=view.findViewById(R.id.buttonSave)
-        val buttonChange=view.findViewById<Button>(R.id.buttonChange)
-        val buttonAddProfileImage=view.findViewById<ImageButton>(R.id.buttonAddProfileImage)
-        val friendsText=view.findViewById<TextView>(R.id.dostlarKahvesi)
-        val loadingCardView=view.findViewById<View>(R.id.loadingCardView)
-        val linearLayout=view.findViewById<View>(R.id.linearLayout)
+        buttonSave = view.findViewById(R.id.buttonSave)
+        val buttonChange = view.findViewById<Button>(R.id.buttonChange)
+        val buttonAddProfileImage = view.findViewById<ImageButton>(R.id.buttonAddProfileImage)
+        val friendsText = view.findViewById<TextView>(R.id.dostlarKahvesi)
+        val loadingCardView = view.findViewById<View>(R.id.loadingCardView)
+        val linearLayout = view.findViewById<View>(R.id.linearLayout)
 
 
 
@@ -160,8 +160,8 @@ class ProfileFragment : Fragment() {
                     petRecyclerView.adapter = petAdapter
 
 
-                    loadingCardView.visibility=View.GONE
-                    linearLayout.foreground=null
+                    loadingCardView.visibility = View.GONE
+                    linearLayout.foreground = null
                 }
             }
 
@@ -171,22 +171,26 @@ class ProfileFragment : Fragment() {
         })
 
         buttonChange.setOnClickListener {
-            buttonAddProfileImage.visibility=View.VISIBLE
-            userNameEdit.isEnabled=true
-            userSurname.isEnabled=true
-            provinceComboLayout.isEnabled=true
-            townComboLayout.isEnabled=true
-            buttonSave.visibility=View.VISIBLE
-            buttonChange.visibility=View.INVISIBLE
-            petRecyclerView.visibility=View.INVISIBLE
-            friendsText.visibility=View.INVISIBLE
+            buttonAddProfileImage.visibility = View.VISIBLE
+            userNameEdit.isEnabled = true
+            userSurname.isEnabled = true
+            provinceComboLayout.isEnabled = true
+            townComboLayout.isEnabled = true
+            buttonSave.visibility = View.VISIBLE
+            buttonChange.visibility = View.INVISIBLE
+            petRecyclerView.visibility = View.INVISIBLE
+            friendsText.visibility = View.INVISIBLE
 
-            val provinceAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.city_array, android.R.layout.simple_dropdown_item_1line)
+            val provinceAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.city_array, android.R.layout.simple_dropdown_item_1line
+            )
             provinceCombo.setAdapter(provinceAdapter)
 
-            val townAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.town_array, android.R.layout.simple_dropdown_item_1line)
+            val townAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.town_array, android.R.layout.simple_dropdown_item_1line
+            )
             townCombo.setAdapter(townAdapter)
         }
 
@@ -202,30 +206,34 @@ class ProfileFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (provinceCombo.text.isEmpty() || townCombo.text.isEmpty()){
+            if (provinceCombo.text.isEmpty() || townCombo.text.isEmpty()) {
                 showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }
 
-            databaseReference.child("userName").setValue(userNameEdit.text.toString())
-            databaseReference.child("userSurname").setValue(userSurname.text.toString())
-            databaseReference.child("userProvince").setValue(provinceCombo.text.toString())
-            databaseReference.child("userPhoto").setValue(user?.userPhoto)
-            databaseReference.child("userTown").setValue(townCombo.text.toString()).addOnCompleteListener { task ->
+            databaseReference.updateChildren(
+                mapOf(
+                    "userName" to userNameEdit.text.toString(),
+                    "userSurname" to userSurname.text.toString(),
+                    "userProvince" to provinceCombo.text.toString(),
+                    "userPhoto" to user?.userPhoto,
+                    "userTown" to townCombo.text.toString()
+                )
+            ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showToast("Başarılı")
+                    showToast("Düzenleme başarılı.")
                 } else {
-                    showToast("Hatalı işlem!")
+                    showToast("Düzenleme hatası: ${task.exception}")
                 }
-                buttonAddProfileImage.visibility=View.INVISIBLE
-                userNameEdit.isEnabled=false
-                userSurname.isEnabled=false
-                provinceComboLayout.isEnabled=false
-                townComboLayout.isEnabled=false
-                buttonSave.visibility=View.INVISIBLE
-                buttonChange.visibility=View.VISIBLE
-                petRecyclerView.visibility=View.VISIBLE
-                friendsText.visibility=View.VISIBLE
+                buttonAddProfileImage.visibility = View.INVISIBLE
+                userNameEdit.isEnabled = false
+                userSurname.isEnabled = false
+                provinceComboLayout.isEnabled = false
+                townComboLayout.isEnabled = false
+                buttonSave.visibility = View.INVISIBLE
+                buttonChange.visibility = View.VISIBLE
+                petRecyclerView.visibility = View.VISIBLE
+                friendsText.visibility = View.VISIBLE
             }
         }
 
@@ -245,18 +253,24 @@ class ProfileFragment : Fragment() {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (buttonSave.visibility == View.VISIBLE){
+            if (buttonSave.visibility == View.VISIBLE) {
                 showMaterialDialog()
-            }else{
+            } else {
                 requireActivity().finish()
             }
         }
     }
-    private fun showMaterialDialog(){
+
+    private fun showMaterialDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Emin Misiniz?")
             .setMessage("Eğer geri dönerseniz düzenlemeniz kaydedilmeyecek.")
-            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_dialog))
+            .setBackground(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_dialog
+                )
+            )
             .setPositiveButton("Geri Dön") { _, _ ->
                 showToast("Değişiklikler iptal edildi.")
                 (activity as HomeActivity).goProfileFragment()
@@ -266,6 +280,7 @@ class ProfileFragment : Fragment() {
             }
             .show()
     }
+
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -320,13 +335,13 @@ class ProfileFragment : Fragment() {
                         showToast("Fotoğraf yüklendi!")
                         ref.downloadUrl.addOnSuccessListener { uri ->
                             imageUrl = uri.toString()
-                            user?.userPhoto=imageUrl
+                            user?.userPhoto = imageUrl
                         }
                     }
                     .addOnFailureListener {
                         showToast("Başarısız, lütfen yeniden deneyin!")
                     }
-                    buttonSave.isEnabled = true
+                buttonSave.isEnabled = true
                 view?.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
                     ?.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
