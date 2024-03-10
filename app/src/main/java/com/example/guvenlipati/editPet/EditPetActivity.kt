@@ -199,21 +199,24 @@ class EditPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            databaseReference.child("petPhoto").setValue(pet.petPhoto)
-            databaseReference.child("petName").setValue(editTextPetName.text.toString())
-            databaseReference.child("petWeight").setValue(editTextPetWeight.text.toString())
-            databaseReference.child("petAbout").setValue(editTextAbout.text.toString())
-            databaseReference.child("petAge").setValue(petAgeCombo.text.toString())
-            databaseReference.child("petBreed").setValue(petTypeCombo.text.toString())
-            databaseReference.child("petVaccinate").setValue(petVaccine)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        showToast("Değişiklikler kaydedildi...")
-                        finish()
-                    } else {
-                        showToast("Hatalı işlem!")
-                    }
+            databaseReference.updateChildren(
+                mapOf(
+                    "petPhoto" to pet.petPhoto,
+                    "petName" to editTextPetName.text.toString(),
+                    "petWeight" to editTextPetWeight.text.toString(),
+                    "petAbout" to editTextAbout.text.toString(),
+                    "petAge" to petAgeCombo.text.toString(),
+                    "petBreed" to petTypeCombo.text.toString(),
+                    "petVaccinate" to petVaccine
+                )
+            ).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    showToast("Düzenleme başarılı.")
+                    finish()
+                } else {
+                    showToast("Düzenleme hatası: ${task.exception}")
                 }
+            }
         }
 
         backButton.setOnClickListener {
