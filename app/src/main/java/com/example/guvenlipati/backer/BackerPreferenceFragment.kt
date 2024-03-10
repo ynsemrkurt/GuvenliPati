@@ -161,23 +161,26 @@ class BackerPreferenceFragment : Fragment() {
             databaseReference = FirebaseDatabase.getInstance().getReference("identifies")
                 .child(auth.currentUser!!.uid)
 
-            databaseReference.child("dogBacker").setValue(dogJob)
-            databaseReference.child("catBacker").setValue(catJob)
-            databaseReference.child("birdBacker").setValue(birdJob)
-            databaseReference.child("userAvailability").setValue(userAvailability)
-            databaseReference.child("homeJob").setValue(homeJob)
-            databaseReference.child("feedingJob").setValue(feedingJob)
-            databaseReference.child("walkingJob").setValue(walkingJob)
-            databaseReference.child("homeMoney").setValue(homeMoney.text.toString().toInt())
-            databaseReference.child("feedingMoney").setValue(feedingMoney.text.toString().toInt())
-            databaseReference.child("walkingMoney").setValue(walkingMoney.text.toString().toInt())
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        showBottomSheet()
-                    } else {
-                        showToast("Kayıt Başarısız")
-                    }
+            databaseReference.updateChildren(
+                mapOf(
+                    "dogBacker" to dogJob,
+                    "catBacker" to catJob,
+                    "birdBacker" to birdJob,
+                    "userAvailability" to userAvailability,
+                    "homeJob" to homeJob,
+                    "feedingJob" to feedingJob,
+                    "walkingJob" to walkingJob,
+                    "homeMoney" to homeMoney.text.toString().toInt(),
+                    "feedingMoney" to feedingMoney.text.toString().toInt(),
+                    "walkingMoney" to walkingMoney.text.toString().toInt()
+                )
+            ).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    showBottomSheet()
+                } else {
+                    showToast("Kayıt hatası: ${task.exception}")
                 }
+            }
         }
     }
 
