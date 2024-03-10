@@ -1,13 +1,11 @@
 package com.example.guvenlipati.backer
 
 import android.os.Bundle
-import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentContainerView
 import com.example.guvenlipati.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -45,19 +43,11 @@ class PetBackerActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView2, RegisterBackerFragment())
             .commit()
-        animation()
     }
     fun goBackerPreferenceFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView2, BackerPreferenceFragment())
             .commit()
-        animation()
-    }
-
-    private fun animation() {
-        val fragmentContainerView: FragmentContainerView = findViewById(R.id.fragmentContainerView2)
-        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        fragmentContainerView.startAnimation(fadeIn)
     }
 
     private fun backProcess() {

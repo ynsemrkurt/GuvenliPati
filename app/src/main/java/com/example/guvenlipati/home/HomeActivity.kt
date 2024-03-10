@@ -2,12 +2,10 @@ package com.example.guvenlipati.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentContainerView
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
@@ -79,7 +77,6 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, AddPetFragment()
             )
             .commit()
-        animation()
     }
 
 
@@ -89,7 +86,6 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, HomeFragment()
             )
             .commit()
-        animation()
     }
 
     fun goRegisterPetActivity(petType: String) {
@@ -104,13 +100,11 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, ProfileFragment()
             )
             .commit()
-        animation()
     }
 
     fun goPetBackerActivity(){
         val intent = Intent(this, PetBackerActivity::class.java)
         startActivity(intent)
-        animation()
     }
 
     private fun logout() {
@@ -119,11 +113,6 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-    private fun animation(){
-        val fragmentContainerView: FragmentContainerView = findViewById(R.id.fragmentContainerView2)
-        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        fragmentContainerView.startAnimation(fadeIn)
-    }
 
     private fun goJobsFragment() {
         supportFragmentManager.beginTransaction()
@@ -131,6 +120,5 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, JobsSplashFragment()
             )
             .commit()
-        animation()
     }
 }

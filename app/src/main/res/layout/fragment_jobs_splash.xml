@@ -43,12 +43,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="10"
-        android:foreground="@drawable/job_splash_background">
+        android:foreground="@color/white">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="7.5">
+                    android:layout_weight="7.8">
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/animationView2"
@@ -65,13 +65,28 @@
                         app:lottie_loop="true"
                         app:lottie_rawRes="@raw/glass_anim" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-25dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/alata"
+                        android:text="@string/find"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/animationView2"
+                        tools:layout_editor_absoluteX="30dp" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/third"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2.5"
+                    android:layout_weight="2.2"
                     android:background="@color/white"
                     android:paddingLeft="70dp"
                     android:paddingRight="70dp">
