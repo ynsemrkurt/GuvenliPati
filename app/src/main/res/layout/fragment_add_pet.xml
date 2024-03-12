@@ -46,7 +46,7 @@
                 android:layout_height="240dp">
 
                 <ImageView
-                    android:id="@+id/select_dog"
+                    android:id="@+id/selectDog"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/dog_image"
@@ -68,8 +68,8 @@
                     android:text="@string/dog"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/select_dog"
-                    app:layout_constraintTop_toTopOf="@+id/select_dog" />
+                    app:layout_constraintStart_toStartOf="@+id/selectDog"
+                    app:layout_constraintTop_toTopOf="@+id/selectDog" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,7 +78,7 @@
                 android:layout_height="240dp">
 
                 <ImageView
-                    android:id="@+id/select_cat"
+                    android:id="@+id/selectCat"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/cat_image"
@@ -97,8 +97,8 @@
                     android:text="@string/cat"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/select_cat"
-                    app:layout_constraintTop_toTopOf="@+id/select_cat" />
+                    app:layout_constraintStart_toStartOf="@+id/selectCat"
+                    app:layout_constraintTop_toTopOf="@+id/selectCat" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,7 +107,7 @@
                 android:layout_height="240dp">
 
                 <ImageView
-                    android:id="@+id/select_bird"
+                    android:id="@+id/selectBird"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/bird_image"
@@ -126,8 +126,8 @@
                     android:text="@string/bird"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/select_bird"
-                    app:layout_constraintTop_toTopOf="@+id/select_bird" />
+                    app:layout_constraintStart_toStartOf="@+id/selectBird"
+                    app:layout_constraintTop_toTopOf="@+id/selectBird" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

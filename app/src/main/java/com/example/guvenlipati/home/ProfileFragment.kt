@@ -11,11 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -29,10 +24,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.PetsAdapter
+import com.example.guvenlipati.databinding.FragmentProfileBinding
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -44,7 +39,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
-import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -63,7 +57,8 @@ class ProfileFragment : Fragment() {
     private lateinit var storage: FirebaseStorage
     private lateinit var strgRef: StorageReference
     private var imageUrl: String = ""
-    private lateinit var buttonSave: Button
+
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -78,8 +73,9 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,24 +88,9 @@ class ProfileFragment : Fragment() {
         databaseReferencePets =
             FirebaseDatabase.getInstance().getReference("pets")
 
-        val profilePhoto = view.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-        val userNameEdit = view.findViewById<EditText>(R.id.editTextUserName)
-        val userSurname = view.findViewById<EditText>(R.id.editTextUserSurname)
-        val provinceCombo = view.findViewById<AutoCompleteTextView>(R.id.provinceCombo)
-        val provinceComboLayout = view.findViewById<TextInputLayout>(R.id.textInputLayout)
-        val townCombo = view.findViewById<AutoCompleteTextView>(R.id.townCombo)
-        val townComboLayout = view.findViewById<TextInputLayout>(R.id.textInputLayout2)
-        val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
-        buttonSave = view.findViewById(R.id.buttonSave)
-        val buttonChange = view.findViewById<Button>(R.id.buttonChange)
-        val buttonAddProfileImage = view.findViewById<ImageButton>(R.id.buttonAddProfileImage)
-        val friendsText = view.findViewById<TextView>(R.id.dostlarKahvesi)
-        val loadingCardView = view.findViewById<View>(R.id.loadingCardView)
-        val linearLayout = view.findViewById<View>(R.id.linearLayout)
 
 
-
-        petRecyclerView.layoutManager =
+        binding.petRecycleView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
         val petList = ArrayList<Pet>()
@@ -122,20 +103,20 @@ class ProfileFragment : Fragment() {
                     user = snapshot.getValue(User::class.java)
                     if (user?.userId == firebaseUser.uid) {
                         if (user?.userPhoto!!.isEmpty()) {
-                            profilePhoto.setImageResource(R.drawable.men_image)
+                            binding.circleImageProfilePhoto.setImageResource(R.drawable.men_image)
                         } else {
                             val imageUri = Uri.parse(user?.userPhoto)
                             Glide.with(requireContext()).load(imageUri)
                                 .placeholder(R.drawable.men_image)
-                                .into(profilePhoto)
+                                .into(binding.circleImageProfilePhoto)
                         }
-                        userNameEdit.setText(user?.userName)
-                        userSurname.setText(user?.userSurname)
-                        provinceCombo.setText(user?.userProvince)
-                        townCombo.setText(user?.userTown)
+                        binding.editTextUserName.setText(user?.userName)
+                        binding.editTextUserSurname.setText(user?.userSurname)
+                        binding.provinceCombo.setText(user?.userProvince)
+                        binding.townCombo.setText(user?.userTown)
 
-                        loadingCardView.visibility = View.GONE
-                        linearLayout.foreground = null
+                        binding.loadingCardView.visibility = View.GONE
+                        binding.linearLayout.foreground = null
                     }
                 }
             }
@@ -160,7 +141,7 @@ class ProfileFragment : Fragment() {
                     }
 
                     val petAdapter = PetsAdapter(requireContext(), petList)
-                    petRecyclerView.adapter = petAdapter
+                    binding.petRecycleView.adapter = petAdapter
                 }
             }
 
@@ -169,54 +150,54 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        buttonChange.setOnClickListener {
-            buttonAddProfileImage.visibility = View.VISIBLE
-            userNameEdit.isEnabled = true
-            userSurname.isEnabled = true
-            provinceComboLayout.isEnabled = true
-            townComboLayout.isEnabled = true
-            buttonSave.visibility = View.VISIBLE
-            buttonChange.visibility = View.INVISIBLE
-            petRecyclerView.visibility = View.INVISIBLE
-            friendsText.visibility = View.INVISIBLE
+        binding.buttonChange.setOnClickListener {
+            binding.buttonAddProfileImage.visibility = View.VISIBLE
+            binding.editTextUserName.isEnabled = true
+            binding.editTextUserSurname.isEnabled = true
+            binding.textInputLayout.isEnabled = true
+            binding.textInputLayout2.isEnabled = true
+            binding.buttonSave.visibility = View.VISIBLE
+            binding.buttonChange.visibility = View.INVISIBLE
+            binding.petRecycleView.visibility = View.INVISIBLE
+            binding.dostlarKahvesi.visibility = View.INVISIBLE
 
             val provinceAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
                 R.array.city_array, android.R.layout.simple_dropdown_item_1line
             )
-            provinceCombo.setAdapter(provinceAdapter)
+            binding.provinceCombo.setAdapter(provinceAdapter)
 
             val townAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
                 R.array.town_array, android.R.layout.simple_dropdown_item_1line
             )
-            townCombo.setAdapter(townAdapter)
+            binding.townCombo.setAdapter(townAdapter)
         }
 
-        buttonSave.setOnClickListener {
+        binding.buttonSave.setOnClickListener {
 
-            if (userNameEdit.text.isEmpty()) {
+            if (binding.editTextUserName.text.isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
-            if (userSurname.text.isEmpty()) {
+            if (binding.editTextUserSurname.text.isEmpty()) {
                 showToast("Soyadınızı giriniz!")
                 return@setOnClickListener
             }
 
-            if (provinceCombo.text.isEmpty() || townCombo.text.isEmpty()) {
+            if (binding.provinceCombo.text.isEmpty() || binding.townCombo.text.isEmpty()) {
                 showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }
 
             databaseReference.updateChildren(
                 mapOf(
-                    "userName" to userNameEdit.text.toString(),
-                    "userSurname" to userSurname.text.toString(),
-                    "userProvince" to provinceCombo.text.toString(),
+                    "userName" to binding.editTextUserName.text.toString(),
+                    "userSurname" to binding.editTextUserSurname.text.toString(),
+                    "userProvince" to binding.provinceCombo.text.toString(),
                     "userPhoto" to user?.userPhoto,
-                    "userTown" to townCombo.text.toString()
+                    "userTown" to binding.townCombo.text.toString()
                 )
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -224,15 +205,15 @@ class ProfileFragment : Fragment() {
                 } else {
                     showToast("Düzenleme hatası: ${task.exception}")
                 }
-                buttonAddProfileImage.visibility = View.INVISIBLE
-                userNameEdit.isEnabled = false
-                userSurname.isEnabled = false
-                provinceComboLayout.isEnabled = false
-                townComboLayout.isEnabled = false
-                buttonSave.visibility = View.INVISIBLE
-                buttonChange.visibility = View.VISIBLE
-                petRecyclerView.visibility = View.VISIBLE
-                friendsText.visibility = View.VISIBLE
+                binding.buttonAddProfileImage.visibility = View.INVISIBLE
+                binding.editTextUserName.isEnabled = false
+                binding.editTextUserSurname.isEnabled = false
+                binding.textInputLayout.isEnabled = false
+                binding.textInputLayout2.isEnabled = false
+                binding.buttonSave.visibility = View.INVISIBLE
+                binding.buttonChange.visibility = View.VISIBLE
+                binding.petRecycleView.visibility = View.VISIBLE
+                binding.dostlarKahvesi.visibility = View.VISIBLE
             }
         }
 
@@ -244,7 +225,7 @@ class ProfileFragment : Fragment() {
         storage = Firebase.storage
         strgRef = storage.reference
 
-        buttonAddProfileImage.setOnClickListener {
+        binding.buttonAddProfileImage.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
@@ -252,7 +233,7 @@ class ProfileFragment : Fragment() {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (buttonSave.visibility == View.VISIBLE) {
+            if (binding.buttonSave.visibility == View.VISIBLE) {
                 showMaterialDialog()
             } else {
                 requireActivity().finish()
@@ -288,7 +269,7 @@ class ProfileFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
-            buttonSave.isEnabled = false
+            binding.buttonSave.isEnabled = false
             filePath = data.data
             try {
                 showToast("Fotoğraf yükleniyor...")
@@ -340,9 +321,8 @@ class ProfileFragment : Fragment() {
                     .addOnFailureListener {
                         showToast("Başarısız, lütfen yeniden deneyin!")
                     }
-                buttonSave.isEnabled = true
-                view?.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-                    ?.setImageBitmap(rotatedBitmap)
+                binding.buttonSave.isEnabled = true
+                binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }

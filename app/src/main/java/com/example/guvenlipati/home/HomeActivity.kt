@@ -2,36 +2,33 @@ package com.example.guvenlipati.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
+import com.example.guvenlipati.databinding.ActivityHomeBinding
 import com.example.guvenlipati.splash.SplashActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth=FirebaseAuth.getInstance()
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val navButton = findViewById<ImageView>(R.id.menu_nav)
 
-        navButton.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+        binding.menuNav.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener { menuItem ->
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout -> {
                     logout()
@@ -41,9 +38,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        val navigationBar = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-
-        navigationBar.setOnItemSelectedListener { item ->
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_home -> {
                     goHomeFragment()

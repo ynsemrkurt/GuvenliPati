@@ -5,11 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ScrollView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
-import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -22,36 +19,34 @@ class HomeFragment : Fragment() {
 
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding= FragmentHomeBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cardView = view.findViewById<CardView>(R.id.loadingCardView)
-        val scrollView = view.findViewById<ScrollView>(R.id.scrollView)
-
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         databaseReference =
             FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
                 .child("userBacker")
-        val goBackerButton = view.findViewById<Button>(R.id.goBackerButton)
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val isUserBacker = snapshot.getValue(Boolean::class.java) ?: false
 
                 if (isUserBacker) {
-                    goBackerButton.visibility = View.GONE
+                    binding.goBackerButton.visibility = View.GONE
                 }
 
-                scrollView.foreground = null
-                cardView.visibility = View.GONE
+                binding.scrollView.foreground = null
+                binding.loadingCardView.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -59,7 +54,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        goBackerButton.setOnClickListener {
+        binding.goBackerButton.setOnClickListener {
             (activity as HomeActivity).goPetBackerActivity()
         }
     }

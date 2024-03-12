@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.job.GetJobActivity
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentJobsSplashBinding
 import com.example.guvenlipati.models.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -24,23 +22,21 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class JobsSplashFragment : Fragment() {
+
     private lateinit var user: User
     private lateinit var firebaseUser: FirebaseUser
+    private lateinit var binding: FragmentJobsSplashBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_jobs_splash, container, false)
+    ): View {
+        binding= FragmentJobsSplashBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
-        val scrollView=view.findViewById<LinearLayout>(R.id.linearLayout)
-        val createAdvertsButton = view.findViewById<Button>(R.id.createAdvertsButton)
-        val findJobButton = view.findViewById<Button>(R.id.findJobButton)
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
@@ -50,8 +46,8 @@ class JobsSplashFragment : Fragment() {
                     val userData = snapshot.getValue(User::class.java)
                     user = userData ?: User()
                 }
-                loadingCardView.visibility = View.GONE
-                scrollView.foreground = null
+                binding.loadingCardView.visibility = View.GONE
+                binding.linearLayout.foreground = null
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -59,12 +55,12 @@ class JobsSplashFragment : Fragment() {
             }
         })
 
-        createAdvertsButton.setOnClickListener {
+        binding.createAdvertsButton.setOnClickListener {
             val intent = Intent(requireContext(), JobsActivity::class.java)
             startActivity(intent)
         }
 
-        findJobButton.setOnClickListener {
+        binding.findJobButton.setOnClickListener {
             if (::user.isInitialized) {
                 val userBackerBool = user.userBacker
                 if (!userBackerBool) {
