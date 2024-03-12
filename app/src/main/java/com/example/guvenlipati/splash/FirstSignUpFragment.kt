@@ -18,68 +18,64 @@ import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentFirstSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
 
 class FirstSignUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: FragmentFirstSignUpBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_first_sign_up, container, false)
+    ): View {
+        binding = FragmentFirstSignUpBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val signUpButton = view.findViewById<Button>(R.id.signUpButton)
-        val progressCard = view.findViewById<CardView>(R.id.progressCard)
-        val buttonPaw = view.findViewById<ImageView>(R.id.buttonPaw)
+        auth = FirebaseAuth.getInstance()
 
-        view.findViewById<Button>(R.id.signUpButton).setOnClickListener {
-
-            auth = FirebaseAuth.getInstance()
-
-            val userEmail = view.findViewById<EditText>(R.id.editTextEmail)
-            val userPassword = view.findViewById<EditText>(R.id.editTextPassword)
-            val userConfirmPassword = view.findViewById<EditText>(R.id.editTextConfirmPassword)
-
-            if (userEmail.text.toString().isEmpty() || !controlEmail(userEmail.text.toString())) {
+        binding.signUpButton.setOnClickListener {
+            if (binding.editTextEmail.text.toString()
+                    .isEmpty() || !controlEmail(binding.editTextEmail.text.toString())
+            ) {
                 showToast("Hatalı ya da eksik E-posta!")
                 return@setOnClickListener
             }
 
-            if (userPassword.text.toString().length < 8) {
+            if (binding.editTextPassword.text.toString().length < 8) {
                 showToast("Şifre 8 karakterden kısa olamaz!")
                 return@setOnClickListener
             }
 
-            if (userPassword.text.toString() != userConfirmPassword.text.toString()) {
+            if (binding.editTextPassword.text.toString() != binding.editTextConfirmPassword.text.toString()) {
                 showToast("Şifreler uyuşmuyor!")
-                userPassword.setTextColor(Color.RED)
-                userConfirmPassword.setTextColor(Color.RED)
-                val shake= AnimationUtils.loadAnimation(requireContext(),R.anim.shake)
-                userPassword.startAnimation(shake)
-                userConfirmPassword.startAnimation(shake)
+                binding.editTextPassword.setTextColor(Color.RED)
+                binding.editTextConfirmPassword.setTextColor(Color.RED)
+                val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+                binding.editTextPassword.startAnimation(shake)
+                binding.editTextConfirmPassword.startAnimation(shake)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    userPassword.text.clear()
-                    userConfirmPassword.text.clear()
-                    userPassword.setTextColor(Color.BLACK)
-                    userConfirmPassword.setTextColor(Color.BLACK)
+                    binding.editTextPassword.text.clear()
+                    binding.editTextConfirmPassword.text.clear()
+                    binding.editTextPassword.setTextColor(Color.BLACK)
+                    binding.editTextConfirmPassword.setTextColor(Color.BLACK)
                 }, 500)
                 return@setOnClickListener
             }
 
-            signUpButton.visibility = View.INVISIBLE
-            progressCard.visibility = View.VISIBLE
-            buttonPaw.visibility = View.INVISIBLE
+            binding.signUpButton.visibility = View.INVISIBLE
+            binding.progressCard.visibility = View.VISIBLE
+            binding.buttonPaw.visibility = View.INVISIBLE
 
             auth.createUserWithEmailAndPassword(
-                userEmail.text.toString(),
-                userPassword.text.toString()
+                binding.editTextEmail.text.toString(),
+                binding.editTextPassword.text.toString()
             )
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -87,13 +83,13 @@ class FirstSignUpFragment : Fragment() {
                     } else {
                         showToast("Farklı E-posta Giriniz!")
                     }
-                    signUpButton.visibility = View.VISIBLE
-                    progressCard.visibility = View.INVISIBLE
-                    buttonPaw.visibility = View.VISIBLE
+                    binding.signUpButton.visibility = View.VISIBLE
+                    binding.progressCard.visibility = View.INVISIBLE
+                    binding.buttonPaw.visibility = View.VISIBLE
                 }
         }
 
-        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
+        binding.backToSplash.setOnClickListener {
             (activity as SplashActivity).goSplashFragment()
         }
 

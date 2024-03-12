@@ -7,25 +7,29 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
+
+    private lateinit var binding: FragmentSplashBinding
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+    ): View {
+        binding= FragmentSplashBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.loginPageButton).setOnClickListener {
+        binding.loginPageButton.setOnClickListener {
             (activity as SplashActivity).goLoginFragment()
         }
 
-        view.findViewById<Button>(R.id.signUpPageButton).setOnClickListener {
+        binding.signUpPageButton.setOnClickListener {
             (activity as SplashActivity).goFirstSignUpFragment()
         }
 

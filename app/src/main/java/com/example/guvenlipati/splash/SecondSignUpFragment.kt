@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentSecondSignUpBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -51,12 +52,14 @@ class SecondSignUpFragment : Fragment() {
     private lateinit var strgRef: StorageReference
     private var imageUrl: String = ""
 
+    private lateinit var binding: FragmentSecondSignUpBinding
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_second_sign_up, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSecondSignUpBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,29 +68,22 @@ class SecondSignUpFragment : Fragment() {
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
 
         var userGender: Boolean? = null
-        val buttonFemale = view.findViewById<Button>(R.id.buttonFemale)
-        val buttonMale = view.findViewById<Button>(R.id.buttonMale)
-        val saveProfileButton = view.findViewById<Button>(R.id.saveProfileButton)
-        val progressCard = view.findViewById<CardView>(R.id.progressCard)
-        val buttonPaw = view.findViewById<ImageView>(R.id.buttonPaw)
-        val provinceCombo=view.findViewById<AutoCompleteTextView>(R.id.provinceCombo)
-        val townCombo=view.findViewById<AutoCompleteTextView>(R.id.townCombo)
 
 
-        buttonFemale.setOnClickListener {
+        binding.buttonFemale.setOnClickListener {
             userGender = true
-            buttonFemale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
-            buttonFemale.setTextColor(Color.WHITE)
-            buttonMale.setBackgroundResource(R.drawable.sign2_edittext_bg)
-            buttonMale.setTextColor(Color.BLACK)
+            binding.buttonFemale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
+            binding.buttonFemale.setTextColor(Color.WHITE)
+            binding.buttonMale.setBackgroundResource(R.drawable.sign2_edittext_bg)
+            binding.buttonMale.setTextColor(Color.BLACK)
         }
 
-        buttonMale.setOnClickListener {
+        binding.buttonMale.setOnClickListener {
             userGender = false
-            buttonMale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
-            buttonMale.setTextColor(Color.WHITE)
-            buttonFemale.setBackgroundResource(R.drawable.sign2_edittext_bg)
-            buttonFemale.setTextColor(Color.BLACK)
+            binding.buttonMale.setBackgroundResource(R.drawable.sign2_edittext_bg2)
+            binding.buttonMale.setTextColor(Color.WHITE)
+            binding.buttonFemale.setBackgroundResource(R.drawable.sign2_edittext_bg)
+            binding.buttonFemale.setTextColor(Color.BLACK)
         }
 
         getContent =
@@ -99,24 +95,22 @@ class SecondSignUpFragment : Fragment() {
         strgRef = storage.reference
 
 
-        saveProfileButton.setOnClickListener {
+        binding.saveProfileButton.setOnClickListener {
 
 
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
-            val userName = view.findViewById<EditText>(R.id.editTextUserName)
-            val userSurname = view.findViewById<EditText>(R.id.editTextUserSurname)
-            val userProvince = provinceCombo.text.toString()
-            val userTown=townCombo.text.toString()
+            val userProvince = binding.provinceCombo.text.toString()
+            val userTown = binding.townCombo.text.toString()
 
 
-            if (userName.text.isEmpty()) {
+            if (binding.editTextUserName.text.isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
-            if (userSurname.text.isEmpty()) {
+            if (binding.editTextUserSurname.text.isEmpty()) {
                 showToast("Soyadınızı giriniz!")
                 return@setOnClickListener
             }
@@ -126,14 +120,14 @@ class SecondSignUpFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (userProvince.isEmpty() || userTown.isEmpty()){
+            if (userProvince.isEmpty() || userTown.isEmpty()) {
                 showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }
 
-            saveProfileButton.visibility = View.INVISIBLE
-            progressCard.visibility = View.VISIBLE
-            buttonPaw.visibility = View.INVISIBLE
+            binding.saveProfileButton.visibility = View.INVISIBLE
+            binding.progressCard.visibility = View.VISIBLE
+            binding.buttonPaw.visibility = View.INVISIBLE
 
             val currentDate = LocalDate.now()
 
@@ -145,8 +139,8 @@ class SecondSignUpFragment : Fragment() {
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
             hashMap["userPhoto"] = imageUrl
-            hashMap["userName"] = userName.text.toString()
-            hashMap["userSurname"] = userSurname.text.toString()
+            hashMap["userName"] = binding.editTextUserName.text.toString()
+            hashMap["userSurname"] = binding.editTextUserSurname.text.toString()
             hashMap["userGender"] = userGender!!
             hashMap["userProvince"] = userProvince
             hashMap["userTown"] = userTown
@@ -159,20 +153,20 @@ class SecondSignUpFragment : Fragment() {
                 } else {
                     showToast("Hatalı işlem!")
                 }
-                saveProfileButton.visibility = View.VISIBLE
-                progressCard.visibility = View.INVISIBLE
-                buttonPaw.visibility = View.VISIBLE
+                binding.saveProfileButton.visibility = View.VISIBLE
+                binding.progressCard.visibility = View.INVISIBLE
+                binding.buttonPaw.visibility = View.VISIBLE
             }
         }
 
-        view.findViewById<ImageButton>(R.id.buttonAddProfileImage).setOnClickListener {
+        binding.buttonAddProfileImage.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
-        view.findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
+        binding.backToSplash.setOnClickListener {
             showMaterialDialog()
         }
 
@@ -191,19 +185,18 @@ class SecondSignUpFragment : Fragment() {
         }
     }
 
-    private fun showMaterialDialog(){
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Emin Misiniz?")
-            .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
-            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_dialog))
-            .setPositiveButton("Sil") { _, _ ->
+    private fun showMaterialDialog() {
+        MaterialAlertDialogBuilder(requireContext()).setTitle("Emin Misiniz?")
+            .setMessage("Eğer geri dönerseniz kaydınız silinecektir.").setBackground(
+                ContextCompat.getDrawable(
+                    requireContext(), R.drawable.background_dialog
+                )
+            ).setPositiveButton("Sil") { _, _ ->
                 showToast("Kaydınız iptal edildi.")
                 deleteUserData()
-            }
-            .setNegativeButton("İptal") { _, _ ->
+            }.setNegativeButton("İptal") { _, _ ->
                 showToast("İptal Edildi")
-            }
-            .show()
+            }.show()
     }
 
 
@@ -222,8 +215,7 @@ class SecondSignUpFragment : Fragment() {
                 val inputStream = requireActivity().contentResolver.openInputStream(filePath!!)
                 val exif = ExifInterface(inputStream!!)
                 val orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL
+                    ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL
                 )
 
                 val originalBitmap =
@@ -239,13 +231,7 @@ class SecondSignUpFragment : Fragment() {
 
                 val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
                 val rotatedBitmap = uploadBitmap.createBitmap(
-                    originalBitmap,
-                    0,
-                    0,
-                    originalBitmap.width,
-                    originalBitmap.height,
-                    matrix,
-                    true
+                    originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true
                 )
 
                 val imageStream = ByteArrayOutputStream()
@@ -255,19 +241,16 @@ class SecondSignUpFragment : Fragment() {
                 val imageArray = imageStream.toByteArray()
 
                 val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
-                ref.putBytes(imageArray)
-                    .addOnSuccessListener {
-                        showToast("Fotoğraf yüklendi!")
-                        ref.downloadUrl.addOnSuccessListener { uri ->
-                            imageUrl = uri.toString()
-                        }
+                ref.putBytes(imageArray).addOnSuccessListener {
+                    showToast("Fotoğraf yüklendi!")
+                    ref.downloadUrl.addOnSuccessListener { uri ->
+                        imageUrl = uri.toString()
                     }
-                    .addOnFailureListener {
-                        showToast("Başarısız, lütfen yeniden deneyin!")
-                    }
+                }.addOnFailureListener {
+                    showToast("Başarısız, lütfen yeniden deneyin!")
+                }
 
-                view?.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-                    ?.setImageBitmap(rotatedBitmap)
+                binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
