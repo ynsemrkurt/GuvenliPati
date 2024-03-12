@@ -12,18 +12,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.ActivityRegisterPetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
@@ -34,52 +30,38 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
-import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
-private lateinit var firebaseUser: FirebaseUser
-lateinit var databaseReference: DatabaseReference
-private lateinit var auth: FirebaseAuth
-private lateinit var getContent: ActivityResultLauncher<Intent>
-private var request: Int = 2020
-private var filePath: Uri? = null
-private lateinit var storage: FirebaseStorage
-private lateinit var strgRef: StorageReference
-private var imageUrl: String = ""
-
-
 class RegisterPetActivity : AppCompatActivity() {
+
+    private lateinit var firebaseUser: FirebaseUser
+    lateinit var databaseReference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var getContent: ActivityResultLauncher<Intent>
+    private var request: Int = 2020
+    private var filePath: Uri? = null
+    private lateinit var storage: FirebaseStorage
+    private lateinit var strgRef: StorageReference
+    private var imageUrl: String = ""
+    private lateinit var binding: ActivityRegisterPetBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_pet)
+        binding = ActivityRegisterPetBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
 
 
         val petType = intent.getStringExtra("petType")
-
-        val buttonPetFemale = findViewById<Button>(R.id.buttonPetFemale)
-        val buttonPetMale = findViewById<Button>(R.id.buttonPetMale)
-        val buttonPetVaccine = findViewById<Button>(R.id.buttonPetVaccine)
-        val buttonPetUnVaccine = findViewById<Button>(R.id.buttonPetUnVaccine)
-        val editTextPetName = findViewById<EditText>(R.id.editTextPetName)
-        val editTextPetWeight = findViewById<EditText>(R.id.editTextWeight)
-        val petAgeCombo = findViewById<AutoCompleteTextView>(R.id.ageCombo)
-        val petTypeCombo = findViewById<AutoCompleteTextView>(R.id.typeCombo)
         var petGender: Boolean? = null
         var petVaccine: Boolean? = null
-        val editTextAbout = findViewById<EditText>(R.id.editTextAbout)
-        val addPetButton = findViewById<Button>(R.id.petRegisterButton)
-        val buttonPaw = findViewById<ImageView>(R.id.buttonPaw2)
-        val progressCard = findViewById<CardView>(R.id.progressCard)
-        val backButton=findViewById<ImageButton>(R.id.backToSplash)
-        val vaccineImage=findViewById<ImageView>(R.id.vaccine)
-        val unVaccineImage=findViewById<ImageView>(R.id.unVaccine)
 
 
-        backButton.setOnClickListener{
+        binding.backToSplash.setOnClickListener{
             showMaterialDialog()
         }
 
@@ -91,7 +73,7 @@ class RegisterPetActivity : AppCompatActivity() {
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.dog_types_array)
                 )
-                petTypeCombo.setAdapter(adapter)
+                binding.typeCombo.setAdapter(adapter)
             }
 
             "cat" -> {
@@ -100,7 +82,7 @@ class RegisterPetActivity : AppCompatActivity() {
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.cat_types_array)
                 )
-                petTypeCombo.setAdapter(adapter)
+                binding.typeCombo.setAdapter(adapter)
             }
 
             "bird" -> {
@@ -109,7 +91,7 @@ class RegisterPetActivity : AppCompatActivity() {
                     android.R.layout.simple_dropdown_item_1line,
                     resources.getStringArray(R.array.bird_types_array)
                 )
-                petTypeCombo.setAdapter(adapter)
+                binding.typeCombo.setAdapter(adapter)
             }
 
             else -> {
@@ -118,28 +100,28 @@ class RegisterPetActivity : AppCompatActivity() {
         }
 
 
-        buttonPetFemale.setOnClickListener {
+        binding.buttonPetFemale.setOnClickListener {
             petGender = true
-            selectMethod(buttonPetFemale, buttonPetMale)
+            selectMethod(binding.buttonPetFemale, binding.buttonPetMale)
         }
 
-        buttonPetMale.setOnClickListener {
+        binding.buttonPetMale.setOnClickListener {
             petGender = false
-            selectMethod(buttonPetMale, buttonPetFemale)
+            selectMethod(binding.buttonPetMale, binding.buttonPetFemale)
         }
 
-        buttonPetVaccine.setOnClickListener {
+        binding.buttonPetVaccine.setOnClickListener {
             petVaccine = true
-            selectMethod(buttonPetVaccine, buttonPetUnVaccine)
-            vaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
-            unVaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+            selectMethod(binding.buttonPetVaccine, binding.buttonPetUnVaccine)
+            binding.vaccine.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+            binding.unVaccine.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         }
 
-        buttonPetUnVaccine.setOnClickListener {
+        binding.buttonPetUnVaccine.setOnClickListener {
             petVaccine = false
-            selectMethod(buttonPetUnVaccine, buttonPetVaccine)
-            unVaccineImage.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
-            vaccineImage.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+            selectMethod(binding.buttonPetUnVaccine, binding.buttonPetVaccine)
+            binding.unVaccine.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+            binding.vaccine.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         }
 
         getContent =
@@ -150,34 +132,34 @@ class RegisterPetActivity : AppCompatActivity() {
         storage = Firebase.storage
         strgRef = storage.reference
 
-        findViewById<ImageButton>(R.id.buttonAddProfileImage).setOnClickListener {
+        binding.buttonAddProfileImage.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
-        addPetButton.setOnClickListener {
+        binding.petRegisterButton.setOnClickListener {
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("pets")
-                    .child(firebaseUser.uid + editTextPetName.text.toString())
+                    .child(firebaseUser.uid + binding.editTextPetName.text.toString())
 
-            if (editTextPetName.text.toString().isEmpty()) {
+            if (binding.editTextPetName.text.toString().isEmpty()) {
                 showToast("Lütfen ad giriniz!")
                 return@setOnClickListener
             }
 
-            if (editTextPetWeight.text.toString().isEmpty()) {
+            if (binding.editTextWeight.text.toString().isEmpty()) {
                 showToast("Lütfen ağırlık giriniz!")
                 return@setOnClickListener
             }
 
-            if (petAgeCombo.text.toString().isEmpty()) {
+            if (binding.ageCombo.text.toString().isEmpty()) {
                 showToast("Lütfen yaş giriniz!")
                 return@setOnClickListener
             }
 
-            if (petTypeCombo.text.toString().isEmpty()) {
+            if (binding.typeCombo.text.toString().isEmpty()) {
                 showToast("Lütfen tür giriniz!")
                 return@setOnClickListener
             }
@@ -192,40 +174,40 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (editTextAbout.text.toString().isEmpty()) {
+            if (binding.editTextAbout.text.toString().isEmpty()) {
                 showToast("Lütfen tüm alanları doldurunuz!")
                 return@setOnClickListener
             }
 
-            addPetButton.visibility = View.INVISIBLE
-            progressCard.visibility = View.VISIBLE
-            buttonPaw.visibility = View.INVISIBLE
+            binding.petRegisterButton.visibility = View.INVISIBLE
+            binding.progressCard.visibility = View.VISIBLE
+            binding.buttonPaw2.visibility = View.INVISIBLE
 
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
             hashMap["petPhoto"] = imageUrl
             hashMap["petSpecies"] = petType.toString()
-            hashMap["petName"] = editTextPetName.text.toString()
-            hashMap["petWeight"] = editTextPetWeight.text.toString()
-            hashMap["petAge"] = petAgeCombo.text.toString()
-            hashMap["petBreed"] = petTypeCombo.text.toString()
+            hashMap["petName"] = binding.editTextPetName.text.toString()
+            hashMap["petWeight"] = binding.editTextWeight.text.toString()
+            hashMap["petAge"] = binding.ageCombo.text.toString()
+            hashMap["petBreed"] = binding.typeCombo.text.toString()
             hashMap["petGender"] = petGender!!
             hashMap["petVaccinate"] = petVaccine!!
-            hashMap["petAbout"] = editTextAbout.text.toString()
+            hashMap["petAbout"] = binding.editTextAbout.text.toString()
             hashMap["petAdoptionStatus"] = false
-            hashMap["petId"]= firebaseUser.uid + editTextPetName.text.toString()
+            hashMap["petId"]= firebaseUser.uid + binding.editTextPetName.text.toString()
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    addPetButton.visibility = View.VISIBLE
-                    progressCard.visibility = View.INVISIBLE
-                    buttonPaw.visibility = View.VISIBLE
+                    binding.petRegisterButton.visibility = View.VISIBLE
+                    binding.progressCard.visibility = View.INVISIBLE
+                    binding.buttonPaw2.visibility = View.VISIBLE
                     showBottomSheet()
                 } else {
                     showToast("Hatalı işlem!")
-                    addPetButton.visibility = View.VISIBLE
-                    progressCard.visibility = View.INVISIBLE
-                    buttonPaw.visibility = View.VISIBLE
+                    binding.petRegisterButton.visibility = View.VISIBLE
+                    binding.progressCard.visibility = View.INVISIBLE
+                    binding.buttonPaw2.visibility = View.VISIBLE
                 }
             }
         }
@@ -311,8 +293,7 @@ class RegisterPetActivity : AppCompatActivity() {
                         showToast("Başarısız, lütfen yeniden deneyin!")
                     }
 
-                findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-                    ?.setImageBitmap(rotatedBitmap)
+                binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
