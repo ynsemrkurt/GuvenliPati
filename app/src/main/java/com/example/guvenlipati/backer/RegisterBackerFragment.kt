@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentRegisterBackerBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -34,6 +35,7 @@ class RegisterBackerFragment : Fragment() {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var databaseReference2: DatabaseReference
     private var verificationStatus: Boolean = false
+    private lateinit var binding: FragmentRegisterBackerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,20 +48,20 @@ class RegisterBackerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val editTextBackerName = view.findViewById<EditText>(R.id.editTextBackerName)
-        val editTextBackerSurname = view.findViewById<EditText>(R.id.editTextBackerSurname)
-        val editTextID = view.findViewById<EditText>(R.id.editTextID)
-        val editTextAge = view.findViewById<EditText>(R.id.editTextAge)
-        val editTextAdress = view.findViewById<EditText>(R.id.editTextAdress)
-        val editTextExperience = view.findViewById<EditText>(R.id.editTextExperience)
-        val editTextPetNumber = view.findViewById<EditText>(R.id.editTextPetNumber)
-        val editTextBackerAbout = view.findViewById<EditText>(R.id.editTextBackerAbout)
-        val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
-        val checkBox2 = view.findViewById<CheckBox>(R.id.checkBox2)
-        val checkBox3 = view.findViewById<CheckBox>(R.id.checkBox3)
-        val confirmBackerButton = view.findViewById<Button>(R.id.ConfirmBackerButton)
-        val progressCard = view.findViewById<View>(R.id.progressCard)
-        val buttonPaws = view.findViewById<ImageView>(R.id.buttonPaw2)
+        val editTextBackerName = binding.editTextBackerName
+        val editTextBackerSurname = binding.editTextBackerSurname
+        val editTextID = binding.editTextID
+        val editTextAge = binding.editTextAge
+        val editTextAdress = binding.editTextAdress
+        val editTextExperience = binding.editTextExperience
+        val editTextPetNumber = binding.editTextPetNumber
+        val editTextBackerAbout = binding.editTextBackerAbout
+        val checkBox = binding.checkBox
+        val checkBox2 = binding.checkBox2
+        val checkBox3 = binding.checkBox3
+        val confirmBackerButton = binding.ConfirmBackerButton
+        val progressCard = binding.progressCard
+        val buttonPaws = binding.buttonPaw2
 
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!

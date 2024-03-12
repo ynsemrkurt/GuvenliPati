@@ -7,6 +7,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.ActivityPetBackerBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -18,6 +19,7 @@ class PetBackerActivity : AppCompatActivity() {
     private lateinit var auth:FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
     private lateinit var databaseReference2: DatabaseReference
+    private lateinit var binding: ActivityPetBackerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -27,10 +29,10 @@ class PetBackerActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_backer)
+        binding = ActivityPetBackerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val backButton = findViewById<ImageButton>(R.id.backToHome)
-
-        backButton.setOnClickListener {
+        binding.backToHome.setOnClickListener {
             backProcess()
         }
 

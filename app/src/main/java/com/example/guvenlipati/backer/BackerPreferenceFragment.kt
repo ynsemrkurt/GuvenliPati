@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentBackerPreferenceBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
@@ -20,12 +21,14 @@ class BackerPreferenceFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var binding: FragmentBackerPreferenceBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_backer_preference, container, false)
+        binding= FragmentBackerPreferenceBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,19 +40,19 @@ class BackerPreferenceFragment : Fragment() {
         var homeJob = false
         var feedingJob = false
         var walkingJob = false
-        val dogs = view.findViewById<Chip>(R.id.dogs)
-        val cats = view.findViewById<Chip>(R.id.cats)
-        val birds = view.findViewById<Chip>(R.id.birds)
-        val midWeek = view.findViewById<Chip>(R.id.midWeek)
-        val weekEnd = view.findViewById<Chip>(R.id.weekEnd)
-        val allDays = view.findViewById<Chip>(R.id.allDays)
-        val home = view.findViewById<Chip>(R.id.job1)
-        val feeding = view.findViewById<Chip>(R.id.job2)
-        val walking = view.findViewById<Chip>(R.id.job3)
-        val homeMoney = view.findViewById<EditText>(R.id.editTextBoarding)
-        val feedingMoney = view.findViewById<EditText>(R.id.editTextBoarding2)
-        val walkingMoney = view.findViewById<EditText>(R.id.editTextBoarding3)
-        val saveButton = view.findViewById<Button>(R.id.JobOptionButton)
+        val dogs = binding.dogs
+        val cats = binding.cats
+        val birds = binding.birds
+        val midWeek = binding.midWeek
+        val weekEnd = binding.weekEnd
+        val allDays = binding.allDays
+        val home = binding.job1
+        val feeding = binding.job2
+        val walking = binding.job3
+        val homeMoney = binding.editTextBoarding
+        val feedingMoney = binding.editTextBoarding2
+        val walkingMoney = binding.editTextBoarding3
+        val saveButton = binding.JobOptionButton
 
         dogs.setOnCheckedChangeListener { _, isChecked ->
             dogJob = isChecked

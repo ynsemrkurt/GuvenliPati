@@ -55,13 +55,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //Added CircleImageView Library
-    implementation (libs.circleimageview)
+    implementation(libs.circleimageview)
     //Added Firebase
     implementation(platform(libs.firebase.bom))
     //Glide
-    implementation (libs.glide)
+    implementation(libs.glide)
     //Lottie
-    implementation (libs.lottie)
+    implementation(libs.lottie)
     //OkHttpClient
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
 }
