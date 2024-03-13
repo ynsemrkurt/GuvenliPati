@@ -32,6 +32,8 @@ class PetBackerActivity : AppCompatActivity() {
         binding = ActivityPetBackerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        goSplash()
+
         binding.backToHome.setOnClickListener {
             backProcess()
         }
@@ -39,6 +41,12 @@ class PetBackerActivity : AppCompatActivity() {
         this.onBackPressedDispatcher.addCallback {
             backProcess()
         }
+    }
+
+    private fun goSplash() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView2, BackerSplashFragment())
+            .commit()
     }
 
     fun goRegisterBackerFragment() {

@@ -9,6 +9,7 @@ import com.example.guvenlipati.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class JobsActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_job)

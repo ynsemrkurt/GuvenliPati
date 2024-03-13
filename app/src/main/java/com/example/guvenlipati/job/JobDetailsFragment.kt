@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentJobDetailsBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
@@ -26,22 +27,26 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
-private var jobId: String? = null
-private lateinit var firebaseUser: FirebaseUser
-private lateinit var identifies: DatabaseReference
-private var money: Int = 0
-private var jobPriceTextView: TextView? = null
-private lateinit var linearLayout: LinearLayout
-private lateinit var loadingCardView: CardView
-private var job: Job? = null
+
 
 class JobDetailsFragment : Fragment() {
+
+    private var jobId: String? = null
+    private lateinit var firebaseUser: FirebaseUser
+    private lateinit var identifies: DatabaseReference
+    private var money: Int = 0
+    private var jobPriceTextView: TextView? = null
+    private lateinit var linearLayout: LinearLayout
+    private lateinit var loadingCardView: CardView
+    private var job: Job? = null
+    private lateinit var binding: FragmentJobDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_job_details, container, false)
+    ): View{
+        binding = FragmentJobDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,25 +54,24 @@ class JobDetailsFragment : Fragment() {
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
 
-        val petPhotoImageView = view.findViewById<ImageView>(R.id.petPhotoImageView)
-        val petNameTextView = view.findViewById<TextView>(R.id.petNameTextView)
-        val petGenderTextView = view.findViewById<TextView>(R.id.petGenderTextView)
-        val petVaccinateTextView = view.findViewById<TextView>(R.id.petVaccinateTextView)
-        val petTypeTextView = view.findViewById<TextView>(R.id.petTypeTextView)
-        val petWeightTextView = view.findViewById<TextView>(R.id.petWeightTextView)
-        val circleImageProfilePhoto =
-            view.findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-        val userNameTextView = view.findViewById<TextView>(R.id.userNameTextView)
-        val jobTypeTextView = view.findViewById<TextView>(R.id.jobTypeTextView)
-        val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
-        val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
-        val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
-        val jobAboutTextView = view.findViewById<TextView>(R.id.jobAboutTextView)
-        jobPriceTextView = view.findViewById(R.id.jobPriceTextView)
-        val petAboutTextView = view.findViewById<TextView>(R.id.petAboutTextView)
-        val textViewAge=view.findViewById<TextView>(R.id.textViewAge)
-        linearLayout=view.findViewById<LinearLayout>(R.id.linearLayout)
-        loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
+        val petPhotoImageView = binding.petPhotoImageView
+        val petNameTextView = binding.petNameTextView
+        val petGenderTextView = binding.petGenderTextView
+        val petVaccinateTextView = binding.petVaccinateTextView
+        val petTypeTextView = binding.petTypeTextView
+        val petWeightTextView = binding.petWeightTextView
+        val circleImageProfilePhoto = binding.circleImageProfilePhoto
+        val userNameTextView = binding.userNameTextView
+        val jobTypeTextView = binding.jobTypeTextView
+        val locationTextView = binding.locationTextView
+        val startDateTextView = binding.startDateTextView
+        val endDateTextView = binding.endDateTextView
+        val jobAboutTextView = binding.jobAboutTextView
+        jobPriceTextView = binding.jobPriceTextView
+        val petAboutTextView = binding.petAboutTextView
+        val textViewAge=binding.textViewAge
+        linearLayout=binding.linearLayout
+        loadingCardView=binding.loadingCardView
 
         arguments?.let {
             jobId = it.getString("jobId")

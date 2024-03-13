@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -14,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.SelectPetsAdapter
+import com.example.guvenlipati.databinding.FragmentJobCreateBinding
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
-import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -37,25 +36,27 @@ class JobCreateFragment : Fragment() {
     private lateinit var databaseReferencePets: DatabaseReference
     private var petSelectID: String = ""
     private lateinit var user: User
+    private lateinit var binding: FragmentJobCreateBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_job_create, container, false)
+    ): View{
+        binding= FragmentJobCreateBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val selectDateButton = view.findViewById<Button>(R.id.selectDateButton)
-        val petRecyclerView = view.findViewById<RecyclerView>(R.id.petRecycleView)
-        val editTextStartDate = view.findViewById<EditText>(R.id.editTextStartDate)
-        val editTextEndDate = view.findViewById<EditText>(R.id.editTextEndDate)
-        val jobStay = view.findViewById<Chip>(R.id.job1)
-        val jobFeed = view.findViewById<Chip>(R.id.job2)
-        val jobWalk = view.findViewById<Chip>(R.id.job3)
-        val jobAbout = view.findViewById<EditText>(R.id.editTextJobAbout)
+        val selectDateButton = binding.selectDateButton
+        val petRecyclerView = binding.petRecycleView
+        val editTextStartDate = binding.editTextStartDate
+        val editTextEndDate = binding.editTextEndDate
+        val jobStay = binding.job1
+        val jobFeed = binding.job2
+        val jobWalk = binding.job3
+        val jobAbout = binding.editTextJobAbout
 
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
@@ -151,7 +152,7 @@ class JobCreateFragment : Fragment() {
             }
         }
 
-        view.findViewById<Button>(R.id.JobOptionButton).setOnClickListener {
+        binding.JobOptionButton.setOnClickListener {
 
             if (auth.currentUser != null) {
 

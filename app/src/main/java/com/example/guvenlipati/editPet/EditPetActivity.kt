@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.ActivityEditPetBinding
 import com.example.guvenlipati.models.Pet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
@@ -57,23 +58,26 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
 
     private lateinit var pet: Pet
+    private lateinit var binding: ActivityEditPetBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet)
+        binding = ActivityEditPetBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        buttonPetVaccine = findViewById(R.id.buttonPetVaccine)
-        buttonPetUnVaccine = findViewById(R.id.buttonPetUnVaccine)
-        val editTextPetName = findViewById<EditText>(R.id.editTextPetName)
-        val editTextPetWeight = findViewById<EditText>(R.id.editTextWeight)
-        petAgeCombo = findViewById<AutoCompleteTextView>(R.id.ageCombo)
-        petTypeCombo = findViewById(R.id.typeCombo)
-        val editTextAbout = findViewById<EditText>(R.id.editTextAbout)
-        val editPetButton = findViewById<Button>(R.id.petRegisterButton)
-        val backButton = findViewById<ImageButton>(R.id.backToSplash)
-        vaccineImage = findViewById(R.id.vaccine)
-        unVaccineImage = findViewById(R.id.unVaccine)
-        val profilePhoto = findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
+        buttonPetVaccine = binding.buttonPetVaccine
+        buttonPetUnVaccine = binding.buttonPetUnVaccine
+        val editTextPetName = binding.editTextPetName
+        val editTextPetWeight = binding.editTextWeight
+        petAgeCombo = binding.ageCombo
+        petTypeCombo = binding.typeCombo
+        val editTextAbout = binding.editTextAbout
+        val editPetButton = binding.petRegisterButton
+        val backButton = binding.backToSplash
+        vaccineImage = binding.vaccine
+        unVaccineImage = binding.unVaccine
+        val profilePhoto = binding.circleImageProfilePhoto
 
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
@@ -89,7 +93,7 @@ class EditPetActivity : AppCompatActivity() {
                 onActivityResult(request, result.resultCode, result.data)
             }
 
-        findViewById<ImageButton>(R.id.buttonEditPetImage).setOnClickListener {
+        binding.buttonEditPetImage.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
@@ -241,7 +245,6 @@ class EditPetActivity : AppCompatActivity() {
     }
 
 
-
     private fun selectMethod(selected: Button, unselected: Button) {
         selected.setBackgroundResource(R.drawable.sign2_edittext_bg2)
         selected.setTextColor(Color.WHITE)
@@ -321,8 +324,7 @@ class EditPetActivity : AppCompatActivity() {
                         showToast("Başarısız, lütfen yeniden deneyin!")
                     }
 
-                findViewById<CircleImageView>(R.id.circleImageProfilePhoto)
-                    ?.setImageBitmap(rotatedBitmap)
+                binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }

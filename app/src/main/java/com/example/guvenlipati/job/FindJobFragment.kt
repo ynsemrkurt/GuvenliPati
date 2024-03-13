@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.JobsAdapter
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentFindJobBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 import com.google.firebase.auth.FirebaseAuth
@@ -29,21 +30,20 @@ class FindJobFragment : Fragment() {
     private val jobList = ArrayList<Job>()
     private val petList = ArrayList<Pet>()
     private lateinit var databaseReferenceIdentifies: DatabaseReference
+    private lateinit var binding: FragmentFindJobBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_find_job, container, false)
+    ): View{
+        binding = FragmentFindJobBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val scrollView=view.findViewById<ScrollView>(R.id.scrollView)
-        val loadingCardView=view.findViewById<CardView>(R.id.loadingCardView)
-
-        jobRecyclerView = view.findViewById(R.id.jobRecycleView)
+        jobRecyclerView = binding.jobRecycleView
         jobRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
@@ -91,8 +91,8 @@ class FindJobFragment : Fragment() {
                                     petList
                                 )
                                 jobRecyclerView.adapter = jobAdapter
-                                scrollView.foreground=null
-                                loadingCardView.visibility=View.GONE
+                                binding.scrollView.foreground=null
+                                binding.loadingCardView.visibility=View.GONE
                             }
 
                             override fun onCancelled(error: DatabaseError) {

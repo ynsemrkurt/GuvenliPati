@@ -22,6 +22,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        goHomeFragment()
+
         auth=FirebaseAuth.getInstance()
 
         binding.menuNav.setOnClickListener {
@@ -75,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    fun goHomeFragment() {
+    private fun goHomeFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, HomeFragment()
