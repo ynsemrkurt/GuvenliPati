@@ -88,8 +88,6 @@ class ProfileFragment : Fragment() {
         databaseReferencePets =
             FirebaseDatabase.getInstance().getReference("pets")
 
-
-
         binding.petRecycleView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
@@ -97,7 +95,6 @@ class ProfileFragment : Fragment() {
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 val context = fragmentContext
                 if (context != null && isAdded) {
                     user = snapshot.getValue(User::class.java)
@@ -107,7 +104,6 @@ class ProfileFragment : Fragment() {
                         } else {
                             val imageUri = Uri.parse(user?.userPhoto)
                             Glide.with(requireContext()).load(imageUri)
-                                .placeholder(R.drawable.men_image)
                                 .into(binding.circleImageProfilePhoto)
                         }
                         binding.editTextUserName.setText(user?.userName)
@@ -115,38 +111,39 @@ class ProfileFragment : Fragment() {
                         binding.provinceCombo.setText(user?.userProvince)
                         binding.townCombo.setText(user?.userTown)
 
-                        binding.loadingCardView.visibility = View.GONE
-                        binding.linearLayout.foreground = null
-                    }
-                }
-            }
+                        databaseReferencePets.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val context = fragmentContext
+                                if (context != null && isAdded) {
+                                    petList.clear()
+                                    for (dataSnapShot: DataSnapshot in snapshot.children) {
+                                        val pet = dataSnapShot.getValue(Pet::class.java)
+                                        if (pet?.userId == firebaseUser.uid) {
+                                            pet.let {
+                                                petList.add(it)
+                                            }
+                                        }
+                                    }
+                                    val petAdapter = PetsAdapter(requireContext(), petList)
+                                    binding.petRecycleView.adapter = petAdapter
 
-            override fun onCancelled(error: DatabaseError) {
-                showToast("Hata!")
-            }
-        })
-
-        databaseReferencePets.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val context = fragmentContext
-                if (context != null && isAdded) {
-                    petList.clear()
-                    for (dataSnapShot: DataSnapshot in snapshot.children) {
-                        val pet = dataSnapShot.getValue(Pet::class.java)
-                        if (pet?.userId == firebaseUser.uid) {
-                            pet.let {
-                                petList.add(it)
+                                    if (binding.circleImageProfilePhoto.drawable != null && binding.petRecycleView.adapter == petAdapter) {
+                                        binding.loadingCardView.visibility = View.GONE
+                                        binding.linearLayout.foreground = null
+                                    }
+                                }
                             }
-                        }
-                    }
 
-                    val petAdapter = PetsAdapter(requireContext(), petList)
-                    binding.petRecycleView.adapter = petAdapter
+                            override fun onCancelled(error: DatabaseError) {
+                                showToast("Yüklenirken Bir Hata Oluştu!")
+                            }
+                        })
+                    }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                showToast("Hata!")
+                showToast("Yüklenirken Bir Hata Oluştu!")
             }
         })
 

@@ -83,7 +83,6 @@
                         android:layout_height="200dp"
                         android:layout_gravity="center"
                         android:elevation="3dp"
-                        android:src="@drawable/men_image"
                         app:civ_border_color="#2B2D30"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
