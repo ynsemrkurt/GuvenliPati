@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
@@ -149,123 +150,124 @@ class SecondSignUpFragment : Fragment() {
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    firebaseUser.getIdToken(true).addOnSuccessListener { result ->
-                        val token = result.token
-                        databaseReference.child("userToken").setValue(token)}
-                        (activity as SplashActivity).goHomeActivity()
-                    } else {
-                        showToast("Hatalı işlem!")
-                    }
-                    binding.saveProfileButton.visibility = View.VISIBLE
-                    binding.progressCard.visibility = View.INVISIBLE
-                    binding.buttonPaw.visibility = View.VISIBLE
+                    FirebaseMessaging.getInstance().token.addOnSuccessListener { result ->
+                        val token = result
+                        databaseReference
+                            .child("userToken").setValue(token) }
+                    (activity as SplashActivity).goHomeActivity()
+                } else {
+                    showToast("Hatalı işlem!")
                 }
-            }
-
-            binding.buttonAddProfileImage.setOnClickListener {
-                val intent = Intent()
-                intent.type = "image/*"
-                intent.action = Intent.ACTION_GET_CONTENT
-                getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
-            }
-
-            binding.backToSplash.setOnClickListener {
-                showMaterialDialog()
-            }
-
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-                showMaterialDialog()
+                binding.saveProfileButton.visibility = View.VISIBLE
+                binding.progressCard.visibility = View.INVISIBLE
+                binding.buttonPaw.visibility = View.VISIBLE
             }
         }
 
-
-        private fun deleteUserData() {
-            val user = FirebaseAuth.getInstance().currentUser
-            user?.delete()?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    (activity as SplashActivity).goSplashFragment()
-                }
-            }
+        binding.buttonAddProfileImage.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
-        private fun showMaterialDialog() {
-            MaterialAlertDialogBuilder(requireContext()).setTitle("Emin Misiniz?")
-                .setMessage("Eğer geri dönerseniz kaydınız silinecektir.").setBackground(
-                    ContextCompat.getDrawable(
-                        requireContext(), R.drawable.background_dialog
-                    )
-                ).setPositiveButton("Sil") { _, _ ->
-                    showToast("Kaydınız iptal edildi.")
-                    deleteUserData()
-                }.setNegativeButton("İptal") { _, _ ->
-                    showToast("İptal Edildi")
-                }.show()
+        binding.backToSplash.setOnClickListener {
+            showMaterialDialog()
         }
 
-
-        private fun showToast(message: String) {
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            showMaterialDialog()
         }
+    }
 
 
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
-                filePath = data.data
-                try {
-                    showToast("Fotoğraf yükleniyor...")
-
-                    val inputStream = requireActivity().contentResolver.openInputStream(filePath!!)
-                    val exif = ExifInterface(inputStream!!)
-                    val orientation = exif.getAttributeInt(
-                        ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL
-                    )
-
-                    val originalBitmap =
-                        MediaStore.Images.Media.getBitmap(
-                            requireActivity().contentResolver,
-                            filePath
-                        )
-
-                    val rotationAngle = when (orientation) {
-                        ExifInterface.ORIENTATION_ROTATE_90 -> 90
-                        ExifInterface.ORIENTATION_ROTATE_180 -> 180
-                        ExifInterface.ORIENTATION_ROTATE_270 -> 270
-                        else -> 0
-                    }
-
-
-                    val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
-                    val rotatedBitmap = uploadBitmap.createBitmap(
-                        originalBitmap,
-                        0,
-                        0,
-                        originalBitmap.width,
-                        originalBitmap.height,
-                        matrix,
-                        true
-                    )
-
-                    val imageStream = ByteArrayOutputStream()
-
-                    rotatedBitmap.compress(uploadBitmap.CompressFormat.JPEG, 25, imageStream)
-
-                    val imageArray = imageStream.toByteArray()
-
-                    val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
-                    ref.putBytes(imageArray).addOnSuccessListener {
-                        showToast("Fotoğraf yüklendi!")
-                        ref.downloadUrl.addOnSuccessListener { uri ->
-                            imageUrl = uri.toString()
-                        }
-                    }.addOnFailureListener {
-                        showToast("Başarısız, lütfen yeniden deneyin!")
-                    }
-
-                    binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+    private fun deleteUserData() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.delete()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                (activity as SplashActivity).goSplashFragment()
             }
         }
     }
+
+    private fun showMaterialDialog() {
+        MaterialAlertDialogBuilder(requireContext()).setTitle("Emin Misiniz?")
+            .setMessage("Eğer geri dönerseniz kaydınız silinecektir.").setBackground(
+                ContextCompat.getDrawable(
+                    requireContext(), R.drawable.background_dialog
+                )
+            ).setPositiveButton("Sil") { _, _ ->
+                showToast("Kaydınız iptal edildi.")
+                deleteUserData()
+            }.setNegativeButton("İptal") { _, _ ->
+                showToast("İptal Edildi")
+            }.show()
+    }
+
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == request && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
+            filePath = data.data
+            try {
+                showToast("Fotoğraf yükleniyor...")
+
+                val inputStream = requireActivity().contentResolver.openInputStream(filePath!!)
+                val exif = ExifInterface(inputStream!!)
+                val orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL
+                )
+
+                val originalBitmap =
+                    MediaStore.Images.Media.getBitmap(
+                        requireActivity().contentResolver,
+                        filePath
+                    )
+
+                val rotationAngle = when (orientation) {
+                    ExifInterface.ORIENTATION_ROTATE_90 -> 90
+                    ExifInterface.ORIENTATION_ROTATE_180 -> 180
+                    ExifInterface.ORIENTATION_ROTATE_270 -> 270
+                    else -> 0
+                }
+
+
+                val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
+                val rotatedBitmap = uploadBitmap.createBitmap(
+                    originalBitmap,
+                    0,
+                    0,
+                    originalBitmap.width,
+                    originalBitmap.height,
+                    matrix,
+                    true
+                )
+
+                val imageStream = ByteArrayOutputStream()
+
+                rotatedBitmap.compress(uploadBitmap.CompressFormat.JPEG, 25, imageStream)
+
+                val imageArray = imageStream.toByteArray()
+
+                val ref: StorageReference = strgRef.child("image/" + firebaseUser.uid)
+                ref.putBytes(imageArray).addOnSuccessListener {
+                    showToast("Fotoğraf yüklendi!")
+                    ref.downloadUrl.addOnSuccessListener { uri ->
+                        imageUrl = uri.toString()
+                    }
+                }.addOnFailureListener {
+                    showToast("Başarısız, lütfen yeniden deneyin!")
+                }
+
+                binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+}

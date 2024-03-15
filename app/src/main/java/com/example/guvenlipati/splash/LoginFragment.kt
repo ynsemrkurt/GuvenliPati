@@ -23,6 +23,7 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class LoginFragment : Fragment() {
@@ -64,21 +65,20 @@ class LoginFragment : Fragment() {
                     .addOnCompleteListener()
                     {
                         if (it.isSuccessful) {
-                            val user = auth.currentUser
-                            user?.getIdToken(true)
-                                ?.addOnSuccessListener { result ->
-                                    val token = result.token
-                                    databaseReference.child(auth.currentUser?.uid.toString()).child("userToken").setValue(token).addOnCompleteListener{
-                                        if (it.isSuccessful){
-                                            (activity as SplashActivity).goHomeActivity()
-                                            binding.editTextEmail.setText("")
-                                            binding.editTextPassword.setText("")
-                                        }else{
-                                            showToast("Başarısız Giriş!")
-                                        }
+                            FirebaseMessaging.getInstance().token.addOnSuccessListener { result ->
+                                val token = result
+                                databaseReference.child(auth.currentUser?.uid.toString())
+                                    .child("userToken").setValue(token).addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        (activity as SplashActivity).goHomeActivity()
+                                        binding.editTextEmail.setText("")
+                                        binding.editTextPassword.setText("")
+                                    } else {
+                                        showToast("Başarısız Giriş!")
                                     }
                                 }
-                                ?.addOnFailureListener { exception ->
+                            }
+                                .addOnFailureListener { exception ->
                                     showToast("Başarısız Giriş!")
                                 }
                         } else {
