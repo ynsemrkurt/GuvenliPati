@@ -171,6 +171,7 @@ class JobDetailsFragment : Fragment() {
             val intent = Intent(requireContext(), ChatActivity::class.java)
             intent.putExtra("userId", job?.userID)
             startActivity(intent)
+            requireActivity().finish()
         }
     }
 

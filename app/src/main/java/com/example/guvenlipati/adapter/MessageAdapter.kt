@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Chat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MessageAdapter(private val context: android.content.Context, private val messageList: ArrayList<Chat>) :
     RecyclerView.Adapter<MessageAdapter.ViewHolder>() {

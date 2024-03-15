@@ -27,14 +27,25 @@
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:src="@drawable/chat_back_ico"
-                app:layout_constraintBottom_toBottomOf="@+id/textView14"
-                app:layout_constraintEnd_toStartOf="@+id/textView14"
+                app:layout_constraintBottom_toBottomOf="@+id/textFriendName"
+                app:layout_constraintEnd_toStartOf="@+id/textFriendName"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView14" />
+                app:layout_constraintTop_toTopOf="@+id/textFriendName" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imagePhoto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/men_image"
+                app:layout_constraintBottom_toBottomOf="@+id/textFriendName"
+                app:layout_constraintEnd_toStartOf="@+id/textFriendName"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/textFriendName" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/textFriendName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/alata"
@@ -81,6 +92,7 @@
                     android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleViewMessages"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
