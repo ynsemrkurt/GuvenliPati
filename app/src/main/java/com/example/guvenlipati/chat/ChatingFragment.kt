@@ -86,10 +86,9 @@ class ChatingFragment : Fragment() {
                 hashMap["senderId"] = firebaseUser?.uid.toString()
                 hashMap["recipientId"] = friendUserId
                 hashMap["messages"] = view.findViewById<EditText>(R.id.editTextMessage).text.toString()
-                hashMap["currentTime"] = currentTime.toString()
+                hashMap["currentTime"] = formattedDateTime.toString()
                 reference!!.push().setValue(hashMap)
                 view.findViewById<EditText>(R.id.editTextMessage).setText("")
-                view.findViewById<TextView>(R.id.textDateTime).text = formattedDateTime.toString()
             }
         }
         messageList(friendUserId)
