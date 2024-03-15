@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,7 +23,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import de.hdodenhof.circleimageview.CircleImageView
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class ChatingFragment : Fragment() {
 
@@ -74,6 +74,10 @@ class ChatingFragment : Fragment() {
             }
         })
 
+        val currentTime = LocalTime.now()
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        val formattedDateTime = currentTime.format(formatter)
+
         view.findViewById<ImageButton>(R.id.buttonGoChat).setOnClickListener {
             if (view.findViewById<EditText>(R.id.editTextMessage).text.toString().isNotEmpty()) {
                 reference = FirebaseDatabase.getInstance().getReference().child("Chat")
@@ -81,14 +85,13 @@ class ChatingFragment : Fragment() {
                 val hashMap: HashMap<String, String> = HashMap()
                 hashMap["senderId"] = firebaseUser?.uid.toString()
                 hashMap["recipientId"] = friendUserId
-                hashMap["messages"] =
-                    view.findViewById<EditText>(R.id.editTextMessage).text.toString()
-
+                hashMap["messages"] = view.findViewById<EditText>(R.id.editTextMessage).text.toString()
+                hashMap["currentTime"] = currentTime.toString()
                 reference!!.push().setValue(hashMap)
                 view.findViewById<EditText>(R.id.editTextMessage).setText("")
+                view.findViewById<TextView>(R.id.textDateTime).text = formattedDateTime.toString()
             }
         }
-
         messageList(friendUserId)
     }
 
