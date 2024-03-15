@@ -127,9 +127,10 @@ class ProfileFragment : Fragment() {
                                     val petAdapter = PetsAdapter(requireContext(), petList)
                                     binding.petRecycleView.adapter = petAdapter
 
-                                    if (binding.circleImageProfilePhoto.drawable != null && binding.petRecycleView.adapter == petAdapter) {
+                                    if (binding.petRecycleView.adapter == petAdapter) {
                                         binding.loadingCardView.visibility = View.GONE
                                         binding.linearLayout.foreground = null
+
                                     }
                                 }
                             }
@@ -313,12 +314,13 @@ class ProfileFragment : Fragment() {
                         ref.downloadUrl.addOnSuccessListener { uri ->
                             imageUrl = uri.toString()
                             user?.userPhoto = imageUrl
+                            binding.buttonSave.isEnabled = true
                         }
                     }
                     .addOnFailureListener {
                         showToast("Başarısız, lütfen yeniden deneyin!")
+                        binding.buttonSave.isEnabled = true
                     }
-                binding.buttonSave.isEnabled = true
                 binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
