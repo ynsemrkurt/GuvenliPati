@@ -12,7 +12,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="4dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/men_image"
+        android:src="@drawable/pet_default_image"
         app:layout_constraintBottom_toBottomOf="@id/textMessage"
         app:layout_constraintStart_toStartOf="parent" />
 

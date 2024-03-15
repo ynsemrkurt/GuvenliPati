@@ -16,49 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageButton
-                android:scaleType="fitCenter"
-                android:padding="15dp"
-                android:id="@+id/backToHome"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/button_background"
-                android:backgroundTint="@color/white"
-                android:contentDescription="@string/back_button"
-                android:elevation="3dp"
-                android:src="@drawable/back_ico"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.033"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.011" />
-
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:contentDescription="@string/logo"
-                android:src="@drawable/logo_transparent"
-                app:layout_constraintBottom_toBottomOf="@+id/backToHome"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/backToHome" />
-
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.example.guvenlipati.home.ChatListFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:elevation="30dp"
                 android:layout_marginTop="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logo"
-                tools:layout="@layout/fragment_chat_list" />
+                app:layout_constraintTop_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
