@@ -80,7 +80,7 @@ class ChatingFragment : Fragment() {
 
         view.findViewById<ImageButton>(R.id.buttonGoChat).setOnClickListener {
             if (view.findViewById<EditText>(R.id.editTextMessage).text.toString().isNotEmpty()) {
-                reference = FirebaseDatabase.getInstance().getReference().child("Chat")
+                reference = FirebaseDatabase.getInstance().getReference().child("chat")
 
                 val hashMap: HashMap<String, String> = HashMap()
                 hashMap["senderId"] = firebaseUser?.uid.toString()
@@ -97,7 +97,7 @@ class ChatingFragment : Fragment() {
     private fun messageList(friendId: String) {
         chatList.clear()
         val databaseReference: DatabaseReference =
-            FirebaseDatabase.getInstance().getReference("Chat")
+            FirebaseDatabase.getInstance().getReference("chat")
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

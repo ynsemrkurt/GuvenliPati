@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 
 class LoginFragment : Fragment() {
@@ -45,6 +46,7 @@ class LoginFragment : Fragment() {
 
 
         binding.loginButton.setOnClickListener {
+            val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
             if (binding.editTextEmail.text.toString()
                     .isEmpty() || binding.editTextPassword.text.toString().isEmpty()
@@ -55,7 +57,6 @@ class LoginFragment : Fragment() {
                 binding.loginButton.visibility = View.INVISIBLE
                 binding.progressCard.visibility = View.VISIBLE
                 binding.buttonPaw.visibility = View.INVISIBLE
-
                 auth.signInWithEmailAndPassword(
                     binding.editTextEmail.text.toString(),
                     binding.editTextPassword.text.toString()
@@ -63,9 +64,23 @@ class LoginFragment : Fragment() {
                     .addOnCompleteListener()
                     {
                         if (it.isSuccessful) {
-                            (activity as SplashActivity).goHomeActivity()
-                            binding.editTextEmail.setText("")
-                            binding.editTextPassword.setText("")
+                            val user = auth.currentUser
+                            user?.getIdToken(true)
+                                ?.addOnSuccessListener { result ->
+                                    val token = result.token
+                                    databaseReference.child(auth.currentUser?.uid.toString()).child("userToken").setValue(token).addOnCompleteListener{
+                                        if (it.isSuccessful){
+                                            (activity as SplashActivity).goHomeActivity()
+                                            binding.editTextEmail.setText("")
+                                            binding.editTextPassword.setText("")
+                                        }else{
+                                            showToast("Başarısız Giriş!")
+                                        }
+                                    }
+                                }
+                                ?.addOnFailureListener { exception ->
+                                    showToast("Başarısız Giriş!")
+                                }
                         } else {
                             binding.editTextPassword.setTextColor(Color.RED)
                             val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
