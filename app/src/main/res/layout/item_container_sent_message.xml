@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_sent_message"
+        android:padding="10dp"
+        android:elevation="1dp"
+        android:text="Fiyatta iki tarafın da memnun kalmasına sevindim."
+        android:fontFamily="@font/alata"
+        android:textColor="@color/lightblack"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:maxWidth="300dp"/>
+
+    <TextView
+        android:id="@+id/textDateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:textColor="@color/lightblack"
+        android:textSize="10sp"
+        android:text="18.35"
+        app:layout_constraintEnd_toEndOf="@id/textMessage"
+        app:layout_constraintTop_toBottomOf="@id/textMessage"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
