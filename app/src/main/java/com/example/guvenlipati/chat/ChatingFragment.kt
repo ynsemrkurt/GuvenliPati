@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.R
+
 class ChatingFragment : Fragment() {
 
     private var userId: String? = null
+    private lateinit var recyclerViewMessages: RecyclerView
+    private var chatList = ArrayList<Chat>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +28,5 @@ class ChatingFragment : Fragment() {
         arguments?.let {
             userId = it.getString("userId")
         }
-        Toast.makeText(requireContext(), userId, Toast.LENGTH_SHORT).show()
     }
 }
