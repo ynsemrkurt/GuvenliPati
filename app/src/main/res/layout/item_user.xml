@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/userCard"
@@ -9,10 +9,9 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:backgroundTint="#FFFFFF"
         android:elevation="10dp"
-        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +25,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageChatUser"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/women_ico"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -35,6 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:layout_marginEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -43,9 +43,12 @@
                 android:paddingEnd="10dp">
 
                 <TextView
+                    android:maxLines="1"
                     android:id="@+id/textViewUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
                     android:text="UserName"
                     android:fontFamily="@font/alata"
                     tools:layout_editor_absoluteX="92dp"
@@ -61,10 +64,17 @@
                     tools:layout_editor_absoluteX="92dp"
                     tools:layout_editor_absoluteY="16dp" />
 
+
+
             </LinearLayout>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-</FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#90000000" />
+
+</LinearLayout>

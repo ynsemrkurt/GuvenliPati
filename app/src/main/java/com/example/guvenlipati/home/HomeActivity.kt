@@ -62,6 +62,11 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.menu_chats -> {
+                    goChatListFragment()
+                    true
+                }
+
                 else -> false
             }
         }
@@ -115,6 +120,14 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, JobsSplashFragment()
+            )
+            .commit()
+    }
+
+    private fun goChatListFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView2, ChatListFragment()
             )
             .commit()
     }

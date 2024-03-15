@@ -1,5 +1,6 @@
 package com.example.guvenlipati.job
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
+import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.databinding.FragmentJobDetailsBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
@@ -164,6 +166,12 @@ class JobDetailsFragment : Fragment() {
                 showToast("Error: ${error.message}")
             }
         })
+
+        binding.buttonGoChat.setOnClickListener {
+            val intent = Intent(requireContext(), ChatActivity::class.java)
+            intent.putExtra("userId", job?.userID)
+            startActivity(intent)
+        }
     }
 
     private fun calculateAndUpdatePrice() {
