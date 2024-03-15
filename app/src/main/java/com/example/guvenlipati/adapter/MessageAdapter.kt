@@ -28,6 +28,7 @@ class MessageAdapter(private val context: android.content.Context, private val m
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chat = messageList[position]
         holder.textUserMessage.text = chat.messages
+        holder.textDateTime.text = chat.currentTime
     }
 
     override fun getItemCount(): Int {
@@ -35,6 +36,7 @@ class MessageAdapter(private val context: android.content.Context, private val m
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textUserMessage: TextView = itemView.findViewById(R.id.textMessage)
+        val textDateTime:TextView = itemView.findViewById(R.id.textDateTime)
     }
     override fun getItemViewType(position: Int): Int {
         firebaseUser = FirebaseAuth.getInstance().currentUser
