@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".job.JobDetailsFragment">
+    tools:context=".job.JobDetailsFragment"
+    android:background="@drawable/chat_background">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -18,7 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8">
+            android:layout_weight="0.75"
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -27,11 +28,11 @@
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:src="@drawable/chat_back_ico"
-                app:layout_constraintBottom_toBottomOf="@+id/textFriendName"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textFriendName"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textFriendName" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imagePhoto"
@@ -39,10 +40,9 @@
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/men_image"
-                app:layout_constraintBottom_toBottomOf="@+id/textFriendName"
-                app:layout_constraintEnd_toStartOf="@+id/textFriendName"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/textFriendName" />
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
             <TextView
                 android:id="@+id/textFriendName"
@@ -52,13 +52,14 @@
                 android:text="Batın Gökçe Savran"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4" />
+                android:layout_marginStart="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imagePhoto"
+                app:layout_constraintStart_toEndOf="@+id/imagePhoto"
+                app:layout_constraintTop_toTopOf="@+id/imagePhoto"
+                app:layout_constraintVertical_bias="0.5" />
 
             <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
@@ -74,38 +75,31 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8.2">
+            android:layout_weight="8.45">
 
-            <ScrollView
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:scrollbars="none"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleViewMessages"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleViewMessages"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-            </ScrollView>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="0.8">
 
             <EditText
                 android:hint="Mesaj..."
