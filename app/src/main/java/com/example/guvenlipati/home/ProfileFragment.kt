@@ -93,7 +93,7 @@ class ProfileFragment : Fragment() {
 
         val petList = ArrayList<Pet>()
 
-        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val context = fragmentContext
                 if (context != null && isAdded) {
@@ -126,12 +126,8 @@ class ProfileFragment : Fragment() {
                                     }
                                     val petAdapter = PetsAdapter(requireContext(), petList)
                                     binding.petRecycleView.adapter = petAdapter
-
-                                    if (binding.petRecycleView.adapter == petAdapter) {
-                                        binding.loadingCardView.visibility = View.GONE
-                                        binding.linearLayout.foreground = null
-
-                                    }
+                                    binding.loadingCardView.visibility = View.GONE
+                                    binding.linearLayout.foreground = null
                                 }
                             }
 

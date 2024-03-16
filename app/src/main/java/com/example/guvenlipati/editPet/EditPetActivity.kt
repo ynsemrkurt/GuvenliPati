@@ -205,7 +205,6 @@ class EditPetActivity : AppCompatActivity() {
 
             databaseReference.updateChildren(
                 mapOf(
-                    "petPhoto" to pet.petPhoto,
                     "petName" to editTextPetName.text.toString(),
                     "petWeight" to editTextPetWeight.text.toString(),
                     "petAbout" to editTextAbout.text.toString(),
@@ -273,6 +272,7 @@ class EditPetActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == request && resultCode == RESULT_OK && data != null && data.data != null) {
+            binding.petRegisterButton.isEnabled = false
             filePath = data.data
             try {
                 showToast("Fotoğraf yükleniyor...")
@@ -318,6 +318,7 @@ class EditPetActivity : AppCompatActivity() {
                         ref.downloadUrl.addOnSuccessListener { uri ->
                             imageUrl = uri.toString()
                             databaseReference.child("petPhoto").setValue(imageUrl)
+                            binding.petRegisterButton.isEnabled = true
                         }
                     }
                     .addOnFailureListener {
