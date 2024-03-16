@@ -121,6 +121,7 @@ class ChatingFragment : Fragment() {
                 }
                 val chatAdapter = MessageAdapter(fragmentContext, chatList)
                 recyclerViewMessages.adapter = chatAdapter
+                scrollToBottom()
             }
 
             override fun onCancelled(error: DatabaseError) {
