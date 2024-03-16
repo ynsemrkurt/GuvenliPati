@@ -40,11 +40,19 @@ class ChatingFragment : Fragment() {
         fragmentContext = context
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_chating, container, false)
+    }
+
+    private fun scrollToBottom() {
+        recyclerViewMessages.post {
+            recyclerViewMessages.scrollToPosition(chatList.size - 1)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,6 +97,7 @@ class ChatingFragment : Fragment() {
                 hashMap["currentTime"] = formattedDateTime.toString()
                 reference!!.push().setValue(hashMap)
                 view.findViewById<EditText>(R.id.editTextMessage).setText("")
+                scrollToBottom()
             }
         }
         messageList(friendUserId)
