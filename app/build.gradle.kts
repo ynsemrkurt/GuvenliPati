@@ -65,5 +65,12 @@ dependencies {
     //Lottie
     implementation(libs.lottie)
     //OkHttpClient
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
+    implementation(libs.okhttp)
+    //Retrofit
+    implementation(libs.retrofit)
+    //Gson
+    implementation(libs.retrofit2.converter.gson)
+    //Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
 }
