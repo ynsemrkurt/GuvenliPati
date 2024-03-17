@@ -9,12 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.FirebaseService
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.UserAdapter
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 
 class ChatListFragment : Fragment() {
     private lateinit var chatRecyclerView: RecyclerView
@@ -31,12 +33,20 @@ class ChatListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_chat_list, container, false)
 
+        FirebaseService.sharedPref=fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {token ->
+            FirebaseService.token= token
+        }
+
         chatRecyclerView = view.findViewById(R.id.chatRecycleView)
         chatRecyclerView.layoutManager = LinearLayoutManager(fragmentContext, RecyclerView.VERTICAL, false)
 
         val userList = ArrayList<User>()
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+
+        val xId=firebaseUser?.uid
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$xId")
 
         firebaseUser?.let { currentUser ->
             databaseReference.addValueEventListener(object : ValueEventListener {

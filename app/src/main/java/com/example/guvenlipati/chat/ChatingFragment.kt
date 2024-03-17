@@ -74,7 +74,7 @@ class ChatingFragment : Fragment() {
 
         val friendUserId = activity?.intent?.getStringExtra("userId").toString()
         reference = FirebaseDatabase.getInstance().getReference("users").child(friendUserId)
-        reference2 = FirebaseDatabase.getInstance().getReference("users").child(userId.toString())
+        reference2 = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser!!.uid)
         recyclerViewMessages = view.findViewById(R.id.recycleViewMessages)
 
         recyclerViewMessages.layoutManager =
@@ -115,13 +115,13 @@ class ChatingFragment : Fragment() {
                 val hashMap: HashMap<String, String> = HashMap()
                 hashMap["senderId"] = firebaseUser?.uid.toString()
                 hashMap["recipientId"] = friendUserId
-                hashMap["messages"] =message
+                hashMap["messages"] = message
                 hashMap["currentTime"] = formattedDateTime.toString()
                 reference!!.push().setValue(hashMap)
                 view.findViewById<EditText>(R.id.editTextMessage).setText("")
                 scrollToBottom()
-                topic= "/topics/$friendUserId"
-                PushNotification(Notification( userData!!.userName,message) , topic).also {
+                topic = "/topics/$friendUserId"
+                PushNotification(Notification(userData!!.userName, message), topic).also {
                     sendNotification(it)
                 }
             }
@@ -157,14 +157,9 @@ class ChatingFragment : Fragment() {
 
     private fun sendNotification(notification: PushNotification) =
         CoroutineScope(Dispatchers.IO).launch {
-            try{
+            try {
                 val response = RetrofitInstance.api.postNotification(notification)
-                if(response.isSuccessful){
-                    showToast("Response: ${Gson().toJson(response)}")
-                }else{
-                    showToast("Error: ${response.errorBody().toString()}")
-                }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 showToast(e.message.toString())
             }
         }
