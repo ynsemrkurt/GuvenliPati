@@ -120,7 +120,7 @@ class ChatingFragment : Fragment() {
                 reference!!.push().setValue(hashMap)
                 view.findViewById<EditText>(R.id.editTextMessage).setText("")
                 scrollToBottom()
-                topic= "/topics/$userId"
+                topic= "/topics/$friendUserId"
                 PushNotification(Notification( userData!!.userName,message) , topic).also {
                     sendNotification(it)
                 }
