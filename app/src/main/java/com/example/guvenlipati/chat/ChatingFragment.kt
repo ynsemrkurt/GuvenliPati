@@ -41,6 +41,7 @@ class ChatingFragment : Fragment() {
     private var chatList = ArrayList<Chat>()
     private var reference: DatabaseReference? = null
     private var reference2: DatabaseReference? = null
+    private var user: User? = null
     private var userData: User? = null
     private var firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
     private lateinit var fragmentContext: Context
@@ -82,7 +83,7 @@ class ChatingFragment : Fragment() {
 
         reference!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val user = snapshot.getValue(User::class.java)
+                user = snapshot.getValue(User::class.java)
                 Glide.with(requireContext()).load(user?.userPhoto)
                     .into(view.findViewById(R.id.imagePhoto))
                 view.findViewById<TextView>(R.id.textFriendName).text = user?.userName
@@ -122,7 +123,7 @@ class ChatingFragment : Fragment() {
                 scrollToBottom()
                 topic = "/topics/$friendUserId"
                 PushNotification(
-                    Notification(userData!!.userName, message, firebaseUser!!.uid),
+                    Notification(userData!!.userName, message, firebaseUser!!.uid, userData!!.userPhoto),
                     topic
                 ).also {
                     sendNotification(it)
