@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.home.HomeActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -37,7 +38,8 @@ class FirebaseService : FirebaseMessagingService() {
 
     override fun onMessageReceived(newToken: RemoteMessage) {
         super.onMessageReceived(newToken)
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, ChatActivity::class.java)
+        intent.putExtra("userId", newToken.data["userId"])
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationId = Random.nextInt()
 

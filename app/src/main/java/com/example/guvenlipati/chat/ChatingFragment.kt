@@ -121,7 +121,10 @@ class ChatingFragment : Fragment() {
                 view.findViewById<EditText>(R.id.editTextMessage).setText("")
                 scrollToBottom()
                 topic = "/topics/$friendUserId"
-                PushNotification(Notification(userData!!.userName, message), topic).also {
+                PushNotification(
+                    Notification(userData!!.userName, message, firebaseUser!!.uid),
+                    topic
+                ).also {
                     sendNotification(it)
                 }
             }
