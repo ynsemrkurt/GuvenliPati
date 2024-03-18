@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/backButton"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="4dp"
@@ -39,16 +39,16 @@
         android:layout_marginStart="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/men_image"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@+id/backButton" />
 
     <TextView
         android:id="@+id/textFriendName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
-        android:text="Batın Gökçe Savran"
+        android:text="@string/user_name"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_marginStart="15dp"

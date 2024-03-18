@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +28,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,7 +45,7 @@ class ChatingFragment : Fragment() {
     private var userData: User? = null
     private var firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
     private lateinit var fragmentContext: Context
-    var topic = "/topics/myTopic"
+    private var topic = "/topics/myTopic"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -131,6 +131,10 @@ class ChatingFragment : Fragment() {
             }
         }
         messageList(friendUserId)
+
+        view.findViewById<ImageView>(R.id.backButton).setOnClickListener{
+            activity?.finish()
+        }
     }
 
     private fun messageList(friendId: String) {
