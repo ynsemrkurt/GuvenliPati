@@ -60,7 +60,7 @@ class ChatingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentChatingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -92,7 +92,6 @@ class ChatingFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle onCancelled
             }
         })
 
@@ -102,7 +101,6 @@ class ChatingFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle onCancelled
             }
         })
 
@@ -163,9 +161,9 @@ class ChatingFragment : Fragment() {
                 }
                 val chatAdapter = MessageAdapter(fragmentContext, chatList)
                 binding.recycleViewMessages.adapter = chatAdapter
+                scrollToBottom()
                 binding.loadingCardView.visibility = View.GONE
                 binding.constraint.foreground = null
-                scrollToBottom()
             }
 
             override fun onCancelled(error: DatabaseError) {
