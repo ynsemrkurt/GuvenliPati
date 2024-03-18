@@ -1,7 +1,11 @@
 package com.example.guvenlipati.home
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.example.guvenlipati.backer.PetBackerActivity
@@ -18,13 +22,21 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val NOTIFICATION_PERMISSION = arrayOf(
+                Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.POST_NOTIFICATIONS
+            )
+            appPermissionLauncher.launch(NOTIFICATION_PERMISSION)
+        }
+
         setContentView(R.layout.activity_home)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         goHomeFragment()
 
-        auth=FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         binding.menuNav.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -36,6 +48,7 @@ class HomeActivity : AppCompatActivity() {
                     logout()
                     true
                 }
+
                 else -> false
             }
         }
@@ -104,7 +117,7 @@ class HomeActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun goPetBackerActivity(){
+    fun goPetBackerActivity() {
         val intent = Intent(this, PetBackerActivity::class.java)
         startActivity(intent)
     }
@@ -131,4 +144,9 @@ class HomeActivity : AppCompatActivity() {
             )
             .commit()
     }
+
+    private val appPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
+            //Zorunlu izin olmadığı için birşey yazmadık...
+        }
 }
