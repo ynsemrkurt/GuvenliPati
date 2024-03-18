@@ -16,17 +16,15 @@ import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.RetrofitInstance
 import com.example.guvenlipati.adapter.MessageAdapter
+import com.example.guvenlipati.databinding.FragmentChatingBinding
 import com.example.guvenlipati.models.Chat
 import com.example.guvenlipati.models.Notification
 import com.example.guvenlipati.models.PushNotification
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +35,7 @@ import java.time.format.DateTimeFormatter
 class ChatingFragment : Fragment() {
 
     private var userId: String? = null
-    private lateinit var recyclerViewMessages: RecyclerView
+    private lateinit var binding: FragmentChatingBinding
     private var chatList = ArrayList<Chat>()
     private var reference: DatabaseReference? = null
     private var reference2: DatabaseReference? = null
@@ -45,7 +43,7 @@ class ChatingFragment : Fragment() {
     private var userData: User? = null
     private var firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
     private lateinit var fragmentContext: Context
-    var topic = "/topics/myTopic"
+    private var topic = "/topics/myTopic"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,12 +55,13 @@ class ChatingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_chating, container, false)
+        binding = FragmentChatingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private fun scrollToBottom() {
-        recyclerViewMessages.post {
-            recyclerViewMessages.scrollToPosition(chatList.size - 1)
+        binding.recycleViewMessages.post {
+            binding.recycleViewMessages.scrollToPosition(chatList.size - 1)
         }
     }
 
@@ -76,21 +75,18 @@ class ChatingFragment : Fragment() {
         val friendUserId = activity?.intent?.getStringExtra("userId").toString()
         reference = FirebaseDatabase.getInstance().getReference("users").child(friendUserId)
         reference2 = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser!!.uid)
-        recyclerViewMessages = view.findViewById(R.id.recycleViewMessages)
 
-        recyclerViewMessages.layoutManager =
-            LinearLayoutManager(fragmentContext, RecyclerView.VERTICAL, false)
+        binding.recycleViewMessages.layoutManager = LinearLayoutManager(fragmentContext)
 
         reference!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 user = snapshot.getValue(User::class.java)
-                Glide.with(requireContext()).load(user?.userPhoto)
-                    .into(view.findViewById(R.id.imagePhoto))
-                view.findViewById<TextView>(R.id.textFriendName).text = user?.userName
+                Glide.with(requireContext()).load(user?.userPhoto).into(binding.imagePhoto)
+                binding.textFriendName.text = user?.userName
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                // Handle onCancelled
             }
         })
 
@@ -100,6 +96,7 @@ class ChatingFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Handle onCancelled
             }
         })
 
@@ -107,11 +104,10 @@ class ChatingFragment : Fragment() {
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val formattedDateTime = currentTime.format(formatter)
 
-        view.findViewById<ImageButton>(R.id.buttonGoChat).setOnClickListener {
-            if (view.findViewById<EditText>(R.id.editTextMessage).text.toString().isNotEmpty()) {
-                reference = FirebaseDatabase.getInstance().getReference().child("chat")
-
-                val message = view.findViewById<EditText>(R.id.editTextMessage).text.toString()
+        binding.buttonGoChat.setOnClickListener {
+            val message = binding.editTextMessage.text.toString()
+            if (message.isNotEmpty()) {
+                reference = FirebaseDatabase.getInstance().getReference("chat")
 
                 val hashMap: HashMap<String, String> = HashMap()
                 hashMap["senderId"] = firebaseUser?.uid.toString()
@@ -119,11 +115,17 @@ class ChatingFragment : Fragment() {
                 hashMap["messages"] = message
                 hashMap["currentTime"] = formattedDateTime.toString()
                 reference!!.push().setValue(hashMap)
-                view.findViewById<EditText>(R.id.editTextMessage).setText("")
+                binding.editTextMessage.setText("")
                 scrollToBottom()
+
                 topic = "/topics/$friendUserId"
                 PushNotification(
-                    Notification(userData!!.userName, message, firebaseUser!!.uid, userData!!.userPhoto),
+                    Notification(
+                        userData!!.userName,
+                        message,
+                        firebaseUser!!.uid,
+                        userData!!.userPhoto
+                    ),
                     topic
                 ).also {
                     sendNotification(it)
@@ -150,7 +152,9 @@ class ChatingFragment : Fragment() {
                     }
                 }
                 val chatAdapter = MessageAdapter(fragmentContext, chatList)
-                recyclerViewMessages.adapter = chatAdapter
+                binding.recycleViewMessages.adapter = chatAdapter
+                binding.loadingCardView.visibility = View.GONE
+                binding.constraint.foreground = null
                 scrollToBottom()
             }
 
