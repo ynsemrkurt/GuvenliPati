@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 import com.google.gson.Gson
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -133,6 +139,10 @@ class ChatingFragment : Fragment() {
             }
         }
         messageList(friendUserId)
+
+        view.findViewById<ImageView>(R.id.backButton).setOnClickListener{
+            activity?.finish()
+        }
     }
 
     private fun messageList(friendId: String) {
