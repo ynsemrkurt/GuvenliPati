@@ -95,6 +95,10 @@ class JobCreateFragment : Fragment() {
                                     petSelectID = selectedPetId
                                 }
                             petRecyclerView.adapter = petAdapter
+                            if (petRecyclerView.adapter == petAdapter){
+                                binding.loadingCardView.visibility = View.GONE
+                                binding.scrollView.foreground = null
+                            }
                         }
 
                         override fun onCancelled(error: DatabaseError) {
