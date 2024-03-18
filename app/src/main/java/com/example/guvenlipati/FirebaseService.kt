@@ -61,36 +61,72 @@ class FirebaseService : FirebaseMessagingService() {
         )
         val profileImageUrl = newToken.data["profileImageUrl"]
 
-        Glide.with(this)
-            .asBitmap()
-            .load(profileImageUrl)
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    val notification = NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
-                        .setContentTitle(newToken.data["title"])
-                        .setContentText(newToken.data["message"])
-                        .setSmallIcon(R.drawable.baseline_notifications_24)
-                        .setLargeIcon(resource)
-                        .setAutoCancel(true)
-                        .setContentIntent(pendingIntent)
-                        .build()
+        if (profileImageUrl.isNullOrEmpty()) {
+            Glide.with(this)
+                .asBitmap()
+                .load(R.drawable.men_image)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val notification =
+                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
+                                .setContentTitle(newToken.data["title"])
+                                .setContentText(newToken.data["message"])
+                                .setSmallIcon(R.drawable.baseline_notifications_24)
+                                .setLargeIcon(resource)
+                                .setAutoCancel(true)
+                                .setContentIntent(pendingIntent)
+                                .build()
 
-                    notificationManager.notify(notificationId, notification)
-                }
+                        notificationManager.notify(notificationId, notification)
+                    }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
+                    override fun onLoadCleared(placeholder: Drawable?) {
 
-                }
-            })}
+                    }
+                })
+        } else {
+            Glide.with(this)
+                .asBitmap()
+                .load(profileImageUrl)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val notification =
+                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
+                                .setContentTitle(newToken.data["title"])
+                                .setContentText(newToken.data["message"])
+                                .setSmallIcon(R.drawable.baseline_notifications_24)
+                                .setLargeIcon(resource)
+                                .setAutoCancel(true)
+                                .setContentIntent(pendingIntent)
+                                .build()
 
-        @RequiresApi(Build.VERSION_CODES.O)
-        private fun createNotificationChannel(notificationManager: NotificationManager) {
-            val channelName = "channelFirebaseChat"
-            val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_HIGH).apply {
-                description = "My channel description"
-                enableLights(true)
-                lightColor = Color.GREEN
-            }
-            notificationManager.createNotificationChannel(channel)
+                        notificationManager.notify(notificationId, notification)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+                })
         }
+
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(notificationManager: NotificationManager) {
+        val channelName = "channelFirebaseChat"
+        val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_HIGH).apply {
+            description = "My channel description"
+            enableLights(true)
+            lightColor = Color.GREEN
+        }
+        notificationManager.createNotificationChannel(channel)
+    }
+
+
+}
