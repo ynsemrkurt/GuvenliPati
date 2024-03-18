@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.exifinterface)
     //Added Firebase Messaging
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.messaging.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

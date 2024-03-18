@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.FirebaseService
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.UserAdapter
+import com.example.guvenlipati.databinding.FragmentChatListBinding
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,7 +20,7 @@ import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 
 class ChatListFragment : Fragment() {
-    private lateinit var chatRecyclerView: RecyclerView
+    private lateinit var binding: FragmentChatListBinding
     private lateinit var fragmentContext: Context
 
     override fun onAttach(context: Context) {
@@ -31,21 +32,25 @@ class ChatListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_chat_list, container, false)
+        binding = FragmentChatListBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        FirebaseService.sharedPref=fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {token ->
-            FirebaseService.token= token
-        }
+        FirebaseService.sharedPref =
+            fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        FirebaseService.sharedPref =
+            fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        FirebaseService.sharedPref =
+            fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
-        chatRecyclerView = view.findViewById(R.id.chatRecycleView)
-        chatRecyclerView.layoutManager = LinearLayoutManager(fragmentContext, RecyclerView.VERTICAL, false)
+        binding.chatRecycleView.layoutManager =
+            LinearLayoutManager(fragmentContext, RecyclerView.VERTICAL, false)
 
         val userList = ArrayList<User>()
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance().getReference("users")
 
-        val xId=firebaseUser?.uid
+        val xId = firebaseUser?.uid
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/$xId")
 
         firebaseUser?.let { currentUser ->
@@ -61,11 +66,13 @@ class ChatListFragment : Fragment() {
                         }
                     }
                     val userAdapter = UserAdapter(fragmentContext, userList)
-                    chatRecyclerView.adapter = userAdapter
+                    binding.chatRecycleView.adapter = userAdapter
+                    binding.loadingCardView.visibility = View.GONE
+                    binding.scrollView.foreground = null
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(fragmentContext, "ERROR", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(fragmentContext, "Error: " + error.message, Toast.LENGTH_SHORT).show()
                 }
             })
         } ?: run {
