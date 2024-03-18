@@ -40,10 +40,12 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
 
         fun bind(user: User) {
             textUserName.text = user.userName
-            Glide.with(context)
-                .load(Uri.parse(user.userPhoto))
-                .placeholder(R.drawable.women_ico)
-                .into(userImage)
+            if (user.userPhoto.isNotEmpty()){
+                Glide.with(context)
+                    .load(Uri.parse(user.userPhoto))
+                    .into(userImage)
+            }
+
 
             userLayout.setOnClickListener {
                 val intent = Intent(context, ChatActivity::class.java)

@@ -87,7 +87,11 @@ class ChatingFragment : Fragment() {
         reference!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 user = snapshot.getValue(User::class.java)
-                Glide.with(requireContext()).load(user?.userPhoto).into(binding.imagePhoto)
+                if (user!!.userPhoto.isEmpty()) {
+                    Glide.with(requireContext()).load(R.drawable.men_image).into(binding.imagePhoto)
+                }else {
+                    Glide.with(requireContext()).load(user?.userPhoto).into(binding.imagePhoto)
+                }
                 binding.textFriendName.text = user?.userName
             }
 
@@ -165,6 +169,7 @@ class ChatingFragment : Fragment() {
                 binding.loadingCardView.visibility = View.GONE
                 binding.constraint.foreground = null
             }
+
 
             override fun onCancelled(error: DatabaseError) {
             }
