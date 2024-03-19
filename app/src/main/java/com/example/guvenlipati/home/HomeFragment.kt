@@ -6,7 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.adapter.HomePetsAdapter
+import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.databinding.FragmentHomeBinding
+import com.example.guvenlipati.models.Pet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -18,7 +23,8 @@ import com.google.firebase.database.ValueEventListener
 class HomeFragment : Fragment() {
 
     private lateinit var firebaseUser: FirebaseUser
-    private lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReferenceUsers: DatabaseReference
+    private lateinit var databaseReferencePets: DatabaseReference
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -33,20 +39,52 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
-        databaseReference =
+        databaseReferenceUsers =
             FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
                 .child("userBacker")
+        databaseReferencePets=FirebaseDatabase.getInstance().getReference("pets")
+        val selectPetList = ArrayList<Pet>()
 
-        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        binding.petRecycleView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+
+        val context=requireContext()
+
+        databaseReferenceUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val isUserBacker = snapshot.getValue(Boolean::class.java) ?: false
 
                 if (isUserBacker) {
-                    binding.goBackerButton.visibility = View.GONE
+                    binding.buttonConstraint.visibility = View.GONE
                 }
+                databaseReferencePets.addListenerForSingleValueEvent(object :ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (dataSnapShot: DataSnapshot in snapshot.children) {
+                            val pet = dataSnapShot.getValue(Pet::class.java)
+                            if (pet?.userId!=firebaseUser.uid){
+                                pet.let {
+                                    if (it != null) {
+                                        selectPetList.add(it)
+                                    }
+                                }
+                            }
+                        }
+                        val petAdapter =
+                            HomePetsAdapter(
+                                context,
+                                selectPetList
+                            )
+                        binding.petRecycleView.adapter=petAdapter
+                        binding.scrollView.foreground = null
+                        binding.loadingCardView.visibility = View.GONE
+                    }
 
-                binding.scrollView.foreground = null
-                binding.loadingCardView.visibility = View.GONE
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+
+                })
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {

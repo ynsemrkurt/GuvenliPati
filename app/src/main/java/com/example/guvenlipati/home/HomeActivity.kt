@@ -2,11 +2,13 @@ package com.example.guvenlipati.home
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.R
@@ -23,12 +25,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val NOTIFICATION_PERMISSION = arrayOf(
-                Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.POST_NOTIFICATIONS
-            )
-            appPermissionLauncher.launch(NOTIFICATION_PERMISSION)
-        }
+        permissionNotification()
 
         setContentView(R.layout.activity_home)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -147,6 +144,31 @@ class HomeActivity : AppCompatActivity() {
 
     private val appPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
-            //Zorunlu izin olmadığı için birşey yazmadık...
+            if (result.all { it.value }) {
+                Toast.makeText(
+                    this,
+                    "Artık bildirimlerinizi anlık olarak alabilirsiniz!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }else{
+                Toast.makeText(
+                    this,
+                    "Bildirimleri alamayacaksınız!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
+
+    private fun permissionNotification(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+                } else {
+                    appPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+                }
+            }
+        }
+    }
 }
