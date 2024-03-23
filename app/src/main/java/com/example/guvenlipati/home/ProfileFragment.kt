@@ -171,28 +171,33 @@ class ProfileFragment : Fragment() {
 
         binding.buttonSave.setOnClickListener {
 
-            if (binding.editTextUserName.text.trim().isEmpty()) {
+            val editTextUserName = binding.editTextUserName.text.toString().trim()
+            val editTextUserSurname = binding.editTextUserSurname.text.toString().trim()
+            val province = binding.provinceCombo.text.toString().trim()
+            val town = binding.townCombo.text.toString().trim()
+
+            if (editTextUserName.isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextUserSurname.text.trim().isEmpty()) {
+            if (editTextUserSurname.isEmpty()) {
                 showToast("Soyadınızı giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.provinceCombo.text.trim().isEmpty() || binding.townCombo.text.trim().isEmpty()) {
+            if (province.isEmpty() || town.isEmpty()) {
                 showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }
 
             databaseReference.updateChildren(
                 mapOf(
-                    "userName" to binding.editTextUserName.text.toString(),
-                    "userSurname" to binding.editTextUserSurname.text.toString(),
-                    "userProvince" to binding.provinceCombo.text.toString(),
+                    "userName" to editTextUserName,
+                    "userSurname" to editTextUserSurname,
+                    "userProvince" to province,
                     "userPhoto" to user?.userPhoto,
-                    "userTown" to binding.townCombo.text.toString()
+                    "userTown" to town
                 )
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -200,6 +205,7 @@ class ProfileFragment : Fragment() {
                 } else {
                     showToast("Düzenleme hatası: ${task.exception}")
                 }
+                (activity as HomeActivity).goProfileFragment()
                 binding.buttonAddProfileImage.visibility = View.INVISIBLE
                 binding.editTextUserName.isEnabled = false
                 binding.editTextUserSurname.isEnabled = false
