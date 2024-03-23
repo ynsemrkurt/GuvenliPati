@@ -49,7 +49,6 @@ class LoginFragment : Fragment() {
 
 
         binding.loginButton.setOnClickListener {
-            val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
             if (binding.editTextEmail.text.toString()
                     .isEmpty() || binding.editTextPassword.text.toString().isEmpty()
@@ -67,37 +66,21 @@ class LoginFragment : Fragment() {
                     .addOnCompleteListener()
                     {
                         if (it.isSuccessful) {
-                            FirebaseMessaging.getInstance().token.addOnSuccessListener { result ->
-                                val token = result
-                                databaseReference.child(auth.currentUser?.uid.toString())
-                                    .child("userToken").setValue(token).addOnCompleteListener {
-                                        if (it.isSuccessful) {
-                                            (activity as SplashActivity).goHomeActivity()
-                                            binding.editTextEmail.setText("")
-                                            binding.editTextPassword.setText("")
-                                        } else {
-                                            showToast("Başarısız Giriş!")
-                                        }
-                                    }
-                            }
-                                .addOnFailureListener { exception ->
-                                    showToast("Başarısız Giriş!")
-                                }
+                            (activity as SplashActivity).goHomeActivity()
+                            binding.editTextEmail.setText("")
+                            binding.editTextPassword.setText("")
                         } else {
-                            binding.editTextPassword.setTextColor(Color.RED)
-                            val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
-                            binding.editTextPassword.startAnimation(shake)
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                binding.editTextPassword.text.clear()
-                                binding.editTextPassword.setTextColor(Color.BLACK)
-                            }, 500)
+                            errorEdit(binding.editTextPassword)
                         }
-                        binding.loginButton.visibility = View.VISIBLE
-                        binding.progressCard.visibility = View.INVISIBLE
-                        binding.buttonPaw.visibility = View.VISIBLE
+                    }
+
+                    .addOnFailureListener { exception ->
+                        showToast("Hatalı Giriş Bilgileri!")
                     }
             }
-
+            binding.loginButton.visibility = View.VISIBLE
+            binding.progressCard.visibility = View.INVISIBLE
+            binding.buttonPaw.visibility = View.VISIBLE
         }
 
         binding.lockPassword.setOnClickListener {
@@ -127,17 +110,56 @@ class LoginFragment : Fragment() {
             val view2 = inflater.inflate(R.layout.item_forgot_password, null)
             builder.setView(view2)
 
+            val email = view2.findViewById<EditText>(R.id.editTextMail2)
+            val buttonSend = view2.findViewById<Button>(R.id.buttonSend)
+
             val dialog = builder.create()
             dialog.show()
+
+            buttonSend.setOnClickListener {
+                if (email.text.toString().trim()
+                        .isEmpty()
+                ) {
+                    showToast("Lütfen email adresinizi giriniz!")
+                    return@setOnClickListener
+                } else {
+                    auth.sendPasswordResetEmail(email.text.toString())
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                showToast("Lütfen email kutunuzu kontrol ediniz!")
+                                dialog.dismiss()
+                            } else {
+                                showToast("Geçerli bir email adresi giriniz!")
+                                errorEdit(email)
+                            }
+                        }
+                }
+            }
+
+            dialog.setOnCancelListener {
+                dialog.dismiss()
+            }
         }
 
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner)
+        {
             (requireActivity() as SplashActivity).goSplashFragment()
         }
     }
 
     fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun errorEdit(editText: EditText){
+        editText.setTextColor(Color.RED)
+        val shake =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+        editText.startAnimation(shake)
+        Handler(Looper.getMainLooper()).postDelayed({
+            editText.text.clear()
+            editText.setTextColor(Color.BLACK)
+        }, 500)
     }
 }
