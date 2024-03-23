@@ -198,7 +198,7 @@ class EditPetActivity : AppCompatActivity() {
         }
 
         editPetButton.setOnClickListener {
-            if (editTextPetWeight.text.isEmpty() || petAgeCombo.text.isEmpty() || editTextPetName.text.isEmpty() || editTextAbout.text.isEmpty()) {
+            if (editTextPetWeight.text.trim().isEmpty() || petAgeCombo.text.trim().isEmpty() || editTextPetName.text.trim().isEmpty() || editTextAbout.text.trim().isEmpty()) {
                 showToast("Lütfen boş alan bırakmayınız!")
                 return@setOnClickListener
             }

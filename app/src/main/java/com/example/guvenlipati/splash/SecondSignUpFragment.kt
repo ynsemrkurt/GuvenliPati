@@ -106,12 +106,12 @@ class SecondSignUpFragment : Fragment() {
             val userTown = binding.townCombo.text.toString()
 
 
-            if (binding.editTextUserName.text.isEmpty()) {
+            if (binding.editTextUserName.text.trim().isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextUserSurname.text.isEmpty()) {
+            if (binding.editTextUserSurname.text.trim().isEmpty()) {
                 showToast("Soyadınızı giriniz!")
                 return@setOnClickListener
             }
@@ -121,7 +121,7 @@ class SecondSignUpFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (userProvince.isEmpty() || userTown.isEmpty()) {
+            if (userProvince.trim().isEmpty() || userTown.trim().isEmpty()) {
                 showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }

@@ -40,8 +40,8 @@ class JobCreateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
-        binding= FragmentJobCreateBinding.inflate(inflater,container,false)
+    ): View {
+        binding = FragmentJobCreateBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -74,7 +74,8 @@ class JobCreateFragment : Fragment() {
                     val userData = snapshot.getValue(User::class.java)
                     user = userData ?: User()
 
-                    databaseReferencePets.addListenerForSingleValueEvent(object : ValueEventListener {
+                    databaseReferencePets.addListenerForSingleValueEvent(object :
+                        ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             selectPetList.clear()
                             for (dataSnapShot: DataSnapshot in snapshot.children) {
@@ -94,7 +95,7 @@ class JobCreateFragment : Fragment() {
                                     petSelectID = selectedPetId
                                 }
                             petRecyclerView.adapter = petAdapter
-                            if (petRecyclerView.adapter == petAdapter){
+                            if (petRecyclerView.adapter == petAdapter) {
                                 binding.loadingCardView.visibility = View.GONE
                                 binding.scrollView.foreground = null
                             }
@@ -159,21 +160,22 @@ class JobCreateFragment : Fragment() {
 
             if (auth.currentUser != null) {
 
-                if (jobAbout.text.toString().isEmpty()) {
+                if (jobAbout.text.toString().trim().isEmpty()) {
                     showToast("Lütfen boş alan bırakmayınız!")
                     return@setOnClickListener
                 }
-                if (editTextStartDate.text.toString().isEmpty() || editTextEndDate.text.toString()
+                if (editTextStartDate.text.toString().trim()
+                        .isEmpty() || editTextEndDate.text.toString().trim()
                         .isEmpty()
                 ) {
                     showToast("Lütfen tarih seçiniz!")
                     return@setOnClickListener
                 }
-                if (checkedJobType.isEmpty()) {
+                if (checkedJobType.trim().isEmpty()) {
                     showToast("Lütfen hizmet türü seçiniz!")
                     return@setOnClickListener
                 }
-                if (petSelectID.isEmpty()) {
+                if (petSelectID.trim().isEmpty()) {
                     showToast("Lütfen dostunuzu seçiniz!")
                     return@setOnClickListener
                 }

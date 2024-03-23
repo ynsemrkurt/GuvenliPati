@@ -170,17 +170,17 @@ class ProfileFragment : Fragment() {
 
         binding.buttonSave.setOnClickListener {
 
-            if (binding.editTextUserName.text.isEmpty()) {
+            if (binding.editTextUserName.text.trim().isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextUserSurname.text.isEmpty()) {
+            if (binding.editTextUserSurname.text.trim().isEmpty()) {
                 showToast("Soyadınızı giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.provinceCombo.text.isEmpty() || binding.townCombo.text.isEmpty()) {
+            if (binding.provinceCombo.text.trim().isEmpty() || binding.townCombo.text.trim().isEmpty()) {
                 showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }

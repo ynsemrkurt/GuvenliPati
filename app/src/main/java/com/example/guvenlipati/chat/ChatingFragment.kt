@@ -114,7 +114,7 @@ class ChatingFragment : Fragment() {
 
         binding.buttonGoChat.setOnClickListener {
             val message = binding.editTextMessage.text.toString()
-            if (message.isNotEmpty()) {
+            if (message.trim().isNotEmpty()) {
                 reference = FirebaseDatabase.getInstance().getReference("chat")
 
                 val hashMap: HashMap<String, String> = HashMap()

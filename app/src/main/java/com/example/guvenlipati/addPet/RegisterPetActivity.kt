@@ -144,22 +144,22 @@ class RegisterPetActivity : AppCompatActivity() {
                 FirebaseDatabase.getInstance().getReference("pets")
                     .child(firebaseUser.uid + binding.editTextPetName.text.toString())
 
-            if (binding.editTextPetName.text.toString().isEmpty()) {
+            if (binding.editTextPetName.text.toString().trim().isEmpty()) {
                 showToast("Lütfen ad giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextWeight.text.toString().isEmpty()) {
+            if (binding.editTextWeight.text.toString().trim().isEmpty()) {
                 showToast("Lütfen ağırlık giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.ageCombo.text.toString().isEmpty()) {
+            if (binding.ageCombo.text.toString().trim().isEmpty()) {
                 showToast("Lütfen yaş giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.typeCombo.text.toString().isEmpty()) {
+            if (binding.typeCombo.text.toString().trim().isEmpty()) {
                 showToast("Lütfen tür giriniz!")
                 return@setOnClickListener
             }
@@ -174,7 +174,7 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (binding.editTextAbout.text.toString().isEmpty()) {
+            if (binding.editTextAbout.text.toString().trim().isEmpty()) {
                 showToast("Lütfen tüm alanları doldurunuz!")
                 return@setOnClickListener
             }
