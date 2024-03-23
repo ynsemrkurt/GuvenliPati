@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.RetrofitInstance
 import com.example.guvenlipati.adapter.MessageAdapter
+import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.databinding.FragmentChatingBinding
 import com.example.guvenlipati.models.Chat
 import com.example.guvenlipati.models.Notification
@@ -144,6 +145,9 @@ class ChatingFragment : Fragment() {
 
         view.findViewById<ImageView>(R.id.backButton).setOnClickListener{
             activity?.finish()
+        }
+        view.findViewById<ImageView>(R.id.imageView3).setOnClickListener{
+            (activity as ChatActivity).goProfilePreviewFragment()
         }
     }
 

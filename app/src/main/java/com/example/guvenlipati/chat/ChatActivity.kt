@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.guvenlipati.R
 import com.example.guvenlipati.job.JobDetailsFragment
+import com.example.guvenlipati.splash.LoginFragment
 
 class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +22,11 @@ class ChatActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)
+            .commit()
+    }
+    fun goProfilePreviewFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, ProfilePreviewFragment())
             .commit()
     }
 }
