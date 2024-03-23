@@ -11,8 +11,8 @@
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
-            android:backgroundTint="@color/black"
-            app:cardElevation="5dp"
+            android:backgroundTint="@color/white"
+            app:cardElevation="7dp"
             app:cardCornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,15 +23,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/petImage"
-                    android:layout_width="200dp"
-                    android:layout_height="180dp"
-                    android:src="@drawable/default_pet_image_2"
-                    android:scaleType="centerCrop"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petCard2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="3dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/petImage"
+                        android:layout_width="200dp"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_pet_image_2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/petName"
@@ -40,12 +53,12 @@
                     android:layout_marginTop="8dp"
                     android:text="PetName"
                     android:textSize="18sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.494"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petImage"
+                    app:layout_constraintTop_toBottomOf="@+id/petCard2"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
@@ -55,21 +68,7 @@
                     android:text="PetType"
                     android:textColor="#616060"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/petAge"
-                    app:layout_constraintHorizontal_bias="0.846"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petName"
-                    app:layout_constraintVertical_bias="0.157" />
-
-                <TextView
-                    android:id="@+id/petAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PetAge"
-                    android:textColor="#616060"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.668"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/petName"
                     app:layout_constraintVertical_bias="0.157" />
