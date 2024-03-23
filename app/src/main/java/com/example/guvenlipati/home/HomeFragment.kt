@@ -93,8 +93,6 @@ class HomeFragment : Fragment() {
                                 selectPetList
                             )
                         binding.petRecycleView.adapter = petAdapter
-                        binding.scrollView.foreground = null
-                        binding.loadingCardView.visibility = View.GONE
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -141,6 +139,8 @@ class HomeFragment : Fragment() {
                                 selectUserList
                             )
                         binding.petRecycleViewBacker.adapter = selectBackerAdapter
+                        binding.scrollView.foreground = null
+                        binding.loadingCardView.visibility = View.GONE
                     }
                     override fun onCancelled(error: DatabaseError) {
                     }

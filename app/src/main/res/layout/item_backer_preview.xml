@@ -24,6 +24,7 @@
             android:layout_marginBottom="10dp">
 
             <androidx.cardview.widget.CardView
+                android:layout_margin="5dp"
                 android:id="@+id/backerCard"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"

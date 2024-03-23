@@ -4,7 +4,7 @@ data class Backer(
     val TC: String = "",
     val about: String = "",
     val address: String = "",
-    val backerBirthdayYear: String = "",
+    val backerBirthYear: String = "",
     val birdBacker: Boolean = false,
     val catBacker: Boolean = false,
     val dogBacker: Boolean = false,

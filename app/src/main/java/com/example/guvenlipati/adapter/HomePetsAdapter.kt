@@ -72,11 +72,11 @@ class HomePetsAdapter(
                 textViewAge.text=pet.petAge+" Yaş"
                 when (pet.petGender) {
                     true -> {
-                        petGenderTextView.text = "Erkek"
+                        petGenderTextView.text = "Dişi"
                     }
 
                     false -> {
-                        petGenderTextView.text = "Dişi"
+                        petGenderTextView.text = "Erkek"
                     }
                 }
                 when (pet.petVaccinate) {

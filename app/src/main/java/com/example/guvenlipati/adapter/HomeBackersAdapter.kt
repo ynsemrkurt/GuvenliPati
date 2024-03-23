@@ -17,6 +17,7 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
+import java.time.LocalDateTime
 
 class HomeBackersAdapter(
     private val context: Context,
@@ -50,15 +51,58 @@ class HomeBackersAdapter(
 
         fun bind(backer: Backer, user: User, position: Int) {
 
-            Glide.with(context)
-                .load(Uri.parse(user.userPhoto))
-                .into(backerPhoto)
+            if (user.userPhoto.isNotEmpty()){
+                Glide.with(context)
+                    .load(Uri.parse(user.userPhoto))
+                    .into(backerPhoto)
+            }
 
             backerName.text = user.userName
             backerLocation.text = user.userProvince+"/"+user.userTown
 
 
             itemView.setOnClickListener {
+                val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
+
+                val inflater = LayoutInflater.from(context)
+                val view2 = inflater.inflate(R.layout.item_backer_preview, null)
+                builder.setView(view2)
+
+                val petPhotoImageView=view2.findViewById<ImageView>(R.id.petPhotoImageView)
+                val backerNameTextView=view2.findViewById<TextView>(R.id.backerNameTextView)
+                val textViewAge=view2.findViewById<TextView>(R.id.textViewAge)
+                val petGenderTextView=view2.findViewById<TextView>(R.id.petGenderTextView)
+                val backerLocationTextView=view2.findViewById<TextView>(R.id.backerLocationTextView)
+                val petNumberTextView=view2.findViewById<TextView>(R.id.petNumberTextView)
+                val backerExperienceTextView=view2.findViewById<TextView>(R.id.backerExperienceTextView)
+                val backerAboutTextView=view2.findViewById<TextView>(R.id.backerAboutTextView)
+
+                if (user.userPhoto.isNotEmpty()){
+                    Glide.with(context)
+                        .load(Uri.parse(user.userPhoto))
+                        .into(petPhotoImageView)
+                }
+
+                backerNameTextView.text=user.userName
+                val currentYear = LocalDateTime.now().year
+                textViewAge.text = (currentYear - backer.backerBirthYear.toInt()).toString()
+                when (user.userGender) {
+                    true -> {
+                        petGenderTextView.text = "Kadın"
+                    }
+
+                    false -> {
+                        petGenderTextView.text = "Erkek"
+                    }
+                }
+                backerLocationTextView.text=user.userProvince+"/"+user.userTown
+                petNumberTextView.text=backer.petNumber
+                backerExperienceTextView.text=backer.experience
+                backerAboutTextView.text=backer.about
+
+
+                val dialog = builder.create()
+                dialog.show()
             }
         }
     }
