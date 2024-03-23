@@ -4,4 +4,8 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="Theme.GuvenliPati" parent="Base.Theme.GuvenliPati" />
+
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

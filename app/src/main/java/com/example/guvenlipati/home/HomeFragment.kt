@@ -38,6 +38,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            (activity as HomeActivity).logout()
+        }
+
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         databaseReferenceUsers =
             FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)

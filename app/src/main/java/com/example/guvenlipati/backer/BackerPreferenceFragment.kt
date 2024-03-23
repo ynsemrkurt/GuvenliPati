@@ -90,6 +90,7 @@ class BackerPreferenceFragment : Fragment() {
             if (isChecked) {
                 homeJob = true
                 homeMoney.isEnabled = true
+                homeMoney.text.clear()
             } else {
                 homeJob = false
                 homeMoney.isEnabled = false
@@ -101,6 +102,7 @@ class BackerPreferenceFragment : Fragment() {
             if (isChecked) {
                 feedingJob = true
                 feedingMoney.isEnabled = true
+                feedingMoney.text.clear()
             } else {
                 feedingJob = false
                 feedingMoney.isEnabled = false
@@ -112,6 +114,7 @@ class BackerPreferenceFragment : Fragment() {
             if (isChecked) {
                 walkingJob = true
                 walkingMoney.isEnabled = true
+                walkingMoney.text.clear()
             } else {
                 walkingJob = false
                 walkingMoney.isEnabled = false
@@ -138,14 +141,14 @@ class BackerPreferenceFragment : Fragment() {
             }
 
             if (home.isChecked) {
-                if (homeMoney.text.toString().isEmpty() || homeMoney.text.toString().toInt() <= 0) {
+                if (homeMoney.text.toString().trim().isEmpty() || homeMoney.text.toString().toInt() <= 0) {
                     showToast("Lütfen Bir Tutar Giriniz!")
                     return@setOnClickListener
                 }
             }
 
             if (feeding.isChecked) {
-                if (feedingMoney.text.toString().isEmpty() || feedingMoney.text.toString()
+                if (feedingMoney.text.toString().trim().isEmpty() || feedingMoney.text.toString()
                         .toInt() <= 0
                 ) {
                     showToast("Lütfen Bir Tutar Giriniz!")
@@ -154,7 +157,7 @@ class BackerPreferenceFragment : Fragment() {
             }
 
             if (walking.isChecked) {
-                if (walkingMoney.text.toString().isEmpty() || walkingMoney.text.toString()
+                if (walkingMoney.text.toString().trim().isEmpty() || walkingMoney.text.toString()
                         .toInt() <= 0
                 ) {
                     showToast("Lütfen Bir Tutar Giriniz!")

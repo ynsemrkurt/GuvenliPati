@@ -152,8 +152,9 @@ class ProfileFragment : Fragment() {
             binding.textInputLayout2.isEnabled = true
             binding.buttonSave.visibility = View.VISIBLE
             binding.buttonChange.visibility = View.INVISIBLE
-            binding.petRecycleView.visibility = View.INVISIBLE
-            binding.dostlarKahvesi.visibility = View.INVISIBLE
+            binding.petRecycleView.visibility = View.GONE
+            binding.dostlarKahvesi.visibility = View.GONE
+            binding.scrollProfile.setOnTouchListener { v, event -> true }
 
             val provinceAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
@@ -170,28 +171,33 @@ class ProfileFragment : Fragment() {
 
         binding.buttonSave.setOnClickListener {
 
-            if (binding.editTextUserName.text.isEmpty()) {
+            val editTextUserName = binding.editTextUserName.text.toString().trim()
+            val editTextUserSurname = binding.editTextUserSurname.text.toString().trim()
+            val province = binding.provinceCombo.text.toString().trim()
+            val town = binding.townCombo.text.toString().trim()
+
+            if (editTextUserName.isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextUserSurname.text.isEmpty()) {
+            if (editTextUserSurname.isEmpty()) {
                 showToast("Soyadınızı giriniz!")
                 return@setOnClickListener
             }
 
-            if (binding.provinceCombo.text.isEmpty() || binding.townCombo.text.isEmpty()) {
+            if (province.isEmpty() || town.isEmpty()) {
                 showToast("Lütfen konum bilgilerinizi doldurunuz!")
                 return@setOnClickListener
             }
 
             databaseReference.updateChildren(
                 mapOf(
-                    "userName" to binding.editTextUserName.text.toString(),
-                    "userSurname" to binding.editTextUserSurname.text.toString(),
-                    "userProvince" to binding.provinceCombo.text.toString(),
+                    "userName" to editTextUserName,
+                    "userSurname" to editTextUserSurname,
+                    "userProvince" to province,
                     "userPhoto" to user?.userPhoto,
-                    "userTown" to binding.townCombo.text.toString()
+                    "userTown" to town
                 )
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -199,6 +205,7 @@ class ProfileFragment : Fragment() {
                 } else {
                     showToast("Düzenleme hatası: ${task.exception}")
                 }
+                (activity as HomeActivity).goProfileFragment()
                 binding.buttonAddProfileImage.visibility = View.INVISIBLE
                 binding.editTextUserName.isEnabled = false
                 binding.editTextUserSurname.isEnabled = false
@@ -208,6 +215,7 @@ class ProfileFragment : Fragment() {
                 binding.buttonChange.visibility = View.VISIBLE
                 binding.petRecycleView.visibility = View.VISIBLE
                 binding.dostlarKahvesi.visibility = View.VISIBLE
+                binding.scrollProfile.setOnTouchListener { v, event -> false }
             }
         }
 

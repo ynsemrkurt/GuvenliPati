@@ -41,19 +41,19 @@ class FirstSignUpFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         binding.signUpButton.setOnClickListener {
-            if (binding.editTextEmail.text.toString()
-                    .isEmpty() || !controlEmail(binding.editTextEmail.text.toString())
+            if (binding.editTextEmail.text.toString().trim()
+                    .isEmpty() || !controlEmail(binding.editTextEmail.text.toString().trim())
             ) {
                 showToast("Hatalı ya da eksik E-posta!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextPassword.text.toString().length < 8) {
+            if (binding.editTextPassword.text.toString().trim().length < 8) {
                 showToast("Şifre 8 karakterden kısa olamaz!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextPassword.text.toString() != binding.editTextConfirmPassword.text.toString()) {
+            if (binding.editTextPassword.text.toString().trim() != binding.editTextConfirmPassword.text.toString().trim()) {
                 showToast("Şifreler uyuşmuyor!")
                 binding.editTextPassword.setTextColor(Color.RED)
                 binding.editTextConfirmPassword.setTextColor(Color.RED)

@@ -119,7 +119,7 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun logout() {
+    fun logout() {
         auth.signOut()
         val intent = Intent(this, SplashActivity::class.java)
         startActivity(intent)

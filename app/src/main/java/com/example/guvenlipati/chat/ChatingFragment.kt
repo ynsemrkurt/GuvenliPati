@@ -113,7 +113,7 @@ class ChatingFragment : Fragment() {
         val formattedDateTime = currentTime.format(formatter)
 
         binding.buttonGoChat.setOnClickListener {
-            val message = binding.editTextMessage.text.toString()
+            val message = binding.editTextMessage.text.toString().trim()
             if (message.isNotEmpty()) {
                 reference = FirebaseDatabase.getInstance().getReference("chat")
 
