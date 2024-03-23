@@ -1,5 +1,6 @@
 package com.example.guvenlipati.splash
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -118,6 +119,17 @@ class LoginFragment : Fragment() {
         }
 
         binding.textView.setOnClickListener {
+
+            val builder = AlertDialog.Builder(context)
+
+            // XML dosyasından özel içeriği yükleme
+            val inflater = LayoutInflater.from(context)
+            val view = inflater.inflate(R.layout.item_forgot_password, null)
+            builder.setView(view)
+
+            // AlertDialog'u oluştur ve göster
+            val dialog = builder.create()
+            dialog.show()
 
             if (binding.editTextEmail.text.toString().isEmpty()) {
                 showToast("Lütfen email adresinizi giriniz!")
