@@ -152,8 +152,9 @@ class ProfileFragment : Fragment() {
             binding.textInputLayout2.isEnabled = true
             binding.buttonSave.visibility = View.VISIBLE
             binding.buttonChange.visibility = View.INVISIBLE
-            binding.petRecycleView.visibility = View.INVISIBLE
-            binding.dostlarKahvesi.visibility = View.INVISIBLE
+            binding.petRecycleView.visibility = View.GONE
+            binding.dostlarKahvesi.visibility = View.GONE
+            binding.scrollProfile.setOnTouchListener { v, event -> true }
 
             val provinceAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
@@ -208,6 +209,7 @@ class ProfileFragment : Fragment() {
                 binding.buttonChange.visibility = View.VISIBLE
                 binding.petRecycleView.visibility = View.VISIBLE
                 binding.dostlarKahvesi.visibility = View.VISIBLE
+                binding.scrollProfile.setOnTouchListener { v, event -> false }
             }
         }
 
