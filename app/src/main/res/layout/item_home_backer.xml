@@ -67,7 +67,7 @@
                 android:layout_height="17dp"
                 android:foreground="#B0FFFFFF"
                 android:src="@drawable/location_ico"
-                app:layout_constraintBottom_toBottomOf="@+id/backerLocation"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/backerLocation"
                 app:layout_constraintTop_toBottomOf="@+id/backerName"
                 app:tint="@color/black" />
@@ -82,8 +82,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/backerName"
-                app:layout_constraintVertical_bias="0.3" />
+                app:layout_constraintTop_toBottomOf="@+id/backerName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
