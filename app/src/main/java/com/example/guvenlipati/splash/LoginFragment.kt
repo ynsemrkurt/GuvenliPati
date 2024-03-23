@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
@@ -70,14 +71,14 @@ class LoginFragment : Fragment() {
                                 val token = result
                                 databaseReference.child(auth.currentUser?.uid.toString())
                                     .child("userToken").setValue(token).addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        (activity as SplashActivity).goHomeActivity()
-                                        binding.editTextEmail.setText("")
-                                        binding.editTextPassword.setText("")
-                                    } else {
-                                        showToast("Başarısız Giriş!")
+                                        if (it.isSuccessful) {
+                                            (activity as SplashActivity).goHomeActivity()
+                                            binding.editTextEmail.setText("")
+                                            binding.editTextPassword.setText("")
+                                        } else {
+                                            showToast("Başarısız Giriş!")
+                                        }
                                     }
-                                }
                             }
                                 .addOnFailureListener { exception ->
                                     showToast("Başarısız Giriş!")
@@ -120,30 +121,14 @@ class LoginFragment : Fragment() {
 
         binding.textView.setOnClickListener {
 
-            val builder = AlertDialog.Builder(context)
+            val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
 
-            // XML dosyasından özel içeriği yükleme
             val inflater = LayoutInflater.from(context)
-            val view = inflater.inflate(R.layout.item_forgot_password, null)
-            builder.setView(view)
+            val view2 = inflater.inflate(R.layout.item_forgot_password, null)
+            builder.setView(view2)
 
-            // AlertDialog'u oluştur ve göster
             val dialog = builder.create()
             dialog.show()
-
-            if (binding.editTextEmail.text.toString().isEmpty()) {
-                showToast("Lütfen email adresinizi giriniz!")
-                return@setOnClickListener
-            }
-
-            auth.sendPasswordResetEmail(binding.editTextEmail.text.toString())
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        showToast("Lütfen email kutunuzu kontrol ediniz!")
-                    } else {
-                        showToast("Başarısız!")
-                    }
-                }
         }
 
 

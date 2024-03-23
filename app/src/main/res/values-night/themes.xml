@@ -7,6 +7,5 @@
 
     <style name="TransparentDialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">false</item>
     </style>
 </resources>
