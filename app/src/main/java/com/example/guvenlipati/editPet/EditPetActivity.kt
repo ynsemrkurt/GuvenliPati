@@ -205,11 +205,11 @@ class EditPetActivity : AppCompatActivity() {
 
             databaseReference.updateChildren(
                 mapOf(
-                    "petName" to editTextPetName.text.toString(),
-                    "petWeight" to editTextPetWeight.text.toString(),
-                    "petAbout" to editTextAbout.text.toString(),
-                    "petAge" to petAgeCombo.text.toString(),
-                    "petBreed" to petTypeCombo.text.toString(),
+                    "petName" to editTextPetName.text.toString().trim(),
+                    "petWeight" to editTextPetWeight.text.toString().trim(),
+                    "petAbout" to editTextAbout.text.toString().trim(),
+                    "petAge" to petAgeCombo.text.toString().trim(),
+                    "petBreed" to petTypeCombo.text.toString().trim(),
                     "petVaccinate" to petVaccine
                 )
             ).addOnCompleteListener { task ->

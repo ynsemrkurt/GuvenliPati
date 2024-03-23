@@ -99,9 +99,10 @@ class JobDetailsFragment : Fragment() {
                         petRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 val pet = snapshot.getValue(Pet::class.java)!!
-
-                                Glide.with(requireContext()).load(pet.petPhoto)
-                                    .into(petPhotoImageView)
+                                if (pet.petPhoto.isNotEmpty()){
+                                    Glide.with(requireContext()).load(pet.petPhoto)
+                                        .into(petPhotoImageView)
+                                }
                                 petNameTextView.text = pet.petName
                                 when (pet.petGender) {
                                     true -> {
@@ -123,8 +124,10 @@ class JobDetailsFragment : Fragment() {
                                 }
                                 petTypeTextView.text = pet.petBreed
                                 petWeightTextView.text = pet.petWeight + " Kg"
-                                Glide.with(requireContext()).load(user.userPhoto)
-                                    .into(circleImageProfilePhoto)
+                                if (user.userPhoto.isNotEmpty()) {
+                                    Glide.with(requireContext()).load(user.userPhoto)
+                                        .into(circleImageProfilePhoto)
+                                }
                                 userNameTextView.text = user.userName
                                 when (job!!.jobType) {
                                     "homeJob" -> {

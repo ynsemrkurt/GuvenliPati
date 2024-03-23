@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10dp"
     android:orientation="vertical"
     android:id="@+id/petCard">
 
 
         <androidx.cardview.widget.CardView
+            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
-            android:backgroundTint="@color/black"
-            android:elevation="10dp"
+            android:backgroundTint="@color/white"
+            app:cardElevation="7dp"
             app:cardCornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,15 +23,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/petImage"
-                    android:layout_width="200dp"
-                    android:layout_height="180dp"
-                    android:src="@drawable/default_pet_image_2"
-                    android:scaleType="centerCrop"
+                <androidx.cardview.widget.CardView
+                    app:cardElevation="3dp"
+                    app:cardCornerRadius="15dp"
+                    android:id="@+id/petCard2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/petImage"
+                        android:layout_width="200dp"
+                        android:layout_height="190dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_pet_image_2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.cardview.widget.CardView>
 
                 <ImageButton
                     android:id="@+id/buttonEditPet"
@@ -44,8 +56,8 @@
                     android:padding="12dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_profile_ico"
-                    app:layout_constraintEnd_toEndOf="@+id/petImage"
-                    app:layout_constraintTop_toTopOf="@+id/petImage" />
+                    app:layout_constraintEnd_toEndOf="@+id/petCard2"
+                    app:layout_constraintTop_toTopOf="@+id/petCard2" />
 
                 <ImageButton
                     android:id="@+id/buttonDeletePet"
@@ -58,8 +70,8 @@
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/trash_ico"
-                    app:layout_constraintEnd_toEndOf="@+id/petImage"
-                    app:layout_constraintTop_toTopOf="@+id/petImage"
+                    app:layout_constraintEnd_toEndOf="@+id/petCard2"
+                    app:layout_constraintTop_toTopOf="@+id/petCard2"
                     app:tint="#FF0000" />
 
                 <TextView
@@ -69,12 +81,12 @@
                     android:layout_marginTop="8dp"
                     android:text="PetName"
                     android:textSize="18sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.494"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petImage"
+                    app:layout_constraintTop_toBottomOf="@+id/petCard2"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
