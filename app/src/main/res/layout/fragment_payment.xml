@@ -7,5 +7,327 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".payment.PaymentFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:scaleType="fitCenter"
+                    android:padding="15dp"
+                    android:id="@+id/backToSplash"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="@string/back_button"
+                    android:elevation="3dp"
+                    android:src="@drawable/back_ico"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/logo_transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:orientation="vertical"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="357dp"
+                    android:layout_height="200dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardBackgroundColor="#2094FA"
+                    app:cardElevation="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <ImageView
+                            android:layout_width="357dp"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="30dp"
+                            android:src="@drawable/white_circle"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.466"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/mastercard_ico"
+                            tools:layout_editor_absoluteX="283dp"
+                            tools:layout_editor_absoluteY="16dp" />
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/chip_ico"
+                            tools:layout_editor_absoluteX="24dp"
+                            tools:layout_editor_absoluteY="16dp" />
+
+                        <TextView
+                            android:layout_width="309dp"
+                            android:layout_height="36dp"
+                            android:fontFamily="@font/alata"
+                            android:text="4321 0000 0000 1234"
+                            android:textColor="@color/white"
+                            android:textSize="25sp"
+                            tools:layout_editor_absoluteX="32dp"
+                            tools:layout_editor_absoluteY="82dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alata"
+                            android:text="VALID\nTHRU "
+                            android:textAlignment="center"
+                            android:textColor="#A4FFFFFF"
+                            android:textSize="8sp"
+                            tools:layout_editor_absoluteX="245dp"
+                            tools:layout_editor_absoluteY="148dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alata"
+                            android:text="John  Doe"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            tools:layout_editor_absoluteX="32dp"
+                            tools:layout_editor_absoluteY="148dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alata"
+                            android:text="07/30"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            tools:layout_editor_absoluteX="272dp"
+                            tools:layout_editor_absoluteY="148dp" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:background="@drawable/payment_background"
+                android:elevation="150dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ödeme İşlemi"
+                    android:fontFamily="@font/alata"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="26dp" />
+
+                <EditText
+                    android:id="@+id/editTextCardHolderName"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/alata"
+                    android:hint="Kart Sahibinin Adı"
+                    android:inputType="text"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    tools:ignore="LabelFor"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="68dp" />
+
+                <EditText
+                    android:id="@+id/editTextCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/alata"
+                    android:hint="Kart Numarası"
+                    android:inputType="number"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    tools:ignore="LabelFor"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="145dp" />
+
+
+                <EditText
+                    android:id="@+id/editTextExpDate"
+                    android:layout_width="180dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="S.K.T (MM/YY)"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="15sp"
+                    tools:layout_editor_absoluteX="3dp"
+                    tools:layout_editor_absoluteY="217dp" />
+
+                <EditText
+                    android:id="@+id/editTextCVV"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="CVV"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="16sp"
+                    tools:layout_editor_absoluteX="238dp"
+                    tools:layout_editor_absoluteY="217dp" />
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deal"
+                    tools:layout_editor_absoluteX="5dp"
+                    tools:layout_editor_absoluteY="388dp" />
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deal2"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="336dp" />
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deal3"
+                    tools:layout_editor_absoluteX="7dp"
+                    tools:layout_editor_absoluteY="286dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white"
+                android:elevation="150dp"
+                android:paddingLeft="90dp"
+                android:paddingRight="90dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/progressCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:elevation="10dp"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#1E1F22"
+                    app:cardCornerRadius="30dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ConfirmBackerButton"
+                    app:layout_constraintEnd_toEndOf="@+id/ConfirmBackerButton"
+                    app:layout_constraintStart_toStartOf="@+id/ConfirmBackerButton"
+                    app:layout_constraintTop_toTopOf="@+id/ConfirmBackerButton">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        app:indicatorColor="@color/white" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/ConfirmBackerButton"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:background="@drawable/button_bg_signup"
+                    android:fontFamily="@font/alata"
+                    android:paddingEnd="35dp"
+                    android:text="Ödeme Yap"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.533"
+                    tools:ignore="RtlSymmetry" />
+
+                <ImageView
+                    android:id="@+id/buttonPaw"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/blue_paw_ico"
+                    app:layout_constraintBottom_toBottomOf="@+id/ConfirmBackerButton"
+                    app:layout_constraintEnd_toEndOf="@+id/ConfirmBackerButton"
+                    app:layout_constraintTop_toTopOf="@+id/ConfirmBackerButton"
+                    tools:ignore="ContentDescription,UseAppTint" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
