@@ -311,7 +311,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/ConfirmBackerButton"
+                    android:id="@+id/ConfirmPaymentButton"
                     style="@android:style/Widget.Button"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
@@ -337,9 +337,9 @@
                     android:layout_marginEnd="16dp"
                     android:elevation="10dp"
                     android:src="@drawable/blue_paw_ico"
-                    app:layout_constraintBottom_toBottomOf="@+id/ConfirmBackerButton"
-                    app:layout_constraintEnd_toEndOf="@+id/ConfirmBackerButton"
-                    app:layout_constraintTop_toTopOf="@+id/ConfirmBackerButton"
+                    app:layout_constraintBottom_toBottomOf="@+id/ConfirmPaymentButton"
+                    app:layout_constraintEnd_toEndOf="@+id/ConfirmPaymentButton"
+                    app:layout_constraintTop_toTopOf="@+id/ConfirmPaymentButton"
                     tools:ignore="ContentDescription,UseAppTint" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
