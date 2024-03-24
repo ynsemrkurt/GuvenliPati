@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/index_cat" />
+                android:src="@drawable/default_pet_image_2" />
 
         </androidx.cardview.widget.CardView>
 

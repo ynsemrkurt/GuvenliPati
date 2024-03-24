@@ -64,9 +64,15 @@ class HomePetsAdapter(
                 val petWeightTextView=view2.findViewById<TextView>(R.id.petWeightTextView)
                 val petAboutTextView=view2.findViewById<TextView>(R.id.petAboutTextView)
 
-                Glide.with(context)
-                    .load(Uri.parse(pet.petPhoto))
-                    .into(petPhotoImageView)
+                if (pet.petPhoto.isNotEmpty()){
+                    Glide.with(context)
+                        .load(Uri.parse(pet.petPhoto))
+                        .into(petPhotoImageView)
+                }
+                else{
+                    petPhotoImageView.setImageResource(R.drawable.default_pet_image_2)
+                }
+
 
                 petNameTextView.text=pet.petName
                 textViewAge.text=pet.petAge+" Yaş"
