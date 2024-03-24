@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
+import com.example.guvenlipati.adapter.HomePetsAdapter
 import com.example.guvenlipati.adapter.PetsAdapter
 import com.example.guvenlipati.databinding.FragmentProfilePreviewBinding
 import com.example.guvenlipati.models.Pet
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.flow.callbackFlow
 
 class ProfilePreviewFragment : Fragment() {
     lateinit var binding: FragmentProfilePreviewBinding
@@ -116,9 +118,8 @@ class ProfilePreviewFragment : Fragment() {
                             }
                         }
                     }
-                    val petAdapter = PetsAdapter(requireContext(), petList)
+                    val petAdapter = HomePetsAdapter(requireContext(), petList)
                     binding.petRecycleView.adapter = petAdapter
-                    
                 }
             }
 
@@ -126,6 +127,10 @@ class ProfilePreviewFragment : Fragment() {
                 showToast("Yüklenirken Bir Hata Oluştu!")
             }
         })
+
+        binding.backToSplash.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
 
     }
 
