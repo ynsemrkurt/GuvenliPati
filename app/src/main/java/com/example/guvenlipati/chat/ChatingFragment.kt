@@ -5,24 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.RetrofitInstance
 import com.example.guvenlipati.adapter.MessageAdapter
-import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.databinding.FragmentChatingBinding
 import com.example.guvenlipati.models.Chat
 import com.example.guvenlipati.models.Notification
@@ -30,9 +22,6 @@ import com.example.guvenlipati.models.PushNotification
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
-
-import com.google.gson.Gson
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -46,7 +35,6 @@ import java.time.format.DateTimeFormatter
 
 class ChatingFragment : Fragment() {
 
-    private var userId: String? = null
     private lateinit var binding: FragmentChatingBinding
     private var chatList = ArrayList<Chat>()
     private var reference: DatabaseReference? = null
@@ -163,7 +151,7 @@ class ChatingFragment : Fragment() {
                     }
 
                     R.id.option_2 -> {
-                        // Option 2'ye tıklandığında yapılacak işlemler
+
                         true
                     }
 
