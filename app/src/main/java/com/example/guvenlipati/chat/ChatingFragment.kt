@@ -5,11 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -76,6 +80,9 @@ class ChatingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val popupMenu = PopupMenu(requireContext(), binding.imageView3)
+        popupMenu.inflate(R.menu.overflow_menu)
+
         val friendUserId = activity?.intent?.getStringExtra("userId").toString()
         reference = FirebaseDatabase.getInstance().getReference("users").child(friendUserId)
         reference2 = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser!!.uid)
@@ -87,7 +94,7 @@ class ChatingFragment : Fragment() {
                 user = snapshot.getValue(User::class.java)
                 if (user!!.userPhoto.isEmpty()) {
                     Glide.with(requireContext()).load(R.drawable.men_image).into(binding.imagePhoto)
-                }else {
+                } else {
                     Glide.with(requireContext()).load(user?.userPhoto).into(binding.imagePhoto)
                 }
                 binding.textFriendName.text = user?.userName
@@ -140,13 +147,29 @@ class ChatingFragment : Fragment() {
         }
         messageList(friendUserId)
 
-        view.findViewById<ImageView>(R.id.backButton).setOnClickListener{
+        view.findViewById<ImageView>(R.id.backButton).setOnClickListener {
             activity?.finish()
         }
-        view.findViewById<ImageView>(R.id.imageView3).setOnClickListener{
-            val intent= Intent(requireContext(),ProfileActivity::class.java)
-            intent.putExtra("userId",friendUserId)
-            startActivity(intent)
+        view.findViewById<ImageView>(R.id.imageView3).setOnClickListener {
+            popupMenu.show()
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.option_1 -> {
+                        val intent = Intent(requireContext(), ProfileActivity::class.java)
+                        intent.putExtra("userId", friendUserId)
+                        startActivity(intent)
+                        true
+                    }
+
+                    R.id.option_2 -> {
+                        // Option 2'ye tıklandığında yapılacak işlemler
+                        true
+                    }
+
+                    else -> false
+                }
+            }
         }
     }
 
@@ -177,6 +200,7 @@ class ChatingFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
     }
 
     private fun sendNotification(notification: PushNotification) =
