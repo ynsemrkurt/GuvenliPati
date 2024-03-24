@@ -151,7 +151,7 @@ class ChatingFragment : Fragment() {
                     }
 
                     R.id.option_2 -> {
-
+                        (activity as ChatActivity).goPaymentFragment()
                         true
                     }
 

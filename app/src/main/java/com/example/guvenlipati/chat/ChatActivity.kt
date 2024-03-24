@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.guvenlipati.R
+import com.example.guvenlipati.home.ChatListFragment
 import com.example.guvenlipati.job.JobDetailsFragment
+import com.example.guvenlipati.payment.PaymentFragment
 import com.example.guvenlipati.splash.LoginFragment
 
 class ChatActivity : AppCompatActivity() {
@@ -23,6 +25,14 @@ class ChatActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)
+            .commit()
+    }
+
+     fun goPaymentFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView, PaymentFragment()
+            )
             .commit()
     }
 }

@@ -108,7 +108,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textView17"
+                            android:id="@+id/creditCardNumber"
                             android:layout_width="309dp"
                             android:layout_height="36dp"
                             android:layout_marginTop="16dp"
@@ -124,18 +124,20 @@
                             android:id="@+id/textView19"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="152dp"
                             android:fontFamily="@font/alata"
                             android:text="VALID\nTHRU "
                             android:textAlignment="center"
                             android:textColor="#A4FFFFFF"
                             android:textSize="8sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView20"
-                            app:layout_constraintStart_toEndOf="@+id/textView20"
-                            app:layout_constraintTop_toTopOf="@+id/textView20" />
+                            app:layout_constraintBottom_toBottomOf="@+id/cardName"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.728"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/cardName"
+                            app:layout_constraintVertical_bias="1.0" />
 
                         <TextView
-                            android:id="@+id/textView20"
+                            android:id="@+id/cardName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="28dp"
@@ -144,8 +146,8 @@
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="@+id/textView17"
-                            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                            app:layout_constraintStart_toStartOf="@+id/creditCardNumber"
+                            app:layout_constraintTop_toBottomOf="@+id/creditCardNumber" />
 
                         <TextView
                             android:layout_width="wrap_content"
