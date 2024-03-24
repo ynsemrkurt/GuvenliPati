@@ -170,6 +170,8 @@
                         tools:ignore="ContentDescription,UseAppTint" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:enabled="false"
+                        android:textColor="@color/black"
                         android:id="@+id/buttonFemale"
                         style="@android:style/Widget.Button"
                         android:layout_width="100dp"
@@ -201,6 +203,8 @@
                         tools:ignore="ContentDescription,UseAppTint" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:enabled="false"
+                        android:textColor="@color/black"
                         android:id="@+id/buttonMale"
                         style="@android:style/Widget.Button"
                         android:layout_width="100dp"
