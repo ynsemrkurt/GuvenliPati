@@ -1,6 +1,7 @@
 package com.example.guvenlipati.chat
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -75,10 +76,6 @@ class ChatingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.let {
-            userId = it.getString("userId")
-        }
-
         val friendUserId = activity?.intent?.getStringExtra("userId").toString()
         reference = FirebaseDatabase.getInstance().getReference("users").child(friendUserId)
         reference2 = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser!!.uid)
@@ -147,7 +144,9 @@ class ChatingFragment : Fragment() {
             activity?.finish()
         }
         view.findViewById<ImageView>(R.id.imageView3).setOnClickListener{
-            (activity as ChatActivity).goProfilePreviewFragment()
+            val intent= Intent(requireContext(),ProfileActivity::class.java)
+            intent.putExtra("userId",friendUserId)
+            startActivity(intent)
         }
     }
 

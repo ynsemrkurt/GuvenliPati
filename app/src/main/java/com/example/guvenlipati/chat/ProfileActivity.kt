@@ -1,28 +1,25 @@
 package com.example.guvenlipati.chat
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.guvenlipati.R
-import com.example.guvenlipati.job.JobDetailsFragment
-import com.example.guvenlipati.splash.LoginFragment
 
-class ChatActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        setContentView(R.layout.activity_profile)
 
         val userId = intent.getStringExtra("userId")
-        val fragment = ChatingFragment()
+        val fragment = ProfilePreviewFragment()
         val args = Bundle()
         args.putString("userId", userId)
         fragment.arguments = args
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, fragment)
+            .replace(R.id.fragmentContainerView3, fragment)
             .commit()
     }
 }

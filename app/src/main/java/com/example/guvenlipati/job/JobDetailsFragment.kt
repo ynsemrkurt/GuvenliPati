@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.chat.ChatActivity
+import com.example.guvenlipati.chat.ChatingFragment
+import com.example.guvenlipati.chat.ProfileActivity
+import com.example.guvenlipati.chat.ProfilePreviewFragment
 import com.example.guvenlipati.databinding.FragmentJobDetailsBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
@@ -175,6 +178,12 @@ class JobDetailsFragment : Fragment() {
             intent.putExtra("userId", job?.userID)
             startActivity(intent)
             requireActivity().finish()
+        }
+
+        binding.circleImageProfilePhoto.setOnClickListener {
+            val intent= Intent(requireContext(), ProfileActivity::class.java)
+            intent.putExtra("userId",job?.userID)
+            startActivity(intent)
         }
     }
 

@@ -129,7 +129,7 @@ class ProfilePreviewFragment : Fragment() {
         })
 
         binding.backToSplash.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().finish()
         }
 
     }
