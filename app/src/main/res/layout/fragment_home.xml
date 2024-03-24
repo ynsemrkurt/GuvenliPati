@@ -11,10 +11,10 @@
         android:id="@+id/loadingCardView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:cardCornerRadius="30dp"
-        android:elevation="100dp"
+        android:layout_gravity="center"
         android:background="@color/white"
-        android:layout_gravity="center">
+        android:elevation="100dp"
+        app:cardCornerRadius="30dp">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
@@ -22,18 +22,18 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
-            app:lottie_rawRes="@raw/loading_cat_anim"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_cat_anim" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loading"
-            android:fontFamily="@font/alata"
-            android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginTop="55dp"/>
+            android:layout_marginTop="55dp"
+            android:fontFamily="@font/alata"
+            android:text="@string/loading"
+            android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
 
@@ -77,6 +77,7 @@
                     tools:ignore="RtlSymmetry" />
 
                 <ImageView
+                    android:rotationY="180"
                     android:id="@+id/goBacker"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -96,11 +97,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="400dp"
+                    android:layout_height="200dp"
+                    android:background="@drawable/pet_backer_button"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:contentDescription="@string/paw"
+                            android:elevation="6dp"
+                            android:rotationY="180"
+                            android:src="@drawable/back_ico"
+                            android:tint="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="UseAppTint" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:elevation="10dp"
+                            android:fontFamily="@font/alata"
+                            android:text="Bakım Rehberi"
+                            android:textColor="@color/white"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:elevation="10dp"
+                            android:fontFamily="@font/alata"
+                            android:text="Evcil dostlarınızın sağlıklı ve mutlu bir yaşam sürmesi için önemli beslenme ipuçları ve bilgilerle dolu rehberimizde sizleri bekliyoruz. Hemen katılın ve keşfedin!"
+                            android:textColor="#CBFFFFFF"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16"
+                            app:layout_constraintVertical_bias="0.33999997" />
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="400dp"
+                            android:layout_height="200dp"
+                            android:background="@drawable/pet_backer_button"
+                            android:foreground="#63000000"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/alata"
                     android:text="Yakındaki Dostlar:"
                     android:textSize="16sp"
@@ -109,7 +185,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.003"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -140,13 +216,13 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/petRecycleViewBacker"
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView14"/>
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
