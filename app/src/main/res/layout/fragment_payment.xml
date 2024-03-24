@@ -75,6 +75,7 @@
 
 
                         <ImageView
+                            android:id="@+id/imageView2"
                             android:layout_width="357dp"
                             android:layout_height="200dp"
                             android:layout_marginStart="30dp"
@@ -89,59 +90,77 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
                             android:src="@drawable/mastercard_ico"
-                            tools:layout_editor_absoluteX="283dp"
-                            tools:layout_editor_absoluteY="16dp" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
+                            android:id="@+id/imageView4"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
                             android:src="@drawable/chip_ico"
-                            tools:layout_editor_absoluteX="24dp"
-                            tools:layout_editor_absoluteY="16dp" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/textView17"
                             android:layout_width="309dp"
                             android:layout_height="36dp"
+                            android:layout_marginTop="16dp"
                             android:fontFamily="@font/alata"
                             android:text="4321 0000 0000 1234"
                             android:textColor="@color/white"
                             android:textSize="25sp"
-                            tools:layout_editor_absoluteX="32dp"
-                            tools:layout_editor_absoluteY="82dp" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
                         <TextView
+                            android:id="@+id/textView19"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="152dp"
                             android:fontFamily="@font/alata"
                             android:text="VALID\nTHRU "
                             android:textAlignment="center"
                             android:textColor="#A4FFFFFF"
                             android:textSize="8sp"
-                            tools:layout_editor_absoluteX="245dp"
-                            tools:layout_editor_absoluteY="148dp" />
+                            app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                            app:layout_constraintStart_toEndOf="@+id/textView20"
+                            app:layout_constraintTop_toTopOf="@+id/textView20" />
 
                         <TextView
+                            android:id="@+id/textView20"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="28dp"
                             android:fontFamily="@font/alata"
                             android:text="John  Doe"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
-                            tools:layout_editor_absoluteX="32dp"
-                            tools:layout_editor_absoluteY="148dp" />
+                            app:layout_constraintStart_toStartOf="@+id/textView17"
+                            app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="40dp"
                             android:fontFamily="@font/alata"
                             android:text="07/30"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            tools:layout_editor_absoluteX="272dp"
-                            tools:layout_editor_absoluteY="148dp" />
+                            app:layout_constraintBottom_toBottomOf="@+id/textView19"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@+id/textView19"
+                            app:layout_constraintTop_toTopOf="@+id/textView19"
+                            app:layout_constraintVertical_bias="0.0" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -159,19 +178,23 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ödeme İşlemi"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/alata"
+                    android:text="Ödeme Bilgileri"
                     android:textSize="18sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="26dp" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/editTextCardHolderName"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
                     android:autofillHints="username"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/alata"
@@ -181,15 +204,17 @@
                     android:paddingEnd="0dp"
                     android:textColor="@color/black"
                     android:textSize="17sp"
-                    tools:ignore="LabelFor"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="68dp" />
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16"
+                    tools:ignore="LabelFor" />
+
 
                 <EditText
                     android:id="@+id/editTextCardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/alata"
                     android:hint="Kart Numarası"
@@ -198,16 +223,17 @@
                     android:paddingEnd="0dp"
                     android:textColor="@color/black"
                     android:textSize="17sp"
-                    tools:ignore="LabelFor"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="145dp" />
-
+                    app:layout_constraintStart_toStartOf="@+id/editTextCardHolderName"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextCardHolderName"
+                    tools:ignore="LabelFor" />
 
                 <EditText
                     android:id="@+id/editTextExpDate"
                     android:layout_width="180dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="-16dp"
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
@@ -217,14 +243,15 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
                     android:textSize="15sp"
-                    tools:layout_editor_absoluteX="3dp"
-                    tools:layout_editor_absoluteY="217dp" />
+                    app:layout_constraintStart_toStartOf="@+id/editTextCardNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextCardNumber" />
 
                 <EditText
                     android:id="@+id/editTextCVV"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="60dp"
                     android:autofillHints="username"
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
@@ -235,32 +262,41 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
                     android:textSize="16sp"
-                    tools:layout_editor_absoluteX="238dp"
-                    tools:layout_editor_absoluteY="217dp" />
+                    app:layout_constraintBottom_toBottomOf="@+id/editTextExpDate"
+                    app:layout_constraintStart_toEndOf="@+id/editTextExpDate"
+                    app:layout_constraintTop_toTopOf="@+id/editTextExpDate"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <CheckBox
                     android:id="@+id/checkBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/deal"
-                    tools:layout_editor_absoluteX="5dp"
-                    tools:layout_editor_absoluteY="388dp" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+                    app:layout_constraintVertical_bias="0.111" />
 
                 <CheckBox
                     android:id="@+id/checkBox2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/deal2"
-                    tools:layout_editor_absoluteX="40dp"
-                    tools:layout_editor_absoluteY="336dp" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
 
                 <CheckBox
                     android:id="@+id/checkBox3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="@string/deal3"
-                    tools:layout_editor_absoluteX="7dp"
-                    tools:layout_editor_absoluteY="286dp" />
+                    app:layout_constraintStart_toStartOf="@+id/editTextExpDate"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextExpDate" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -272,27 +308,6 @@
                 android:paddingLeft="90dp"
                 android:paddingRight="90dp">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/progressCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:elevation="10dp"
-                    android:visibility="invisible"
-                    app:cardBackgroundColor="#1E1F22"
-                    app:cardCornerRadius="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ConfirmBackerButton"
-                    app:layout_constraintEnd_toEndOf="@+id/ConfirmBackerButton"
-                    app:layout_constraintStart_toStartOf="@+id/ConfirmBackerButton"
-                    app:layout_constraintTop_toTopOf="@+id/ConfirmBackerButton">
-
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:indeterminate="true"
-                        app:indicatorColor="@color/white" />
-
-                </com.google.android.material.card.MaterialCardView>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/ConfirmBackerButton"
