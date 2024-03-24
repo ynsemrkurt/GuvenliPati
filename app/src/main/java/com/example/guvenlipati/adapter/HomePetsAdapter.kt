@@ -1,10 +1,13 @@
 package com.example.guvenlipati.adapter
 
+import android.app.AlertDialog
 import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -35,17 +38,64 @@ class HomePetsAdapter(
         private val petPhoto: ImageView = view.findViewById(R.id.petImage)
         private val petName: TextView = view.findViewById(R.id.petName)
         private val petType: TextView = view.findViewById(R.id.petType)
-        private val petAge: TextView = view.findViewById(R.id.petAge)
 
         fun bind(pet: Pet, position: Int) {
             petName.text = pet.petName
             petType.text = pet.petBreed
-            petAge.text=pet.petAge+" Yaş"
 
             Glide.with(context)
                 .load(Uri.parse(pet.petPhoto))
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(petPhoto)
+
+            itemView.setOnClickListener {
+                val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
+
+                val inflater = LayoutInflater.from(context)
+                val view2 = inflater.inflate(R.layout.item_pet_preview, null)
+                builder.setView(view2)
+
+                val petPhotoImageView=view2.findViewById<ImageView>(R.id.petPhotoImageView)
+                val petNameTextView=view2.findViewById<TextView>(R.id.petNameTextView)
+                val textViewAge=view2.findViewById<TextView>(R.id.textViewAge)
+                val petGenderTextView=view2.findViewById<TextView>(R.id.petGenderTextView)
+                val petVaccinateTextView=view2.findViewById<TextView>(R.id.petVaccinateTextView)
+                val petTypeTextView=view2.findViewById<TextView>(R.id.petTypeTextView)
+                val petWeightTextView=view2.findViewById<TextView>(R.id.petWeightTextView)
+                val petAboutTextView=view2.findViewById<TextView>(R.id.petAboutTextView)
+
+                Glide.with(context)
+                    .load(Uri.parse(pet.petPhoto))
+                    .into(petPhotoImageView)
+
+                petNameTextView.text=pet.petName
+                textViewAge.text=pet.petAge+" Yaş"
+                when (pet.petGender) {
+                    true -> {
+                        petGenderTextView.text = "Dişi"
+                    }
+
+                    false -> {
+                        petGenderTextView.text = "Erkek"
+                    }
+                }
+                when (pet.petVaccinate) {
+                    true -> {
+                        petVaccinateTextView.text = "Yapılıyor"
+                    }
+
+                    false -> {
+                        petVaccinateTextView.text = "Aşısız"
+                    }
+                }
+                petTypeTextView.text=pet.petBreed
+                petWeightTextView.text=pet.petWeight + " Kg"
+                petAboutTextView.text=pet.petAbout
+
+
+                val dialog = builder.create()
+                dialog.show()
+            }
         }
     }
 }

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/petCard"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/backerCard">
+
 
     <androidx.cardview.widget.CardView
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         android:backgroundTint="@color/white"
-        app:cardElevation="6dp"
-        android:layout_margin="10dp"
+        app:cardElevation="7dp"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,53 +25,35 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
+                app:cardElevation="3dp"
+                app:cardCornerRadius="15dp"
                 android:id="@+id/petCard2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardElevation="3dp"
-                app:cardCornerRadius="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/petImage"
+                    android:id="@+id/backerImage"
                     android:layout_width="200dp"
                     android:layout_height="190dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/default_pet_image_2"
+                    android:src="@drawable/men_image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/correctImage"
-                android:layout_width="200dp"
-                android:layout_height="match_parent"
-                android:foreground="#6FFFFFFF"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:paddingBottom="60dp"
-                android:elevation="100dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/correct_ico"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/petType"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
-
             <TextView
-                android:id="@+id/petName"
+                android:id="@+id/backerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="PetName"
-                android:textColor="@color/black"
+                android:text="Batın Gökçe Savran"
                 android:textSize="18sp"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
@@ -77,22 +61,32 @@
                 app:layout_constraintTop_toBottomOf="@+id/petCard2"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:foreground="#B0FFFFFF"
+                android:src="@drawable/location_ico"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/backerLocation"
+                app:layout_constraintTop_toBottomOf="@+id/backerName"
+                app:tint="@color/black" />
+
             <TextView
-                android:id="@+id/petType"
+                android:id="@+id/backerLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PetType"
+                android:text="İzmir/Buca"
                 android:textColor="#616060"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/petName"
-                app:layout_constraintVertical_bias="0.289" />
+                app:layout_constraintTop_toBottomOf="@+id/backerName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
 
-</FrameLayout>
+</LinearLayout>

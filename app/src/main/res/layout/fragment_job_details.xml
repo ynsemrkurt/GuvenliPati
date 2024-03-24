@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:backgroundTint="@color/white"
-                    android:elevation="10dp"
+                    app:cardElevation="10dp"
                     app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +72,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="240dp"
                             app:cardCornerRadius="15dp"
+                            app:cardElevation="3dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -270,12 +271,11 @@
                     android:id="@+id/imageView"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="6dp"
                     android:foreground="#B0FFFFFF"
                     android:src="@drawable/location_ico"
+                    app:layout_constraintBottom_toBottomOf="@+id/startDateTextView"
                     app:layout_constraintStart_toStartOf="@+id/userNameTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/userNameTextView"
+                    app:layout_constraintTop_toTopOf="@+id/startDateTextView"
                     app:tint="@color/black" />
 
                 <TextView
@@ -295,15 +295,14 @@
                     android:id="@+id/jobTypeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="48dp"
                     android:fontFamily="@font/alata"
                     android:text="Evde Bakma"
                     android:textColor="#616060"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/userNameTextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/userNameTextView"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toEndOf="@+id/locationTextView"
                     app:layout_constraintTop_toTopOf="@+id/userNameTextView"
                     app:layout_constraintVertical_bias="1.0" />
 
