@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/option_1"
+        android:title="İş Detayları" />
+    <item android:id="@+id/option_2"
+        android:title="İşi Sil" />
+    <item android:id="@+id/option_3"
+        android:title="İşi Onayla" />
+</menu>
