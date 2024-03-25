@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class FindJobFragment : Fragment() {
 
@@ -42,6 +44,8 @@ class FindJobFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val currentDate = Date()
 
         jobRecyclerView = binding.jobRecycleView
         jobRecyclerView.layoutManager =
@@ -72,12 +76,13 @@ class FindJobFragment : Fragment() {
                                 jobList.clear()
                                 for (dataSnapshot: DataSnapshot in jobsSnapshot.children) {
                                     val job = dataSnapshot.getValue(Job::class.java)
+                                    val startDate = SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
                                     job?.let {
                                         if (userSnapshot.child(job.jobType)
                                                 .getValue(Boolean::class.java) == true && userSnapshot.child(
                                                 job.petSpecies + "Backer"
                                             )
-                                                .getValue(Boolean::class.java) == true && job.userID != FirebaseAuth.getInstance().currentUser?.uid.toString()
+                                                .getValue(Boolean::class.java) == true && job.userID != FirebaseAuth.getInstance().currentUser?.uid.toString() && !startDate.before(currentDate)
                                         ) {
                                             jobList.add(it)
                                         }
