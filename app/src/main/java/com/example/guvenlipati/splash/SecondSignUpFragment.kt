@@ -126,6 +126,11 @@ class SecondSignUpFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            if (imageUrl==""){
+                showToast("Lütfen profil fotoğrafınızı seçiniz!")
+                return@setOnClickListener
+            }
+
             binding.saveProfileButton.visibility = View.INVISIBLE
             binding.progressCard.visibility = View.VISIBLE
             binding.buttonPaw.visibility = View.INVISIBLE
