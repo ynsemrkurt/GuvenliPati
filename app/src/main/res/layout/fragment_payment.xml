@@ -202,7 +202,7 @@
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/alata"
                     android:hint="Kart Sahibinin Adı"
-                    android:inputType="text"
+                    android:inputType="textPersonName"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textColor="@color/black"

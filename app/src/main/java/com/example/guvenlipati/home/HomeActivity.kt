@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
+import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
 import com.example.guvenlipati.splash.SplashActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -43,6 +44,11 @@ class HomeActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.logout -> {
                     logout()
+                    true
+                }
+
+                R.id.jobs -> {
+                    goAdvertActivity()
                     true
                 }
 
@@ -140,6 +146,11 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragmentContainerView2, ChatListFragment()
             )
             .commit()
+    }
+
+    private fun goAdvertActivity() {
+        val intent = Intent(this, AdvertActivity::class.java)
+        startActivity(intent)
     }
 
     private val appPermissionLauncher =
