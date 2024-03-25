@@ -1,10 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:orientation="vertical"
+    android:weightSum="10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".myjobs.MyJobsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:background="@color/white">
+
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:padding="15dp"
+            android:id="@+id/backToSplash"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/white"
+            android:elevation="3dp"
+            android:src="@drawable/back_ico"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logo_transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/second"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.1"
+        android:background="@color/white">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabMode="fixed"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/pastJobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yapılmış İşler" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/activeJobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aktif İşler" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/forgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aklıma Gelmedi" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.example.guvenlipati.myjobs.PastJobFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:elevation="30dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+            tools:layout="@layout/fragment_past_job" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
