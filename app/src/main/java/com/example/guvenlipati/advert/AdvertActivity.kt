@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.ActivityAdvertBinding
 import com.example.guvenlipati.databinding.ActivityHomeBinding
+import com.example.guvenlipati.home.JobsSplashFragment
 import com.google.android.material.tabs.TabLayout
 
 class AdvertActivity : AppCompatActivity() {
@@ -19,11 +20,11 @@ class AdvertActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
                 when (position) {
-                    0 -> showToast("Geçmiş İlanlar seçildi")
+                    0 -> goPastAdvertFragment()
 
-                    1 -> showToast("Aktif İlanlar seçildi")
+                    1 -> goActiveAdvertFragment()
 
-                    2 -> showToast("Bekleyen İlanlar seçildi")
+                    2 -> goPendingAdvertFragment()
                 }
             }
 
@@ -37,5 +38,29 @@ class AdvertActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun goPastAdvertFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView, PastAdvertFragment()
+            )
+            .commit()
+    }
+
+    private fun goActiveAdvertFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView, ActiveAdvertFragment()
+            )
+            .commit()
+    }
+
+    private fun goPendingAdvertFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView, PendingAdvertFragment()
+            )
+            .commit()
     }
 }
