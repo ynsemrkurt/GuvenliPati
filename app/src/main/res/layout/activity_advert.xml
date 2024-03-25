@@ -58,7 +58,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabMode="fixed"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            app:tabSelectedTextColor="@color/blue"
+            app:tabIndicatorColor="@color/blue"
+            app:tabRippleColor="#122196F3">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/pastAdvert"

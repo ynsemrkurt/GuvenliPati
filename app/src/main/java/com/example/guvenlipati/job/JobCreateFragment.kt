@@ -122,6 +122,7 @@ class JobCreateFragment : Fragment() {
             MaterialDatePicker.Builder.dateRangePicker()
                 .setTitleText("Tarih Aralığını Seç")
                 .setCalendarConstraints(constraintsBuilder.build())
+                .setTheme(R.style.MyDatePickerTheme)
                 .build()
 
         dateRangePicker.addOnPositiveButtonClickListener { selection ->
