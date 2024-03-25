@@ -15,6 +15,9 @@
         android:theme="@style/Theme.GuvenliPati"
         tools:targetApi="31">
         <activity
+            android:name=".advert.AdvertActivity"
+            android:exported="false" />
+        <activity
             android:name=".chat.ProfileActivity"
             android:exported="false" />
         <activity
