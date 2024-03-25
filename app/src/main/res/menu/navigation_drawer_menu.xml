@@ -7,13 +7,13 @@
 
     <item
         android:id="@+id/y"
-        android:title="LOREM IPSUM"
-        android:icon="@drawable/jobs_ico" />
+        android:title="İŞLERİM"
+        android:icon="@drawable/myjobs_ico" />
 
     <item
         android:id="@+id/jobs"
         android:title="İLANLARIM"
-        android:icon="@drawable/job_menu_ico" />
+        android:icon="@drawable/advert_ico" />
 
     <item
         android:id="@+id/settings"
