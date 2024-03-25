@@ -1,198 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/backerPreviewCard"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/backerCard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp">
+            android:layout_height="240dp"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:layout_margin="5dp"
-                android:id="@+id/backerCard"
+            <ImageView
+                android:id="@+id/petPhotoImageView"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="3dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/men_image" />
 
-                <ImageView
-                    android:id="@+id/petPhotoImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/men_image" />
+        </androidx.cardview.widget.CardView>
 
-            </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/alata"
+            android:text="Dost Sayısı :"
+            android:textColor="#B1AFAF"
+            app:layout_constraintStart_toStartOf="@+id/textView1"
+            app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/alata"
-                android:text="Dost Sayısı :"
-                android:textColor="#B1AFAF"
-                app:layout_constraintStart_toStartOf="@+id/textView1"
-                app:layout_constraintTop_toBottomOf="@+id/textView1" />
-
-            <TextView
-                android:id="@+id/petNumberTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/alata"
-                android:text="2"
-                app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toTopOf="@+id/textView2"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/petNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/alata"
+            android:text="2"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0.0" />
 
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/alata"
-                android:text="Cinsiyet :"
-                android:textColor="#B1AFAF"
-                app:layout_constraintStart_toStartOf="@+id/backerNameTextView"
-                app:layout_constraintTop_toBottomOf="@+id/backerNameTextView" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/alata"
+            android:text="Cinsiyet :"
+            android:textColor="#B1AFAF"
+            app:layout_constraintStart_toStartOf="@+id/backerNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/backerNameTextView" />
 
-            <TextView
-                android:id="@+id/petGenderTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/alata"
-                android:text="Erkek"
-                app:layout_constraintBottom_toBottomOf="@+id/textView1"
-                app:layout_constraintStart_toEndOf="@+id/textView1"
-                app:layout_constraintTop_toTopOf="@+id/textView1"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/petGenderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/alata"
+            android:text="Erkek"
+            app:layout_constraintBottom_toBottomOf="@+id/textView1"
+            app:layout_constraintStart_toEndOf="@+id/textView1"
+            app:layout_constraintTop_toTopOf="@+id/textView1"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/backerNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="13dp"
-                android:fontFamily="@font/alata"
-                android:text="Batın Gökçe Savran"
-                android:textSize="22sp"
-                app:layout_constraintStart_toStartOf="@+id/backerCard"
-                app:layout_constraintTop_toBottomOf="@+id/backerCard" />
+        <TextView
+            android:id="@+id/backerNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/alata"
+            android:text="Batın Gökçe Savran"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@+id/backerCard"
+            app:layout_constraintTop_toBottomOf="@+id/backerCard" />
 
-            <TextView
-                android:id="@+id/textViewAge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/alata"
-                android:text="20 yaşında"
-                android:layout_marginTop="8dp"
-                android:textColor="#B1AFAF"
-                app:layout_constraintBottom_toBottomOf="@+id/backerNameTextView"
-                app:layout_constraintStart_toEndOf="@+id/backerNameTextView"
-                app:layout_constraintTop_toTopOf="@+id/backerNameTextView"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/textViewAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/alata"
+            android:text="20 yaşında"
+            android:textColor="#B1AFAF"
+            app:layout_constraintBottom_toBottomOf="@+id/backerNameTextView"
+            app:layout_constraintStart_toEndOf="@+id/backerNameTextView"
+            app:layout_constraintTop_toTopOf="@+id/backerNameTextView"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="120dp"
-                android:fontFamily="@font/alata"
-                android:text="Konum :"
-                android:textColor="#B1AFAF"
-                app:layout_constraintBottom_toBottomOf="@+id/petGenderTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/petGenderTextView"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="120dp"
+            android:fontFamily="@font/alata"
+            android:text="Konum :"
+            android:textColor="#B1AFAF"
+            app:layout_constraintBottom_toBottomOf="@+id/petGenderTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/petGenderTextView"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/backerLocationTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/alata"
-                android:text="İzmir/Buca"
-                app:flow_horizontalBias="0.1"
-                app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toTopOf="@+id/textView3"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/backerLocationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alata"
+            android:text="İzmir/Buca"
+            app:flow_horizontalBias="0.1"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/alata"
-                android:text="Deneyim Süresi :"
-                android:textColor="#B1AFAF"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/alata"
+            android:text="Deneyim Süresi :"
+            android:textColor="#B1AFAF"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-            <TextView
-                android:id="@+id/backerExperienceTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/alata"
-                android:text="3 Yıl"
-                app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="@+id/textView4" />
+        <TextView
+            android:id="@+id/backerExperienceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/alata"
+            android:text="3 Yıl"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="@+id/textView4" />
 
-            <TextView
-                android:id="@+id/textView0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/alata"
-                android:text="İlgi Ve Yetenekler :"
-                android:textColor="#B1AFAF"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <TextView
+            android:id="@+id/textView0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/alata"
+            android:text="İlgi Ve Yetenekler :"
+            android:textColor="#B1AFAF"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <TextView
-                android:id="@+id/backerAboutTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/alata"
-                android:maxLines="3"
-                android:text="Uzun süredir evcil hayvan sahibiyim. Kedilerle çok iyi anlaşırım. 2 kedim var"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView0"
-                app:layout_constraintTop_toBottomOf="@+id/textView0" />
+        <TextView
+            android:id="@+id/backerAboutTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/alata"
+            android:maxLines="3"
+            android:text="Uzun süredir evcil hayvan sahibiyim. Kedilerle çok iyi anlaşırım. 2 kedim var"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView0"
+            app:layout_constraintTop_toBottomOf="@+id/textView0" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
