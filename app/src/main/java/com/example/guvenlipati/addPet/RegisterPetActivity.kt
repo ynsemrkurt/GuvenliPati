@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.util.UUID
 
 class RegisterPetActivity : AppCompatActivity() {
 
@@ -140,9 +141,10 @@ class RegisterPetActivity : AppCompatActivity() {
         }
 
         binding.petRegisterButton.setOnClickListener {
+            val petId = UUID.randomUUID().toString()
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("pets")
-                    .child(firebaseUser.uid + binding.editTextPetName.text.toString())
+                    .child(petId)
 
             if (binding.editTextPetName.text.toString().trim().isEmpty()) {
                 showToast("Lütfen ad giriniz!")
@@ -195,7 +197,7 @@ class RegisterPetActivity : AppCompatActivity() {
             hashMap["petVaccinate"] = petVaccine!!
             hashMap["petAbout"] = binding.editTextAbout.text.toString()
             hashMap["petAdoptionStatus"] = false
-            hashMap["petId"]= firebaseUser.uid + binding.editTextPetName.text.toString()
+            hashMap["petId"]= petId
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
