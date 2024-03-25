@@ -19,7 +19,10 @@ import com.example.guvenlipati.models.Pet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 
 private lateinit var firebaseUser: FirebaseUser
@@ -84,28 +87,42 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
 
     private fun deletePet(pet: Pet) {
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
-        val databaseReferenceJobs =
-            FirebaseDatabase.getInstance().getReference("jobs").child(firebaseUser.uid + pet.petId)
+        val databaseReferenceJobs = FirebaseDatabase.getInstance().getReference("jobs")
+        val query = databaseReferenceJobs.orderByChild("petID").equalTo(pet.petId)
+
         val databaseReference = FirebaseDatabase.getInstance().getReference("pets").child(pet.petId)
         val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(pet.petPhoto)
         databaseReference.removeValue()
             .addOnSuccessListener {
-                databaseReferenceJobs.removeValue().addOnSuccessListener {
-                    storageReference.delete()
-                        .addOnSuccessListener {
-                            showToast("Dost silme işlemi başarılı.")
-                        }
-                        .addOnFailureListener {
-                            showToast("Dost fotoğrafı silme işlemi başarısız.")
-                        }
-                }
+                storageReference.delete()
+                    .addOnSuccessListener {
+                        query.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (jobSnapshot in dataSnapshot.children) {
+                                        jobSnapshot.ref.removeValue()
+                                            .addOnSuccessListener {
+                                            }
+                                            .addOnFailureListener { exception ->
+                                                showToast("İş silme işlemi başarısız: ${exception.message}")
+                                            }
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {
+                                showToast("İşler bulunurken bir hata oluştu: ${databaseError.message}")
+                            }
+                        })
+                    }
                     .addOnFailureListener {
-                        showToast("Dost işleri silme işlemi başarısız.")
+                        showToast("Dost fotoğrafı silme işlemi başarısız.")
                     }
             }
             .addOnFailureListener {
                 showToast("Dost silme işlemi başarısız.")
             }
+
     }
 
     private fun showToast(message: String) {

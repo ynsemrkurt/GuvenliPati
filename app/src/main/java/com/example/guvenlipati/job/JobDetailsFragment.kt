@@ -109,11 +109,11 @@ class JobDetailsFragment : Fragment() {
                                 petNameTextView.text = pet.petName
                                 when (pet.petGender) {
                                     true -> {
-                                        petGenderTextView.text = "Erkek"
+                                        petGenderTextView.text = "Dişi"
                                     }
 
                                     false -> {
-                                        petGenderTextView.text = "Kadın"
+                                        petGenderTextView.text = "Erkek"
                                     }
                                 }
                                 when (pet.petVaccinate) {

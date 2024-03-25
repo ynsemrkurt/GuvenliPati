@@ -181,6 +181,11 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if(imageUrl==""){
+                showToast("Lütfen bir fotoğraf seçiniz!")
+                return@setOnClickListener
+            }
+
             binding.petRegisterButton.visibility = View.INVISIBLE
             binding.progressCard.visibility = View.VISIBLE
             binding.buttonPaw2.visibility = View.INVISIBLE
