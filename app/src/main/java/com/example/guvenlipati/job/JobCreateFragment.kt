@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.HashMap
 import java.util.Locale
+import java.util.UUID
 
 class JobCreateFragment : Fragment() {
 
@@ -186,7 +187,7 @@ class JobCreateFragment : Fragment() {
                             if (snapshot.exists()) {
                                 val petSpecies = snapshot.getValue(String::class.java)
                                 val hashMap: HashMap<String, Any> = HashMap()
-                                val jobId = firebaseUser.uid + petSelectID
+                                val jobId = UUID.randomUUID().toString()
                                 hashMap["jobId"] = jobId
                                 hashMap["jobType"] = checkedJobType
                                 hashMap["petSpecies"] = petSpecies.toString()
