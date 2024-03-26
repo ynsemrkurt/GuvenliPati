@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.UserAdapter
 import com.example.guvenlipati.databinding.FragmentChatListBinding
 import com.example.guvenlipati.models.User
@@ -20,6 +19,8 @@ import com.google.firebase.database.*
 class ChatListFragment : Fragment() {
     private lateinit var binding: FragmentChatListBinding
     private lateinit var fragmentContext: Context
+    private val userList = ArrayList<User>()
+    private val userMap = HashMap<String, User>() // Kullanıcıları tutmak için bir harita oluşturuyoruz
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,7 +37,6 @@ class ChatListFragment : Fragment() {
         binding.chatRecycleView.layoutManager =
             LinearLayoutManager(fragmentContext, RecyclerView.VERTICAL, false)
 
-        val userList = ArrayList<User>()
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
         val databaseReference: DatabaseReference =
             FirebaseDatabase.getInstance().getReference("chat")
@@ -44,41 +44,66 @@ class ChatListFragment : Fragment() {
         firebaseUser?.let { currentUser ->
             databaseReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    userList.clear()
-                    for (dataSnapshot: DataSnapshot in snapshot.children) {
-                        val senderId = dataSnapshot.child("senderId").getValue(String::class.java)
-                        val recipientId = dataSnapshot.child("recipientId").getValue(String::class.java)
+                    if (isAdded) {
+                        userList.clear()
+                        userMap.clear()
 
-                        if (senderId == currentUser.uid || recipientId == currentUser.uid) {
-                            val otherUserId = if (senderId == currentUser.uid) recipientId else senderId
-                            if (otherUserId != null) {
-                                FirebaseDatabase.getInstance().getReference("users").child(otherUserId)
-                                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onDataChange(userSnapshot: DataSnapshot) {
-                                            val user = userSnapshot.getValue(User::class.java)
-                                            user?.let {
-                                                userList.add(it)
-                                                binding.chatRecycleView.adapter = UserAdapter(requireContext(), userList)
+                        for (dataSnapshot: DataSnapshot in snapshot.children) {
+                            val senderId = dataSnapshot.child("senderId").getValue(String::class.java)
+                            val recipientId = dataSnapshot.child("recipientId").getValue(String::class.java)
+
+                            if (senderId == currentUser.uid || recipientId == currentUser.uid) {
+                                val otherUserId = if (senderId == currentUser.uid) recipientId else senderId
+                                if (otherUserId != null) {
+                                    binding.animationView2.visibility = View.GONE
+                                    FirebaseDatabase.getInstance().getReference("users").child(otherUserId)
+                                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                                            override fun onDataChange(userSnapshot: DataSnapshot) {
+                                                if (isAdded) {
+                                                    val user = userSnapshot.getValue(User::class.java)
+                                                    user?.let {
+                                                        if (!userMap.containsKey(otherUserId)) {
+                                                            userList.add(it)
+                                                            userMap[otherUserId] = it
+                                                            binding.chatRecycleView.adapter =
+                                                                UserAdapter(fragmentContext, userList)
+                                                        }
+                                                    }
+                                                }
                                             }
-                                        }
 
-                                        override fun onCancelled(error: DatabaseError) {
-                                            Toast.makeText(fragmentContext, "Error: " + error.message, Toast.LENGTH_SHORT).show()
-                                        }
-                                    })
+                                            override fun onCancelled(error: DatabaseError) {
+                                                if (isAdded) {
+                                                    Toast.makeText(
+                                                        fragmentContext,
+                                                        "Error: " + error.message,
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                }
+                                            }
+                                        })
+                                }
                             }
                         }
+                        binding.loadingCardView.visibility = View.GONE
+                        binding.scrollView.foreground = null
                     }
-                    binding.loadingCardView.visibility = View.GONE
-                    binding.scrollView.foreground = null
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(fragmentContext, "Error: " + error.message, Toast.LENGTH_SHORT).show()
+                    if (isAdded) {
+                        Toast.makeText(
+                            fragmentContext,
+                            "Error: " + error.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             })
         } ?: run {
-            Toast.makeText(fragmentContext, "User is not authenticated", Toast.LENGTH_SHORT).show()
+            if (isAdded) {
+                Toast.makeText(fragmentContext, "User is not authenticated", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return view
