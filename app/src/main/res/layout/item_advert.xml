@@ -10,6 +10,7 @@
 
 
     <androidx.cardview.widget.CardView
+        app:cardElevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="175dp"
         android:background="@color/white"
@@ -28,6 +29,7 @@
 
 
             <androidx.cardview.widget.CardView
+                app:cardElevation="3dp"
                 android:id="@+id/petImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,7 +161,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_pet_image_bg"
-                android:backgroundTint="#E1F3FD"
+                android:backgroundTint="@color/white"
                 android:elevation="5dp"
                 android:rotation="180"
                 android:src="@drawable/overflow_menu_ico"

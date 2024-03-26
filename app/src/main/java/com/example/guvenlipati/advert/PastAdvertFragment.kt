@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.AdvertsAdapter
 import com.example.guvenlipati.JobsAdapter
 import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Job
@@ -71,7 +72,7 @@ class PastAdvertFragment : Fragment() {
                                 }
                             }
                         }
-                        val adapter = JobsAdapter(requireContext(),jobList, petList)
+                        val adapter = AdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
                     }
 
