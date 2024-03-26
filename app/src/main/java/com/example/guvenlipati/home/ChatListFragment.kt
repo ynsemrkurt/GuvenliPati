@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guvenlipati.FirebaseService
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.UserAdapter
 import com.example.guvenlipati.databinding.FragmentChatListBinding
@@ -17,7 +16,6 @@ import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.messaging.FirebaseMessaging
 
 class ChatListFragment : Fragment() {
     private lateinit var binding: FragmentChatListBinding
@@ -35,38 +33,42 @@ class ChatListFragment : Fragment() {
         binding = FragmentChatListBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        FirebaseService.sharedPref =
-            fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        FirebaseService.sharedPref =
-            fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        FirebaseService.sharedPref =
-            fragmentContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-
         binding.chatRecycleView.layoutManager =
             LinearLayoutManager(fragmentContext, RecyclerView.VERTICAL, false)
 
         val userList = ArrayList<User>()
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
         val databaseReference: DatabaseReference =
-            FirebaseDatabase.getInstance().getReference("users")
-
-        val xId = firebaseUser?.uid
-        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$xId")
+            FirebaseDatabase.getInstance().getReference("chat")
 
         firebaseUser?.let { currentUser ->
             databaseReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     userList.clear()
                     for (dataSnapshot: DataSnapshot in snapshot.children) {
-                        val user: User? = dataSnapshot.getValue(User::class.java)
-                        user?.let {
-                            if (it.userId != currentUser.uid) {
-                                userList.add(it)
+                        val senderId = dataSnapshot.child("senderId").getValue(String::class.java)
+                        val recipientId = dataSnapshot.child("recipientId").getValue(String::class.java)
+
+                        if (senderId == currentUser.uid || recipientId == currentUser.uid) {
+                            val otherUserId = if (senderId == currentUser.uid) recipientId else senderId
+                            if (otherUserId != null) {
+                                FirebaseDatabase.getInstance().getReference("users").child(otherUserId)
+                                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(userSnapshot: DataSnapshot) {
+                                            val user = userSnapshot.getValue(User::class.java)
+                                            user?.let {
+                                                userList.add(it)
+                                                binding.chatRecycleView.adapter = UserAdapter(requireContext(), userList)
+                                            }
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+                                            Toast.makeText(fragmentContext, "Error: " + error.message, Toast.LENGTH_SHORT).show()
+                                        }
+                                    })
                             }
                         }
                     }
-                    val userAdapter = UserAdapter(fragmentContext, userList)
-                    binding.chatRecycleView.adapter = userAdapter
                     binding.loadingCardView.visibility = View.GONE
                     binding.scrollView.foreground = null
                 }
