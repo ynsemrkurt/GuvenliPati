@@ -254,7 +254,7 @@
                     android:layout_width="130dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="40dp"
                     android:autofillHints="username"
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
@@ -267,9 +267,10 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextExpDate"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/editTextExpDate"
                     app:layout_constraintTop_toTopOf="@+id/editTextExpDate"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <CheckBox
                     android:id="@+id/checkBox"
