@@ -12,7 +12,7 @@
         android:layout_height="350dp"
         android:layout_gravity="center"
         android:elevation="600dp"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView2"
