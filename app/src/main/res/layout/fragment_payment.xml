@@ -266,6 +266,7 @@
                     android:paddingEnd="0dp"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextExpDate"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/editTextExpDate"
                     app:layout_constraintTop_toTopOf="@+id/editTextExpDate"
                     app:layout_constraintVertical_bias="1.0" />
