@@ -40,8 +40,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foreground="@color/white">
+        android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/scrollProfile"
@@ -68,12 +67,14 @@
                         android:id="@+id/buttonChange"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="-20dp"
+                        android:layout_marginStart="54dp"
+                        android:layout_marginTop="-15dp"
                         android:background="#00FFFFFF"
                         android:text="@string/edit"
                         android:textColor="@color/orange"
                         android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.8"
                         app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
                         app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto"
                         tools:ignore="SmallSp" />
@@ -108,6 +109,23 @@
                         app:layout_constraintBottom_toBottomOf="@+id/circleImageProfilePhoto"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/buttonSave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="54dp"
+                        android:layout_marginTop="-15dp"
+                        android:background="#00FFFFFF"
+                        android:text="@string/save"
+                        android:textColor="@color/orange"
+                        android:textSize="11sp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.8"
+                        app:layout_constraintStart_toEndOf="@+id/circleImageProfilePhoto"
+                        app:layout_constraintTop_toTopOf="@+id/circleImageProfilePhoto"
+                        tools:ignore="SmallSp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -301,21 +319,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="1.0" />
-
-                    <Button
-                        android:id="@+id/buttonSave"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:background="#00FFFFFF"
-                        android:text="@string/save"
-                        android:textColor="@color/orange"
-                        android:textSize="16sp"
-                        android:visibility="invisible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
