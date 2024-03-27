@@ -26,8 +26,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        permissionNotification()
-
         setContentView(R.layout.activity_home)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -151,32 +149,5 @@ class HomeActivity : AppCompatActivity() {
     private fun goAdvertActivity() {
         val intent = Intent(this, AdvertActivity::class.java)
         startActivity(intent)
-    }
-
-    private val appPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
-            if (result.all { it.value }) {
-                Toast.makeText(
-                    this,
-                    "Artık bildirimlerinizi anlık olarak alabilirsiniz!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }else{
-                Toast.makeText(
-                    this,
-                    "Bildirimleri alamayacaksınız!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-    private fun permissionNotification(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_DENIED) {
-                    appPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
-                }
-            }
-        }
     }
 }

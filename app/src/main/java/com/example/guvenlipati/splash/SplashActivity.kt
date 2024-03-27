@@ -2,11 +2,9 @@ package com.example.guvenlipati.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentContainerView
 import com.example.guvenlipati.R
-import com.example.guvenlipati.databinding.ActivitySplashBinding
 import com.example.guvenlipati.home.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -21,6 +19,7 @@ class SplashActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
             goHomeActivity()
+            Toast.makeText(this, auth.currentUser?.email, Toast.LENGTH_SHORT).show()
             finish()
         }
     }

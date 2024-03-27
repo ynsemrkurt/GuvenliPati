@@ -1,11 +1,17 @@
 package com.example.guvenlipati.home
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toast.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.adapter.HomeBackersAdapter
@@ -104,7 +110,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
+                makeText(activity, error.message, LENGTH_SHORT).show()
             }
         })
 
@@ -120,11 +126,11 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
-                databaseReferenceBacker.addListenerForSingleValueEvent(object :ValueEventListener{
+                databaseReferenceBacker.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         for (dataSnapShot: DataSnapshot in snapshot.children) {
                             val backer = dataSnapShot.getValue(Backer::class.java)
-                            if (backer?.userID!=firebaseUser.uid){
+                            if (backer?.userID != firebaseUser.uid) {
                                 backer.let {
                                     if (it != null) {
                                         selectBackerList.add(it)
@@ -142,18 +148,31 @@ class HomeFragment : Fragment() {
                         binding.scrollView.foreground = null
                         binding.loadingCardView.visibility = View.GONE
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                     }
                 })
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
+                makeText(activity, error.message, LENGTH_SHORT).show()
             }
         })
 
         binding.goBackerButton.setOnClickListener {
             (activity as HomeActivity).goPetBackerActivity()
+        }
+
+        permissionNotification()
+
+    }
+
+    private val appPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){}
+
+    private fun permissionNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                appPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
         }
     }
 }
