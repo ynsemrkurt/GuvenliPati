@@ -15,6 +15,7 @@ import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 
 class ChatListFragment : Fragment() {
     private lateinit var binding: FragmentChatListBinding

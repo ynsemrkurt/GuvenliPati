@@ -5,18 +5,22 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import com.example.guvenlipati.FirebaseService
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
 import com.example.guvenlipati.splash.SplashActivity
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeActivity : AppCompatActivity() {
 
@@ -38,10 +42,20 @@ class HomeActivity : AppCompatActivity() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        val xId = auth.currentUser?.uid
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$xId")
+
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout -> {
-                    logout()
+                        FirebaseMessaging.getInstance().deleteToken("/topics/$xId")
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    logout()
+                                } else {
+                                    Toast.makeText(this, "Token silinirken bir hata oluştu.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
                     true
                 }
 
@@ -53,6 +67,7 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
