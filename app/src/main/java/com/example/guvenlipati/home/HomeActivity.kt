@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout -> {
-                        FirebaseMessaging.getInstance().deleteToken("/topics/$xId")
+                        FirebaseMessaging.getInstance().deleteToken()
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     logout()
