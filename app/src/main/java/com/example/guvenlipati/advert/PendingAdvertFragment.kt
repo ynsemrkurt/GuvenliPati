@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.AdvertsAdapter
 import com.example.guvenlipati.JobsAdapter
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentPendingAdvertBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 import com.google.firebase.auth.FirebaseAuth
@@ -23,11 +24,14 @@ import java.util.Date
 
 class PendingAdvertFragment : Fragment() {
 
+    private lateinit var binding: FragmentPendingAdvertBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_pending_advert, container, false)
+    ): View {
+        binding= FragmentPendingAdvertBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +39,7 @@ class PendingAdvertFragment : Fragment() {
 
         val currentDate = Date()
 
-        val pastAdvertRecycleView=view.findViewById<RecyclerView>(R.id.pendingAdvertRecycleView)
+        val pastAdvertRecycleView=binding.pendingAdvertRecycleView
         pastAdvertRecycleView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
@@ -73,6 +77,8 @@ class PendingAdvertFragment : Fragment() {
                         }
                         val adapter = AdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
+                        binding.loadingCardView.visibility = View.GONE
+                        binding.scrollView.foreground=null
                     }
 
                     override fun onCancelled(error: DatabaseError) {

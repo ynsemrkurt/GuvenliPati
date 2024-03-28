@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/animationView2"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_gravity="center"
         android:visibility="visible"
         android:foreground="#3EFFFFFF">
@@ -27,7 +27,7 @@
             app:layout_constraintVertical_bias="0.0"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/no_data_dog_anim" />
+            app:lottie_rawRes="@raw/no_data_dog_anim"/>
 
         <TextView
             android:id="@+id/textView20"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/alata"
-            android:text="Henüz kimseyle mesajlaşmadın"
+            android:text="Henüz kimseyle mesajlaşmadın..."
             android:textStyle="bold"
             android:textColor="#6E000000"
             app:layout_constraintBottom_toBottomOf="parent"

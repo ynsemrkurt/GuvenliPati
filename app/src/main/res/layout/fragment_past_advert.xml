@@ -8,7 +8,38 @@
     android:orientation="vertical"
     tools:context=".advert.PastAdvertFragment">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/loadingCardView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="30dp"
+        android:elevation="100dp"
+        android:background="@color/white"
+        android:layout_gravity="center">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            app:lottie_rawRes="@raw/loading_cat_anim"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:fontFamily="@font/alata"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="55dp"/>
+
+    </androidx.cardview.widget.CardView>
+
     <ScrollView
+        android:foreground="@color/white"
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

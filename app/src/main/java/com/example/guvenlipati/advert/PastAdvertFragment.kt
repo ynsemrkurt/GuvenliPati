@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.AdvertsAdapter
 import com.example.guvenlipati.JobsAdapter
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentPastAdvertBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 import com.google.firebase.auth.FirebaseAuth
@@ -23,12 +24,14 @@ import java.util.Date
 
 class PastAdvertFragment : Fragment() {
 
+    private lateinit var binding: FragmentPastAdvertBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_past_advert, container, false)
+    ): View {
+        binding= FragmentPastAdvertBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +39,7 @@ class PastAdvertFragment : Fragment() {
 
         val currentDate = Date()
 
-        val pastAdvertRecycleView=view.findViewById<RecyclerView>(R.id.pastAdvertRecycleView)
+        val pastAdvertRecycleView=binding.pastAdvertRecycleView
         pastAdvertRecycleView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
@@ -74,6 +77,8 @@ class PastAdvertFragment : Fragment() {
                         }
                         val adapter = AdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
+                        binding.loadingCardView.visibility = View.GONE
+                        binding.scrollView.foreground=null
                     }
 
                     override fun onCancelled(error: DatabaseError) {
