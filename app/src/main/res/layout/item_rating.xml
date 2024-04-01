@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="30dp"
+    android:elevation="50dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/alata"
+            android:text="Değerlendirme"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/textView14"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="15dp"
+            android:numStars="5"
+            android:stepSize="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <EditText
+            android:id="@+id/editTextComment"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:fontFamily="@font/alata"
+            android:gravity="start|top"
+            android:hint="Yorum yapınız..."
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:paddingStart="15dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="10dp"
+            android:singleLine="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            tools:ignore="VisualLintTextFieldSize" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSend"
+            android:layout_width="230dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/alata"
+            android:text="@string/g_nder"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextComment" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.RatingBar
+import android.widget.Toast
+
+class MainActivity : AppCompatActivity() {
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_main)
+
+		val rBar = findViewById<RatingBar>(R.id.rBar)
+		if (rBar != null) {
+			val button = findViewById<Button>(R.id.button)
+			button?.setOnClickListener {
+				val msg = rBar.rating.toString()
+				Toast.makeText(this@MainActivity,
+					"Rating is: "+msg, Toast.LENGTH_SHORT).show()
+			}
+		}
+	}
+}
+-->
+</androidx.cardview.widget.CardView>
