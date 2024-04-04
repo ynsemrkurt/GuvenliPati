@@ -136,10 +136,10 @@ class ChatingFragment : Fragment() {
         }
         messageList(friendUserId)
 
-        view.findViewById<ImageView>(R.id.backButton).setOnClickListener {
+        binding.backButton.setOnClickListener {
             activity?.finish()
         }
-        view.findViewById<ImageView>(R.id.imageView3).setOnClickListener {
+        binding.imageView3.setOnClickListener {
             popupMenu.show()
 
             popupMenu.setOnMenuItemClickListener { menuItem ->
