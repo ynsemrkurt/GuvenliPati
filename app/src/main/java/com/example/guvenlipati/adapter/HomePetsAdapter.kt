@@ -6,9 +6,11 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,6 +30,7 @@ class HomePetsAdapter(
     }
 
     override fun onBindViewHolder(holder: HomePetsAdapter.ViewHolder, position: Int) {
+        holder.petCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
         val pet = selectPetList[position]
         holder.bind(pet, position)
     }
@@ -35,6 +38,7 @@ class HomePetsAdapter(
     override fun getItemCount(): Int = selectPetList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val petCard: LinearLayout =view.findViewById(R.id.petCard)
         private val petPhoto: ImageView = view.findViewById(R.id.petImage)
         private val petName: TextView = view.findViewById(R.id.petName)
         private val petType: TextView = view.findViewById(R.id.petType)
