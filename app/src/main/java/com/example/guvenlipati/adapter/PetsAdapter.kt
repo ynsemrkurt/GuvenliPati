@@ -6,8 +6,10 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -38,11 +40,13 @@ class PetsAdapter(private val context: Context, private val petList: ArrayList<P
     override fun getItemCount(): Int = petList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.petCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
         val pet = petList[position]
         holder.bind(pet)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val petCard: LinearLayout = view.findViewById(R.id.petCard)
         private val petPhoto: ImageView = view.findViewById(R.id.petImage)
         private val petName: TextView = view.findViewById(R.id.petName)
         private val petType: TextView = view.findViewById(R.id.petType)
