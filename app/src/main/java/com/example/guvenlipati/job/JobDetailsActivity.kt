@@ -1,6 +1,7 @@
 package com.example.guvenlipati.job
 
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,5 +21,10 @@ class JobDetailsActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)
             .commit()
+
+        findViewById<ImageButton>(R.id.backToHome).setOnClickListener {
+            onBackPressed()
+            finish()
+        }
     }
 }
