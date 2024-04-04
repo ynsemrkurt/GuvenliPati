@@ -5,8 +5,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -26,6 +28,8 @@ class JobsAdapter(
     }
 
     override fun onBindViewHolder(holder: JobsAdapter.ViewHolder, position: Int) {
+        holder.petCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
+
         val job = jobList[position]
 
         val petId = job.petID
@@ -40,6 +44,7 @@ class JobsAdapter(
     override fun getItemCount(): Int = jobList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val petCard: LinearLayout = view.findViewById(R.id.petCard)
         private val petPhotoImageView = view.findViewById<ImageView>(R.id.petPhotoImageView)
         private val petNameTextView = view.findViewById<TextView>(R.id.petNameTextView)
         private val jobTypeTextView= view.findViewById<TextView>(R.id.jobTypeTextView)
