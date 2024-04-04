@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +31,8 @@ class AdvertsAdapter(
     }
 
     override fun onBindViewHolder(holder: AdvertsAdapter.ViewHolder, position: Int) {
+        holder.advertCard.animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim)
+
         val job = jobList[position]
 
         val petId = job.petID
@@ -43,6 +47,7 @@ class AdvertsAdapter(
     override fun getItemCount(): Int = jobList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val advertCard: LinearLayout = view.findViewById(R.id.advertCard)
         private val petPhotoImageView = view.findViewById<ImageView>(R.id.petPhotoImageView)
         private val petNameTextView = view.findViewById<TextView>(R.id.petNameTextView)
         private val jobTypeTextView= view.findViewById<TextView>(R.id.jobTypeTextView)
