@@ -5,6 +5,8 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,7 @@ class SelectPetsAdapter(
     }
 
     override fun onBindViewHolder(holder: SelectPetsAdapter.ViewHolder, position: Int) {
+        holder.petCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
         val pet = selectPetList[position]
         holder.bind(pet, position)
     }
@@ -35,6 +38,7 @@ class SelectPetsAdapter(
     override fun getItemCount(): Int = selectPetList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val petCard: FrameLayout= view.findViewById(R.id.petCard)
         private val petPhoto: ImageView = view.findViewById(R.id.petImage)
         private val petName: TextView = view.findViewById(R.id.petName)
         private val petType: TextView = view.findViewById(R.id.petType)
