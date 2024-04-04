@@ -1,6 +1,7 @@
 package com.example.guvenlipati.advert
 
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.guvenlipati.R
@@ -34,6 +35,11 @@ class AdvertActivity : AppCompatActivity() {
             override fun onTabReselected(p0: TabLayout.Tab?) {
             }
         })
+
+        findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
+            onBackPressed()
+            finish()
+        }
     }
 
     private fun showToast(message: String) {
