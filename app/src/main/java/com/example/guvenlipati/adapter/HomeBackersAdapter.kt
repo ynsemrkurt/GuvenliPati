@@ -6,9 +6,11 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +35,7 @@ class HomeBackersAdapter(
     }
 
     override fun onBindViewHolder(holder: HomeBackersAdapter.ViewHolder, position: Int) {
+        holder.backerCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
         val backer = selectBackerList[position]
         val user = selectUserList.find { it.userId == backer.userID }
         if (user != null) {
@@ -45,20 +48,21 @@ class HomeBackersAdapter(
     override fun getItemCount(): Int = selectBackerList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val backerCard: LinearLayout = view.findViewById(R.id.backerCard)
         private val backerPhoto: ImageView = view.findViewById(R.id.backerImage)
         private val backerName: TextView = view.findViewById(R.id.backerName)
         private val backerLocation: TextView = view.findViewById(R.id.backerLocation)
 
         fun bind(backer: Backer, user: User, position: Int) {
 
-            if (user.userPhoto.isNotEmpty()){
+            if (user.userPhoto.isNotEmpty()) {
                 Glide.with(context)
                     .load(Uri.parse(user.userPhoto))
                     .into(backerPhoto)
             }
 
             backerName.text = user.userName
-            backerLocation.text = user.userProvince+"/"+user.userTown
+            backerLocation.text = user.userProvince + "/" + user.userTown
 
 
             itemView.setOnClickListener {
@@ -68,22 +72,24 @@ class HomeBackersAdapter(
                 val view2 = inflater.inflate(R.layout.item_backer_preview, null)
                 builder.setView(view2)
 
-                val petPhotoImageView=view2.findViewById<ImageView>(R.id.petPhotoImageView)
-                val backerNameTextView=view2.findViewById<TextView>(R.id.backerNameTextView)
-                val textViewAge=view2.findViewById<TextView>(R.id.textViewAge)
-                val petGenderTextView=view2.findViewById<TextView>(R.id.petGenderTextView)
-                val backerLocationTextView=view2.findViewById<TextView>(R.id.backerLocationTextView)
-                val petNumberTextView=view2.findViewById<TextView>(R.id.petNumberTextView)
-                val backerExperienceTextView=view2.findViewById<TextView>(R.id.backerExperienceTextView)
-                val backerAboutTextView=view2.findViewById<TextView>(R.id.backerAboutTextView)
+                val petPhotoImageView = view2.findViewById<ImageView>(R.id.petPhotoImageView)
+                val backerNameTextView = view2.findViewById<TextView>(R.id.backerNameTextView)
+                val textViewAge = view2.findViewById<TextView>(R.id.textViewAge)
+                val petGenderTextView = view2.findViewById<TextView>(R.id.petGenderTextView)
+                val backerLocationTextView =
+                    view2.findViewById<TextView>(R.id.backerLocationTextView)
+                val petNumberTextView = view2.findViewById<TextView>(R.id.petNumberTextView)
+                val backerExperienceTextView =
+                    view2.findViewById<TextView>(R.id.backerExperienceTextView)
+                val backerAboutTextView = view2.findViewById<TextView>(R.id.backerAboutTextView)
 
-                if (user.userPhoto.isNotEmpty()){
+                if (user.userPhoto.isNotEmpty()) {
                     Glide.with(context)
                         .load(Uri.parse(user.userPhoto))
                         .into(petPhotoImageView)
                 }
 
-                backerNameTextView.text=user.userName
+                backerNameTextView.text = user.userName
                 val currentYear = LocalDateTime.now().year
                 textViewAge.text = (currentYear - backer.backerBirthYear.toInt()).toString()
                 when (user.userGender) {
@@ -95,10 +101,10 @@ class HomeBackersAdapter(
                         petGenderTextView.text = "Erkek"
                     }
                 }
-                backerLocationTextView.text=user.userProvince+"/"+user.userTown
-                petNumberTextView.text=backer.petNumber
-                backerExperienceTextView.text=backer.experience
-                backerAboutTextView.text=backer.about
+                backerLocationTextView.text = user.userProvince + "/" + user.userTown
+                petNumberTextView.text = backer.petNumber
+                backerExperienceTextView.text = backer.experience
+                backerAboutTextView.text = backer.about
 
 
                 val dialog = builder.create()
