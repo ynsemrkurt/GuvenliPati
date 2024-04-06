@@ -77,6 +77,9 @@ class PastAdvertFragment : Fragment() {
                         }
                         val adapter = AdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
+                        if (jobList.isNotEmpty()) {
+                            binding.animationView2.visibility = View.GONE
+                        }
                         binding.loadingCardView.visibility = View.GONE
                         binding.scrollView.foreground=null
                     }
