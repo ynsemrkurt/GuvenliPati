@@ -96,6 +96,9 @@ class FindJobFragment : Fragment() {
                                     petList
                                 )
                                 jobRecyclerView.adapter = jobAdapter
+                                if (jobList.isNotEmpty()) {
+                                    binding.animationView2.visibility = View.GONE
+                                }
                                 binding.scrollView.foreground=null
                                 binding.loadingCardView.visibility=View.GONE
                             }
