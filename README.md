@@ -6,9 +6,9 @@ Users can easily access reliable service providers and choose the most suitable 
 
 ---
 
-## Used Libraries
+# Used Libraries
 
-This project utilizes the following libraries:
+## This project utilizes the following libraries:
 
 - Firebase Messaging: Enables handling of push notifications, allowing seamless communication with users.
 - Firebase Realtime Database: Facilitates real-time data management, ensuring efficient synchronization of data across devices.
@@ -42,14 +42,12 @@ Email: yunusemre-kurt@outlook.com
 
 ---
 
-## Screenshots
+# Screenshots
 
-![rm1](https://github.com/ynsemrkurt/GuvenliPati/assets/159823972/ec4a1e7e-6ba9-44bc-afa7-40c77b38175c)
+![d1](https://github.com/ynsemrkurt/GuvenliPati/assets/159823972/97575ba2-e6fb-4a12-933c-446aae128806)
 ---
-![rm2](https://github.com/ynsemrkurt/GuvenliPati/assets/159823972/bbae166e-7434-4824-a4a4-37b11db05ff9)
+![d2](https://github.com/ynsemrkurt/GuvenliPati/assets/159823972/7f6f0664-8d20-4707-9f04-957881df9de2)
 ---
-![rm3](https://github.com/ynsemrkurt/GuvenliPati/assets/159823972/ff8abc86-083f-43de-887e-14dba7758345)
+![d3](https://github.com/ynsemrkurt/GuvenliPati/assets/159823972/18ce303a-4a67-446a-a36d-8b5cbba9d045)
 ---
-
-
 
