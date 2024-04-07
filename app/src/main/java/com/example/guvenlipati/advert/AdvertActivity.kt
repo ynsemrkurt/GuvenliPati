@@ -21,11 +21,11 @@ class AdvertActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
                 when (position) {
-                    0 -> goPastAdvertFragment()
+                    1 -> goPastAdvertFragment()
 
-                    1 -> goActiveAdvertFragment()
+                    2 -> goActiveAdvertFragment()
 
-                    2 -> goPendingAdvertFragment()
+                    3 -> goPendingAdvertFragment()
                 }
             }
 

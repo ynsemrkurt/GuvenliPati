@@ -64,36 +64,40 @@
             app:tabRippleColor="#122196F3">
 
             <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/paymentAdvert"
+                android:text="Ödeme\nBekleyenler"/>
+
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/pastAdvert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Geçmiş İlanlar" />
+                android:text="Geçmiş\nİlanlar" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/activeAdvert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aktif İlanlar" />
+                android:text="Aktif\nİlanlar" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/pendingAdvert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bekleyen İlanlar" />
+                android:text="Bekleyen\nİlanlar" />
 
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
-            android:name="com.example.guvenlipati.advert.PastAdvertFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:elevation="30dp"
             android:layout_marginTop="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-            tools:layout="@layout/fragment_past_advert" />
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
