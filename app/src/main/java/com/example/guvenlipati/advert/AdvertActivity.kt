@@ -8,6 +8,7 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.ActivityAdvertBinding
 import com.example.guvenlipati.databinding.ActivityHomeBinding
 import com.example.guvenlipati.home.JobsSplashFragment
+import com.example.guvenlipati.payment.PaymentFragment
 import com.google.android.material.tabs.TabLayout
 
 class AdvertActivity : AppCompatActivity() {
@@ -16,11 +17,15 @@ class AdvertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advert)
 
+        goPaymentAdvertFragment()
+
 
         findViewById<TabLayout>(R.id.tabLayout).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
                 when (position) {
+                    0 -> goPaymentAdvertFragment()
+
                     1 -> goPastAdvertFragment()
 
                     2 -> goActiveAdvertFragment()
@@ -66,6 +71,14 @@ class AdvertActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView, PendingAdvertFragment()
+            )
+            .commit()
+    }
+
+    private fun goPaymentAdvertFragment(){
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView, PaymentAdvertFragment()
             )
             .commit()
     }
