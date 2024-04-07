@@ -2,6 +2,7 @@ package com.example.guvenlipati.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,16 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
+import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Pet
 
 class HomePetsAdapter(
@@ -67,6 +72,7 @@ class HomePetsAdapter(
                 val petTypeTextView=view2.findViewById<TextView>(R.id.petTypeTextView)
                 val petWeightTextView=view2.findViewById<TextView>(R.id.petWeightTextView)
                 val petAboutTextView=view2.findViewById<TextView>(R.id.petAboutTextView)
+                val infoButton=view2.findViewById<ImageButton>(R.id.infoButton)
 
                 if (pet.petPhoto.isNotEmpty()){
                     Glide.with(context)
@@ -102,6 +108,11 @@ class HomePetsAdapter(
                 petWeightTextView.text=pet.petWeight + " Kg"
                 petAboutTextView.text=pet.petAbout
 
+                infoButton.setOnClickListener {
+                    val intent = Intent(context, ProfileActivity::class.java)
+                    intent.putExtra("userId", pet.userId)
+                    context.startActivity(intent)
+                }
 
                 val dialog = builder.create()
                 dialog.show()
