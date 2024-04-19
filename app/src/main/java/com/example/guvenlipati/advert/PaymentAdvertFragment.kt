@@ -48,10 +48,12 @@ class PaymentAdvertFragment : Fragment() {
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
         val userList = ArrayList<User>()
+        val offerList = ArrayList<Offer>()
 
         databaseReferenceOffers.get().addOnSuccessListener { offersSnapshot ->
             for (offerSnapshot in offersSnapshot.children) {
                 val offer = offerSnapshot.getValue(Offer::class.java)
+                offer?.let { offerList.add(it) }
                 val userId = offer?.offerUser ?: ""
                 val offerDate = offer?.offerDate ?: ""
                 val offerStatus = offer?.offerStatus ?: true
@@ -66,7 +68,7 @@ class PaymentAdvertFragment : Fragment() {
                             databaseReferencePets.child(petId).get().addOnSuccessListener { petSnapshot ->
                                 val pet = petSnapshot.getValue(Pet::class.java)
                                 pet?.let { petList.add(it) }
-                                val adapter = OfferAdapter(requireContext(), jobList, petList, userList)
+                                val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList)
                                 paymentAdvertRecyclerView.adapter = adapter
                             }
                         }

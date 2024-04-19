@@ -9,14 +9,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.models.Job
+import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 
 class OfferAdapter(
     private val context: Context,
-    private val jobList: ArrayList<Job>,
-    private val petList: ArrayList<Pet>,
-    private val userList: ArrayList<User>
+    private val jobList: List<Job>,
+    private val petList: List<Pet>,
+    private val userList: List<User>,
+    private val offerList: List<Offer>
 ) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,24 +27,27 @@ class OfferAdapter(
     }
 
     override fun onBindViewHolder(holder: OfferAdapter.ViewHolder, position: Int) {
-        holder.bind(jobList[position], petList[position], userList[position])
+        if (position < jobList.size && position < petList.size && position < userList.size && position < offerList.size) {
+            holder.bind(jobList[position], petList[position], userList[position], offerList[position])
+        }
     }
 
-    override fun getItemCount(): Int = jobList.size
+    override fun getItemCount(): Int = offerList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val petPhotoImageView = view.findViewById<ImageView>(R.id.petPhotoImageView)
         private val petNameTextView = view.findViewById<TextView>(R.id.petNameTextView)
-        private val jobTypeTextView= view.findViewById<TextView>(R.id.jobTypeTextView)
+        private val jobTypeTextView = view.findViewById<TextView>(R.id.jobTypeTextView)
         private val petTypeTextView = view.findViewById<TextView>(R.id.petTypeTextView)
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         private val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
         private val backerPhotoImageView = view.findViewById<ImageView>(R.id.backerPhotoImageView)
         private val backerNameTextView = view.findViewById<TextView>(R.id.backerNameTextView)
+        private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
 
-        fun bind(job: Job, pet: Pet, user: User) {
-            when(job.jobType){
+        fun bind(job: Job, pet: Pet, user: User, offer: Offer) {
+            when (job.jobType) {
                 "feedingJob" -> jobTypeTextView.text = "Besleme"
                 "walkingJob" -> jobTypeTextView.text = "Gezdirme"
                 "homeJob" -> jobTypeTextView.text = "Evde Bakım"
@@ -52,8 +57,8 @@ class OfferAdapter(
             startDateTextView.text = job.jobStartDate
             endDateTextView.text = job.jobEndDate
             locationTextView.text = job.jobProvince + ", " + job.jobTown
-            backerNameTextView.text = user.userName
-
+            backerNameTextView.text = user.userName + " " + user.userSurname
+            priceTextView.text = offer.offerPrice.toString() + " TL"
 
             Glide.with(context)
                 .load(pet.petPhoto)
