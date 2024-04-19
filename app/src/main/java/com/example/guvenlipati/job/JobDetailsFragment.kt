@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -17,9 +16,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.chat.ChatActivity
-import com.example.guvenlipati.chat.ChatingFragment
 import com.example.guvenlipati.chat.ProfileActivity
-import com.example.guvenlipati.chat.ProfilePreviewFragment
 import com.example.guvenlipati.databinding.FragmentJobDetailsBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
@@ -31,9 +28,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
-import java.util.concurrent.TimeUnit
 
 
 class JobDetailsFragment : Fragment() {
