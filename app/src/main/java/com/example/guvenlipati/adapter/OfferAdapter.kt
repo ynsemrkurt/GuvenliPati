@@ -25,8 +25,7 @@ class OfferAdapter(
     }
 
     override fun onBindViewHolder(holder: OfferAdapter.ViewHolder, position: Int) {
-        val job = jobList[position]
-        holder.bind(job, petList[position], userList[position])
+        holder.bind(jobList[position], petList[position], userList[position])
     }
 
     override fun getItemCount(): Int = jobList.size

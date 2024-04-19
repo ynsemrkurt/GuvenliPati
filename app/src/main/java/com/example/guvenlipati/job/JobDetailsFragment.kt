@@ -36,8 +36,6 @@ class JobDetailsFragment : Fragment() {
     private var jobId: String? = null
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var identifies: DatabaseReference
-    private var money: Int = 0
-    private var jobPriceTextView: TextView? = null
     private lateinit var linearLayout: LinearLayout
     private lateinit var loadingCardView: CardView
     private var job: Job? = null
@@ -190,9 +188,10 @@ class JobDetailsFragment : Fragment() {
                 } else {
                     val offerRef = FirebaseDatabase.getInstance().reference.child("offers")
                     val hashMap = HashMap<String, Any>()
-                    hashMap["offerPrice"] = offerPrice.text.toString().toInt()
-                    hashMap["offerUserId"] = firebaseUser.uid
                     hashMap["offerJobId"] = jobId!!
+                    hashMap["offerUser"]=job?.userID!!
+                    hashMap["offerPrice"] = offerPrice.text.toString().toInt()
+                    hashMap["offerBackerId"] = firebaseUser.uid
                     hashMap["offerDate"] =
                         SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
                     hashMap["offerStatus"] = false
