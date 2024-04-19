@@ -39,7 +39,6 @@
     </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:foreground="@color/white"
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -372,7 +371,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/textView18"
                     android:layout_width="235dp"
                     android:layout_height="65dp"
@@ -380,31 +379,15 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/button_background"
-                    android:paddingStart="32dp"
-                    android:paddingTop="23dp"
-                    android:text="Ücretlendirme :"
-                    android:textAlignment="textStart"
-                    android:textColor="#FFFFFF"
+                    android:text="Teklif Ver"
+                    android:textAlignment="center"
+                    android:textColor="#06F15F"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.7" />
-
-                <TextView
-                    android:id="@+id/jobPriceTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="150dp"
-                    android:text="300"
-                    android:textColor="#06F25F"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView18"
-                    app:layout_constraintStart_toStartOf="@+id/textView18"
-                    app:layout_constraintTop_toTopOf="@+id/textView18"
-                    app:layout_constraintVertical_bias="0.5" />
 
 
                 <ImageButton
