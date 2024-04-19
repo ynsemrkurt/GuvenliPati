@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
+import java.util.UUID
 
 
 class JobDetailsFragment : Fragment() {
@@ -188,6 +189,7 @@ class JobDetailsFragment : Fragment() {
                 } else {
                     val offerRef = FirebaseDatabase.getInstance().reference.child("offers")
                     val hashMap = HashMap<String, Any>()
+                    hashMap["offerId"] = UUID.randomUUID().toString()
                     hashMap["offerJobId"] = jobId!!
                     hashMap["offerUser"]=job?.userID!!
                     hashMap["offerPrice"] = offerPrice.text.toString().toInt()

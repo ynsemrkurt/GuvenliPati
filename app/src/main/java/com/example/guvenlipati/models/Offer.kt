@@ -1,6 +1,7 @@
 package com.example.guvenlipati.models
 
 data class Offer(
+    val offerId: String="",
     val offerJobId: String="",
     val offerUser: String="",
     val offerPrice: Int=0,
