@@ -373,7 +373,7 @@
                 android:layout_weight="1">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/textView18"
+                    android:id="@+id/buttonOffer"
                     android:layout_width="235dp"
                     android:layout_height="65dp"
                     android:layout_marginStart="32dp"
@@ -401,9 +401,9 @@
                     android:padding="18dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/chat_ico"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView18"
-                    app:layout_constraintStart_toEndOf="@+id/textView18"
-                    app:layout_constraintTop_toTopOf="@+id/textView18"
+                    app:layout_constraintBottom_toBottomOf="@+id/buttonOffer"
+                    app:layout_constraintStart_toEndOf="@+id/buttonOffer"
+                    app:layout_constraintTop_toTopOf="@+id/buttonOffer"
                     app:layout_constraintVertical_bias="1.0"
                     app:tint="@color/white" />
 

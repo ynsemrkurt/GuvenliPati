@@ -1,11 +1,13 @@
 package com.example.guvenlipati.job
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -14,9 +16,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.chat.ChatActivity
-import com.example.guvenlipati.chat.ChatingFragment
 import com.example.guvenlipati.chat.ProfileActivity
-import com.example.guvenlipati.chat.ProfilePreviewFragment
 import com.example.guvenlipati.databinding.FragmentJobDetailsBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
@@ -28,10 +28,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
-import java.util.concurrent.TimeUnit
-
 
 
 class JobDetailsFragment : Fragment() {
@@ -49,7 +46,7 @@ class JobDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         binding = FragmentJobDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -72,11 +69,10 @@ class JobDetailsFragment : Fragment() {
         val startDateTextView = binding.startDateTextView
         val endDateTextView = binding.endDateTextView
         val jobAboutTextView = binding.jobAboutTextView
-        jobPriceTextView = binding.jobPriceTextView
         val petAboutTextView = binding.petAboutTextView
-        val textViewAge=binding.textViewAge
-        linearLayout=binding.linearLayout
-        loadingCardView=binding.loadingCardView
+        val textViewAge = binding.textViewAge
+        linearLayout = binding.linearLayout
+        loadingCardView = binding.loadingCardView
 
         arguments?.let {
             jobId = it.getString("jobId")
@@ -102,7 +98,7 @@ class JobDetailsFragment : Fragment() {
                         petRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 val pet = snapshot.getValue(Pet::class.java)!!
-                                if (pet.petPhoto.isNotEmpty()){
+                                if (pet.petPhoto.isNotEmpty()) {
                                     Glide.with(requireContext()).load(pet.petPhoto)
                                         .into(petPhotoImageView)
                                 }
@@ -132,28 +128,14 @@ class JobDetailsFragment : Fragment() {
                                         .into(circleImageProfilePhoto)
                                 }
                                 userNameTextView.text = user.userName
-                                when (job!!.jobType) {
-                                    "homeJob" -> {
-                                        jobTypeTextView.text = "Evde Bakım"
-                                        readMoney("homeMoney")
-                                    }
-
-                                    "feedingJob" -> {
-                                        jobTypeTextView.text = "Besleme"
-                                        readMoney("feedingMoney")
-                                    }
-
-                                    "walkingJob" -> {
-                                        jobTypeTextView.text = "Gezdirme"
-                                        readMoney("walkingMoney")
-                                    }
-                                }
                                 locationTextView.text = job!!.jobProvince + ", " + job!!.jobTown
                                 startDateTextView.text = job!!.jobStartDate
                                 endDateTextView.text = job!!.jobEndDate
                                 jobAboutTextView.text = job!!.jobAbout
                                 petAboutTextView.text = pet.petAbout
-                                textViewAge.text=pet.petAge+" Yaş"
+                                textViewAge.text = pet.petAge + " Yaş"
+                                linearLayout.foreground = null
+                                loadingCardView.visibility = View.GONE
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -181,39 +163,55 @@ class JobDetailsFragment : Fragment() {
         }
 
         binding.circleImageProfilePhoto.setOnClickListener {
-            val intent= Intent(requireContext(), ProfileActivity::class.java)
-            intent.putExtra("userId",job?.userID)
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            intent.putExtra("userId", job?.userID)
             startActivity(intent)
         }
-    }
 
-    private fun calculateAndUpdatePrice() {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-        val startDate = dateFormat.parse(job!!.jobStartDate)
-        val endDate = dateFormat.parse(job!!.jobEndDate)
+        binding.buttonOffer.setOnClickListener {
+            val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
 
-        val differenceInMillis = endDate.time - startDate.time
+            val inflater = LayoutInflater.from(context)
+            val view2 = inflater.inflate(R.layout.item_job_offer, null)
+            builder.setView(view2)
 
-        val daysDifference = TimeUnit.MILLISECONDS.toDays(differenceInMillis) + 1
+            val offerPrice = view2.findViewById<EditText>(R.id.offerPrice)
+            val buttonSend = view2.findViewById<Button>(R.id.buttonSend)
 
-        val totalMoney = daysDifference * money
-        jobPriceTextView?.text = "$totalMoney₺"
+            val dialog = builder.create()
+            dialog.show()
 
-        linearLayout.foreground=null
-        loadingCardView.visibility=View.GONE
-    }
+            buttonSend.setOnClickListener {
+                if (offerPrice.text.toString().trim()
+                        .isEmpty() || offerPrice.text.toString().toInt() <= 0
+                ) {
+                    showToast("Lütfen geçerli bir tutar giriniz!")
+                    return@setOnClickListener
+                } else {
+                    val offerRef = FirebaseDatabase.getInstance().reference.child("offers")
+                    val hashMap = HashMap<String, Any>()
+                    hashMap["offerPrice"] = offerPrice.text.toString().toInt()
+                    hashMap["offerUserId"] = firebaseUser.uid
+                    hashMap["offerJobId"] = jobId!!
+                    hashMap["offerDate"] =
+                        SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
+                    hashMap["offerStatus"] = false
+                    hashMap["priceStatus"] = false
+                    offerRef.push().setValue(hashMap).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            showToast("Teklif gönderildi!")
+                            dialog.dismiss()
+                        } else {
+                            showToast("Teklif gönderilemedi. Tekrar deneyiniz!")
+                        }
+                    }
+                }
 
-    private fun readMoney(column: String) {
-        identifies.child(column).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                money = snapshot.getValue(Int::class.java)!!
-                calculateAndUpdatePrice()
+                dialog.setOnCancelListener {
+                    dialog.dismiss()
+                }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                showToast("Error: ${error.message}")
-            }
-        })
+        }
     }
 
     private fun showToast(message: String) {
