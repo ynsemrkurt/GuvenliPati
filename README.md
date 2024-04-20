@@ -32,6 +32,7 @@ Users can easily access reliable service providers and choose the most suitable 
   
 - [Yunus Emre Kurt](https://github.com/ynsemrkurt/) - Backend Developer - [LinkedIn](https://www.linkedin.com/in/yunus-emre-kurt-5423a929b/)
 
+
 ## Contact
 
 Email: batinsavran00@gmail.com
