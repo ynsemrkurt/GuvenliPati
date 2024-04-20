@@ -33,7 +33,7 @@ class OfferAdapter(
     private val jobList: List<Job>,
     private val petList: List<Pet>,
     private val userList: List<User>,
-    private val offerList: List<Offer>,
+    private val offerList: ArrayList<Offer>,
     private val backerList: List<Backer>
 ) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
@@ -190,7 +190,7 @@ class OfferAdapter(
                     child.ref.removeValue()
                         .addOnSuccessListener {
                             showToast("Teklif silme işlemi başarılı.")
-                            offerList.toMutableList().removeAt(position)
+                            offerList.removeAt(position)
                             notifyItemRemoved(position)
                         }
                         .addOnFailureListener { exception ->

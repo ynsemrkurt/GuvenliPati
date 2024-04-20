@@ -93,6 +93,8 @@ class PaymentAdvertFragment : Fragment() {
                                                             backerList
                                                         )
                                                         paymentAdvertRecyclerView.adapter = adapter
+                                                        binding.loadingCardView.visibility = View.GONE
+                                                        binding.paymentRecyclerView.foreground=null
                                                     }
                                             }
                                     }
