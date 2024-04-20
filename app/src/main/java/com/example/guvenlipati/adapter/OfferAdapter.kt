@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.chat.ChatActivity
@@ -19,6 +21,11 @@ import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.time.LocalDateTime
 
 class OfferAdapter(
@@ -31,13 +38,20 @@ class OfferAdapter(
 ) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_offer, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_offer, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: OfferAdapter.ViewHolder, position: Int) {
         if (position < jobList.size && position < petList.size && position < userList.size && position < offerList.size && position < backerList.size) {
-            holder.bind(jobList[position], petList[position], userList[position], offerList[position], backerList[position])
+            holder.bind(
+                jobList[position],
+                petList[position],
+                userList[position],
+                offerList[position],
+                backerList[position]
+            )
         }
     }
 
@@ -51,10 +65,12 @@ class OfferAdapter(
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         private val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
-        private val backerPhotoImageView = view.findViewById<ImageView>(R.id.backerPhotoImageView)
+        private val backerPhotoImageView =
+            view.findViewById<ImageView>(R.id.backerPhotoImageView)
         private val backerNameTextView = view.findViewById<TextView>(R.id.backerNameTextView)
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
-        private val buttonGoChat= view.findViewById<ImageButton>(R.id.buttonGoChat)
+        private val buttonGoChat = view.findViewById<ImageButton>(R.id.buttonGoChat)
+        private val buttonDeleteOffer = view.findViewById<ImageButton>(R.id.buttonDeleteOffer)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -113,7 +129,8 @@ class OfferAdapter(
 
                 backerNameTextView.text = user.userName
                 val currentYear = LocalDateTime.now().year
-                textViewAge.text = (currentYear - backer.backerBirthYear.toInt()).toString()+" Yaşında"
+                textViewAge.text =
+                    (currentYear - backer.backerBirthYear.toInt()).toString() + " Yaşında"
                 when (user.userGender) {
                     true -> {
                         petGenderTextView.text = "Kadın"
@@ -137,6 +154,53 @@ class OfferAdapter(
                 val dialog = builder.create()
                 dialog.show()
             }
+
+            buttonDeleteOffer.setOnClickListener {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle("Emin Misiniz?")
+                    .setMessage("Teklifi silerseniz tekrar geri alamazsınız.")
+                    .setBackground(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.background_dialog
+                        )
+                    )
+                    .setPositiveButton("Sil") { _, _ ->
+                        deleteOffer(position)
+                    }
+                    .setNegativeButton("İptal") { _, _ ->
+                        showToast("Silme işlemi iptal edildi.")
+                    }
+                    .show()
+            }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteOffer(position: Int) {
+        val offer = offerList[position]
+        val databaseReference = FirebaseDatabase.getInstance().getReference("offers")
+        val query = databaseReference.orderByChild("offerId").equalTo(offer.offerId)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.forEach { child ->
+                    child.ref.removeValue()
+                        .addOnSuccessListener {
+                            showToast("Teklif silme işlemi başarılı.")
+                            offerList.toMutableList().removeAt(position)
+                            notifyItemRemoved(position)
+                        }
+                        .addOnFailureListener { exception ->
+                            showToast("Teklif silme işlemi başarısız: ${exception.message}")
+                        }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                showToast("Teklif silme işlemi başarısız: ${databaseError.message}")
+            }
+        })
     }
 }

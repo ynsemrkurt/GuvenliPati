@@ -155,7 +155,7 @@
             <ImageButton
                 android:scaleType="fitCenter"
                 android:padding="10dp"
-                android:id="@+id/buttonMenu"
+                android:id="@+id/buttonDeleteOffer"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
@@ -163,8 +163,8 @@
                 android:background="@drawable/edit_pet_image_bg"
                 android:backgroundTint="@color/white"
                 android:elevation="5dp"
-                android:rotation="180"
-                android:src="@drawable/overflow_menu_ico"
+                android:src="@drawable/trash_ico"
+                android:tint="#FF0000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
