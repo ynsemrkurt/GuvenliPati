@@ -56,7 +56,11 @@ class PaymentAdvertFragment : Fragment() {
         databaseReferenceOffers.get().addOnSuccessListener { offersSnapshot ->
             for (offerSnapshot in offersSnapshot.children) {
                 val offer = offerSnapshot.getValue(Offer::class.java)
-                offer?.let { offerList.add(it) }
+                offer?.let {
+                    if (offer.offerUser == firebaseUser?.uid) {
+                        offerList.add(it)
+                    }
+                }
                 val userId = offer?.offerUser ?: ""
                 val offerDate = offer?.offerDate ?: ""
                 val offerStatus = offer?.offerStatus ?: true
@@ -93,8 +97,10 @@ class PaymentAdvertFragment : Fragment() {
                                                             backerList
                                                         )
                                                         paymentAdvertRecyclerView.adapter = adapter
-                                                        binding.loadingCardView.visibility = View.GONE
-                                                        binding.paymentRecyclerView.foreground=null
+                                                        binding.loadingCardView.visibility =
+                                                            View.GONE
+                                                        binding.paymentRecyclerView.foreground =
+                                                            null
                                                     }
                                             }
                                     }
