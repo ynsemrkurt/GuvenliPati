@@ -43,12 +43,6 @@ class OfferAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_offer, parent, false)
 
-        val payButton = view.findViewById<Button>(R.id.payButton)
-
-        payButton.setOnClickListener {
-            val intent = Intent(context, PaymentActivity::class.java)
-            context.startActivity(intent)
-        }
 
         return ViewHolder(view)
     }
@@ -63,6 +57,15 @@ class OfferAdapter(
                 backerList[position]
             )
         }
+
+        holder.itemView.findViewById<Button>(R.id.payButton).setOnClickListener {
+            val offer = offerList[position] // Tıklanan pozisyondaki teklifi al
+            val intent = Intent(context, PaymentActivity::class.java)
+            intent.putExtra("offerId", offer.offerId)
+            intent.putExtra("paymentAmount", offer.offerPrice)
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int = offerList.size
