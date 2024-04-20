@@ -7,6 +7,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,6 +22,7 @@ import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
+import com.example.guvenlipati.payment.PaymentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -40,6 +42,14 @@ class OfferAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_offer, parent, false)
+
+        val payButton = view.findViewById<Button>(R.id.payButton)
+
+        payButton.setOnClickListener {
+            val intent = Intent(context, PaymentActivity::class.java)
+            context.startActivity(intent)
+        }
+
         return ViewHolder(view)
     }
 
