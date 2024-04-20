@@ -64,29 +64,39 @@ class PaymentAdvertFragment : Fragment() {
                 if (userId == firebaseUser?.uid && isOfferWithinLast7Days(offerDate) && !offerStatus) {
                     val jobIds = offer?.offerJobId?.split(",") ?: emptyList()
                     jobIds.forEach { jobId ->
-                        databaseReferenceJobs.child(jobId).get().addOnSuccessListener { jobSnapshot ->
-                            val job = jobSnapshot.getValue(Job::class.java)
-                            job?.let { jobList.add(it) }
-                            val petId = job?.petID ?: ""
-                            databaseReferencePets.child(petId).get().addOnSuccessListener { petSnapshot ->
-                                val pet = petSnapshot.getValue(Pet::class.java)
-                                pet?.let { petList.add(it) }
-                                val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList)
-                                paymentAdvertRecyclerView.adapter = adapter
+                        databaseReferenceJobs.child(jobId).get()
+                            .addOnSuccessListener { jobSnapshot ->
+                                val job = jobSnapshot.getValue(Job::class.java)
+                                job?.let { jobList.add(it) }
+                                val petId = job?.petID ?: ""
+                                databaseReferencePets.child(petId).get()
+                                    .addOnSuccessListener { petSnapshot ->
+                                        val pet = petSnapshot.getValue(Pet::class.java)
+                                        pet?.let { petList.add(it) }
+                                        val userBackerId = offer?.offerBackerId
+                                        databaseReferenceUsers.child(userBackerId!!).get()
+                                            .addOnSuccessListener { userSnapshot ->
+                                                val user = userSnapshot.getValue(User::class.java)
+                                                user?.let { userList.add(it) }
+                                                val backerId = offer.offerBackerId
+                                                databaseReferenceBackers.child(backerId).get()
+                                                    .addOnSuccessListener { backerSnapshot ->
+                                                        val backer =
+                                                            backerSnapshot.getValue(Backer::class.java)
+                                                        backer?.let { backerList.add(it) }
+                                                        val adapter = OfferAdapter(
+                                                            requireContext(),
+                                                            jobList,
+                                                            petList,
+                                                            userList,
+                                                            offerList,
+                                                            backerList
+                                                        )
+                                                        paymentAdvertRecyclerView.adapter = adapter
+                                                    }
+                                            }
+                                    }
                             }
-                        }
-                    }
-
-                    val userBackerId = offer?.offerBackerId
-                    databaseReferenceUsers.child(userBackerId!!).get().addOnSuccessListener { userSnapshot ->
-                        val user = userSnapshot.getValue(User::class.java)
-                        user?.let { userList.add(it) }
-                    }
-
-                    val backerId = offer.offerBackerId
-                    databaseReferenceBackers.child(backerId).get().addOnSuccessListener { backerSnapshot ->
-                        val backer = backerSnapshot.getValue(Backer::class.java)
-                        backer?.let { backerList.add(it) }
                     }
                 }
             }
