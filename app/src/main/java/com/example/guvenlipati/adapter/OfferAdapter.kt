@@ -1,13 +1,16 @@
 package com.example.guvenlipati
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
@@ -45,6 +48,7 @@ class OfferAdapter(
         private val backerPhotoImageView = view.findViewById<ImageView>(R.id.backerPhotoImageView)
         private val backerNameTextView = view.findViewById<TextView>(R.id.backerNameTextView)
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
+        private val buttonGoChat= view.findViewById<ImageButton>(R.id.buttonGoChat)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer) {
             when (job.jobType) {
@@ -69,6 +73,12 @@ class OfferAdapter(
                 .load(user.userPhoto)
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(backerPhotoImageView)
+
+            buttonGoChat.setOnClickListener {
+                val intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra("userId", user.userId)
+                context.startActivity(intent)
+            }
         }
     }
 }
