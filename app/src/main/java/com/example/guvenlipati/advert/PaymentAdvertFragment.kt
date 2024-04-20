@@ -57,7 +57,7 @@ class PaymentAdvertFragment : Fragment() {
             for (offerSnapshot in offersSnapshot.children) {
                 val offer = offerSnapshot.getValue(Offer::class.java)
                 offer?.let {
-                    if (offer.offerUser == firebaseUser?.uid) {
+                    if (offer.offerUser == firebaseUser?.uid && isOfferWithinLast7Days(offer.offerDate) && !offer.offerStatus  && !offer.priceStatus) {
                         offerList.add(it)
                     }
                 }
