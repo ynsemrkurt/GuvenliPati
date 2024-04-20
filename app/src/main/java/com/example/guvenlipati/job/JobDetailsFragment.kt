@@ -188,8 +188,9 @@ class JobDetailsFragment : Fragment() {
                     return@setOnClickListener
                 } else {
                     val offerRef = FirebaseDatabase.getInstance().reference.child("offers")
+                    val offerId = UUID.randomUUID().toString()
                     val hashMap = HashMap<String, Any>()
-                    hashMap["offerId"] = UUID.randomUUID().toString()
+                    hashMap["offerId"] = offerId
                     hashMap["offerJobId"] = jobId!!
                     hashMap["offerUser"]=job?.userID!!
                     hashMap["offerPrice"] = offerPrice.text.toString().toInt()
@@ -198,7 +199,7 @@ class JobDetailsFragment : Fragment() {
                         SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
                     hashMap["offerStatus"] = false
                     hashMap["priceStatus"] = false
-                    offerRef.push().setValue(hashMap).addOnCompleteListener {
+                    offerRef.child(offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             showToast("Teklif gönderildi!")
                             dialog.dismiss()

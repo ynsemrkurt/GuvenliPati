@@ -59,7 +59,7 @@ class OfferAdapter(
         }
 
         holder.itemView.findViewById<Button>(R.id.payButton).setOnClickListener {
-            val offer = offerList[position] // Tıklanan pozisyondaki teklifi al
+            val offer = offerList[position]
             val intent = Intent(context, PaymentActivity::class.java)
             intent.putExtra("offerId", offer.offerId)
             intent.putExtra("paymentAmount", offer.offerPrice)

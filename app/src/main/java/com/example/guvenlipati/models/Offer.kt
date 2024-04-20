@@ -8,5 +8,5 @@ data class Offer(
     val offerBackerId: String="",
     val offerDate: String="",
     val offerStatus: Boolean=true,
-    val priceStatus: Boolean=true
+    var priceStatus: Boolean=true
 )
