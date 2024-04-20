@@ -195,25 +195,16 @@ class OfferAdapter(
 
     private fun deleteOffer(position: Int) {
         val offer = offerList[position]
-        val databaseReference = FirebaseDatabase.getInstance().getReference("offers")
-        val query = databaseReference.orderByChild("offerId").equalTo(offer.offerId)
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.forEach { child ->
-                    child.ref.removeValue()
-                        .addOnSuccessListener {
-                            showToast("Teklif silme işlemi başarılı.")
-                            offerList.removeAt(position)
-                            notifyItemRemoved(position)
-                        }
-                        .addOnFailureListener { exception ->
-                            showToast("Teklif silme işlemi başarısız: ${exception.message}")
-                        }
-                }
+        val databaseReference =
+            FirebaseDatabase.getInstance().getReference("offers").child(offer.offerId)
+        databaseReference.removeValue()
+            .addOnSuccessListener {
+                showToast("Teklif silme işlemi başarılı.")
+                offerList.removeAt(position)
+                notifyItemRemoved(position)
             }
-            override fun onCancelled(databaseError: DatabaseError) {
-                showToast("Teklif silme işlemi başarısız: ${databaseError.message}")
+            .addOnFailureListener { exception ->
+                showToast("Teklif silme işlemi başarısız: ${exception.message}")
             }
-        })
     }
 }
