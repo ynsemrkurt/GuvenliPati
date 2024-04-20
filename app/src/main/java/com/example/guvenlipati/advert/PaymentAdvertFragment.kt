@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.OfferAdapter
 import com.example.guvenlipati.databinding.FragmentPaymentAdvertBinding
+import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
@@ -44,11 +45,13 @@ class PaymentAdvertFragment : Fragment() {
         val databaseReferenceJobs = FirebaseDatabase.getInstance().getReference("jobs")
         val databaseReferencePets = FirebaseDatabase.getInstance().getReference("pets")
         val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users")
+        val databaseReferenceBackers = FirebaseDatabase.getInstance().getReference("identifies")
 
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
         val userList = ArrayList<User>()
         val offerList = ArrayList<Offer>()
+        val backerList = ArrayList<Backer>()
 
         databaseReferenceOffers.get().addOnSuccessListener { offersSnapshot ->
             for (offerSnapshot in offersSnapshot.children) {
@@ -68,7 +71,7 @@ class PaymentAdvertFragment : Fragment() {
                             databaseReferencePets.child(petId).get().addOnSuccessListener { petSnapshot ->
                                 val pet = petSnapshot.getValue(Pet::class.java)
                                 pet?.let { petList.add(it) }
-                                val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList)
+                                val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList)
                                 paymentAdvertRecyclerView.adapter = adapter
                             }
                         }
@@ -79,17 +82,21 @@ class PaymentAdvertFragment : Fragment() {
                         val user = userSnapshot.getValue(User::class.java)
                         user?.let { userList.add(it) }
                     }
+
+                    val backerId = offer.offerBackerId
+                    databaseReferenceBackers.child(backerId).get().addOnSuccessListener { backerSnapshot ->
+                        val backer = backerSnapshot.getValue(Backer::class.java)
+                        backer?.let { backerList.add(it) }
+                    }
                 }
             }
         }
     }
 
     private fun isOfferWithinLast7Days(offerDate: String): Boolean {
-        // offerDate'yi tarih nesnesine dönüştür
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val offerDateTime = dateFormat.parse(offerDate)
 
-        // offerDate son 7 gün içinde mi kontrol et
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_YEAR, -7)
         val last7Days = calendar.time
