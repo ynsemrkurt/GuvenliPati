@@ -57,53 +57,53 @@ class PaymentAdvertFragment : Fragment() {
             for (offerSnapshot in offersSnapshot.children) {
                 val offer = offerSnapshot.getValue(Offer::class.java)
                 offer?.let {
-                    if (offer.offerUser == firebaseUser?.uid && isOfferWithinLast7Days(offer.offerDate) && !offer.offerStatus  && !offer.priceStatus) {
+                    if (offer.offerUser == firebaseUser?.uid && isOfferWithinLast7Days(offer.offerDate) && !offer.offerStatus && !offer.priceStatus) {
                         offerList.add(it)
-                    }
-                }
-                val userId = offer?.offerUser ?: ""
-                val offerDate = offer?.offerDate ?: ""
-                val offerStatus = offer?.offerStatus ?: true
-
-                if (userId == firebaseUser?.uid && isOfferWithinLast7Days(offerDate) && !offerStatus) {
-                    val jobIds = offer?.offerJobId?.split(",") ?: emptyList()
-                    jobIds.forEach { jobId ->
-                        databaseReferenceJobs.child(jobId).get()
+                        databaseReferenceJobs.child(offer.offerJobId).get()
                             .addOnSuccessListener { jobSnapshot ->
                                 val job = jobSnapshot.getValue(Job::class.java)
-                                job?.let { jobList.add(it) }
-                                val petId = job?.petID ?: ""
-                                databaseReferencePets.child(petId).get()
-                                    .addOnSuccessListener { petSnapshot ->
-                                        val pet = petSnapshot.getValue(Pet::class.java)
-                                        pet?.let { petList.add(it) }
-                                        val userBackerId = offer?.offerBackerId
-                                        databaseReferenceUsers.child(userBackerId!!).get()
-                                            .addOnSuccessListener { userSnapshot ->
-                                                val user = userSnapshot.getValue(User::class.java)
-                                                user?.let { userList.add(it) }
-                                                val backerId = offer.offerBackerId
-                                                databaseReferenceBackers.child(backerId).get()
-                                                    .addOnSuccessListener { backerSnapshot ->
-                                                        val backer =
-                                                            backerSnapshot.getValue(Backer::class.java)
-                                                        backer?.let { backerList.add(it) }
-                                                        val adapter = OfferAdapter(
-                                                            requireContext(),
-                                                            jobList,
-                                                            petList,
-                                                            userList,
-                                                            offerList,
-                                                            backerList
-                                                        )
-                                                        paymentAdvertRecyclerView.adapter = adapter
-                                                        binding.loadingCardView.visibility =
-                                                            View.GONE
-                                                        binding.paymentRecyclerView.foreground =
-                                                            null
+                                job?.let {
+                                    jobList.add(it)
+                                    databaseReferencePets.child(job.petID).get()
+                                        .addOnSuccessListener { petSnapshot ->
+                                            val pet = petSnapshot.getValue(Pet::class.java)
+                                            pet?.let {
+                                                petList.add(it)
+                                                databaseReferenceUsers.child(offer.offerBackerId)
+                                                    .get()
+                                                    .addOnSuccessListener { userSnapshot ->
+                                                        val user =
+                                                            userSnapshot.getValue(User::class.java)
+                                                        user?.let {
+                                                            userList.add(it)
+                                                            databaseReferenceBackers.child(offer.offerBackerId)
+                                                                .get()
+                                                                .addOnSuccessListener { backerSnapshot ->
+                                                                    val backer =
+                                                                        backerSnapshot.getValue(
+                                                                            Backer::class.java
+                                                                        )
+                                                                    backer?.let { backerList.add(it) }
+                                                                    val adapter = OfferAdapter(
+                                                                        requireContext(),
+                                                                        jobList,
+                                                                        petList,
+                                                                        userList,
+                                                                        offerList,
+                                                                        backerList
+                                                                    )
+                                                                    paymentAdvertRecyclerView.adapter =
+                                                                        adapter
+                                                                    binding.loadingCardView.visibility =
+                                                                        View.GONE
+                                                                    binding.paymentRecyclerView.foreground =
+                                                                        null
+                                                                }
+                                                        }
                                                     }
                                             }
-                                    }
+                                        }
+                                }
                             }
                     }
                 }
