@@ -74,6 +74,7 @@ class ActiveOfferAdapter(
         private val backerNameTextView = view.findViewById<TextView>(R.id.backerNameTextView)
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
         private val buttonGoChat = view.findViewById<ImageButton>(R.id.buttonGoChat)
+        private val confirmButton = view.findViewById<Button>(R.id.confirmButton)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -156,6 +157,25 @@ class ActiveOfferAdapter(
 
                 val dialog = builder.create()
                 dialog.show()
+            }
+
+            confirmButton.setOnClickListener {
+                val databaseReference =
+                    FirebaseDatabase.getInstance().getReference("offers").child(offer.offerId)
+                if (offer.confirmBacker == true) {
+                    databaseReference.updateChildren(
+                        mapOf(
+                            "confirmUser" to true,
+                            "offerStatus" to true
+                        )
+                    )
+                } else {
+                    databaseReference.updateChildren(
+                        mapOf(
+                            "userConfirm" to true
+                        )
+                    )
+                }
             }
         }
     }
