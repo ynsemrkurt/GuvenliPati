@@ -4,6 +4,4 @@
         android:title="İlan Detayları" />
     <item android:id="@+id/option_2"
         android:title="İlanı Sil" />
-    <item android:id="@+id/option_3"
-        android:title="İşi Onayla" />
 </menu>
