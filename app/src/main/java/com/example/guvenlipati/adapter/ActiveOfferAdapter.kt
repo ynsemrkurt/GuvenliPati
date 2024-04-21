@@ -1,6 +1,8 @@
 package com.example.guvenlipati
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.advert.ActiveAdvertFragment
@@ -77,6 +80,7 @@ class ActiveOfferAdapter(
         private val buttonGoChat = view.findViewById<ImageButton>(R.id.buttonGoChat)
         private val confirmButton = view.findViewById<Button>(R.id.confirmButton)
         private val confirmStatusTextView = view.findViewById<TextView>(R.id.confirmStatusTextView)
+        private val buttonCopyId = view.findViewById<ImageButton>(R.id.buttonCopyId)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -188,6 +192,13 @@ class ActiveOfferAdapter(
                         )
                     )
                 }
+            }
+
+            buttonCopyId.setOnClickListener{
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("simple text", offer.offerId)
+                clipboard.setPrimaryClip(clip)
+                showToast("Teklif ID kopyalandı...")
             }
         }
     }
