@@ -49,7 +49,7 @@ class PendingAdvertFragment : Fragment() {
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
 
-        databaseReferencePets.addListenerForSingleValueEvent(object : ValueEventListener {
+        databaseReferencePets.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(petsSnapshot: DataSnapshot) {
                 petList.clear()
                 for (dataSnapshot: DataSnapshot in petsSnapshot.children) {
@@ -61,14 +61,14 @@ class PendingAdvertFragment : Fragment() {
                     }
                 }
 
-                databaseReferenceJobs.addListenerForSingleValueEvent(object : ValueEventListener {
+                databaseReferenceJobs.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(jobsSnapshot: DataSnapshot) {
                         jobList.clear()
                         for (dataSnapshot: DataSnapshot in jobsSnapshot.children) {
                             val job = dataSnapshot.getValue(Job::class.java)
                             val startDate = SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
                             if (startDate != null) {
-                                if (job?.userID == FirebaseAuth.getInstance().currentUser?.uid && !startDate.before(currentDate)) {
+                                if (job?.userID == FirebaseAuth.getInstance().currentUser?.uid && !startDate.before(currentDate) && job!!.jobStatus) {
                                     job?.let {
                                         jobList.add(it)
                                     }

@@ -6,7 +6,7 @@
         android:icon="@drawable/home_ico" />
 
     <item
-        android:id="@+id/y"
+        android:id="@+id/myJobs"
         android:title="İŞLERİM"
         android:icon="@drawable/myjobs_ico" />
 

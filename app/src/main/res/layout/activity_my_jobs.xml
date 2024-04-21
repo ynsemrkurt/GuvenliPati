@@ -72,12 +72,6 @@
                 android:layout_height="wrap_content"
                 android:text="Aktif İşler" />
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/forgot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aklıma Gelmedi" />
-
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.fragment.app.FragmentContainerView
