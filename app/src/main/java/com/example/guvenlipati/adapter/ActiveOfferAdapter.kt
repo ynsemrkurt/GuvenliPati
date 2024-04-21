@@ -76,6 +76,7 @@ class ActiveOfferAdapter(
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
         private val buttonGoChat = view.findViewById<ImageButton>(R.id.buttonGoChat)
         private val confirmButton = view.findViewById<Button>(R.id.confirmButton)
+        private val confirmStatusTextView = view.findViewById<TextView>(R.id.confirmStatusTextView)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -90,6 +91,16 @@ class ActiveOfferAdapter(
             locationTextView.text = job.jobProvince + ", " + job.jobTown
             backerNameTextView.text = user.userName + " " + user.userSurname
             priceTextView.text = offer.offerPrice.toString() + " TL"
+
+            if (offer.confirmBacker==true && offer.confirmUser==false){
+                confirmStatusTextView.text="Bakıcı\nOnayladı..."
+            }
+            else if (offer.confirmBacker==false && offer.confirmUser==true){
+                confirmStatusTextView.text="Sen\nOnayladın..."
+            }
+            else{
+                confirmStatusTextView.text="Henüz\nOnaylanmadı..."
+            }
 
             Glide.with(context)
                 .load(pet.petPhoto)
@@ -173,7 +184,7 @@ class ActiveOfferAdapter(
                 } else {
                     databaseReference.updateChildren(
                         mapOf(
-                            "userConfirm" to true
+                            "confirmUser" to true
                         )
                     )
                 }
