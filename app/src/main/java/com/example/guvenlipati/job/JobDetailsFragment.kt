@@ -199,6 +199,8 @@ class JobDetailsFragment : Fragment() {
                         SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
                     hashMap["offerStatus"] = false
                     hashMap["priceStatus"] = false
+                    hashMap["confirmUser"] = false
+                    hashMap["confirmBacker"] = false
                     offerRef.child(offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             showToast("Teklif gönderildi!")

@@ -16,7 +16,10 @@ import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ActiveAdvertFragment : Fragment() {
 
@@ -32,18 +35,9 @@ class ActiveAdvertFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val firebaseUser = FirebaseAuth.getInstance().currentUser
-
         val activeAdvertRecycleView = binding.activeAdvertRecycleView
-        activeAdvertRecycleView.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
-        val databaseReferenceOffers = FirebaseDatabase.getInstance().getReference("offers")
-        val databaseReferenceJobs = FirebaseDatabase.getInstance().getReference("jobs")
-        val databaseReferencePets = FirebaseDatabase.getInstance().getReference("pets")
-        val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users")
-        val databaseReferenceBackers = FirebaseDatabase.getInstance().getReference("identifies")
+        activeAdvertRecycleView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
@@ -51,57 +45,57 @@ class ActiveAdvertFragment : Fragment() {
         val offerList = ArrayList<Offer>()
         val backerList = ArrayList<Backer>()
 
-        databaseReferenceOffers.get().addOnSuccessListener { offersSnapshot ->
-            for (offerSnapshot in offersSnapshot.children) {
-                val offer = offerSnapshot.getValue(Offer::class.java)
-                offer?.let {
+        val adapter = ActiveOfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList)
+        activeAdvertRecycleView.adapter = adapter
+
+        FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                offerList.clear()
+                for (offerSnapshot in dataSnapshot.children) {
+                    val offer = offerSnapshot.getValue(Offer::class.java) ?: continue
                     if (offer.offerUser == firebaseUser?.uid && !offer.offerStatus && offer.priceStatus) {
-                        offerList.add(it)
-                        databaseReferenceJobs.child(offer.offerJobId).get()
-                            .addOnSuccessListener { jobSnapshot ->
-                                val job = jobSnapshot.getValue(Job::class.java)
-                                job?.let {
-                                    jobList.add(it)
-                                    databaseReferencePets.child(job.petID).get()
-                                        .addOnSuccessListener { petSnapshot ->
-                                            val pet = petSnapshot.getValue(Pet::class.java)
-                                            pet?.let {
-                                                petList.add(it)
-                                                databaseReferenceUsers.child(offer.offerBackerId)
-                                                    .get()
-                                                    .addOnSuccessListener { userSnapshot ->
-                                                        val user =
-                                                            userSnapshot.getValue(User::class.java)
-                                                        user?.let {
-                                                            userList.add(it)
-                                                            databaseReferenceBackers.child(offer.offerBackerId)
-                                                                .get()
-                                                                .addOnSuccessListener { backerSnapshot ->
-                                                                    val backer =
-                                                                        backerSnapshot.getValue(
-                                                                            Backer::class.java
-                                                                        )
-                                                                    backer?.let { backerList.add(it) }
-                                                                    val adapter = ActiveOfferAdapter(
-                                                                        requireContext(),
-                                                                        jobList,
-                                                                        petList,
-                                                                        userList,
-                                                                        offerList,
-                                                                        backerList
-                                                                    )
-                                                                    activeAdvertRecycleView.adapter =
-                                                                        adapter
+                        offerList.add(offer)
+                        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId).addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(jobSnapshot: DataSnapshot) {
+                                jobSnapshot.getValue(Job::class.java)?.let { job ->
+                                    jobList.add(job)
+                                    FirebaseDatabase.getInstance().getReference("pets").child(job.petID).addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(petSnapshot: DataSnapshot) {
+                                            petSnapshot.getValue(Pet::class.java)?.let { pet ->
+                                                petList.add(pet)
+                                                FirebaseDatabase.getInstance().getReference("users").child(offer.offerBackerId).addListenerForSingleValueEvent(object : ValueEventListener {
+                                                    override fun onDataChange(userSnapshot: DataSnapshot) {
+                                                        userSnapshot.getValue(User::class.java)?.let { user ->
+                                                            userList.add(user)
+                                                            FirebaseDatabase.getInstance().getReference("identifies").child(offer.offerBackerId).addListenerForSingleValueEvent(object : ValueEventListener {
+                                                                override fun onDataChange(backerSnapshot: DataSnapshot) {
+                                                                    backerSnapshot.getValue(Backer::class.java)?.let { backer ->
+                                                                        backerList.add(backer)
+                                                                        adapter.notifyDataSetChanged()  // Tüm veriler eklendikten sonra adapter'ı güncelle
+                                                                    }
                                                                 }
+                                                                override fun onCancelled(error: DatabaseError) {}
+                                                            })
                                                         }
                                                     }
+                                                    override fun onCancelled(error: DatabaseError) {}
+                                                })
                                             }
                                         }
+                                        override fun onCancelled(error: DatabaseError) {}
+                                    })
                                 }
                             }
+                            override fun onCancelled(error: DatabaseError) {}
+                        })
                     }
                 }
             }
-        }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Log error or show error message
+            }
+        })
     }
+
 }

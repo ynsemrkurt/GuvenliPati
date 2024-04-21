@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.advert.ActiveAdvertFragment
 import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Backer
