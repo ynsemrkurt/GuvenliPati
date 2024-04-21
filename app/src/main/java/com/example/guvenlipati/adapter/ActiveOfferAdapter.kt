@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.advert.ActiveAdvertFragment
@@ -81,6 +82,7 @@ class ActiveOfferAdapter(
         private val confirmButton = view.findViewById<Button>(R.id.confirmButton)
         private val confirmStatusTextView = view.findViewById<TextView>(R.id.confirmStatusTextView)
         private val buttonCopyId = view.findViewById<ImageButton>(R.id.buttonCopyId)
+        private val supportButton = view.findViewById<Button>(R.id.supportButton)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -192,6 +194,11 @@ class ActiveOfferAdapter(
                         )
                     )
                 }
+            }
+
+            supportButton.setOnClickListener{
+                val intent=Intent(Intent.ACTION_SENDTO,Uri.fromParts("mailto", "yunusemre-kurt@outlook.com",  null))
+                context.startActivity(Intent.createChooser(intent,"Send email..."))
             }
 
             buttonCopyId.setOnClickListener{
