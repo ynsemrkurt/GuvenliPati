@@ -118,52 +118,69 @@ class PaymentFragment : Fragment() {
                 isDeleting = count > after
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
                 s?.let {
+                    val clean = it.toString().replace("[^\\d.]|\\.".toRegex(), "")
+                    val cleanC = current.replace("[^\\d.]|\\.".toRegex(), "")
+
+                    var cl = clean.length
+                    var sel = cl
+                    var i = 2
+                    while (i <= cl && i < 4) {
+                        sel++
+                        i += 2
+                    }
+                    if (clean == cleanC) sel--
+
+                    if (cl <= 2) {
+                        mm = clean
+                    } else {
+                        mm = clean.substring(0, 2)
+                        yy = clean.substring(2)
+                    }
+
+                    if (mm.length < 2) {
+                        mm = mm
+                    }
+                    if (yy.length > 2) {
+                        yy = yy.substring(0, 2)
+                    } else if (yy.length < 2 && cl > 2) {
+                        yy = yy
+                    }
+
+                    current = if (cl <= 2 || isDeleting) {
+                        mm
+                    } else {
+                        "$mm/$yy"
+                    }
                     if (it.toString() != current) {
-                        val clean = it.toString().replace("[^\\d.]|\\.".toRegex(), "")
-                        val cleanC = current.replace("[^\\d.]|\\.".toRegex(), "")
-
-                        var cl = clean.length
-                        var sel = cl
-                        var i = 2
-                        while (i <= cl && i < 4) {
-                            sel++
-                            i += 2
-                        }
-                        if (clean == cleanC) sel--
-
-                        if (cl <= 2) {
-                            mm = clean
-                        } else {
-                            mm = clean.substring(0, 2)
-                            yy = clean.substring(2)
-                        }
-
-                        if (mm.length < 2) {
-                            mm = "$mm"
-                        }
-                        if (yy.length > 2) {
-                            yy = yy.substring(0, 2)
-                        } else if (yy.length < 2 && cl > 2) {
-                            yy = "$yy"
-                        }
-
-                        current = if (cl <= 2 || isDeleting) {
-                            mm
-                        } else {
-                            "$mm/$yy"
-                        }
                         binding.editTextExpDate.setText(current)
                         binding.editTextExpDate.setSelection(if (sel < current.length) sel else current.length)
                     }
-
                 }
-
+                binding.cardDate.text = "$mm/$yy"
+                if (binding.editTextExpDate.text.isEmpty()){
+                    binding.cardDate.text = "07/30"
+                }
             }
+        })
+
+
+
+        binding.editTextCVV.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                binding.cardDate.text = "$mm/$yy"
+                s?.let {
+                    if (it.length > 3) {
+                        binding.editTextCVV.setText(s.subSequence(0, 3))
+                        binding.editTextCVV.setSelection(3)
+                    }
+                }
             }
         })
 
