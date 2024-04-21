@@ -7,6 +7,8 @@ data class Offer(
     val offerPrice: Int=0,
     val offerBackerId: String="",
     val offerDate: String="",
-    val offerStatus: Boolean=true,
-    var priceStatus: Boolean=true
+    val offerStatus: Boolean=false,
+    var priceStatus: Boolean=false,
+    var confirmUser: Boolean=false,
+    var confirmBacker: Boolean=false
 )
