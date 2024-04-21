@@ -56,8 +56,7 @@ class PaymentFragment : Fragment() {
             val offerId = activity?.intent?.getStringExtra("offerId")
 
             if (offerId != null) {
-                val databaseReference =
-                    FirebaseDatabase.getInstance().getReference("offers").child(offerId)
+                val databaseReference = FirebaseDatabase.getInstance().getReference("offers").child(offerId)
 
                 databaseReference.updateChildren(
                     mapOf(
@@ -71,7 +70,7 @@ class PaymentFragment : Fragment() {
                     }
 
             }
-
+        }
 
             binding.editTextCardNumber.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -108,9 +107,69 @@ class PaymentFragment : Fragment() {
                     return chunked.joinToString(" ") // Her 4 karakter arasına boşluk ekle
                 }
             })
-        }
-    }
 
+        binding.editTextExpDate.addTextChangedListener(object : TextWatcher {
+            private var current = ""
+            private var mm = ""
+            private var yy = ""
+            private var isDeleting = false
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                isDeleting = count > after
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    if (it.toString() != current) {
+                        val clean = it.toString().replace("[^\\d.]|\\.".toRegex(), "")
+                        val cleanC = current.replace("[^\\d.]|\\.".toRegex(), "")
+
+                        var cl = clean.length
+                        var sel = cl
+                        var i = 2
+                        while (i <= cl && i < 4) {
+                            sel++
+                            i += 2
+                        }
+                        if (clean == cleanC) sel--
+
+                        if (cl <= 2) {
+                            mm = clean
+                        } else {
+                            mm = clean.substring(0, 2)
+                            yy = clean.substring(2)
+                        }
+
+                        if (mm.length < 2) {
+                            mm = "$mm"
+                        }
+                        if (yy.length > 2) {
+                            yy = yy.substring(0, 2)
+                        } else if (yy.length < 2 && cl > 2) {
+                            yy = "$yy"
+                        }
+
+                        current = if (cl <= 2 || isDeleting) {
+                            mm
+                        } else {
+                            "$mm/$yy"
+                        }
+                        binding.editTextExpDate.setText(current)
+                        binding.editTextExpDate.setSelection(if (sel < current.length) sel else current.length)
+                    }
+
+                }
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.cardDate.text = "$mm/$yy"
+            }
+        })
+
+
+
+    }
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
