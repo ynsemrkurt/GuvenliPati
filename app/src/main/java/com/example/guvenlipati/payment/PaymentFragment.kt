@@ -52,11 +52,126 @@ class PaymentFragment : Fragment() {
             }
         })
 
+
+        binding.editTextCardNumber.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                // Önceki metin değişmeden önce yapılacak işlemler (Opsiyonel)
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Metin değiştiğinde yapılacak işlemler
+                val currentText = s.toString()
+                if (currentText.length <= 19) {
+                    val formattedText = formatCreditCardNumber(currentText)
+                    binding.editTextCardNumber.removeTextChangedListener(this)
+                    binding.editTextCardNumber.setText(formattedText)
+                    binding.editTextCardNumber.setSelection(formattedText.length)
+                    binding.editTextCardNumber.addTextChangedListener(this)
+                    binding.creditCardNumber.text = formattedText
+                } else {
+                    binding.editTextCardNumber.setText(currentText.substring(0, 19))
+                    binding.editTextCardNumber.setSelection(19)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            private fun formatCreditCardNumber(text: String): String {
+                val trimmed = text.replace("\\s+".toRegex(), "") // Boşlukları kaldır
+                val chunked = trimmed.chunked(4) // 4 karakterlik parçalara böl
+                return chunked.joinToString(" ") // Her 4 karakter arasına boşluk ekle
+            }
+        })
+
+        binding.editTextExpDate.addTextChangedListener(object : TextWatcher {
+            private var current = ""
+            private var mm = ""
+            private var yy = ""
+            private var isDeleting = false
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                isDeleting = count > after
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    val clean = it.toString().replace("[^\\d.]|\\.".toRegex(), "")
+                    val cleanC = current.replace("[^\\d.]|\\.".toRegex(), "")
+
+                    var cl = clean.length
+                    var sel = cl
+                    var i = 2
+                    while (i <= cl && i < 4) {
+                        sel++
+                        i += 2
+                    }
+                    if (clean == cleanC) sel--
+
+                    if (cl <= 2) {
+                        mm = clean
+                    } else {
+                        mm = clean.substring(0, 2)
+                        yy = clean.substring(2)
+                    }
+
+                    if (mm.length < 2) {
+                        mm = mm
+                    }
+                    if (yy.length > 2) {
+                        yy = yy.substring(0, 2)
+                    } else if (yy.length < 2 && cl > 2) {
+                        yy = yy
+                    }
+
+                    current = if (cl <= 2 || isDeleting) {
+                        mm
+                    } else {
+                        "$mm/$yy"
+                    }
+                    if (it.toString() != current) {
+                        binding.editTextExpDate.setText(current)
+                        binding.editTextExpDate.setSelection(if (sel < current.length) sel else current.length)
+                    }
+                }
+                binding.cardDate.text = "$mm/$yy"
+                if (binding.editTextExpDate.text.isEmpty()) {
+                    binding.cardDate.text = "07/30"
+                }
+            }
+        })
+
+
+        binding.editTextCVV.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    if (it.length > 3) {
+                        binding.editTextCVV.setText(s.subSequence(0, 3))
+                        binding.editTextCVV.setSelection(3)
+                    }
+                }
+            }
+        })
+
+
         binding.ConfirmPaymentButton.setOnClickListener {
             val offerId = activity?.intent?.getStringExtra("offerId")
 
+
             if (offerId != null) {
-                val databaseReference = FirebaseDatabase.getInstance().getReference("offers").child(offerId)
+                val databaseReference =
+                    FirebaseDatabase.getInstance().getReference("offers").child(offerId)
 
                 databaseReference.updateChildren(
                     mapOf(
@@ -72,104 +187,8 @@ class PaymentFragment : Fragment() {
             }
         }
 
-            binding.editTextCardNumber.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                    // Önceki metin değişmeden önce yapılacak işlemler (Opsiyonel)
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    // Metin değiştiğinde yapılacak işlemler
-                    val currentText = s.toString()
-                    if (currentText.length <= 19) {
-                        val formattedText = formatCreditCardNumber(currentText)
-                        binding.editTextCardNumber.removeTextChangedListener(this)
-                        binding.editTextCardNumber.setText(formattedText)
-                        binding.editTextCardNumber.setSelection(formattedText.length)
-                        binding.editTextCardNumber.addTextChangedListener(this)
-                        binding.creditCardNumber.text = formattedText
-                    } else {
-                        binding.editTextCardNumber.setText(currentText.substring(0, 19))
-                        binding.editTextCardNumber.setSelection(19)
-                    }
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                }
-
-                private fun formatCreditCardNumber(text: String): String {
-                    val trimmed = text.replace("\\s+".toRegex(), "") // Boşlukları kaldır
-                    val chunked = trimmed.chunked(4) // 4 karakterlik parçalara böl
-                    return chunked.joinToString(" ") // Her 4 karakter arasına boşluk ekle
-                }
-            })
-
-        binding.editTextExpDate.addTextChangedListener(object : TextWatcher {
-            private var current = ""
-            private var mm = ""
-            private var yy = ""
-            private var isDeleting = false
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                isDeleting = count > after
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                s?.let {
-                    if (it.toString() != current) {
-                        val clean = it.toString().replace("[^\\d.]|\\.".toRegex(), "")
-                        val cleanC = current.replace("[^\\d.]|\\.".toRegex(), "")
-
-                        var cl = clean.length
-                        var sel = cl
-                        var i = 2
-                        while (i <= cl && i < 4) {
-                            sel++
-                            i += 2
-                        }
-                        if (clean == cleanC) sel--
-
-                        if (cl <= 2) {
-                            mm = clean
-                        } else {
-                            mm = clean.substring(0, 2)
-                            yy = clean.substring(2)
-                        }
-
-                        if (mm.length < 2) {
-                            mm = "$mm"
-                        }
-                        if (yy.length > 2) {
-                            yy = yy.substring(0, 2)
-                        } else if (yy.length < 2 && cl > 2) {
-                            yy = "$yy"
-                        }
-
-                        current = if (cl <= 2 || isDeleting) {
-                            mm
-                        } else {
-                            "$mm/$yy"
-                        }
-                        binding.editTextExpDate.setText(current)
-                        binding.editTextExpDate.setSelection(if (sel < current.length) sel else current.length)
-                    }
-
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                binding.cardDate.text = "$mm/$yy"
-            }
-        })
-
-
-
     }
+
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }

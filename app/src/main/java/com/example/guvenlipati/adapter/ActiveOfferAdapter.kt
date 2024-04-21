@@ -1,6 +1,8 @@
 package com.example.guvenlipati
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.advert.ActiveAdvertFragment
@@ -76,6 +79,8 @@ class ActiveOfferAdapter(
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
         private val buttonGoChat = view.findViewById<ImageButton>(R.id.buttonGoChat)
         private val confirmButton = view.findViewById<Button>(R.id.confirmButton)
+        private val confirmStatusTextView = view.findViewById<TextView>(R.id.confirmStatusTextView)
+        private val buttonCopyId = view.findViewById<ImageButton>(R.id.buttonCopyId)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -90,6 +95,16 @@ class ActiveOfferAdapter(
             locationTextView.text = job.jobProvince + ", " + job.jobTown
             backerNameTextView.text = user.userName + " " + user.userSurname
             priceTextView.text = offer.offerPrice.toString() + " TL"
+
+            if (offer.confirmBacker==true && offer.confirmUser==false){
+                confirmStatusTextView.text="Bakıcı\nOnayladı..."
+            }
+            else if (offer.confirmBacker==false && offer.confirmUser==true){
+                confirmStatusTextView.text="Sen\nOnayladın..."
+            }
+            else{
+                confirmStatusTextView.text="Henüz\nOnaylanmadı..."
+            }
 
             Glide.with(context)
                 .load(pet.petPhoto)
@@ -173,10 +188,17 @@ class ActiveOfferAdapter(
                 } else {
                     databaseReference.updateChildren(
                         mapOf(
-                            "userConfirm" to true
+                            "confirmUser" to true
                         )
                     )
                 }
+            }
+
+            buttonCopyId.setOnClickListener{
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("simple text", offer.offerId)
+                clipboard.setPrimaryClip(clip)
+                showToast("Teklif ID kopyalandı...")
             }
         }
     }
