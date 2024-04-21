@@ -152,6 +152,21 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="@+id/imageView" />
 
+            <ImageButton
+                android:scaleType="fitCenter"
+                android:padding="10dp"
+                android:id="@+id/buttonDeleteOffer"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/edit_pet_image_bg"
+                android:backgroundTint="@color/white"
+                android:elevation="5dp"
+                android:src="@drawable/copy_ico"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
@@ -245,6 +260,62 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView23"
                 app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/confirmButton"
+                style="@android:style/Widget.Button"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_bg_signup"
+                android:elevation="10dp"
+                android:fontFamily="@font/alata"
+                android:text="ONAYLA"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backerImage"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/supportButton"
+                style="@android:style/Widget.Button"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_bg_signup"
+                android:elevation="10dp"
+                android:fontFamily="@font/alata"
+                android:text="DESTEK"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/confirmButton"
+                app:layout_constraintStart_toEndOf="@+id/confirmButton"
+                app:layout_constraintTop_toTopOf="@+id/confirmButton"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageButton
+                android:id="@+id/buttonGoChat"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:background="@drawable/chat_ico_background"
+                android:elevation="3dp"
+                android:padding="11dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/chat_ico"
+                app:layout_constraintBottom_toBottomOf="@+id/supportButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/supportButton"
+                app:layout_constraintTop_toTopOf="@+id/supportButton"
+                app:layout_constraintVertical_bias="0.0"
+                app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
