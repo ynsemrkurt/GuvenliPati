@@ -192,7 +192,7 @@ class JobDetailsFragment : Fragment() {
                     val hashMap = HashMap<String, Any>()
                     hashMap["offerId"] = offerId
                     hashMap["offerJobId"] = jobId!!
-                    hashMap["offerUser"]=job?.userID!!
+                    hashMap["offerUser"] = job?.userID!!
                     hashMap["offerPrice"] = offerPrice.text.toString().toInt()
                     hashMap["offerBackerId"] = firebaseUser.uid
                     hashMap["offerDate"] =

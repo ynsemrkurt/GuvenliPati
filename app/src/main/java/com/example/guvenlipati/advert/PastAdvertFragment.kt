@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.AdvertsAdapter
 import com.example.guvenlipati.JobsAdapter
+import com.example.guvenlipati.PastAdvertsAdapter
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentPastAdvertBinding
 import com.example.guvenlipati.models.Job
@@ -75,7 +76,7 @@ class PastAdvertFragment : Fragment() {
                                 }
                             }
                         }
-                        val adapter = AdvertsAdapter(requireContext(),jobList, petList)
+                        val adapter = PastAdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
                         if (jobList.isNotEmpty()) {
                             binding.animationView2.visibility = View.GONE

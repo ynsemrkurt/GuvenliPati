@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.ActiveOfferAdapter
 import com.example.guvenlipati.OfferAdapter
 import com.example.guvenlipati.R
 import com.example.guvenlipati.models.Backer
@@ -81,7 +82,7 @@ class ActiveAdvertFragment : Fragment() {
                                                                             Backer::class.java
                                                                         )
                                                                     backer?.let { backerList.add(it) }
-                                                                    val adapter = OfferAdapter(
+                                                                    val adapter = ActiveOfferAdapter(
                                                                         requireContext(),
                                                                         jobList,
                                                                         petList,

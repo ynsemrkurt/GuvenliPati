@@ -19,18 +19,18 @@ import com.example.guvenlipati.job.JobDetailsFragment
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 
-class AdvertsAdapter(
+class PastAdvertsAdapter(
     private val context: Context,
     private val jobList: ArrayList<Job>,
     private val petList: ArrayList<Pet>
-) : RecyclerView.Adapter<AdvertsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PastAdvertsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_advert, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_past_advert, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AdvertsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PastAdvertsAdapter.ViewHolder, position: Int) {
         holder.advertCard.animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim)
 
         val job = jobList[position]
@@ -68,11 +68,11 @@ class AdvertsAdapter(
             endDateTextView.text = job.jobEndDate
             locationTextView.text = job.jobProvince + ", " + job.jobTown
 
-
             Glide.with(context)
                 .load(pet.petPhoto)
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(petPhotoImageView)
+
         }
     }
 }
