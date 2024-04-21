@@ -55,7 +55,6 @@ class AdvertsAdapter(
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         private val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
-        private val buttonMenu= view.findViewById<ImageButton>(R.id.buttonMenu)
 
         fun bind(job: Job, pet: Pet) {
             when(job.jobType){
@@ -69,27 +68,11 @@ class AdvertsAdapter(
             endDateTextView.text = job.jobEndDate
             locationTextView.text = job.jobProvince + ", " + job.jobTown
 
-            val popupMenu = PopupMenu(context, buttonMenu)
-            popupMenu.inflate(R.menu.advert_overflow_menu)
 
             Glide.with(context)
                 .load(pet.petPhoto)
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(petPhotoImageView)
-
-            buttonMenu.setOnClickListener {
-                popupMenu.show()
-            }
-
-            popupMenu.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.option_1 -> {
-                        true
-                    }
-
-                    else -> {false}
-                }
-            }
         }
     }
 }
