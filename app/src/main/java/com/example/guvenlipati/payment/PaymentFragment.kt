@@ -52,61 +52,42 @@ class PaymentFragment : Fragment() {
             }
         })
 
-        binding.ConfirmPaymentButton.setOnClickListener {
-            val offerId = activity?.intent?.getStringExtra("offerId")
 
-            if (offerId != null) {
-                val databaseReference = FirebaseDatabase.getInstance().getReference("offers").child(offerId)
-
-                databaseReference.updateChildren(
-                    mapOf(
-                        "priceStatus" to true
-                    )
-                ).addOnSuccessListener {
-                    showToast("ÖDEME BAŞARILI")
-                }
-                    .addOnFailureListener {
-                        showToast("ÖDEME BAŞARISIZ")
-                    }
-
+        binding.editTextCardNumber.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                // Önceki metin değişmeden önce yapılacak işlemler (Opsiyonel)
             }
-        }
 
-            binding.editTextCardNumber.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                    // Önceki metin değişmeden önce yapılacak işlemler (Opsiyonel)
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Metin değiştiğinde yapılacak işlemler
+                val currentText = s.toString()
+                if (currentText.length <= 19) {
+                    val formattedText = formatCreditCardNumber(currentText)
+                    binding.editTextCardNumber.removeTextChangedListener(this)
+                    binding.editTextCardNumber.setText(formattedText)
+                    binding.editTextCardNumber.setSelection(formattedText.length)
+                    binding.editTextCardNumber.addTextChangedListener(this)
+                    binding.creditCardNumber.text = formattedText
+                } else {
+                    binding.editTextCardNumber.setText(currentText.substring(0, 19))
+                    binding.editTextCardNumber.setSelection(19)
                 }
+            }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    // Metin değiştiğinde yapılacak işlemler
-                    val currentText = s.toString()
-                    if (currentText.length <= 19) {
-                        val formattedText = formatCreditCardNumber(currentText)
-                        binding.editTextCardNumber.removeTextChangedListener(this)
-                        binding.editTextCardNumber.setText(formattedText)
-                        binding.editTextCardNumber.setSelection(formattedText.length)
-                        binding.editTextCardNumber.addTextChangedListener(this)
-                        binding.creditCardNumber.text = formattedText
-                    } else {
-                        binding.editTextCardNumber.setText(currentText.substring(0, 19))
-                        binding.editTextCardNumber.setSelection(19)
-                    }
-                }
+            override fun afterTextChanged(s: Editable?) {
+            }
 
-                override fun afterTextChanged(s: Editable?) {
-                }
-
-                private fun formatCreditCardNumber(text: String): String {
-                    val trimmed = text.replace("\\s+".toRegex(), "") // Boşlukları kaldır
-                    val chunked = trimmed.chunked(4) // 4 karakterlik parçalara böl
-                    return chunked.joinToString(" ") // Her 4 karakter arasına boşluk ekle
-                }
-            })
+            private fun formatCreditCardNumber(text: String): String {
+                val trimmed = text.replace("\\s+".toRegex(), "") // Boşlukları kaldır
+                val chunked = trimmed.chunked(4) // 4 karakterlik parçalara böl
+                return chunked.joinToString(" ") // Her 4 karakter arasına boşluk ekle
+            }
+        })
 
         binding.editTextExpDate.addTextChangedListener(object : TextWatcher {
             private var current = ""
@@ -161,12 +142,11 @@ class PaymentFragment : Fragment() {
                     }
                 }
                 binding.cardDate.text = "$mm/$yy"
-                if (binding.editTextExpDate.text.isEmpty()){
+                if (binding.editTextExpDate.text.isEmpty()) {
                     binding.cardDate.text = "07/30"
                 }
             }
         })
-
 
 
         binding.editTextCVV.addTextChangedListener(object : TextWatcher {
@@ -185,8 +165,30 @@ class PaymentFragment : Fragment() {
         })
 
 
+        binding.ConfirmPaymentButton.setOnClickListener {
+            val offerId = activity?.intent?.getStringExtra("offerId")
+
+
+            if (offerId != null) {
+                val databaseReference =
+                    FirebaseDatabase.getInstance().getReference("offers").child(offerId)
+
+                databaseReference.updateChildren(
+                    mapOf(
+                        "priceStatus" to true
+                    )
+                ).addOnSuccessListener {
+                    showToast("ÖDEME BAŞARILI")
+                }
+                    .addOnFailureListener {
+                        showToast("ÖDEME BAŞARISIZ")
+                    }
+
+            }
+        }
 
     }
+
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
