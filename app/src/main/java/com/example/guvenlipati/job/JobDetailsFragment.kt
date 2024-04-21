@@ -192,13 +192,15 @@ class JobDetailsFragment : Fragment() {
                     val hashMap = HashMap<String, Any>()
                     hashMap["offerId"] = offerId
                     hashMap["offerJobId"] = jobId!!
-                    hashMap["offerUser"]=job?.userID!!
+                    hashMap["offerUser"] = job?.userID!!
                     hashMap["offerPrice"] = offerPrice.text.toString().toInt()
                     hashMap["offerBackerId"] = firebaseUser.uid
                     hashMap["offerDate"] =
                         SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
                     hashMap["offerStatus"] = false
                     hashMap["priceStatus"] = false
+                    hashMap["confirmUser"] = false
+                    hashMap["confirmBacker"] = false
                     offerRef.child(offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             showToast("Teklif gönderildi!")
