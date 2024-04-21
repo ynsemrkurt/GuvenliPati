@@ -164,9 +164,9 @@
                 android:backgroundTint="@color/white"
                 android:elevation="5dp"
                 android:src="@drawable/trash_ico"
-                android:tint="#FF0000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#FF0000" />
 
             <View
                 android:id="@+id/view2"
