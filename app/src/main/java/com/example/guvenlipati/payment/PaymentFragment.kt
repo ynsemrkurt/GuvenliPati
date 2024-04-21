@@ -166,25 +166,60 @@ class PaymentFragment : Fragment() {
 
 
         binding.ConfirmPaymentButton.setOnClickListener {
-            val offerId = activity?.intent?.getStringExtra("offerId")
+            if (binding.editTextCardHolderName.text.isEmpty()){
+                showToast("İSİM SOYİSİM BOŞ GEÇİLEMEZ")
+            }
+            else if (binding.editTextCardNumber.text.length !=19){
+                showToast("KART NUMARASINI TAM GİRİNİZ")
+            }
+            else if (binding.editTextExpDate.text.isEmpty()){
+                showToast("KARTIN SON KULLANIM TARİHİ BOŞ GEÇİLEMEZ")
+            }
+            else if (binding.editTextCVV.text.length !=3){
+                showToast("GÜVENLİK KODUNU TAM GİRİNİZ")
+            }
+            else if (!binding.checkBox.isChecked || !binding.checkBox2.isChecked || !binding.checkBox3.isChecked){
+                showToast("SÖZLEŞMELERİ KABUL ETMENİZ GEREKİYOR")
+            }
+            else{
+                val offerId = activity?.intent?.getStringExtra("offerId")
+                val jobId = activity?.intent?.getStringExtra("jobId")
 
-
-            if (offerId != null) {
                 val databaseReference =
-                    FirebaseDatabase.getInstance().getReference("offers").child(offerId)
+                    offerId?.let { it1 ->
+                        FirebaseDatabase.getInstance().getReference("offers").child(
+                            it1
+                        )
+                    }
 
-                databaseReference.updateChildren(
+                val databaseReference2 =
+                    jobId?.let { it1 ->
+                        FirebaseDatabase.getInstance().getReference("jobs").child(
+                            it1
+                        )
+                    }
+
+                databaseReference?.updateChildren(
                     mapOf(
                         "priceStatus" to true
                     )
-                ).addOnSuccessListener {
+                )?.addOnSuccessListener {
                     showToast("ÖDEME BAŞARILI")
+                    val intent = Intent(context,HomeActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
                 }
-                    .addOnFailureListener {
+                    ?.addOnFailureListener {
                         showToast("ÖDEME BAŞARISIZ")
                     }
 
+                databaseReference2?.updateChildren(
+                    mapOf(
+                        "jobStatus" to false
+                    )
+                )
             }
+
         }
 
     }
