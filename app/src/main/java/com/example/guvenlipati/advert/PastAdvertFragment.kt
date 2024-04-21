@@ -69,7 +69,7 @@ class PastAdvertFragment : Fragment() {
                             val job = dataSnapshot.getValue(Job::class.java)
                             val startDate = SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
                             if (startDate != null) {
-                                if (job?.userID == FirebaseAuth.getInstance().currentUser?.uid && startDate.before(currentDate)) {
+                                if (job?.userID == FirebaseAuth.getInstance().currentUser?.uid && (startDate.before(currentDate) || job?.jobStatus==false)) {
                                     job?.let {
                                         jobList.add(it)
                                     }

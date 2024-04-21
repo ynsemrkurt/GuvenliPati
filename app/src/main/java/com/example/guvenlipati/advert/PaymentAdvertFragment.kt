@@ -15,7 +15,10 @@ import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -36,16 +39,8 @@ class PaymentAdvertFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val firebaseUser = FirebaseAuth.getInstance().currentUser
-
         val paymentAdvertRecyclerView = binding.paymentRecyclerView
-        paymentAdvertRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
-        val databaseReferenceOffers = FirebaseDatabase.getInstance().getReference("offers")
-        val databaseReferenceJobs = FirebaseDatabase.getInstance().getReference("jobs")
-        val databaseReferencePets = FirebaseDatabase.getInstance().getReference("pets")
-        val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users")
-        val databaseReferenceBackers = FirebaseDatabase.getInstance().getReference("identifies")
+        paymentAdvertRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
@@ -53,72 +48,71 @@ class PaymentAdvertFragment : Fragment() {
         val offerList = ArrayList<Offer>()
         val backerList = ArrayList<Backer>()
 
-        databaseReferenceOffers.get().addOnSuccessListener { offersSnapshot ->
-            for (offerSnapshot in offersSnapshot.children) {
-                val offer = offerSnapshot.getValue(Offer::class.java)
-                offer?.let {
-                    if (offer.offerUser == firebaseUser?.uid && isOfferWithinLast7Days(offer.offerDate) && !offer.offerStatus && !offer.priceStatus) {
-                        offerList.add(it)
-                        databaseReferenceJobs.child(offer.offerJobId).get()
-                            .addOnSuccessListener { jobSnapshot ->
+        val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList)
+        paymentAdvertRecyclerView.adapter = adapter
+
+        FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                offerList.clear()
+                for (offerSnapshot in dataSnapshot.children) {
+                    val offer = offerSnapshot.getValue(Offer::class.java)
+                    if (offer != null && offer.offerUser == firebaseUser?.uid && isOfferWithinLast7Days(offer.offerDate) && !offer.offerStatus && !offer.priceStatus) {
+                        offerList.add(offer)
+                        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId).addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(jobSnapshot: DataSnapshot) {
                                 val job = jobSnapshot.getValue(Job::class.java)
                                 job?.let {
                                     jobList.add(it)
-                                    databaseReferencePets.child(job.petID).get()
-                                        .addOnSuccessListener { petSnapshot ->
+                                    FirebaseDatabase.getInstance().getReference("pets").child(job.petID).addValueEventListener(object : ValueEventListener {
+                                        override fun onDataChange(petSnapshot: DataSnapshot) {
                                             val pet = petSnapshot.getValue(Pet::class.java)
                                             pet?.let {
                                                 petList.add(it)
-                                                databaseReferenceUsers.child(offer.offerBackerId)
-                                                    .get()
-                                                    .addOnSuccessListener { userSnapshot ->
-                                                        val user =
-                                                            userSnapshot.getValue(User::class.java)
+                                                FirebaseDatabase.getInstance().getReference("users").child(offer.offerBackerId).addValueEventListener(object : ValueEventListener {
+                                                    override fun onDataChange(userSnapshot: DataSnapshot) {
+                                                        val user = userSnapshot.getValue(User::class.java)
                                                         user?.let {
                                                             userList.add(it)
-                                                            databaseReferenceBackers.child(offer.offerBackerId)
-                                                                .get()
-                                                                .addOnSuccessListener { backerSnapshot ->
-                                                                    val backer =
-                                                                        backerSnapshot.getValue(
-                                                                            Backer::class.java
-                                                                        )
-                                                                    backer?.let { backerList.add(it) }
-                                                                    val adapter = OfferAdapter(
-                                                                        requireContext(),
-                                                                        jobList,
-                                                                        petList,
-                                                                        userList,
-                                                                        offerList,
-                                                                        backerList
-                                                                    )
-                                                                    paymentAdvertRecyclerView.adapter =
-                                                                        adapter
-                                                                    binding.loadingCardView.visibility =
-                                                                        View.GONE
-                                                                    binding.paymentRecyclerView.foreground =
-                                                                        null
+                                                            FirebaseDatabase.getInstance().getReference("identifies").child(offer.offerBackerId).addValueEventListener(object : ValueEventListener {
+                                                                override fun onDataChange(backerSnapshot: DataSnapshot) {
+                                                                    val backer = backerSnapshot.getValue(Backer::class.java)
+                                                                    backer?.let {
+                                                                        backerList.add(it)
+                                                                        adapter.notifyDataSetChanged()
+                                                                        binding.loadingCardView.visibility=View.GONE
+                                                                        binding.paymentRecyclerView.foreground=null
+                                                                    }
                                                                 }
+                                                                override fun onCancelled(error: DatabaseError) {}
+                                                            })
                                                         }
                                                     }
+                                                    override fun onCancelled(error: DatabaseError) {}
+                                                })
                                             }
                                         }
+                                        override fun onCancelled(error: DatabaseError) {}
+                                    })
                                 }
                             }
+                            override fun onCancelled(error: DatabaseError) {}
+                        })
                     }
                 }
             }
-        }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle possible database errors
+            }
+        })
     }
 
     private fun isOfferWithinLast7Days(offerDate: String): Boolean {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val offerDateTime = dateFormat.parse(offerDate)
-
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_YEAR, -7)
-        val last7Days = calendar.time
-
-        return offerDateTime.after(last7Days)
+        return offerDateTime != null && offerDateTime.after(calendar.time)
     }
 }
