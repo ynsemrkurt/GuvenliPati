@@ -69,7 +69,7 @@ class PendingAdvertFragment : Fragment() {
                             val startDate = SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
                             if (startDate != null) {
                                 if (job?.userID == FirebaseAuth.getInstance().currentUser?.uid && !startDate.before(currentDate) && job!!.jobStatus) {
-                                    job?.let {
+                                    job.let {
                                         jobList.add(it)
                                     }
                                 }
