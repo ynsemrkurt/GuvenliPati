@@ -51,7 +51,7 @@ class RatingActivity : AppCompatActivity() {
                     backerList.clear()
                     for (offerSnapshot in dataSnapshot.children) {
                         val offer = offerSnapshot.getValue(Offer::class.java)
-                        if (offer != null && offer.offerUser == firebaseUser?.uid && offer.offerStatus) {
+                        if (offer != null && offer.offerUser == firebaseUser?.uid && offer.offerStatus && !offer.ratingStatus) {
                             offerList.add(offer)
                             FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId).addValueEventListener(object :
                                 ValueEventListener {

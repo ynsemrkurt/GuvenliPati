@@ -10,5 +10,6 @@ data class Offer(
     val offerStatus: Boolean=false,
     var priceStatus: Boolean=false,
     var confirmUser: Boolean=false,
-    var confirmBacker: Boolean=false
+    var confirmBacker: Boolean=false,
+    var ratingStatus: Boolean=false
 )

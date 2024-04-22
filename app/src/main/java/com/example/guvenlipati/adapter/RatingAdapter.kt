@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -100,57 +102,53 @@ class RatingAdapter(
                 .into(backerPhotoImageView)
 
 
-            backerPhotoImageView.setOnClickListener {
+            buttonRate.setOnClickListener {
                 val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
 
                 val inflater = LayoutInflater.from(context)
-                val view2 = inflater.inflate(R.layout.item_backer_preview, null)
+                val view2 = inflater.inflate(R.layout.item_rating, null)
                 builder.setView(view2)
 
-                val petPhotoImageView = view2.findViewById<ImageView>(R.id.petPhotoImageView)
-                val backerNameTextView = view2.findViewById<TextView>(R.id.backerNameTextView)
-                val textViewAge = view2.findViewById<TextView>(R.id.textViewAge)
-                val petGenderTextView = view2.findViewById<TextView>(R.id.petGenderTextView)
-                val backerLocationTextView =
-                    view2.findViewById<TextView>(R.id.backerLocationTextView)
-                val petNumberTextView = view2.findViewById<TextView>(R.id.petNumberTextView)
-                val backerExperienceTextView =
-                    view2.findViewById<TextView>(R.id.backerExperienceTextView)
-                val backerAboutTextView = view2.findViewById<TextView>(R.id.backerAboutTextView)
-                val infoButton = view2.findViewById<ImageButton>(R.id.infoButton)
-
-                if (user.userPhoto.isNotEmpty()) {
-                    Glide.with(context)
-                        .load(Uri.parse(user.userPhoto))
-                        .into(petPhotoImageView)
-                }
-
-                backerNameTextView.text = user.userName
-                val currentYear = LocalDateTime.now().year
-                textViewAge.text =
-                    (currentYear - backer.backerBirthYear.toInt()).toString() + " Yaşında"
-                when (user.userGender) {
-                    true -> {
-                        petGenderTextView.text = "Kadın"
-                    }
-
-                    false -> {
-                        petGenderTextView.text = "Erkek"
-                    }
-                }
-                backerLocationTextView.text = user.userProvince + "/" + user.userTown
-                petNumberTextView.text = backer.petNumber
-                backerExperienceTextView.text = backer.experience
-                backerAboutTextView.text = backer.about
-
-                infoButton.setOnClickListener {
-                    val intent = Intent(context, ProfileActivity::class.java)
-                    intent.putExtra("userId", backer.userID)
-                    context.startActivity(intent)
-                }
+                val ratingBar = view2.findViewById<RatingBar>(R.id.ratingBar)
+                val commentEditText = view2.findViewById<EditText>(R.id.editTextComment)
+                val sendButton = view2.findViewById<Button>(R.id.buttonSend)
 
                 val dialog = builder.create()
                 dialog.show()
+
+                sendButton.setOnClickListener {
+                    if (ratingBar.rating == 0f) {
+                        Toast.makeText(context, "Lütfen bir puan verin", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                    if (commentEditText.text.toString().trim().isNotEmpty()) {
+                        Toast.makeText(context, "Lütfen bir yorum girin", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                    val databaseReference = FirebaseDatabase.getInstance().getReference("ratings")
+                    val databaseReferenceOffer =
+                        FirebaseDatabase.getInstance().getReference("offers").child(offer.offerId)
+                    val hashMap = HashMap<String, Any>()
+                    hashMap["rating"] = ratingBar.rating
+                    hashMap["comment"] = commentEditText.text.toString()
+                    hashMap["userID"] = offer.offerBackerId
+                    hashMap["date"] = LocalDateTime.now().toString()
+                    databaseReference.setValue(hashMap).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(context, "Başarıyla kaydedildi", Toast.LENGTH_SHORT)
+                                .show()
+                            databaseReferenceOffer.updateChildren(
+                                mapOf(
+                                    "ratingStatus" to true
+                                )
+                            )
+                            dialog.dismiss()
+                        } else {
+                            Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
             }
         }
     }

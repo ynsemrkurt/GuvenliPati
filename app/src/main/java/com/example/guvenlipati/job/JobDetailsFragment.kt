@@ -201,6 +201,7 @@ class JobDetailsFragment : Fragment() {
                     hashMap["priceStatus"] = false
                     hashMap["confirmUser"] = false
                     hashMap["confirmBacker"] = false
+                    hashMap["ratingStatus"] = false
                     offerRef.child(offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             showToast("Teklif gönderildi!")

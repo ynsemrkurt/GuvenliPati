@@ -27,12 +27,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
-            android:id="@+id/textView14"
+            android:id="@+id/ratingBar"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="15dp"
+            android:progressTint="#FFE500"
             android:numStars="5"
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +62,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
             tools:ignore="VisualLintTextFieldSize" />
 
         <androidx.appcompat.widget.AppCompatButton
