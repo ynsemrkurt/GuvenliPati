@@ -73,7 +73,7 @@ class RatingAdapter(
             view.findViewById<ImageView>(R.id.backerPhotoImageView)
         private val backerNameTextView = view.findViewById<TextView>(R.id.backerNameTextView)
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
-        private val buttonRate = view.findViewById<ImageButton>(R.id.rateButton)
+        private val buttonRate = view.findViewById<Button>(R.id.rateButton)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {

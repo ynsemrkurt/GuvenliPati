@@ -1,17 +1,12 @@
 package com.example.guvenlipati.myjobs
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.OfferAdapter
 import com.example.guvenlipati.R
+import com.example.guvenlipati.RatingAdapter
 import com.example.guvenlipati.databinding.ActivityRatingBinding
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Job
@@ -43,13 +38,17 @@ class RatingActivity : AppCompatActivity() {
             val offerList = ArrayList<Offer>()
             val backerList = ArrayList<Backer>()
 
-            val adapter = OfferAdapter(this, jobList, petList, userList, offerList, backerList)
+            val adapter = RatingAdapter(this, jobList, petList, userList, offerList, backerList)
         ratingJobRecyclerView.adapter = adapter
 
             FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
                 ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     offerList.clear()
+                    jobList.clear()
+                    petList.clear()
+                    userList.clear()
+                    backerList.clear()
                     for (offerSnapshot in dataSnapshot.children) {
                         val offer = offerSnapshot.getValue(Offer::class.java)
                         if (offer != null && offer.offerUser == firebaseUser?.uid && offer.offerStatus) {
