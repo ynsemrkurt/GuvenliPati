@@ -37,7 +37,8 @@ class OfferAdapter(
     private val petList: List<Pet>,
     private val userList: List<User>,
     private val offerList: ArrayList<Offer>,
-    private val backerList: List<Backer>
+    private val backerList: List<Backer>,
+    private val rating:Double
 ) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -102,6 +103,7 @@ class OfferAdapter(
             locationTextView.text = job.jobProvince + ", " + job.jobTown
             backerNameTextView.text = user.userName + " " + user.userSurname
             priceTextView.text = offer.offerPrice.toString() + " TL"
+            ratingBar.rating=rating.toFloat()
 
             Glide.with(context)
                 .load(pet.petPhoto)

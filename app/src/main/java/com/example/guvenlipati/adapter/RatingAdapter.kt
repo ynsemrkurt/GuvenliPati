@@ -133,7 +133,7 @@ class RatingAdapter(
                     hashMap["comment"] = commentEditText.text.toString()
                     hashMap["userID"] = offer.offerBackerId
                     hashMap["date"] = LocalDateTime.now().toString()
-                    databaseReference.setValue(hashMap).addOnCompleteListener {
+                    databaseReference.child(offer.offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(context, "Başarıyla kaydedildi", Toast.LENGTH_SHORT)
                                 .show()

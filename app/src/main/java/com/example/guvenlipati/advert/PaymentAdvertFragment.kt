@@ -26,6 +26,9 @@ import java.util.Locale
 class PaymentAdvertFragment : Fragment() {
 
     lateinit var binding: FragmentPaymentAdvertBinding
+    var ratings = 0.0
+    var totalRatings = 0.0
+    var sayac=0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +51,7 @@ class PaymentAdvertFragment : Fragment() {
         val offerList = ArrayList<Offer>()
         val backerList = ArrayList<Backer>()
 
-        val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList)
+        val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList, ratings)
         paymentAdvertRecyclerView.adapter = adapter
 
         FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
@@ -68,6 +71,21 @@ class PaymentAdvertFragment : Fragment() {
                                 val job = jobSnapshot.getValue(Job::class.java)
                                 job?.let {
                                     jobList.add(it)
+
+                                    FirebaseDatabase.getInstance().getReference("raiting").child(offer.offerId).addValueEventListener(object : ValueEventListener {
+                                        override fun onDataChange(raitingSnapshot: DataSnapshot) {
+                                            val raiting = raitingSnapshot.getValue(Double::class.java)
+                                            raiting?.let {
+                                                sayac++
+                                                totalRatings += it
+                                                ratings = totalRatings / sayac
+                                            }
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+                                        }
+                                    })
+
                                     FirebaseDatabase.getInstance().getReference("pets").child(job.petID).addValueEventListener(object : ValueEventListener {
                                         override fun onDataChange(petSnapshot: DataSnapshot) {
                                             val pet = petSnapshot.getValue(Pet::class.java)
