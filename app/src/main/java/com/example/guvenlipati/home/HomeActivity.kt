@@ -1,25 +1,18 @@
 package com.example.guvenlipati.home
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import com.example.guvenlipati.FirebaseService
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
+import com.example.guvenlipati.myjobs.RatingActivity
 import com.example.guvenlipati.myjobs.MyJobsActivity
 import com.example.guvenlipati.splash.SplashActivity
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -67,6 +60,11 @@ class HomeActivity : AppCompatActivity() {
 
                 R.id.myJobs -> {
                     goMyJobsActivity()
+                    true
+                }
+
+                R.id.rating -> {
+                    goRatingActivity()
                     true
                 }
 
@@ -173,6 +171,11 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun goMyJobsActivity() {
         val intent = Intent(this, MyJobsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goRatingActivity(){
+        val intent = Intent(this, RatingActivity::class.java)
         startActivity(intent)
     }
 }

@@ -90,8 +90,8 @@
     <string name="mainPage">Anasayfa</string>
     <string name="info2">🎊Yeni Dostunuz Eklendi🎊</string>
     <string name="backToMain">Anasayfaya Dön</string>
-    <string name="settings">AYARLAR</string>
-    <string name="logout">ÇIKIŞ YAP</string>
+    <string name="settings">Ayarlar</string>
+    <string name="logout">Çıkış Yap</string>
     <string name="job">İşler</string>
     <string name="addFriends">Dost Ekle</string>
     <string name="chat">Sohbetler</string>

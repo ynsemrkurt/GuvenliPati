@@ -93,21 +93,6 @@
         app:layout_constraintTop_toTopOf="@+id/imagePhoto"
         app:layout_constraintVertical_bias="0.5" />
 
-    <ImageButton
-        android:id="@+id/imageView3"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="16dp"
-        android:padding="7dp"
-        android:src="@drawable/overflow_menu_ico"
-        android:scaleType="fitCenter"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027"
-        tools:ignore="ContentDescription" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
