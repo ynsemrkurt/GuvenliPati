@@ -69,8 +69,6 @@ class ChatingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val popupMenu = PopupMenu(requireContext(), binding.imageView3)
-        popupMenu.inflate(R.menu.overflow_menu)
 
         val friendUserId = activity?.intent?.getStringExtra("userId").toString()
         reference = FirebaseDatabase.getInstance().getReference("users").child(friendUserId)
@@ -139,27 +137,7 @@ class ChatingFragment : Fragment() {
         binding.backButton.setOnClickListener {
             activity?.finish()
         }
-        binding.imageView3.setOnClickListener {
-            popupMenu.show()
 
-            popupMenu.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.option_1 -> {
-                        val intent = Intent(requireContext(), ProfileActivity::class.java)
-                        intent.putExtra("userId", friendUserId)
-                        startActivity(intent)
-                        true
-                    }
-
-                    R.id.option_2 -> {
-                        (activity as ChatActivity).goPaymentFragment()
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-        }
     }
 
     private fun messageList(friendId: String) {
