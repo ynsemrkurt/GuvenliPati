@@ -17,6 +17,7 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
+import com.example.guvenlipati.job.RatingActivity
 import com.example.guvenlipati.myjobs.MyJobsActivity
 import com.example.guvenlipati.splash.SplashActivity
 import com.google.android.gms.tasks.OnCompleteListener
@@ -67,6 +68,11 @@ class HomeActivity : AppCompatActivity() {
 
                 R.id.myJobs -> {
                     goMyJobsActivity()
+                    true
+                }
+
+                R.id.rating -> {
+                    goRatingActivity()
                     true
                 }
 
@@ -173,6 +179,11 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun goMyJobsActivity() {
         val intent = Intent(this, MyJobsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goRatingActivity(){
+        val intent = Intent(this, RatingActivity::class.java)
         startActivity(intent)
     }
 }
