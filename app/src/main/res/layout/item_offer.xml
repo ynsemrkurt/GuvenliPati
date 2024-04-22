@@ -214,13 +214,26 @@
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="6dp"
                 android:fontFamily="@font/alata"
                 android:text="Teklif Tutarı : "
                 android:textColor="#616060"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/backerNameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/backerNameTextView" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
+                android:layout_marginStart="-60dp"
+                android:numStars="5"
+                android:progressTint="#FFE500"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                app:layout_constraintStart_toStartOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
             <TextView
                 android:id="@+id/priceTextView"
@@ -239,7 +252,7 @@
                 style="@android:style/Widget.Button"
                 android:layout_width="150dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="68dp"
                 android:background="@drawable/button_bg_signup"
                 android:elevation="10dp"

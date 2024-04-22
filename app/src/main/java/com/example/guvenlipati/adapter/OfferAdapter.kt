@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -86,6 +87,7 @@ class OfferAdapter(
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
         private val buttonGoChat = view.findViewById<ImageButton>(R.id.buttonGoChat)
         private val buttonDeleteOffer = view.findViewById<ImageButton>(R.id.buttonDeleteOffer)
+        private val ratingBar=view.findViewById<RatingBar>(R.id.ratingBar)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
