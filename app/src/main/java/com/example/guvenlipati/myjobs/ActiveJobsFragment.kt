@@ -53,6 +53,9 @@ class ActiveJobsFragment : Fragment() {
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 offerList.clear()
+                jobList.clear()
+                petList.clear()
+                userList.clear()
                 for (offerSnapshot in dataSnapshot.children) {
                     val offer = offerSnapshot.getValue(Offer::class.java) ?: continue
                     if (offer.offerBackerId == firebaseUser?.uid && !offer.offerStatus && offer.priceStatus) {
