@@ -16,15 +16,15 @@ class MyJobsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_jobs)
 
-       goPastJobFragment()
+        goActiveJobFragment()
 
         findViewById<TabLayout>(R.id.tabLayout).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
                 when (position) {
-                    0 -> goPastJobFragment()
+                    0 -> goActiveJobFragment()
 
-                    1 -> goActiveJobFragment()
+                    1 -> goPastJobFragment()
                 }
             }
 

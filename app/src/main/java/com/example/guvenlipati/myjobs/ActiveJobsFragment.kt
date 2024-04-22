@@ -5,56 +5,91 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.guvenlipati.ActiveJobAdapter
+import com.example.guvenlipati.ActiveOfferAdapter
 import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.FragmentActiveJobsBinding
+import com.example.guvenlipati.models.Backer
+import com.example.guvenlipati.models.Job
+import com.example.guvenlipati.models.Offer
+import com.example.guvenlipati.models.Pet
+import com.example.guvenlipati.models.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ActiveJobsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ActiveJobsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentActiveJobsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_active_jobs, container, false)
+    ): View {
+        binding = FragmentActiveJobsBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ActiveJobsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ActiveJobsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val activeAdvertRecycleView = binding.activeJobRecycleView
+        activeAdvertRecycleView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+        val jobList = ArrayList<Job>()
+        val petList = ArrayList<Pet>()
+        val userList = ArrayList<User>()
+        val offerList = ArrayList<Offer>()
+
+        val adapter = ActiveJobAdapter(requireContext(), jobList, petList, userList, offerList)
+        activeAdvertRecycleView.adapter = adapter
+
+        FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                offerList.clear()
+                for (offerSnapshot in dataSnapshot.children) {
+                    val offer = offerSnapshot.getValue(Offer::class.java) ?: continue
+                    if (offer.offerBackerId == firebaseUser?.uid && !offer.offerStatus && offer.priceStatus) {
+                        offerList.add(offer)
+                        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId).addListenerForSingleValueEvent(object :
+                            ValueEventListener {
+                            override fun onDataChange(jobSnapshot: DataSnapshot) {
+                                jobSnapshot.getValue(Job::class.java)?.let { job ->
+                                    jobList.add(job)
+                                    FirebaseDatabase.getInstance().getReference("pets").child(job.petID).addListenerForSingleValueEvent(object :
+                                        ValueEventListener {
+                                        override fun onDataChange(petSnapshot: DataSnapshot) {
+                                            petSnapshot.getValue(Pet::class.java)?.let { pet ->
+                                                petList.add(pet)
+                                                FirebaseDatabase.getInstance().getReference("users").child(offer.offerUser).addListenerForSingleValueEvent(object :
+                                                    ValueEventListener {
+                                                    override fun onDataChange(userSnapshot: DataSnapshot) {
+                                                        userSnapshot.getValue(User::class.java)?.let { user ->
+                                                            userList.add(user)
+                                                            adapter.notifyDataSetChanged()
+                                                        }
+                                                    }
+                                                    override fun onCancelled(error: DatabaseError) {}
+                                                })
+                                            }
+                                        }
+                                        override fun onCancelled(error: DatabaseError) {}
+                                    })
+                                }
+                            }
+                            override fun onCancelled(error: DatabaseError) {}
+                        })
+                    }
                 }
             }
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
     }
 }
