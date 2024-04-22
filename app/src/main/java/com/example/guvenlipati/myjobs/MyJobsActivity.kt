@@ -22,9 +22,9 @@ class MyJobsActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
                 when (position) {
-                    0 -> goPastJobFragment()
+                    0 -> goActiveJobFragment()
 
-                    1 -> goActiveJobFragment()
+                    1 -> goPastJobFragment()
                 }
             }
 

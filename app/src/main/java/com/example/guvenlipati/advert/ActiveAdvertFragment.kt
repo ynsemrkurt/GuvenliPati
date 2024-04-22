@@ -93,7 +93,6 @@ class ActiveAdvertFragment : Fragment() {
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
-                // Log error or show error message
             }
         })
     }
