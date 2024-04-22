@@ -52,6 +52,10 @@ class ActiveAdvertFragment : Fragment() {
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 offerList.clear()
+                jobList.clear()
+                petList.clear()
+                userList.clear()
+                backerList.clear()
                 for (offerSnapshot in dataSnapshot.children) {
                     val offer = offerSnapshot.getValue(Offer::class.java) ?: continue
                     if (offer.offerUser == firebaseUser?.uid && !offer.offerStatus && offer.priceStatus) {
