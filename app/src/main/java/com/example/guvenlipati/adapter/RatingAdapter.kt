@@ -121,7 +121,7 @@ class RatingAdapter(
                         Toast.makeText(context, "Lütfen bir puan verin", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
                     }
-                    if (commentEditText.text.toString().trim().isNotEmpty()) {
+                    if (commentEditText.text.toString().trim().isEmpty()) {
                         Toast.makeText(context, "Lütfen bir yorum girin", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
                     }
