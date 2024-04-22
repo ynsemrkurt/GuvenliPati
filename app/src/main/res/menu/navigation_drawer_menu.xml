@@ -14,7 +14,7 @@
     <item
         android:id="@+id/rating"
         android:title="Değerlendirme"
-        android:icon="@drawable/home_ico" />
+        android:icon="@drawable/rating_ico" />
 
     <item
         android:id="@+id/settings"
