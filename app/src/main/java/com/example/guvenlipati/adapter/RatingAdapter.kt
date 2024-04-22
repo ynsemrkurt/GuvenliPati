@@ -41,7 +41,7 @@ class RatingAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_offer, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_rating_job, parent, false)
 
 
         return ViewHolder(view)
@@ -57,17 +57,6 @@ class RatingAdapter(
                 backerList[position]
             )
         }
-
-        holder.itemView.findViewById<Button>(R.id.payButton).setOnClickListener {
-            val offer = offerList[position]
-            val job = jobList[position]
-            val intent = Intent(context, PaymentActivity::class.java)
-            intent.putExtra("offerId", offer.offerId)
-            intent.putExtra("jobId", job.jobId)
-            intent.putExtra("paymentAmount", offer.offerPrice)
-            context.startActivity(intent)
-        }
-
     }
 
     override fun getItemCount(): Int = offerList.size
@@ -84,8 +73,7 @@ class RatingAdapter(
             view.findViewById<ImageView>(R.id.backerPhotoImageView)
         private val backerNameTextView = view.findViewById<TextView>(R.id.backerNameTextView)
         private val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
-        private val buttonGoChat = view.findViewById<ImageButton>(R.id.buttonGoChat)
-        private val buttonDeleteOffer = view.findViewById<ImageButton>(R.id.buttonDeleteOffer)
+        private val buttonRate = view.findViewById<ImageButton>(R.id.rateButton)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -111,11 +99,6 @@ class RatingAdapter(
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(backerPhotoImageView)
 
-            buttonGoChat.setOnClickListener {
-                val intent = Intent(context, ChatActivity::class.java)
-                intent.putExtra("userId", user.userId)
-                context.startActivity(intent)
-            }
 
             backerPhotoImageView.setOnClickListener {
                 val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
@@ -169,44 +152,6 @@ class RatingAdapter(
                 val dialog = builder.create()
                 dialog.show()
             }
-
-            buttonDeleteOffer.setOnClickListener {
-                MaterialAlertDialogBuilder(context)
-                    .setTitle("Emin Misiniz?")
-                    .setMessage("Teklifi silerseniz tekrar geri alamazsınız.")
-                    .setBackground(
-                        ContextCompat.getDrawable(
-                            context,
-                            R.drawable.background_dialog
-                        )
-                    )
-                    .setPositiveButton("Sil") { _, _ ->
-                        deleteOffer(position)
-                    }
-                    .setNegativeButton("İptal") { _, _ ->
-                        showToast("Silme işlemi iptal edildi.")
-                    }
-                    .show()
-            }
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun deleteOffer(position: Int) {
-        val offer = offerList[position]
-        val databaseReference =
-            FirebaseDatabase.getInstance().getReference("offers").child(offer.offerId)
-        databaseReference.removeValue()
-            .addOnSuccessListener {
-                showToast("Teklif silme işlemi başarılı.")
-                offerList.removeAt(position)
-                notifyItemRemoved(position)
-            }
-            .addOnFailureListener { exception ->
-                showToast("Teklif silme işlemi başarısız: ${exception.message}")
-            }
     }
 }
