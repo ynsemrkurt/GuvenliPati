@@ -67,7 +67,7 @@ class PastJobFragment : Fragment() {
                                         override fun onDataChange(petSnapshot: DataSnapshot) {
                                             petSnapshot.getValue(Pet::class.java)?.let { pet ->
                                                 petList.add(pet)
-                                                FirebaseDatabase.getInstance().getReference("users").child(offer.offerBackerId).addListenerForSingleValueEvent(object :
+                                                FirebaseDatabase.getInstance().getReference("users").child(offer.offerUser).addListenerForSingleValueEvent(object :
                                                     ValueEventListener {
                                                     override fun onDataChange(userSnapshot: DataSnapshot) {
                                                         userSnapshot.getValue(User::class.java)?.let { user ->
