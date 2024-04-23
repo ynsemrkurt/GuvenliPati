@@ -104,7 +104,6 @@ class OfferAdapter(
             backerNameTextView.text = user.userName + " " + user.userSurname
             priceTextView.text = offer.offerPrice.toString() + " TL"
             ratingBar.rating=rating.toFloat()
-            showToast(rating.toString())
 
             Glide.with(context)
                 .load(pet.petPhoto)
@@ -131,7 +130,6 @@ class OfferAdapter(
 
                 val petPhotoImageView = view2.findViewById<ImageView>(R.id.petPhotoImageView)
                 val backerNameTextView = view2.findViewById<TextView>(R.id.backerNameTextView)
-                val textViewAge = view2.findViewById<TextView>(R.id.textViewAge)
                 val petGenderTextView = view2.findViewById<TextView>(R.id.petGenderTextView)
                 val backerLocationTextView =
                     view2.findViewById<TextView>(R.id.backerLocationTextView)
