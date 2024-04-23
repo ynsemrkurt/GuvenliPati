@@ -89,6 +89,8 @@
     <string name="advice">ⓘ Profilini daha güvenilir şekilde düzenlemeyi unutma!</string>
     <string name="mainPage">Anasayfa</string>
     <string name="info2">🎊Yeni Dostunuz Eklendi🎊</string>
+    <string name="info10">🎊Ödeme Başarıyla Gerçekleşti🎊</string>
+    <string name="info11">🎊Değerlendirmeniz İçin Teşekkürler🎊</string>
     <string name="backToMain">Anasayfaya Dön</string>
     <string name="settings">Ayarlar</string>
     <string name="logout">Çıkış Yap</string>
