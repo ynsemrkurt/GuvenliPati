@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.chat.ChatActivity
+import com.example.guvenlipati.myjobs.MyJobsActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlin.random.Random
@@ -47,6 +48,7 @@ class FirebaseService : FirebaseMessagingService() {
         val intentMessage = Intent(this, ChatActivity::class.java)
         intentMessage.putExtra("userId", newToken.data["userId"])
         val intentAdvert = Intent(this, AdvertActivity::class.java)
+        val intentMyJob=Intent(this,MyJobsActivity::class.java)
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationId = Random.nextInt()
 
@@ -62,8 +64,16 @@ class FirebaseService : FirebaseMessagingService() {
             FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        intentMyJob.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val myJobIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intentMyJob,
+            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
+
         intentAdvert.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent2 = PendingIntent.getActivity(
+        val advertIntent = PendingIntent.getActivity(
             this,
             0,
             intentAdvert,
@@ -115,7 +125,7 @@ class FirebaseService : FirebaseMessagingService() {
                                 .setSmallIcon(R.drawable.baseline_notifications_24)
                                 .setLargeIcon(resource)
                                 .setAutoCancel(true)
-                                .setContentIntent(pendingIntent2)
+                                .setContentIntent(advertIntent)
                                 .build()
                         notificationManager.notify(notificationId, notification)
                     }
@@ -125,6 +135,33 @@ class FirebaseService : FirebaseMessagingService() {
                     }
                 })
         }
+        else if (notificationType=="2"){
+            Glide.with(this)
+                .asBitmap()
+                .load(profileImageUrl ?: R.drawable.men_image)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val notification =
+                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
+                                .setContentTitle(newToken.data["title"])
+                                .setContentText(newToken.data["message"])
+                                .setSmallIcon(R.drawable.baseline_notifications_24)
+                                .setLargeIcon(resource)
+                                .setAutoCancel(true)
+                                .setContentIntent(myJobIntent)
+                                .build()
+                        notificationManager.notify(notificationId, notification)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+                })
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

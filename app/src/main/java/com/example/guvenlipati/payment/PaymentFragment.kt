@@ -12,19 +12,28 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.guvenlipati.R
+import com.example.guvenlipati.RetrofitInstance
 import com.example.guvenlipati.databinding.FragmentPaymentBinding
 import com.example.guvenlipati.home.HomeActivity
+import com.example.guvenlipati.models.Notification
 import com.example.guvenlipati.models.Offer
+import com.example.guvenlipati.models.PushNotification
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PaymentFragment : Fragment() {
 
     private lateinit var binding: FragmentPaymentBinding
+    private var topic = "/topics/myTopic"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -187,6 +196,8 @@ class PaymentFragment : Fragment() {
             else{
                 val offerId = activity?.intent?.getStringExtra("offerId")
                 val jobId = activity?.intent?.getStringExtra("jobId")
+                val backerId = activity?.intent?.getStringExtra("backerId")
+                val petPhoto = activity?.intent?.getStringExtra("petPhoto")
 
                 val databaseReference =
                     offerId?.let { it1 ->
@@ -207,17 +218,32 @@ class PaymentFragment : Fragment() {
                         "priceStatus" to true
                     )
                 )?.addOnSuccessListener {
+                    databaseReference2?.updateChildren(
+                        mapOf(
+                            "jobStatus" to false
+                        )
+                    )
+
+                    topic = "/topics/$backerId"
+                    PushNotification(
+                        Notification(
+                            "Teklifin Onaylandı \uD83E\uDD73",
+                            "Hemen gel ve incele...",
+                            FirebaseAuth.getInstance().currentUser?.uid.toString(),
+                            petPhoto.toString(),
+                            2
+                        ),
+                        topic
+                    ).also {
+                        sendNotification(it)
+                    }
+
                     showBottomSheet()
                 }
                     ?.addOnFailureListener {
                         showToast("ÖDEME BAŞARISIZ")
                     }
 
-                databaseReference2?.updateChildren(
-                    mapOf(
-                        "jobStatus" to false
-                    )
-                )
             }
 
         }
@@ -242,4 +268,12 @@ class PaymentFragment : Fragment() {
         dialog.show()
     }
 
+    private fun sendNotification(notification: PushNotification) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.postNotification(notification)
+            } catch (e: Exception) {
+                showToast(e.message.toString())
+            }
+        }
 }

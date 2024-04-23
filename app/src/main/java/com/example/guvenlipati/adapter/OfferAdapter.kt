@@ -64,10 +64,13 @@ class OfferAdapter(
         holder.itemView.findViewById<Button>(R.id.payButton).setOnClickListener {
             val offer = offerList[position]
             val job = jobList[position]
+            val pet = petList[position]
             val intent = Intent(context, PaymentActivity::class.java)
             intent.putExtra("offerId", offer.offerId)
             intent.putExtra("jobId", job.jobId)
             intent.putExtra("paymentAmount", offer.offerPrice)
+            intent.putExtra("backerId", offer.offerBackerId)
+            intent.putExtra("petPhoto", pet.petPhoto)
             context.startActivity(intent)
         }
 
