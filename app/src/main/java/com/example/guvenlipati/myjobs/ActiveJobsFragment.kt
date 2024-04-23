@@ -94,5 +94,12 @@ class ActiveJobsFragment : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
+        if (offerList.isNotEmpty()) {
+            binding.animationView2.visibility=View.GONE
+        }else{
+            binding.animationView2.visibility=View.VISIBLE
+        }
+        binding.loadingCardView.visibility = View.GONE
+        binding.linearLayout.foreground=null
     }
 }
