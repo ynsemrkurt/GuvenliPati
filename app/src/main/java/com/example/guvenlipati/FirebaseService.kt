@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.chat.ChatActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -44,8 +45,9 @@ class FirebaseService : FirebaseMessagingService() {
 
     override fun onMessageReceived(newToken: RemoteMessage) {
         super.onMessageReceived(newToken)
-        val intent = Intent(this, ChatActivity::class.java)
-        intent.putExtra("userId", newToken.data["userId"])
+        val intentMessage = Intent(this, ChatActivity::class.java)
+        intentMessage.putExtra("userId", newToken.data["userId"])
+        val intentAdvert = Intent(this, AdvertActivity::class.java)
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationId = Random.nextInt()
 
@@ -53,11 +55,19 @@ class FirebaseService : FirebaseMessagingService() {
             createNotificationChannel(notificationManager)
         }
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intentMessage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
-            intent,
+            intentMessage,
+            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        intentAdvert.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pendingIntent2 = PendingIntent.getActivity(
+            this,
+            0,
+            intentAdvert,
             FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )
         val profileImageUrl = newToken.data["profileImageUrl"]
@@ -71,17 +81,31 @@ class FirebaseService : FirebaseMessagingService() {
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
                     ) {
-                        val notification =
-                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
-                                .setContentTitle(newToken.data["title"])
-                                .setContentText(newToken.data["message"])
-                                .setSmallIcon(R.drawable.baseline_notifications_24)
-                                .setLargeIcon(resource)
-                                .setAutoCancel(true)
-                                .setContentIntent(pendingIntent)
-                                .build()
+                        if (newToken.data["notificationType"] == "0"){
 
-                        notificationManager.notify(notificationId, notification)
+                            val notification =
+                                NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
+                                    .setContentTitle(newToken.data["title"])
+                                    .setContentText(newToken.data["message"])
+                                    .setSmallIcon(R.drawable.baseline_notifications_24)
+                                    .setLargeIcon(resource)
+                                    .setAutoCancel(true)
+                                    .setContentIntent(pendingIntent)
+                                    .build()
+                            notificationManager.notify(notificationId, notification)
+                        }
+                        else if (newToken.data["notificationType"] == "1"){
+                            val notification =
+                                NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
+                                    .setContentTitle(newToken.data["title"])
+                                    .setContentText(newToken.data["message"])
+                                    .setSmallIcon(R.drawable.baseline_notifications_24)
+                                    .setLargeIcon(resource)
+                                    .setAutoCancel(true)
+                                    .setContentIntent(pendingIntent2)
+                                    .build()
+                            notificationManager.notify(notificationId, notification)
+                        }
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {

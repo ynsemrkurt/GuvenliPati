@@ -70,6 +70,7 @@
             android:layout_marginStart="4dp"
             android:fontFamily="@font/alata"
             android:text="4.5"
+            android:maxLength="3"
             app:layout_constraintBottom_toBottomOf="@+id/ratingButton"
             app:layout_constraintStart_toEndOf="@+id/ratingButton"
             app:layout_constraintTop_toTopOf="@+id/ratingButton" />

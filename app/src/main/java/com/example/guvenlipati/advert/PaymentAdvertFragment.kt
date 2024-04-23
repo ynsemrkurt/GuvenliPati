@@ -29,8 +29,7 @@ import java.util.Locale
 class PaymentAdvertFragment : Fragment() {
 
     lateinit var binding: FragmentPaymentAdvertBinding
-    var totalRating = 0.0
-    var sayac= 0
+    val ratingList= mutableListOf<Double>()
     var ratingPoint:Double=0.0
 
     override fun onCreateView(
@@ -54,7 +53,7 @@ class PaymentAdvertFragment : Fragment() {
         val offerList = ArrayList<Offer>()
         val backerList = ArrayList<Backer>()
 
-        val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList, ratingPoint)
+        val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList, ratingList)
         paymentAdvertRecyclerView.adapter = adapter
 
         FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
@@ -140,16 +139,15 @@ class PaymentAdvertFragment : Fragment() {
                     }
                 }
 
-                if (sayac > 0) {  // Sıfıra bölme hatasını önle
+                if (sayac > 0) {
                     ratingPoint = totalRating / sayac
                 } else {
                     ratingPoint = 0.0
                 }
 
-                adapter.rating = ratingPoint  // Adapter'a yeni puanı ata
-                adapter.notifyDataSetChanged()    // Adapter'ı güncelle
+                ratingList.add(ratingPoint)
+                adapter.notifyDataSetChanged()
 
-                // UI güncellemeleri
                 binding.loadingCardView.visibility = View.GONE
                 binding.paymentRecyclerView.foreground = null
             }
