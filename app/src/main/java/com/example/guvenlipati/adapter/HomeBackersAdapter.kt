@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,8 @@ import java.time.LocalDateTime
 class HomeBackersAdapter(
     private val context: Context,
     private val selectBackerList: ArrayList<Backer>,
-    private val selectUserList: ArrayList<User>
+    private val selectUserList: ArrayList<User>,
+    private var ratingList: List<Double>
 ) :
     RecyclerView.Adapter<HomeBackersAdapter.ViewHolder>() {
 
@@ -41,8 +43,9 @@ class HomeBackersAdapter(
         holder.backerCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
         val backer = selectBackerList[position]
         val user = selectUserList.find { it.userId == backer.userID }
+        val rating=ratingList[position]
         if (user != null) {
-            holder.bind(backer, user, position)
+            holder.bind(backer, user, position, rating)
         } else {
             Toast.makeText(context, "Kullanıcı bulunamadı", Toast.LENGTH_SHORT).show()
         }
@@ -56,7 +59,8 @@ class HomeBackersAdapter(
         private val backerName: TextView = view.findViewById(R.id.backerName)
         private val backerLocation: TextView = view.findViewById(R.id.backerLocation)
 
-        fun bind(backer: Backer, user: User, position: Int) {
+
+        fun bind(backer: Backer, user: User, position: Int, rating: Double) {
 
             if (user.userPhoto.isNotEmpty()) {
                 Glide.with(context)
@@ -77,7 +81,6 @@ class HomeBackersAdapter(
 
                 val petPhotoImageView = view2.findViewById<ImageView>(R.id.petPhotoImageView)
                 val backerNameTextView = view2.findViewById<TextView>(R.id.backerNameTextView)
-                val textViewAge = view2.findViewById<TextView>(R.id.textViewAge)
                 val petGenderTextView = view2.findViewById<TextView>(R.id.petGenderTextView)
                 val backerLocationTextView =
                     view2.findViewById<TextView>(R.id.backerLocationTextView)
@@ -86,6 +89,8 @@ class HomeBackersAdapter(
                     view2.findViewById<TextView>(R.id.backerExperienceTextView)
                 val backerAboutTextView = view2.findViewById<TextView>(R.id.backerAboutTextView)
                 val infoButton = view2.findViewById<ImageButton>(R.id.infoButton)
+                val totalRateTextView= view2.findViewById<TextView>(R.id.totalRateTextView)
+
 
                 if (user.userPhoto.isNotEmpty()) {
                     Glide.with(context)
@@ -94,8 +99,6 @@ class HomeBackersAdapter(
                 }
 
                 backerNameTextView.text = user.userName
-                val currentYear = LocalDateTime.now().year
-                textViewAge.text = (currentYear - backer.backerBirthYear.toInt()).toString()+" Yaşında"
                 when (user.userGender) {
                     true -> {
                         petGenderTextView.text = "Kadın"
@@ -109,6 +112,8 @@ class HomeBackersAdapter(
                 petNumberTextView.text = backer.petNumber
                 backerExperienceTextView.text = backer.experience
                 backerAboutTextView.text = backer.about
+                totalRateTextView.text=rating.toString()
+
 
                 infoButton.setOnClickListener {
                     val intent = Intent(context, ProfileActivity::class.java)

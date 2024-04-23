@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guvenlipati.ActiveOfferAdapter
 import com.example.guvenlipati.OfferAdapter
 import com.example.guvenlipati.databinding.FragmentPaymentAdvertBinding
 import com.example.guvenlipati.models.Backer
