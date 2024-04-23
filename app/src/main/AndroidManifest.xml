@@ -15,6 +15,9 @@
         android:theme="@style/Theme.GuvenliPati"
         tools:targetApi="31">
         <activity
+            android:name=".home.ListRatingActivity"
+            android:exported="false" />
+        <activity
             android:name=".myjobs.RatingActivity"
             android:exported="false" />
         <activity
