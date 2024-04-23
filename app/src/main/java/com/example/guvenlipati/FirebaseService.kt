@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.chat.ChatActivity
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlin.random.Random
@@ -72,50 +71,12 @@ class FirebaseService : FirebaseMessagingService() {
         )
         val profileImageUrl = newToken.data["profileImageUrl"]
 
-        if (profileImageUrl.isNullOrEmpty()) {
+        val notificationType = newToken.data["notificationType"]
+
+        if (notificationType == "0" || notificationType == null) {
             Glide.with(this)
                 .asBitmap()
-                .load(R.drawable.men_image)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        if (newToken.data["notificationType"] == "0"){
-
-                            val notification =
-                                NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
-                                    .setContentTitle(newToken.data["title"])
-                                    .setContentText(newToken.data["message"])
-                                    .setSmallIcon(R.drawable.baseline_notifications_24)
-                                    .setLargeIcon(resource)
-                                    .setAutoCancel(true)
-                                    .setContentIntent(pendingIntent)
-                                    .build()
-                            notificationManager.notify(notificationId, notification)
-                        }
-                        else if (newToken.data["notificationType"] == "1"){
-                            val notification =
-                                NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
-                                    .setContentTitle(newToken.data["title"])
-                                    .setContentText(newToken.data["message"])
-                                    .setSmallIcon(R.drawable.baseline_notifications_24)
-                                    .setLargeIcon(resource)
-                                    .setAutoCancel(true)
-                                    .setContentIntent(pendingIntent2)
-                                    .build()
-                            notificationManager.notify(notificationId, notification)
-                        }
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-
-                    }
-                })
-        } else {
-            Glide.with(this)
-                .asBitmap()
-                .load(profileImageUrl)
+                .load(profileImageUrl ?: R.drawable.men_image)
                 .into(object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(
                         resource: Bitmap,
@@ -138,8 +99,32 @@ class FirebaseService : FirebaseMessagingService() {
 
                     }
                 })
-        }
+        } else if (notificationType == "1") {
+            Glide.with(this)
+                .asBitmap()
+                .load(profileImageUrl ?: R.drawable.men_image)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val notification =
+                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
+                                .setContentTitle(newToken.data["title"])
+                                .setContentText(newToken.data["message"])
+                                .setSmallIcon(R.drawable.baseline_notifications_24)
+                                .setLargeIcon(resource)
+                                .setAutoCancel(true)
+                                .setContentIntent(pendingIntent2)
+                                .build()
+                        notificationManager.notify(notificationId, notification)
+                    }
 
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+                })
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -152,6 +137,4 @@ class FirebaseService : FirebaseMessagingService() {
         }
         notificationManager.createNotificationChannel(channel)
     }
-
-
 }
