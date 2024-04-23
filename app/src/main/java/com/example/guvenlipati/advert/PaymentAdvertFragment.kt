@@ -28,6 +28,7 @@ import java.util.Locale
 class PaymentAdvertFragment : Fragment() {
 
     lateinit var binding: FragmentPaymentAdvertBinding
+    var offerList = ArrayList<Offer>()
     val ratingList= mutableListOf<Double>()
     var ratingPoint:Double=0.0
 
@@ -49,7 +50,6 @@ class PaymentAdvertFragment : Fragment() {
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
         val userList = ArrayList<User>()
-        val offerList = ArrayList<Offer>()
         val backerList = ArrayList<Backer>()
 
         val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList, ratingList)
@@ -146,15 +146,19 @@ class PaymentAdvertFragment : Fragment() {
 
                 ratingList.add(ratingPoint)
                 adapter.notifyDataSetChanged()
-
-                binding.loadingCardView.visibility = View.GONE
-                binding.paymentRecyclerView.foreground = null
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.e("databaseProcessRating", "Database error: ${error.toException()}")
             }
         })
+        if (offerList.isNotEmpty()) {
+            binding.animationView2.visibility=View.GONE
+        }else{
+            binding.animationView2.visibility=View.VISIBLE
+        }
+        binding.loadingCardView.visibility = View.GONE
+        binding.paymentRecyclerView.foreground=null
     }
 
 }

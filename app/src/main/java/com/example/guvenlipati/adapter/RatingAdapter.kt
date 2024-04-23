@@ -2,36 +2,24 @@ package com.example.guvenlipati
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.guvenlipati.chat.ChatActivity
-import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
-import com.example.guvenlipati.myjobs.RatingActivity
-import com.example.guvenlipati.payment.PaymentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import java.time.LocalDateTime
 
 class RatingAdapter(

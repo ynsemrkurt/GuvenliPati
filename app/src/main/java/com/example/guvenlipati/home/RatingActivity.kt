@@ -1,10 +1,9 @@
-package com.example.guvenlipati.myjobs
+package com.example.guvenlipati.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guvenlipati.OfferAdapter
 import com.example.guvenlipati.R
 import com.example.guvenlipati.RatingAdapter
 import com.example.guvenlipati.databinding.ActivityRatingBinding

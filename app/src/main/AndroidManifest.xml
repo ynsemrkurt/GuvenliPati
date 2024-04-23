@@ -18,7 +18,7 @@
             android:name=".home.ListRatingActivity"
             android:exported="false" />
         <activity
-            android:name=".myjobs.RatingActivity"
+            android:name=".home.RatingActivity"
             android:exported="false" />
         <activity
             android:name=".payment.PaymentActivity"
