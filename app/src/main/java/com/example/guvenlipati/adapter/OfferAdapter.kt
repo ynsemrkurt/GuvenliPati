@@ -38,7 +38,7 @@ class OfferAdapter(
     private val userList: List<User>,
     private val offerList: ArrayList<Offer>,
     private val backerList: List<Backer>,
-    internal var rating:Double
+    internal var ratingList: List<Double>
 ) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,13 +50,14 @@ class OfferAdapter(
     }
 
     override fun onBindViewHolder(holder: OfferAdapter.ViewHolder, position: Int) {
-        if (position < jobList.size && position < petList.size && position < userList.size && position < offerList.size && position < backerList.size) {
+        if (position < jobList.size && position < petList.size && position < userList.size && position < offerList.size && position < backerList.size && position < ratingList.size) {
             holder.bind(
                 jobList[position],
                 petList[position],
                 userList[position],
                 offerList[position],
-                backerList[position]
+                backerList[position],
+                ratingList[position]
             )
         }
 
@@ -90,7 +91,7 @@ class OfferAdapter(
         private val buttonDeleteOffer = view.findViewById<ImageButton>(R.id.buttonDeleteOffer)
         private val ratingBar=view.findViewById<RatingBar>(R.id.ratingBar)
 
-        fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
+        fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer, rating: Double) {
             when (job.jobType) {
                 "feedingJob" -> jobTypeTextView.text = "Besleme"
                 "walkingJob" -> jobTypeTextView.text = "Gezdirme"
@@ -138,6 +139,7 @@ class OfferAdapter(
                     view2.findViewById<TextView>(R.id.backerExperienceTextView)
                 val backerAboutTextView = view2.findViewById<TextView>(R.id.backerAboutTextView)
                 val infoButton = view2.findViewById<ImageButton>(R.id.infoButton)
+                val totalRateTextView= view2.findViewById<TextView>(R.id.totalRateTextView)
 
                 if (user.userPhoto.isNotEmpty()) {
                     Glide.with(context)
@@ -146,9 +148,6 @@ class OfferAdapter(
                 }
 
                 backerNameTextView.text = user.userName
-                val currentYear = LocalDateTime.now().year
-                textViewAge.text =
-                    (currentYear - backer.backerBirthYear.toInt()).toString() + " Yaşında"
                 when (user.userGender) {
                     true -> {
                         petGenderTextView.text = "Kadın"
@@ -162,6 +161,7 @@ class OfferAdapter(
                 petNumberTextView.text = backer.petNumber
                 backerExperienceTextView.text = backer.experience
                 backerAboutTextView.text = backer.about
+                totalRateTextView.text=rating.toString()
 
                 infoButton.setOnClickListener {
                     val intent = Intent(context, ProfileActivity::class.java)
