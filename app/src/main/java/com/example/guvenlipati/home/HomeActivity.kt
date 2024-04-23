@@ -10,7 +10,6 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
-import com.example.guvenlipati.myjobs.RatingActivity
 import com.example.guvenlipati.myjobs.MyJobsActivity
 import com.example.guvenlipati.splash.SplashActivity
 import com.google.firebase.auth.FirebaseAuth
