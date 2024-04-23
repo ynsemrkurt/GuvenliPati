@@ -38,7 +38,7 @@ class OfferAdapter(
     private val userList: List<User>,
     private val offerList: ArrayList<Offer>,
     private val backerList: List<Backer>,
-    private val rating:Double
+    internal var rating:Double
 ) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -130,7 +130,6 @@ class OfferAdapter(
 
                 val petPhotoImageView = view2.findViewById<ImageView>(R.id.petPhotoImageView)
                 val backerNameTextView = view2.findViewById<TextView>(R.id.backerNameTextView)
-                val textViewAge = view2.findViewById<TextView>(R.id.textViewAge)
                 val petGenderTextView = view2.findViewById<TextView>(R.id.petGenderTextView)
                 val backerLocationTextView =
                     view2.findViewById<TextView>(R.id.backerLocationTextView)

@@ -1,8 +1,8 @@
 package com.example.guvenlipati.models
 
 data class Rating(
-    val comment: String,
-    val date: String,
-    val rating: Float,
-    val userID: String
+    var comment: String = "",
+    var date: String = "",
+    var rating: Double = 0.0,
+    var userID: String = ""
 )
