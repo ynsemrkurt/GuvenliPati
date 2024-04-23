@@ -40,7 +40,7 @@ class ActiveOfferAdapter(
     private val jobList: List<Job>,
     private val petList: List<Pet>,
     private val userList: List<User>,
-    private val offerList: ArrayList<Offer>,
+    private val offerList: List<Offer>,
     private val backerList: List<Backer>
 ) : RecyclerView.Adapter<ActiveOfferAdapter.ViewHolder>() {
 
