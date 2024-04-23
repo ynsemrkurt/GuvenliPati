@@ -77,11 +77,6 @@ class PendingAdvertFragment : Fragment() {
                         }
                         val adapter = AdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
-                        if (jobList.isNotEmpty()) {
-                            binding.animationView2.visibility=View.GONE
-                        }
-                        binding.loadingCardView.visibility = View.GONE
-                        binding.scrollView.foreground=null
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -96,6 +91,13 @@ class PendingAdvertFragment : Fragment() {
                 showToast("Hata!")
             }
         })
+        if (jobList.isNotEmpty()) {
+            binding.animationView2.visibility=View.GONE
+        }else{
+            binding.animationView2.visibility=View.VISIBLE
+        }
+        binding.loadingCardView.visibility = View.GONE
+        binding.scrollView.foreground=null
     }
 
     private fun showToast(message: String) {
