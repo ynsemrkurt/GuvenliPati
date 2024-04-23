@@ -24,7 +24,9 @@ import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
+import com.example.guvenlipati.myjobs.RatingActivity
 import com.example.guvenlipati.payment.PaymentActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,6 +43,16 @@ class RatingAdapter(
     private val backerList: List<Backer>
 ) : RecyclerView.Adapter<RatingAdapter.ViewHolder>() {
 
+    private fun showBottomSheet() {
+        val dialog = BottomSheetDialog(context)
+        val view = LayoutInflater.from(context).inflate(R.layout.bottomsheet_rating, null)
+        val backToMainButton = view.findViewById<Button>(R.id.backToMain)
+        backToMainButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.setContentView(view)
+        dialog.show()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_rating_job, parent, false)
@@ -135,14 +147,13 @@ class RatingAdapter(
                     hashMap["date"] = LocalDateTime.now().toString()
                     databaseReference.child(offer.offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
-                            Toast.makeText(context, "Başarıyla kaydedildi", Toast.LENGTH_SHORT)
-                                .show()
                             databaseReferenceOffer.updateChildren(
                                 mapOf(
                                     "ratingStatus" to true
                                 )
                             )
                             dialog.dismiss()
+                            showBottomSheet()
                         } else {
                             Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT)
                                 .show()

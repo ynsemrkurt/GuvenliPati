@@ -124,7 +124,8 @@ class ChatingFragment : Fragment() {
                         userData!!.userName,
                         message,
                         firebaseUser!!.uid,
-                        userData!!.userPhoto
+                        userData!!.userPhoto,
+                        0
                     ),
                     topic
                 ).also {
