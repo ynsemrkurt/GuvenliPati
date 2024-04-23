@@ -207,10 +207,7 @@ class PaymentFragment : Fragment() {
                         "priceStatus" to true
                     )
                 )?.addOnSuccessListener {
-                    showToast("ÖDEME BAŞARILI")
-                    val intent = Intent(context,HomeActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
+                    showBottomSheet()
                 }
                     ?.addOnFailureListener {
                         showToast("ÖDEME BAŞARISIZ")
@@ -235,10 +232,14 @@ class PaymentFragment : Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.bottomsheet_payment, null)
         view.findViewById<Button>(R.id.backToMain).setOnClickListener {
+            val intent = Intent(requireContext(), HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
             dialog.dismiss()
         }
         dialog.setCancelable(false)
         dialog.setContentView(view)
         dialog.show()
     }
+
 }
