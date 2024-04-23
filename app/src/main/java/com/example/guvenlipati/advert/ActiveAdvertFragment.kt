@@ -27,9 +27,6 @@ import com.google.firebase.database.ValueEventListener
 class ActiveAdvertFragment : Fragment() {
 
     lateinit var binding: com.example.guvenlipati.databinding.FragmentActiveAdvertBinding
-    var totalRating = 0.0
-    var ratingPoint = mutableListOf<Rating>()
-    var sayac= 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,7 +82,7 @@ class ActiveAdvertFragment : Fragment() {
                                             Backer::class.java
                                         ) { backer ->
                                             backerList.add(backer)
-                                            databaseProcessRating(offer.offerBackerId,adapter)
+                                            adapter.notifyDataSetChanged()
                                         }
                                     }
                                 }
@@ -110,27 +107,6 @@ class ActiveAdvertFragment : Fragment() {
                     snapshot.getValue(claSs)?.let { data ->
                         onSuccess(data)
                     }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e("databaseProcess", "Database error: ${error.toException()}")
-                }
-            })
-    }
-
-    fun databaseProcessRating(child: String,adapter: ActiveOfferAdapter) {
-        FirebaseDatabase.getInstance().getReference("rating")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.children.forEach { ratingSnapshot ->
-                        val rating = ratingSnapshot.getValue(Rating::class.java) ?: return@forEach
-                        if (rating.userID == child) {
-                            sayac++
-                            totalRating+=rating.rating
-                            totalRating
-                        }
-                    }
-                    adapter.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
