@@ -15,11 +15,14 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
+import com.example.guvenlipati.RetrofitInstance
 import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.databinding.FragmentJobDetailsBinding
 import com.example.guvenlipati.models.Job
+import com.example.guvenlipati.models.Notification
 import com.example.guvenlipati.models.Pet
+import com.example.guvenlipati.models.PushNotification
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,6 +31,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.UUID
 
@@ -41,6 +47,8 @@ class JobDetailsFragment : Fragment() {
     private lateinit var loadingCardView: CardView
     private var job: Job? = null
     private lateinit var binding: FragmentJobDetailsBinding
+    private var topic = "/topics/myTopic"
+    private var pet: Pet = Pet()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,7 +104,7 @@ class JobDetailsFragment : Fragment() {
 
                         petRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
-                                val pet = snapshot.getValue(Pet::class.java)!!
+                                pet = snapshot.getValue(Pet::class.java)!!
                                 if (pet.petPhoto.isNotEmpty()) {
                                     Glide.with(requireContext()).load(pet.petPhoto)
                                         .into(petPhotoImageView)
@@ -205,6 +213,19 @@ class JobDetailsFragment : Fragment() {
                     offerRef.child(offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             showToast("Teklif gönderildi!")
+                            topic = "/topics/${job!!.userID}"
+                            PushNotification(
+                                Notification(
+                                    "Yeni Teklifin Var \uD83E\uDD73",
+                                    "Hemen gel ve incele...",
+                                    firebaseUser.uid,
+                                    pet.petPhoto,
+                                    1
+                                ),
+                                topic
+                            ).also {
+                                sendNotification(it)
+                            }
                             dialog.dismiss()
                         } else {
                             showToast("Teklif gönderilemedi. Tekrar deneyiniz!")
@@ -222,4 +243,13 @@ class JobDetailsFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun sendNotification(notification: PushNotification) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.postNotification(notification)
+            } catch (e: Exception) {
+                showToast(e.message.toString())
+            }
+        }
 }
