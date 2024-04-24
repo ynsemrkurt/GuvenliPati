@@ -1,5 +1,7 @@
 package com.example.guvenlipati.myjobs
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -58,6 +60,8 @@ class PastJobFragment : Fragment() {
                     val offer = offerSnapshot.getValue(Offer::class.java) ?: continue
                     if (offer.offerBackerId == firebaseUser?.uid && offer.offerStatus) {
                         offerList.add(offer)
+                        binding.pastJobRecycleView.foreground=ColorDrawable(Color.parseColor("#FFFFFF"))
+                        binding.loadingCardView.visibility=View.VISIBLE
                         FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId)
                             .addListenerForSingleValueEvent(object :
                                 ValueEventListener {
@@ -86,6 +90,9 @@ class PastJobFragment : Fragment() {
                                                                             )?.let { user ->
                                                                                 userList.add(user)
                                                                                 adapter.notifyDataSetChanged()
+                                                                                binding.animationView2.visibility=View.GONE
+                                                                                binding.pastJobRecycleView.foreground=null
+                                                                                binding.loadingCardView.visibility=View.GONE
                                                                             }
                                                                         }
 
@@ -111,12 +118,5 @@ class PastJobFragment : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
-        if (offerList.isNotEmpty()) {
-            binding.animationView2.visibility=View.GONE
-        }else{
-            binding.animationView2.visibility=View.VISIBLE
-        }
-        binding.loadingCardView.visibility = View.GONE
-        binding.linearLayout.foreground=null
     }
 }
