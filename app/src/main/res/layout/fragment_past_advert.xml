@@ -51,6 +51,7 @@
         android:layout_height="200dp"
         app:cardCornerRadius="30dp"
         android:elevation="100dp"
+        android:visibility="gone"
         android:background="@color/white"
         android:layout_gravity="center">
 
@@ -76,7 +77,6 @@
     </androidx.cardview.widget.CardView>
 
     <ScrollView
-        android:foreground="@color/white"
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

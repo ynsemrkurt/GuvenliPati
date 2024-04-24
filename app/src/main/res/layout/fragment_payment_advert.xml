@@ -44,6 +44,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
         android:id="@+id/loadingCardView"
         android:layout_width="200dp"
         android:layout_height="200dp"
@@ -76,7 +77,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="@color/white"
         android:id="@+id/paymentRecyclerView"/>
 
 </FrameLayout>

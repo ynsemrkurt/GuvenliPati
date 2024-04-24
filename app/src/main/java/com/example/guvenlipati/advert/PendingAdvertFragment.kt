@@ -1,5 +1,7 @@
 package com.example.guvenlipati.advert
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 import com.example.guvenlipati.AdvertsAdapter
 import com.example.guvenlipati.JobsAdapter
 import com.example.guvenlipati.R
@@ -53,6 +56,8 @@ class PendingAdvertFragment : Fragment() {
             override fun onDataChange(petsSnapshot: DataSnapshot) {
                 petList.clear()
                 for (dataSnapshot: DataSnapshot in petsSnapshot.children) {
+                    binding.scrollView.foreground=ColorDrawable(Color.parseColor("#FFFFFFFF"))
+                    binding.loadingCardView.visibility=View.VISIBLE
                     val pet = dataSnapshot.getValue(Pet::class.java)
                     if (pet?.userId == FirebaseAuth.getInstance().currentUser?.uid) {
                         pet?.let {
@@ -71,12 +76,15 @@ class PendingAdvertFragment : Fragment() {
                                 if (job?.userID == FirebaseAuth.getInstance().currentUser?.uid && !startDate.before(currentDate) && job!!.jobStatus) {
                                     job.let {
                                         jobList.add(it)
+                                        binding.animationView2.visibility=View.GONE
                                     }
                                 }
                             }
                         }
                         val adapter = AdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
+                        binding.scrollView.foreground=null
+                        binding.loadingCardView.visibility=View.GONE
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -91,13 +99,6 @@ class PendingAdvertFragment : Fragment() {
                 showToast("Hata!")
             }
         })
-        if (jobList.isNotEmpty()) {
-            binding.animationView2.visibility=View.GONE
-        }else{
-            binding.animationView2.visibility=View.VISIBLE
-        }
-        binding.loadingCardView.visibility = View.GONE
-        binding.scrollView.foreground=null
     }
 
     private fun showToast(message: String) {

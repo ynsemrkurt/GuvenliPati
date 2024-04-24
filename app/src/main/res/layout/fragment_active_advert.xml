@@ -49,6 +49,7 @@
         android:id="@+id/loadingCardView"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:visibility="gone"
         app:cardCornerRadius="30dp"
         android:elevation="100dp"
         android:background="@color/white"

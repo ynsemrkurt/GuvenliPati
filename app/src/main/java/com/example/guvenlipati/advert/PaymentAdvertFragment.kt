@@ -1,5 +1,7 @@
 package com.example.guvenlipati.advert
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -29,8 +31,8 @@ class PaymentAdvertFragment : Fragment() {
 
     lateinit var binding: FragmentPaymentAdvertBinding
     var offerList = ArrayList<Offer>()
-    val ratingList= mutableListOf<Double>()
-    var ratingPoint:Double=0.0
+    val ratingList = mutableListOf<Double>()
+    var ratingPoint: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,14 +47,23 @@ class PaymentAdvertFragment : Fragment() {
 
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val paymentAdvertRecyclerView = binding.paymentRecyclerView
-        paymentAdvertRecyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        paymentAdvertRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
         val userList = ArrayList<User>()
         val backerList = ArrayList<Backer>()
 
-        val adapter = OfferAdapter(requireContext(), jobList, petList, userList, offerList, backerList, ratingList)
+        val adapter = OfferAdapter(
+            requireContext(),
+            jobList,
+            petList,
+            userList,
+            offerList,
+            backerList,
+            ratingList
+        )
         paymentAdvertRecyclerView.adapter = adapter
 
         FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
@@ -65,45 +76,83 @@ class PaymentAdvertFragment : Fragment() {
                 backerList.clear()
                 for (offerSnapshot in dataSnapshot.children) {
                     val offer = offerSnapshot.getValue(Offer::class.java)
-                    if (offer != null && offer.offerUser == firebaseUser?.uid && isOfferWithinLast7Days(offer.offerDate) && !offer.offerStatus && !offer.priceStatus) {
+                    if (offer != null && offer.offerUser == firebaseUser?.uid && isOfferWithinLast7Days(
+                            offer.offerDate
+                        ) && !offer.offerStatus && !offer.priceStatus
+                    ) {
                         offerList.add(offer)
-                        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId).addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(jobSnapshot: DataSnapshot) {
-                                val job = jobSnapshot.getValue(Job::class.java)
-                                job?.let {
-                                    jobList.add(it)
-                                    FirebaseDatabase.getInstance().getReference("pets").child(job.petID).addValueEventListener(object : ValueEventListener {
-                                        override fun onDataChange(petSnapshot: DataSnapshot) {
-                                            val pet = petSnapshot.getValue(Pet::class.java)
-                                            pet?.let {
-                                                petList.add(it)
-                                                FirebaseDatabase.getInstance().getReference("users").child(offer.offerBackerId).addValueEventListener(object : ValueEventListener {
-                                                    override fun onDataChange(userSnapshot: DataSnapshot) {
-                                                        val user = userSnapshot.getValue(User::class.java)
-                                                        user?.let {
-                                                            userList.add(it)
-                                                            FirebaseDatabase.getInstance().getReference("identifies").child(offer.offerBackerId).addValueEventListener(object : ValueEventListener {
-                                                                override fun onDataChange(backerSnapshot: DataSnapshot) {
-                                                                    val backer = backerSnapshot.getValue(Backer::class.java)
-                                                                    backer?.let {
-                                                                        backerList.add(it)
-                                                                        databaseProcessRating(offer.offerBackerId,adapter)
+                        binding.paymentRecyclerView.foreground =
+                            ColorDrawable(Color.parseColor("#FFFFFF"))
+                        binding.loadingCardView.visibility = View.VISIBLE
+                        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId)
+                            .addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(jobSnapshot: DataSnapshot) {
+                                    val job = jobSnapshot.getValue(Job::class.java)
+                                    job?.let {
+                                        jobList.add(it)
+                                        FirebaseDatabase.getInstance().getReference("pets")
+                                            .child(job.petID)
+                                            .addValueEventListener(object : ValueEventListener {
+                                                override fun onDataChange(petSnapshot: DataSnapshot) {
+                                                    val pet = petSnapshot.getValue(Pet::class.java)
+                                                    pet?.let {
+                                                        petList.add(it)
+                                                        FirebaseDatabase.getInstance()
+                                                            .getReference("users")
+                                                            .child(offer.offerBackerId)
+                                                            .addValueEventListener(object :
+                                                                ValueEventListener {
+                                                                override fun onDataChange(
+                                                                    userSnapshot: DataSnapshot
+                                                                ) {
+                                                                    val user =
+                                                                        userSnapshot.getValue(User::class.java)
+                                                                    user?.let {
+                                                                        userList.add(it)
+                                                                        FirebaseDatabase.getInstance()
+                                                                            .getReference("identifies")
+                                                                            .child(offer.offerBackerId)
+                                                                            .addValueEventListener(
+                                                                                object :
+                                                                                    ValueEventListener {
+                                                                                    override fun onDataChange(
+                                                                                        backerSnapshot: DataSnapshot
+                                                                                    ) {
+                                                                                        val backer =
+                                                                                            backerSnapshot.getValue(
+                                                                                                Backer::class.java
+                                                                                            )
+                                                                                        backer?.let {
+                                                                                            backerList.add(
+                                                                                                it
+                                                                                            )
+                                                                                            databaseProcessRating(
+                                                                                                offer.offerBackerId,
+                                                                                                adapter
+                                                                                            )
+                                                                                        }
+                                                                                    }
+
+                                                                                    override fun onCancelled(
+                                                                                        error: DatabaseError
+                                                                                    ) {
+                                                                                    }
+                                                                                })
                                                                     }
                                                                 }
+
                                                                 override fun onCancelled(error: DatabaseError) {}
                                                             })
-                                                        }
                                                     }
-                                                    override fun onCancelled(error: DatabaseError) {}
-                                                })
-                                            }
-                                        }
-                                        override fun onCancelled(error: DatabaseError) {}
-                                    })
+                                                }
+
+                                                override fun onCancelled(error: DatabaseError) {}
+                                            })
+                                    }
                                 }
-                            }
-                            override fun onCancelled(error: DatabaseError) {}
-                        })
+
+                                override fun onCancelled(error: DatabaseError) {}
+                            })
                     }
                 }
             }
@@ -123,42 +172,38 @@ class PaymentAdvertFragment : Fragment() {
     }
 
 
-
     fun databaseProcessRating(child: String, adapter: OfferAdapter) {
-        FirebaseDatabase.getInstance().getReference("ratings").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var totalRating = 0.0  // Yerel değişken olarak tanımla
-                var sayac = 0          // Yerel değişken olarak tanımla
+        FirebaseDatabase.getInstance().getReference("ratings")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var totalRating = 0.0  // Yerel değişken olarak tanımla
+                    var sayac = 0          // Yerel değişken olarak tanımla
 
-                snapshot.children.forEach { ratingSnapshot ->
-                    val rating = ratingSnapshot.getValue(Rating::class.java) ?: return@forEach
-                    if (rating.userID == child) {
-                        sayac++
-                        totalRating += rating.rating
+                    snapshot.children.forEach { ratingSnapshot ->
+                        val rating = ratingSnapshot.getValue(Rating::class.java) ?: return@forEach
+                        if (rating.userID == child) {
+                            sayac++
+                            totalRating += rating.rating
+                        }
                     }
+
+                    if (sayac > 0) {
+                        ratingPoint = totalRating / sayac
+                    } else {
+                        ratingPoint = 0.0
+                    }
+
+                    ratingList.add(ratingPoint)
+                    adapter.notifyDataSetChanged()
+                    binding.animationView2.visibility = View.GONE
+                    binding.loadingCardView.visibility = View.GONE
+                    binding.paymentRecyclerView.foreground = null
                 }
 
-                if (sayac > 0) {
-                    ratingPoint = totalRating / sayac
-                } else {
-                    ratingPoint = 0.0
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("databaseProcessRating", "Database error: ${error.toException()}")
                 }
-
-                ratingList.add(ratingPoint)
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("databaseProcessRating", "Database error: ${error.toException()}")
-            }
-        })
-        if (offerList.isNotEmpty()) {
-            binding.animationView2.visibility=View.GONE
-        }else{
-            binding.animationView2.visibility=View.VISIBLE
-        }
-        binding.loadingCardView.visibility = View.GONE
-        binding.paymentRecyclerView.foreground=null
+            })
     }
 
 }

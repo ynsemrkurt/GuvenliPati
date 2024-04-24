@@ -1,5 +1,7 @@
 package com.example.guvenlipati.advert
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,6 +55,8 @@ class PastAdvertFragment : Fragment() {
         databaseReferencePets.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(petsSnapshot: DataSnapshot) {
                 petList.clear()
+                binding.loadingCardView.visibility = View.VISIBLE
+                binding.scrollView.foreground = ColorDrawable(Color.parseColor("#FFFFFFFF"))
                 for (dataSnapshot: DataSnapshot in petsSnapshot.children) {
                     val pet = dataSnapshot.getValue(Pet::class.java)
                     if (pet?.userId == FirebaseAuth.getInstance().currentUser?.uid) {
@@ -70,6 +74,7 @@ class PastAdvertFragment : Fragment() {
                             val startDate = SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
                             if (startDate != null) {
                                 if (job?.userID == FirebaseAuth.getInstance().currentUser?.uid && (startDate.before(currentDate) || job?.jobStatus==false)) {
+                                    binding.animationView2.visibility=View.GONE
                                     job?.let {
                                         jobList.add(it)
                                     }
@@ -78,6 +83,8 @@ class PastAdvertFragment : Fragment() {
                         }
                         val adapter = PastAdvertsAdapter(requireContext(),jobList, petList)
                         pastAdvertRecycleView.adapter = adapter
+                        binding.loadingCardView.visibility = View.GONE
+                        binding.scrollView.foreground=null
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -92,13 +99,6 @@ class PastAdvertFragment : Fragment() {
                 showToast("Hata!")
             }
         })
-        if (jobList.isNotEmpty()) {
-            binding.animationView2.visibility = View.GONE
-        }else{
-            binding.animationView2.visibility=View.VISIBLE
-        }
-        binding.loadingCardView.visibility = View.GONE
-        binding.scrollView.foreground=null
     }
 
     private fun showToast(message: String) {
