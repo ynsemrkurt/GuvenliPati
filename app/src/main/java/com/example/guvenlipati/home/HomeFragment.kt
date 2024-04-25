@@ -148,7 +148,7 @@ class HomeFragment : Fragment() {
 
                                         snapshot.children.forEach { ratingSnapshot ->
                                             val rating = ratingSnapshot.getValue(Rating::class.java) ?: return@forEach
-                                            if (rating.userID == backer!!.userID) {
+                                            if (rating.backerId == backer!!.userID) {
                                                 sayac++
                                                 totalRating += rating.rating
                                             }

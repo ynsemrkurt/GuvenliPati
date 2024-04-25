@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.chat.ProfileActivity
+import com.example.guvenlipati.home.ListRatingActivity
+import com.example.guvenlipati.home.RatingActivity
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
@@ -89,6 +91,7 @@ class HomeBackersAdapter(
                     view2.findViewById<TextView>(R.id.backerExperienceTextView)
                 val backerAboutTextView = view2.findViewById<TextView>(R.id.backerAboutTextView)
                 val infoButton = view2.findViewById<ImageButton>(R.id.infoButton)
+                val ratingButton = view2.findViewById<ImageButton>(R.id.ratingButton)
                 val totalRateTextView= view2.findViewById<TextView>(R.id.totalRateTextView)
 
 
@@ -118,6 +121,12 @@ class HomeBackersAdapter(
                 infoButton.setOnClickListener {
                     val intent = Intent(context, ProfileActivity::class.java)
                     intent.putExtra("userId", backer.userID)
+                    context.startActivity(intent)
+                }
+
+                ratingButton.setOnClickListener{
+                    val intent = Intent(context, ListRatingActivity::class.java)
+                    intent.putExtra("userId", user.userId)
                     context.startActivity(intent)
                 }
 

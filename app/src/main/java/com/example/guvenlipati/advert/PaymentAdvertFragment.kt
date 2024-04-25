@@ -181,7 +181,7 @@ class PaymentAdvertFragment : Fragment() {
 
                     snapshot.children.forEach { ratingSnapshot ->
                         val rating = ratingSnapshot.getValue(Rating::class.java) ?: return@forEach
-                        if (rating.userID == child) {
+                        if (rating.backerId == child) {
                             sayac++
                             totalRating += rating.rating
                         }

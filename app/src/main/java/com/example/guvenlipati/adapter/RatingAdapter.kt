@@ -19,6 +19,7 @@ import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.time.LocalDateTime
 
@@ -131,7 +132,8 @@ class RatingAdapter(
                     val hashMap = HashMap<String, Any>()
                     hashMap["rating"] = ratingBar.rating
                     hashMap["comment"] = commentEditText.text.toString()
-                    hashMap["userID"] = offer.offerBackerId
+                    hashMap["backerId"] = offer.offerBackerId
+                    hashMap["userId"] = FirebaseAuth.getInstance().currentUser!!.uid
                     hashMap["date"] = LocalDateTime.now().toString()
                     databaseReference.child(offer.offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
