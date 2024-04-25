@@ -3,6 +3,7 @@ package com.example.guvenlipati.home
 import JobCreateFragment
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -11,6 +12,7 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.addPet.RegisterPetActivity
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
+import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.myjobs.MyJobsActivity
 import com.example.guvenlipati.splash.SplashActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -42,14 +44,18 @@ class HomeActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout -> {
-                        FirebaseMessaging.getInstance().deleteToken()
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    logout()
-                                } else {
-                                    Toast.makeText(this, "Token silinirken bir hata oluştu.", Toast.LENGTH_SHORT).show()
-                                }
+                    FirebaseMessaging.getInstance().deleteToken()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                logout()
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Token silinirken bir hata oluştu.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
+                        }
                     true
                 }
 
@@ -103,6 +109,7 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
 
 
@@ -122,13 +129,15 @@ class HomeActivity : AppCompatActivity() {
             )
             .commit()
     }
-    fun goJobCreateFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragmentContainerView2, JobCreateFragment()
-            )
-            .commit()
+
+    fun goSelectAddPetFragment() {
+        binding.bottomNavigation.selectedItemId = R.id.menu_add_friend
     }
+
+    fun goJobCreateActivity() {
+        startActivity(Intent(this, JobsActivity::class.java))
+    }
+
 
     fun goRegisterPetActivity(petType: String) {
         val intent = Intent(this, RegisterPetActivity::class.java)
@@ -176,12 +185,13 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, AdvertActivity::class.java)
         startActivity(intent)
     }
+
     private fun goMyJobsActivity() {
         val intent = Intent(this, MyJobsActivity::class.java)
         startActivity(intent)
     }
 
-    private fun goRatingActivity(){
+    private fun goRatingActivity() {
         val intent = Intent(this, RatingActivity::class.java)
         startActivity(intent)
     }
