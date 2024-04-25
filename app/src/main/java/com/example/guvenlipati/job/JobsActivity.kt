@@ -1,18 +1,27 @@
 package com.example.guvenlipati.job
 
+import JobCreateFragment
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.guvenlipati.R
+import com.example.guvenlipati.home.HomeActivity
+import com.example.guvenlipati.home.ProfileFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class JobsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_find_job)
+        setContentView(R.layout.activity_job)
+
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView, JobCreateFragment()
+            )
+            .commit()
 
         val backToHome = findViewById<ImageButton>(R.id.backToHome)
 
