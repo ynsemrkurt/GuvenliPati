@@ -1,5 +1,6 @@
 package com.example.guvenlipati.home
 
+import JobCreateFragment
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -105,7 +106,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun goAddPetFragment() {
+    fun goAddPetFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, AddPetFragment()
@@ -118,6 +119,13 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainerView2, HomeFragment()
+            )
+            .commit()
+    }
+    fun goJobCreateFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragmentContainerView2, JobCreateFragment()
             )
             .commit()
     }

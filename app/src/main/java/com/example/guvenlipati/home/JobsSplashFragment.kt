@@ -1,7 +1,9 @@
 package com.example.guvenlipati.home
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.job.GetJobActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentJobsSplashBinding
+import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -24,8 +27,10 @@ import com.google.firebase.database.ValueEventListener
 class JobsSplashFragment : Fragment() {
 
     private lateinit var user: User
+    private lateinit var pet: Pet
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var binding: FragmentJobsSplashBinding
+    private var petBool = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +61,30 @@ class JobsSplashFragment : Fragment() {
         })
 
         binding.createAdvertsButton.setOnClickListener {
-            val intent = Intent(requireContext(), JobsActivity::class.java)
-            startActivity(intent)
+            val petQuery =
+                FirebaseDatabase.getInstance().getReference("pets").orderByChild("userId")
+                    .equalTo(user.userId)
+            petQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        val pet = dataSnapshot.children.firstOrNull()?.getValue(Pet::class.java)
+                        petBool = pet?.userId == user.userId
+                        if (petBool) {
+                            (activity as HomeActivity).goJobCreateFragment()
+                        } else {
+                            showMaterialDialog2()
+                        }
+                    } else {
+                        showMaterialDialog2()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "onCancelled", error.toException())
+                }
+            })
         }
+
 
         binding.findJobButton.setOnClickListener {
             if (::user.isInitialized) {
@@ -75,6 +101,7 @@ class JobsSplashFragment : Fragment() {
         }
     }
 
+
     private fun showMaterialDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Bakıcı Ol!")
@@ -87,6 +114,25 @@ class JobsSplashFragment : Fragment() {
             )
             .setPositiveButton("Bakıcı Ol!") { _, _ ->
                 (activity as HomeActivity).goPetBackerActivity()
+            }
+            .setNegativeButton("İptal") { _, _ ->
+                showToast("İptal Edildi")
+            }
+            .show()
+    }
+
+    private fun showMaterialDialog2() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Dost Ekle!")
+            .setMessage("Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!")
+            .setBackground(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.background_dialog
+                )
+            )
+            .setPositiveButton("Dost Ekle!") { _, _ ->
+                (activity as HomeActivity).goAddPetFragment()
             }
             .setNegativeButton("İptal") { _, _ ->
                 showToast("İptal Edildi")
