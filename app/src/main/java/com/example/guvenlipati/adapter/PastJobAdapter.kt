@@ -21,7 +21,7 @@ class PastJobAdapter(
     private val jobList: List<Job>,
     private val petList: List<Pet>,
     private val userList: List<User>,
-    private val offerList: ArrayList<Offer>
+    private val offerList: MutableList<Offer>
 ) : RecyclerView.Adapter<PastJobAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

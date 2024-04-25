@@ -7,13 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.ActiveJobAdapter
-import com.example.guvenlipati.ActiveOfferAdapter
-import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentActiveJobsBinding
-import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
@@ -26,104 +23,114 @@ import com.google.firebase.database.ValueEventListener
 
 class ActiveJobsFragment : Fragment() {
 
-    lateinit var binding: FragmentActiveJobsBinding
+    private lateinit var binding: FragmentActiveJobsBinding
+    private lateinit var adapter: ActiveJobAdapter
+    private val jobList = mutableListOf<Job>()
+    private val petList = mutableListOf<Pet>()
+    private val userList = mutableListOf<User>()
+    private val offerList = mutableListOf<Offer>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentActiveJobsBinding.inflate(layoutInflater)
+        binding = FragmentActiveJobsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        loadActiveOffers()
+    }
 
+    private fun setupRecyclerView() {
+        adapter = ActiveJobAdapter(requireContext(), jobList, petList, userList, offerList)
+        binding.activeJobRecycleView.layoutManager = LinearLayoutManager(requireContext())
+        binding.activeJobRecycleView.adapter = adapter
+    }
+
+    private fun loadActiveOffers() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val activeAdvertRecycleView = binding.activeJobRecycleView
-        activeAdvertRecycleView.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
-        val jobList = ArrayList<Job>()
-        val petList = ArrayList<Pet>()
-        val userList = ArrayList<User>()
-        val offerList = ArrayList<Offer>()
-
-        val adapter = ActiveJobAdapter(requireContext(), jobList, petList, userList, offerList)
-        activeAdvertRecycleView.adapter = adapter
-
-        FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
-            ValueEventListener {
+        val ref = FirebaseDatabase.getInstance().getReference("offers")
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                offerList.clear()
-                jobList.clear()
-                petList.clear()
-                userList.clear()
-                for (offerSnapshot in dataSnapshot.children) {
-                    val offer = offerSnapshot.getValue(Offer::class.java) ?: continue
-                    if (offer.offerBackerId == firebaseUser?.uid && !offer.offerStatus && offer.priceStatus) {
+                clearLists()
+
+                dataSnapshot.children.forEach { snapshot ->
+                    val offer = snapshot.getValue(Offer::class.java)
+                    if (offer != null && offer.offerBackerId == firebaseUser?.uid && !offer.offerStatus && offer.priceStatus) {
                         binding.activeJobRecycleView.foreground =
-                            ColorDrawable(Color.parseColor("#FFFFFFFF"))
+                            ColorDrawable(Color.parseColor("#FFFFFF"))
                         binding.loadingCardView.visibility = View.VISIBLE
-                        offerList.add(offer)
-                        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId)
-                            .addListenerForSingleValueEvent(object :
-                                ValueEventListener {
-                                override fun onDataChange(jobSnapshot: DataSnapshot) {
-                                    jobSnapshot.getValue(Job::class.java)?.let { job ->
-                                        jobList.add(job)
-                                        FirebaseDatabase.getInstance().getReference("pets")
-                                            .child(job.petID)
-                                            .addListenerForSingleValueEvent(object :
-                                                ValueEventListener {
-                                                override fun onDataChange(petSnapshot: DataSnapshot) {
-                                                    petSnapshot.getValue(Pet::class.java)
-                                                        ?.let { pet ->
-                                                            petList.add(pet)
-                                                            FirebaseDatabase.getInstance()
-                                                                .getReference("users")
-                                                                .child(offer.offerUser)
-                                                                .addListenerForSingleValueEvent(
-                                                                    object :
-                                                                        ValueEventListener {
-                                                                        override fun onDataChange(
-                                                                            userSnapshot: DataSnapshot
-                                                                        ) {
-                                                                            userSnapshot.getValue(
-                                                                                User::class.java
-                                                                            )?.let { user ->
-                                                                                userList.add(user)
-                                                                                adapter.notifyDataSetChanged()
-                                                                                binding.animationView2.visibility =
-                                                                                    View.GONE
-                                                                                binding.loadingCardView.visibility =
-                                                                                    View.GONE
-                                                                                binding.activeJobRecycleView.foreground =
-                                                                                    null
-                                                                            }
-                                                                        }
-
-                                                                        override fun onCancelled(
-                                                                            error: DatabaseError
-                                                                        ) {
-                                                                        }
-                                                                    })
-                                                        }
-                                                }
-
-                                                override fun onCancelled(error: DatabaseError) {}
-                                            })
-                                    }
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {}
-                            })
+                        fetchRelatedData(offer)
                     }
                 }
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Failed to load data: ${error.message}", Toast.LENGTH_LONG)
+                    .show()
             }
         })
+    }
+
+    private fun clearLists() {
+        jobList.clear()
+        petList.clear()
+        userList.clear()
+        offerList.clear()
+    }
+
+    private fun fetchRelatedData(offer: Offer) {
+        offerList.add(offer)
+        fetchJob(offer.offerJobId, offer.offerUser)
+    }
+
+    private fun fetchJob(jobId: String, userId: String) {
+        FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val job = snapshot.getValue(Job::class.java)
+                    if (job != null) {
+                        jobList.add(job)
+                        fetchUser(userId)
+                        fetchPet(job.petID)
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+
+    private fun fetchUser(userId: String) {
+        FirebaseDatabase.getInstance().getReference("users").child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.getValue(User::class.java)?.let {
+                        userList.add(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+
+    private fun fetchPet(petId: String) {
+        FirebaseDatabase.getInstance().getReference("pets").child(petId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.getValue(Pet::class.java)?.let {
+                        petList.add(it)
+                        adapter.notifyDataSetChanged()
+                        binding.activeJobRecycleView.foreground = null
+                        binding.loadingCardView.visibility = View.GONE
+                        binding.animationView2.visibility = View.GONE
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
     }
 }
