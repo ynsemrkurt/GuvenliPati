@@ -2,6 +2,7 @@ package com.example.guvenlipati
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.models.Job
+import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class AdvertsAdapter(
     private val context: Context,
@@ -101,13 +106,43 @@ class AdvertsAdapter(
 
     private fun deleteAdvert(position: Int) {
         val job = jobList[position]
-        val jobReference = FirebaseDatabase.getInstance().getReference("jobs").child(job.jobId)
+        val jobId = job.jobId
+        val jobReference = FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
+
+        // Set the job status to false, marking it as deleted.
         jobReference.child("jobStatus").setValue(false)
             .addOnSuccessListener {
                 showToast("İlan başarıyla silindi.")
+                deleteRelatedOffers(jobId) // Call to delete related offers
             }
             .addOnFailureListener { exception ->
                 showToast("İlanın durumu güncellenirken bir hata oluştu: ${exception.message}")
             }
     }
+
+    private fun deleteRelatedOffers(jobId: String) {
+        val offersRef = FirebaseDatabase.getInstance().getReference("offers")
+        offersRef.orderByChild("offerJobId").equalTo(jobId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach { offerSnapshot ->
+                        val offer = offerSnapshot.getValue(Offer::class.java)
+                        if (offer != null && !offer.priceStatus) { // Check if priceStatus is false
+                            offerSnapshot.ref.removeValue()
+                                .addOnSuccessListener {
+                                    Log.d("AdvertsAdapter", "Related offer deleted successfully.")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("AdvertsAdapter", "Failed to delete related offer: ${e.message}")
+                                }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("AdvertsAdapter", "Error fetching related offers: ${error.message}")
+                }
+            })
+    }
+
 }

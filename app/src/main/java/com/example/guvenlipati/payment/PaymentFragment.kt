@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -178,74 +179,25 @@ class PaymentFragment : Fragment() {
 
 
         binding.ConfirmPaymentButton.setOnClickListener {
-            if (binding.editTextCardHolderName.text.isEmpty()){
-                showToast("İSİM SOYİSİM BOŞ GEÇİLEMEZ")
-            }
-            else if (binding.editTextCardNumber.text.length !=19){
-                showToast("KART NUMARASINI TAM GİRİNİZ")
-            }
-            else if (binding.editTextExpDate.text.isEmpty()){
-                showToast("KARTIN SON KULLANIM TARİHİ BOŞ GEÇİLEMEZ")
-            }
-            else if (binding.editTextCVV.text.length !=3){
-                showToast("GÜVENLİK KODUNU TAM GİRİNİZ")
-            }
-            else if (!binding.checkBox.isChecked || !binding.checkBox2.isChecked || !binding.checkBox3.isChecked){
-                showToast("SÖZLEŞMELERİ KABUL ETMENİZ GEREKİYOR")
-            }
-            else{
+            if (validateInputs()) {
                 val offerId = activity?.intent?.getStringExtra("offerId")
                 val jobId = activity?.intent?.getStringExtra("jobId")
                 val backerId = activity?.intent?.getStringExtra("backerId")
                 val petPhoto = activity?.intent?.getStringExtra("petPhoto")
 
-                val databaseReference =
-                    offerId?.let { it1 ->
-                        FirebaseDatabase.getInstance().getReference("offers").child(
-                            it1
-                        )
+                val offerRef = offerId?.let { FirebaseDatabase.getInstance().getReference("offers").child(it) }
+                val jobRef = jobId?.let { FirebaseDatabase.getInstance().getReference("jobs").child(it) }
+
+                offerRef?.updateChildren(mapOf("priceStatus" to true))?.addOnSuccessListener {
+                    jobRef?.updateChildren(mapOf("jobStatus" to false))?.addOnSuccessListener {
+                        deleteOtherOffers(jobId)
+                        notifyBacker(backerId, petPhoto)
+                        showBottomSheet()
                     }
-
-                val databaseReference2 =
-                    jobId?.let { it1 ->
-                        FirebaseDatabase.getInstance().getReference("jobs").child(
-                            it1
-                        )
-                    }
-
-                databaseReference?.updateChildren(
-                    mapOf(
-                        "priceStatus" to true
-                    )
-                )?.addOnSuccessListener {
-                    databaseReference2?.updateChildren(
-                        mapOf(
-                            "jobStatus" to false
-                        )
-                    )
-
-                    topic = "/topics/$backerId"
-                    PushNotification(
-                        Notification(
-                            "Teklifin Onaylandı \uD83E\uDD73",
-                            "Hemen gel ve incele...",
-                            FirebaseAuth.getInstance().currentUser?.uid.toString(),
-                            petPhoto.toString(),
-                            2
-                        ),
-                        topic
-                    ).also {
-                        sendNotification(it)
-                    }
-
-                    showBottomSheet()
+                }?.addOnFailureListener {
+                    showToast("ÖDEME BAŞARISIZ")
                 }
-                    ?.addOnFailureListener {
-                        showToast("ÖDEME BAŞARISIZ")
-                    }
-
             }
-
         }
 
     }
@@ -276,4 +228,46 @@ class PaymentFragment : Fragment() {
                 showToast(e.message.toString())
             }
         }
+
+    private fun validateInputs(): Boolean {
+        return when {
+            binding.editTextCardHolderName.text.isEmpty() -> false.also { showToast("İSİM SOYİSİM BOŞ GEÇİLEMEZ") }
+            binding.editTextCardNumber.text.length != 19 -> false.also { showToast("KART NUMARASINI TAM GİRİNİZ") }
+            binding.editTextExpDate.text.isEmpty() -> false.also { showToast("KARTIN SON KULLANIM TARİHİ BOŞ GEÇİLEMEZ") }
+            binding.editTextCVV.text.length != 3 -> false.also { showToast("GÜVENLİK KODUNU TAM GİRİNİZ") }
+            !(binding.checkBox.isChecked && binding.checkBox2.isChecked && binding.checkBox3.isChecked) -> false.also { showToast("SÖZLEŞMELERİ KABUL ETMENİZ GEREKİYOR") }
+            else -> true
+        }
+    }
+
+    private fun deleteOtherOffers(jobId: String?) {
+        jobId?.let { jId ->
+            val offersRef = FirebaseDatabase.getInstance().getReference("offers")
+            offersRef.orderByChild("offerJobId").equalTo(jId)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        snapshot.children.forEach { offerSnapshot ->
+                            val offer = offerSnapshot.getValue(Offer::class.java)
+                            if (offer?.priceStatus == false) {
+                                offerSnapshot.ref.removeValue()
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("PaymentFragment", "Error retrieving offers: ${error.message}")
+                    }
+                })
+        }
+    }
+
+
+    private fun notifyBacker(backerId: String?, petPhoto: String?) {
+        topic = "/topics/$backerId"
+        val notification = PushNotification(
+            Notification("Teklifin Onaylandı \uD83E\uDD73", "Hemen gel ve incele...", FirebaseAuth.getInstance().currentUser?.uid.toString(), petPhoto.toString(), 2),
+            topic
+        )
+        sendNotification(notification)
+    }
 }
