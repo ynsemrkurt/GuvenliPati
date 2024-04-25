@@ -70,7 +70,7 @@ class JobsSplashFragment : Fragment() {
                         val pet = dataSnapshot.children.firstOrNull()?.getValue(Pet::class.java)
                         petBool = pet?.userId == user.userId
                         if (petBool) {
-                            (activity as HomeActivity).goJobCreateFragment()
+                            (activity as HomeActivity).goJobCreateActivity()
                         } else {
                             showMaterialDialog2()
                         }
@@ -84,7 +84,6 @@ class JobsSplashFragment : Fragment() {
                 }
             })
         }
-
 
         binding.findJobButton.setOnClickListener {
             if (::user.isInitialized) {
@@ -132,7 +131,7 @@ class JobsSplashFragment : Fragment() {
                 )
             )
             .setPositiveButton("Dost Ekle!") { _, _ ->
-                (activity as HomeActivity).goAddPetFragment()
+                (activity as HomeActivity).goSelectAddPetFragment()
             }
             .setNegativeButton("İptal") { _, _ ->
                 showToast("İptal Edildi")
