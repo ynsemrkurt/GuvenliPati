@@ -24,15 +24,21 @@ import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Job
+import com.example.guvenlipati.models.Notification
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
+import com.example.guvenlipati.models.PushNotification
 import com.example.guvenlipati.models.User
 import com.example.guvenlipati.payment.PaymentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 class ActiveJobAdapter(
@@ -42,6 +48,8 @@ class ActiveJobAdapter(
     private val userList: List<User>,
     private val offerList: ArrayList<Offer>
 ) : RecyclerView.Adapter<ActiveJobAdapter.ViewHolder>() {
+
+    private var topic = "/topics/myTopic"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -138,6 +146,19 @@ class ActiveJobAdapter(
                             "confirmBacker" to true
                         )
                     )
+                    topic = "/topics/${user.userId}"
+                    PushNotification(
+                        Notification(
+                            "Bakıcı İşi Onaylandı \uD83E\uDD73",
+                            "Hemen gel ve sende onayla...",
+                            FirebaseAuth.getInstance().currentUser?.uid.toString(),
+                            pet.petPhoto,
+                            1
+                        ),
+                        topic
+                    ).also {
+                        sendNotification(it)
+                    }
                 }
             }
 
@@ -158,4 +179,13 @@ class ActiveJobAdapter(
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun sendNotification(notification: PushNotification) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.postNotification(notification)
+            } catch (e: Exception) {
+                showToast(e.message.toString())
+            }
+        }
 }
