@@ -1,6 +1,9 @@
 package com.example.guvenlipati.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +43,10 @@ class ListRatingActivity : AppCompatActivity() {
                     if (rating!!.backerId == userId) {
                         rating.let {
                             ratingList.add(it)
+                            binding.animationView2.visibility = View.GONE
+                            binding.loadingCardView.visibility = View.VISIBLE
+                            binding.linearLayout.foreground =
+                                ColorDrawable(Color.parseColor("#FFFFFFFF"))
                             val databaseReferenceUsers =
                                 FirebaseDatabase.getInstance().getReference("users")
                                     .child(rating.userId)
@@ -51,6 +58,8 @@ class ListRatingActivity : AppCompatActivity() {
                                         userList.add(it)
                                     }
                                     adapter.notifyDataSetChanged()
+                                    binding.loadingCardView.visibility = View.GONE
+                                    binding.linearLayout.foreground = null
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
