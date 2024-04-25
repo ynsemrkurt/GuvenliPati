@@ -47,10 +47,14 @@ class FirebaseService : FirebaseMessagingService() {
         super.onMessageReceived(newToken)
         val intentMessage = Intent(this, ChatActivity::class.java)
         intentMessage.putExtra("userId", newToken.data["userId"])
+
         val intentAdvert = Intent(this, AdvertActivity::class.java)
+
         val intentMyJob = Intent(this, MyJobsActivity::class.java)
+
         val intentMyJobComplete = Intent(this, MyJobsActivity::class.java)
         intentMyJobComplete.putExtra("status", true)
+
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationId = Random.nextInt()
 
@@ -58,37 +62,11 @@ class FirebaseService : FirebaseMessagingService() {
             createNotificationChannel(notificationManager)
         }
 
-        intentMessage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intentMessage,
-            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
+        val pendingIntentMessage = createPendingIntent(intentMessage)
+        val pendingIntentMyJob = createPendingIntent(intentMyJob)
+        val pendingIntentAdvert = createPendingIntent(intentAdvert)
+        val pendingIntentMyJobComplete = createPendingIntent(intentMyJobComplete)
 
-        intentMyJob.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val myJobIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intentMyJob,
-            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        intentAdvert.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val advertIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intentAdvert,
-            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        intentMyJobComplete.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val myJobCompleteIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intentMyJobComplete,
-            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
 
         val profileImageUrl = newToken.data["profileImageUrl"]
 
@@ -98,7 +76,7 @@ class FirebaseService : FirebaseMessagingService() {
             notificationSystem(
                 notificationManager,
                 notificationId,
-                pendingIntent,
+                pendingIntentMessage,
                 profileImageUrl ?: "",
                 newToken.data["title"] ?: "",
                 newToken.data["message"] ?: ""
@@ -107,7 +85,7 @@ class FirebaseService : FirebaseMessagingService() {
             notificationSystem(
                 notificationManager,
                 notificationId,
-                advertIntent,
+                pendingIntentAdvert,
                 profileImageUrl ?: "",
                 newToken.data["title"] ?: "",
                 newToken.data["message"] ?: ""
@@ -116,7 +94,7 @@ class FirebaseService : FirebaseMessagingService() {
             notificationSystem(
                 notificationManager,
                 notificationId,
-                myJobIntent,
+                pendingIntentMyJob,
                 profileImageUrl ?: "",
                 newToken.data["title"] ?: "",
                 newToken.data["message"] ?: ""
@@ -125,7 +103,7 @@ class FirebaseService : FirebaseMessagingService() {
             notificationSystem(
                 notificationManager,
                 notificationId,
-                myJobCompleteIntent,
+                pendingIntentMyJobComplete,
                 profileImageUrl ?: "",
                 newToken.data["title"] ?: "",
                 newToken.data["message"] ?: ""
@@ -178,5 +156,15 @@ class FirebaseService : FirebaseMessagingService() {
 
                 }
             })
+    }
+
+    private fun createPendingIntent(intent: Intent): PendingIntent {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        return PendingIntent.getActivity(
+            this,
+            Random.nextInt(),
+            intent,
+            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 }
