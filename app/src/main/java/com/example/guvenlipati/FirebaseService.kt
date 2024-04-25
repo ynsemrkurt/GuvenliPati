@@ -47,8 +47,14 @@ class FirebaseService : FirebaseMessagingService() {
         super.onMessageReceived(newToken)
         val intentMessage = Intent(this, ChatActivity::class.java)
         intentMessage.putExtra("userId", newToken.data["userId"])
+
         val intentAdvert = Intent(this, AdvertActivity::class.java)
-        val intentMyJob=Intent(this,MyJobsActivity::class.java)
+
+        val intentMyJob = Intent(this, MyJobsActivity::class.java)
+
+        val intentMyJobComplete = Intent(this, MyJobsActivity::class.java)
+        intentMyJobComplete.putExtra("status", true)
+
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationId = Random.nextInt()
 
@@ -56,110 +62,52 @@ class FirebaseService : FirebaseMessagingService() {
             createNotificationChannel(notificationManager)
         }
 
-        intentMessage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intentMessage,
-            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
+        val pendingIntentMessage = createPendingIntent(intentMessage)
+        val pendingIntentMyJob = createPendingIntent(intentMyJob)
+        val pendingIntentAdvert = createPendingIntent(intentAdvert)
+        val pendingIntentMyJobComplete = createPendingIntent(intentMyJobComplete)
 
-        intentMyJob.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val myJobIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intentMyJob,
-            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
 
-        intentAdvert.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val advertIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intentAdvert,
-            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
         val profileImageUrl = newToken.data["profileImageUrl"]
 
         val notificationType = newToken.data["notificationType"]
 
         if (notificationType == "0" || notificationType == null) {
-            Glide.with(this)
-                .asBitmap()
-                .load(profileImageUrl ?: R.drawable.men_image)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        val notification =
-                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
-                                .setContentTitle(newToken.data["title"])
-                                .setContentText(newToken.data["message"])
-                                .setSmallIcon(R.drawable.baseline_notifications_24)
-                                .setLargeIcon(resource)
-                                .setAutoCancel(true)
-                                .setContentIntent(pendingIntent)
-                                .build()
-
-                        notificationManager.notify(notificationId, notification)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-
-                    }
-                })
+            notificationSystem(
+                notificationManager,
+                notificationId,
+                pendingIntentMessage,
+                profileImageUrl ?: "",
+                newToken.data["title"] ?: "",
+                newToken.data["message"] ?: ""
+            )
         } else if (notificationType == "1") {
-            Glide.with(this)
-                .asBitmap()
-                .load(profileImageUrl ?: R.drawable.men_image)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        val notification =
-                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
-                                .setContentTitle(newToken.data["title"])
-                                .setContentText(newToken.data["message"])
-                                .setSmallIcon(R.drawable.baseline_notifications_24)
-                                .setLargeIcon(resource)
-                                .setAutoCancel(true)
-                                .setContentIntent(advertIntent)
-                                .build()
-                        notificationManager.notify(notificationId, notification)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-
-                    }
-                })
-        }
-        else if (notificationType=="2"){
-            Glide.with(this)
-                .asBitmap()
-                .load(profileImageUrl ?: R.drawable.men_image)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        val notification =
-                            NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
-                                .setContentTitle(newToken.data["title"])
-                                .setContentText(newToken.data["message"])
-                                .setSmallIcon(R.drawable.baseline_notifications_24)
-                                .setLargeIcon(resource)
-                                .setAutoCancel(true)
-                                .setContentIntent(myJobIntent)
-                                .build()
-                        notificationManager.notify(notificationId, notification)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-
-                    }
-                })
+            notificationSystem(
+                notificationManager,
+                notificationId,
+                pendingIntentAdvert,
+                profileImageUrl ?: "",
+                newToken.data["title"] ?: "",
+                newToken.data["message"] ?: ""
+            )
+        } else if (notificationType == "2") {
+            notificationSystem(
+                notificationManager,
+                notificationId,
+                pendingIntentMyJob,
+                profileImageUrl ?: "",
+                newToken.data["title"] ?: "",
+                newToken.data["message"] ?: ""
+            )
+        }else if (notificationType=="3"){
+            notificationSystem(
+                notificationManager,
+                notificationId,
+                pendingIntentMyJobComplete,
+                profileImageUrl ?: "",
+                newToken.data["title"] ?: "",
+                newToken.data["message"] ?: ""
+            )
         }
 
     }
@@ -173,5 +121,50 @@ class FirebaseService : FirebaseMessagingService() {
             lightColor = Color.GREEN
         }
         notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun notificationSystem(
+        notificationManager: NotificationManager,
+        notificationId: Int,
+        intent: PendingIntent,
+        photo: String,
+        title: String,
+        message: String
+    ) {
+        Glide.with(this)
+            .asBitmap()
+            .load(photo)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    val notification =
+                        NotificationCompat.Builder(this@FirebaseService, CHANNEL_ID)
+                            .setContentTitle(title)
+                            .setContentText(message)
+                            .setSmallIcon(R.drawable.baseline_notifications_24)
+                            .setLargeIcon(resource)
+                            .setAutoCancel(true)
+                            .setContentIntent(intent)
+                            .build()
+
+                    notificationManager.notify(notificationId, notification)
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+            })
+    }
+
+    private fun createPendingIntent(intent: Intent): PendingIntent {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        return PendingIntent.getActivity(
+            this,
+            Random.nextInt(),
+            intent,
+            FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 }
