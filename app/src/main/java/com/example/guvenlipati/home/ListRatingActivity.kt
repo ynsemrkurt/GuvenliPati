@@ -74,5 +74,9 @@ class ListRatingActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+        binding.backToSplash.setOnClickListener {
+            onBackPressed()
+            finish()
+        }
     }
 }
