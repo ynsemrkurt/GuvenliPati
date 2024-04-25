@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.example.guvenlipati.advert.ActiveAdvertFragment
 import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.chat.ProfileActivity
+import com.example.guvenlipati.home.ListRatingActivity
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Notification
@@ -148,6 +149,7 @@ class ActiveOfferAdapter(
                 val backerExperienceTextView =
                     view2.findViewById<TextView>(R.id.backerExperienceTextView)
                 val backerAboutTextView = view2.findViewById<TextView>(R.id.backerAboutTextView)
+                val ratingButton = view2.findViewById<ImageButton>(R.id.ratingButton)
                 val infoButton = view2.findViewById<ImageButton>(R.id.infoButton)
 
                 if (user.userPhoto.isNotEmpty()) {
@@ -174,6 +176,12 @@ class ActiveOfferAdapter(
                 infoButton.setOnClickListener {
                     val intent = Intent(context, ProfileActivity::class.java)
                     intent.putExtra("userId", backer.userID)
+                    context.startActivity(intent)
+                }
+
+                ratingButton.setOnClickListener{
+                    val intent = Intent(context, ListRatingActivity::class.java)
+                    intent.putExtra("userId", user.userId)
                     context.startActivity(intent)
                 }
 
