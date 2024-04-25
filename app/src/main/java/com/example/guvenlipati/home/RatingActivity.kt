@@ -38,10 +38,9 @@ class RatingActivity : AppCompatActivity() {
             val backerList = ArrayList<Backer>()
 
             val adapter = RatingAdapter(this, jobList, petList, userList, offerList, backerList)
-        ratingJobRecyclerView.adapter = adapter
+            ratingJobRecyclerView.adapter = adapter
 
-            FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object :
-                ValueEventListener {
+            FirebaseDatabase.getInstance().getReference("offers").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     offerList.clear()
                     jobList.clear()

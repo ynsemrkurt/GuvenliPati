@@ -52,6 +52,10 @@ class PendingAdvertFragment : Fragment() {
         val jobList = ArrayList<Job>()
         val petList = ArrayList<Pet>()
 
+
+        val adapter = AdvertsAdapter(requireContext(),jobList, petList)
+        pastAdvertRecycleView.adapter = adapter
+
         databaseReferencePets.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(petsSnapshot: DataSnapshot) {
                 petList.clear()
@@ -77,12 +81,11 @@ class PendingAdvertFragment : Fragment() {
                                     job.let {
                                         jobList.add(it)
                                         binding.animationView2.visibility=View.GONE
+                                        adapter.notifyDataSetChanged()
                                     }
                                 }
                             }
                         }
-                        val adapter = AdvertsAdapter(requireContext(),jobList, petList)
-                        pastAdvertRecycleView.adapter = adapter
                         binding.scrollView.foreground=null
                         binding.loadingCardView.visibility=View.GONE
                     }

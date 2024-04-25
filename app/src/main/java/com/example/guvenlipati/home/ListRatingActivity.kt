@@ -41,15 +41,14 @@ class ListRatingActivity : AppCompatActivity() {
                         rating.let {
                             ratingList.add(it)
                             val databaseReferenceUsers =
-                                FirebaseDatabase.getInstance().getReference("users").child(rating.userId)
+                                FirebaseDatabase.getInstance().getReference("users")
+                                    .child(rating.userId)
                             databaseReferenceUsers.addListenerForSingleValueEvent(object :
                                 ValueEventListener {
                                 override fun onDataChange(usersSnapshot: DataSnapshot) {
-                                    for (userSnapshot in usersSnapshot.children) {
-                                        val user = userSnapshot.getValue(User::class.java)
-                                        user?.let {
-                                            userList.add(it)
-                                        }
+                                    val user = usersSnapshot.getValue(User::class.java)
+                                    user?.let {
+                                        userList.add(it)
                                     }
                                     adapter.notifyDataSetChanged()
                                 }
