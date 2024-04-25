@@ -4,5 +4,6 @@ data class Rating(
     var comment: String = "",
     var date: String = "",
     var rating: Double = 0.0,
-    var userID: String = ""
+    var userId: String = "",
+    var backerId: String = ""
 )
