@@ -262,9 +262,7 @@ class JobCreateFragment : Fragment() {
             LayoutInflater.from(requireContext()).inflate(R.layout.bottomsheet_job_create, null)
         val backToMainButton = view.findViewById<Button>(R.id.backToMain)
         backToMainButton.setOnClickListener {
-            val intent = Intent(requireContext(), HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            startActivity(intent)
+            requireActivity().finish()
             dialog.dismiss()
         }
         dialog.setCancelable(false)
