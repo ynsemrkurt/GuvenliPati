@@ -1,9 +1,9 @@
-package com.example.guvenlipati.job
-
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.databinding.FragmentJobCreateBinding
+import com.example.guvenlipati.home.HomeActivity
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -25,7 +27,6 @@ import com.google.firebase.database.*
 
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.HashMap
 import java.util.Locale
 import java.util.UUID
 
@@ -205,8 +206,7 @@ class JobCreateFragment : Fragment() {
                                     FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
                                 reference.setValue(hashMap).addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
-                                        requireActivity().finish()
-                                        showToast("İş Kaydı Başarılı!")
+                                        showBottomSheet()
                                     } else {
                                         showToast("Hatalı işlem!")
                                     }
@@ -254,5 +254,21 @@ class JobCreateFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showBottomSheet() {
+        val dialog = BottomSheetDialog(requireContext())
+        val view =
+            LayoutInflater.from(requireContext()).inflate(R.layout.bottomsheet_job_create, null)
+        val backToMainButton = view.findViewById<Button>(R.id.backToMain)
+        backToMainButton.setOnClickListener {
+            val intent = Intent(requireContext(), HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            dialog.dismiss()
+        }
+        dialog.setCancelable(false)
+        dialog.setContentView(view)
+        dialog.show()
     }
 }
