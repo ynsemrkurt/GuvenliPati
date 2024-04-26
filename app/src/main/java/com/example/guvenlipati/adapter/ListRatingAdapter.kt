@@ -21,13 +21,15 @@ class ListRatingAdapter(
 ) : RecyclerView.Adapter<ListRatingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rating_listing, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_rating_listing, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val userRatingPair = userRatingPairs[position]
-        holder.ratingCard.animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim)
+        holder.ratingCard.animation =
+            AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim)
         holder.bind(userRatingPair.user, userRatingPair.rating)
     }
 
@@ -39,11 +41,15 @@ class ListRatingAdapter(
         private val userNameTextView: TextView = view.findViewById(R.id.userNameTextView)
         private val ratingBar: RatingBar = view.findViewById(R.id.ratingBar)
         private val commentTextView: TextView = view.findViewById(R.id.commentTextView)
+        private val ratingJobTextView: TextView = view.findViewById(R.id.ratingJobTextView)
+        private val commentTimeTextView: TextView = view.findViewById(R.id.commentTimeTextView)
 
         fun bind(user: User?, rating: Rating?) {
             userNameTextView.text = user?.userName ?: "Unknown User"
             ratingBar.rating = rating!!.rating.toFloat()
             commentTextView.text = rating.comment
+            ratingJobTextView.text = rating.petName + "-" + rating.jobType
+            commentTimeTextView.text = rating.commentTime
 
             Glide.with(context)
                 .load(user?.userPhoto ?: R.drawable.men_image)
