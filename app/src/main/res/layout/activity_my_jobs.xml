@@ -70,6 +70,12 @@
                 android:text="Aktif İşler" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/pendingJobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bekleyen İşler" />
+
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/pastJobs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
