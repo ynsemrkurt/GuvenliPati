@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/alata"
-            android:text="Bakıcı bekleyen ilanın yok..."
+            android:text="Aktif ilanın yok..."
             android:textStyle="bold"
             android:textColor="#6E000000"
             app:layout_constraintBottom_toBottomOf="parent"
