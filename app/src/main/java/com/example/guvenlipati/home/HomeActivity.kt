@@ -74,6 +74,11 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.settings -> {
+                    goSettingsActivity()
+                    true
+                }
+
                 else -> false
             }
         }
@@ -105,7 +110,6 @@ class HomeActivity : AppCompatActivity() {
                     goChatListFragment()
                     true
                 }
-
                 else -> false
             }
         }
@@ -193,6 +197,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun goRatingActivity() {
         val intent = Intent(this, RatingActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goSettingsActivity() {
+        val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
 }
