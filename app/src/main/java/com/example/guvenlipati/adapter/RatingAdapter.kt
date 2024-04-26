@@ -42,6 +42,7 @@ class RatingAdapter(
         dialog.setContentView(view)
         dialog.show()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_rating_job, parent, false)
@@ -135,6 +136,9 @@ class RatingAdapter(
                     hashMap["backerId"] = offer.offerBackerId
                     hashMap["userId"] = FirebaseAuth.getInstance().currentUser!!.uid
                     hashMap["date"] = LocalDateTime.now().toString()
+                    hashMap["petName"] = pet.petName
+                    hashMap["jobType"] = job.jobType
+                    hashMap["commentTime"] = LocalDateTime.now().toString()
                     databaseReference.child(offer.offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             databaseReferenceOffer.updateChildren(
