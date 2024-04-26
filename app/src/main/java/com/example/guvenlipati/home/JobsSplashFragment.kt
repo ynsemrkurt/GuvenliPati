@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.DialogTitle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.job.JobsActivity
@@ -72,10 +73,11 @@ class JobsSplashFragment : Fragment() {
                         if (petBool) {
                             (activity as HomeActivity).goJobCreateActivity()
                         } else {
-                            showMaterialDialog2()
+                            showMaterialDialog("Dost Ekle!", "Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!", "Dost Ekle!", { (activity as HomeActivity).goSelectAddPetFragment() })
                         }
                     } else {
-                        showMaterialDialog2()
+                        showMaterialDialog("Dost Ekle!", "Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!", "Dost Ekle!", { (activity as HomeActivity).goSelectAddPetFragment() })
+
                     }
                 }
 
@@ -89,7 +91,7 @@ class JobsSplashFragment : Fragment() {
             if (::user.isInitialized) {
                 val userBackerBool = user.userBacker
                 if (!userBackerBool) {
-                    showMaterialDialog()
+                    showMaterialDialog("Bakıcı Ol!", "Bakıcı profiliniz bulunmamaktadır. İş alabilmek için bakıcı profili oluşturmak zorundasınız!", "Bakıcı Ol!", { (activity as HomeActivity).goPetBackerActivity()})
                 } else {
                     val intent = Intent(requireContext(), GetJobActivity::class.java)
                     startActivity(intent)
@@ -100,43 +102,24 @@ class JobsSplashFragment : Fragment() {
         }
     }
 
-
-    private fun showMaterialDialog() {
+    private fun showMaterialDialog(title: String, message: String, positiveButtonText: String, goFunction: () -> Unit) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Bakıcı Ol!")
-            .setMessage("Bakıcı profiliniz bulunmamaktadır. İş alabilmek için bakıcı profili oluşturmak zorundasınız!")
+            .setTitle(title)
+            .setMessage(message)
             .setBackground(
                 ContextCompat.getDrawable(
                     requireContext(),
                     R.drawable.background_dialog
                 )
             )
-            .setPositiveButton("Bakıcı Ol!") { _, _ ->
-                (activity as HomeActivity).goPetBackerActivity()
+            .setPositiveButton(positiveButtonText) { _, _ ->
+                goFunction()
             }
             .setNegativeButton("İptal") { _, _ ->
                 showToast("İptal Edildi")
             }
             .show()
-    }
 
-    private fun showMaterialDialog2() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Dost Ekle!")
-            .setMessage("Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!")
-            .setBackground(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.background_dialog
-                )
-            )
-            .setPositiveButton("Dost Ekle!") { _, _ ->
-                (activity as HomeActivity).goSelectAddPetFragment()
-            }
-            .setNegativeButton("İptal") { _, _ ->
-                showToast("İptal Edildi")
-            }
-            .show()
     }
 
     private fun showToast(message: String) {
