@@ -11,45 +11,42 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.home.UserRatingPair
 import com.example.guvenlipati.models.Rating
 import com.example.guvenlipati.models.User
 
 class ListRatingAdapter(
     private val context: Context,
-    private val userList: List<User>,
-    private val ratingList: List<Rating>
+    private val userRatingPairs: List<UserRatingPair>
 ) : RecyclerView.Adapter<ListRatingAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rating_listing, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val userRatingPair = userRatingPairs[position]
         holder.ratingCard.animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim)
-        if (position < userList.size && position < ratingList.size) {
-            holder.bind(
-                userList[position],
-                ratingList[position]
-            )
-        }
+        holder.bind(userRatingPair.user, userRatingPair.rating)
     }
 
-    override fun getItemCount(): Int = ratingList.size
+    override fun getItemCount(): Int = userRatingPairs.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ratingCard: LinearLayout = view.findViewById(R.id.ratingCard)
-        private val userPhotoImageView = view.findViewById<ImageView>(R.id.userPhotoImageView)
-        private val userNameTextView = view.findViewById<TextView>(R.id.userNameTextView)
-        private val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar)
-        private val commentTextView = view.findViewById<TextView>(R.id.commentTextView)
+        private val userPhotoImageView: ImageView = view.findViewById(R.id.userPhotoImageView)
+        private val userNameTextView: TextView = view.findViewById(R.id.userNameTextView)
+        private val ratingBar: RatingBar = view.findViewById(R.id.ratingBar)
+        private val commentTextView: TextView = view.findViewById(R.id.commentTextView)
 
-        fun bind(user: User, rating: Rating) {
-            userNameTextView.text = user.userName
-            ratingBar.rating = rating.rating.toFloat()
+        fun bind(user: User?, rating: Rating?) {
+            userNameTextView.text = user?.userName ?: "Unknown User"
+            ratingBar.rating = rating!!.rating.toFloat()
             commentTextView.text = rating.comment
 
             Glide.with(context)
-                .load(user.userPhoto)
+                .load(user?.userPhoto ?: R.drawable.men_image)
                 .placeholder(R.drawable.men_image)
                 .into(userPhotoImageView)
         }

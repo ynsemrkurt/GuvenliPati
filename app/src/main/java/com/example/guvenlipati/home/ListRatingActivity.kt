@@ -19,8 +19,7 @@ import com.google.firebase.database.ValueEventListener
 class ListRatingActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityListRatingBinding
-    private val userList = ArrayList<User>()
-    private val ratingList = ArrayList<Rating>()
+    private val userRatingPairs = ArrayList<UserRatingPair>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,55 +27,57 @@ class ListRatingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val recyclerView: RecyclerView = binding.listRatingRecycleView
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val adapter = ListRatingAdapter(this, userList, ratingList)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = ListRatingAdapter(this, userRatingPairs)
         recyclerView.adapter = adapter
 
-        val userId = intent.getStringExtra("userId")
+        val userId = intent.getStringExtra("userId") ?: ""
         val databaseReferenceRatings = FirebaseDatabase.getInstance().getReference("ratings")
-
 
         databaseReferenceRatings.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(ratingsSnapshot: DataSnapshot) {
-                for (ratingSnapshot in ratingsSnapshot.children) {
+                ratingsSnapshot.children.forEach { ratingSnapshot ->
+                    binding.loadingCardView.visibility = View.VISIBLE
+                    binding.linearLayout.foreground=ColorDrawable(Color.parseColor("#FFFFFF"))
                     val rating = ratingSnapshot.getValue(Rating::class.java)
-                    if (rating!!.backerId == userId) {
-                        rating.let {
-                            ratingList.add(it)
-                            binding.animationView2.visibility = View.GONE
-                            binding.loadingCardView.visibility = View.VISIBLE
-                            binding.linearLayout.foreground =
-                                ColorDrawable(Color.parseColor("#FFFFFFFF"))
-                            val databaseReferenceUsers =
-                                FirebaseDatabase.getInstance().getReference("users")
-                                    .child(rating.userId)
-                            databaseReferenceUsers.addListenerForSingleValueEvent(object :
-                                ValueEventListener {
-                                override fun onDataChange(usersSnapshot: DataSnapshot) {
-                                    val user = usersSnapshot.getValue(User::class.java)
-                                    user?.let {
-                                        userList.add(it)
-                                    }
-                                    adapter.notifyDataSetChanged()
-                                    binding.loadingCardView.visibility = View.GONE
-                                    binding.linearLayout.foreground = null
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                }
-                            })
+                    if (rating?.backerId == userId) {
+                        fetchUser(rating.userId) { user ->
+                            userRatingPairs.add(UserRatingPair(user, rating))
+                            adapter.notifyDataSetChanged()
+                            binding.animationView2.visibility=View.GONE
+                            binding.loadingCardView.visibility = View.GONE
+                            binding.linearLayout.foreground=null
                         }
                     }
                 }
-                adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
         binding.backToSplash.setOnClickListener {
             onBackPressed()
             finish()
         }
     }
+
+    private fun fetchUser(userId: String, onUserFetched: (User?) -> Unit) {
+        val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users").child(userId)
+        databaseReferenceUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(usersSnapshot: DataSnapshot) {
+                val user = usersSnapshot.getValue(User::class.java)
+                onUserFetched(user)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
 }
+
+
+data class UserRatingPair(
+    val user: User?,
+    val rating : Rating?
+)
