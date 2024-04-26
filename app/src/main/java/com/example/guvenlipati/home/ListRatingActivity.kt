@@ -37,14 +37,14 @@ class ListRatingActivity : AppCompatActivity() {
         databaseReferenceRatings.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(ratingsSnapshot: DataSnapshot) {
                 ratingsSnapshot.children.forEach { ratingSnapshot ->
-                    binding.loadingCardView.visibility = View.VISIBLE
-                    binding.linearLayout.foreground=ColorDrawable(Color.parseColor("#FFFFFF"))
                     val rating = ratingSnapshot.getValue(Rating::class.java)
                     if (rating?.backerId == userId) {
+                        binding.loadingCardView.visibility = View.VISIBLE
+                        binding.linearLayout.foreground=ColorDrawable(Color.parseColor("#FFFFFF"))
+                        binding.animationView2.visibility=View.GONE
                         fetchUser(rating.userId) { user ->
                             userRatingPairs.add(UserRatingPair(user, rating))
                             adapter.notifyDataSetChanged()
-                            binding.animationView2.visibility=View.GONE
                             binding.loadingCardView.visibility = View.GONE
                             binding.linearLayout.foreground=null
                         }
