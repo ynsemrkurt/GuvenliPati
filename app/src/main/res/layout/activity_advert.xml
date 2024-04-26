@@ -64,16 +64,16 @@
             app:tabRippleColor="#122196F3">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/pendingAdvert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bekleyen\nİlanlar" />
+
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/paymentAdvert"
                 android:text="Ödeme\nBekleyenler"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/pastAdvert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Geçmiş\nİlanlar" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/activeAdvert"
@@ -82,10 +82,10 @@
                 android:text="Aktif\nİlanlar" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/pendingAdvert"
+                android:id="@+id/pastAdvert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bekleyen\nİlanlar" />
+                android:text="Geçmiş\nİlanlar" />
 
         </com.google.android.material.tabs.TabLayout>
 
