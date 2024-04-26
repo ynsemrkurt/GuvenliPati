@@ -2,6 +2,7 @@ package com.example.guvenlipati.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
+import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
@@ -93,6 +95,12 @@ class PastJobAdapter(
                 .load(user.userPhoto)
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(backerPhotoImageView)
+
+            backerPhotoImageView.setOnClickListener {
+                val intent = Intent(context, ProfileActivity::class.java)
+                intent.putExtra("userId", pet.userId)
+                context.startActivity(intent)
+            }
 
         }
     }

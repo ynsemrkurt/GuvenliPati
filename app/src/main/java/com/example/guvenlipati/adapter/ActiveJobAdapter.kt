@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guvenlipati.chat.ChatActivity
+import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Notification
 import com.example.guvenlipati.models.Offer
@@ -91,14 +92,12 @@ class ActiveJobAdapter(
             backerNameTextView.text = user.userName + " " + user.userSurname
             priceTextView.text = offer.offerPrice.toString() + " TL"
 
-            if (offer.confirmBacker==false && offer.confirmUser==true){
-                confirmStatusTextView.text="İş Sahibi\nOnayladı..."
-            }
-            else if (offer.confirmBacker==true && offer.confirmUser==false){
-                confirmStatusTextView.text="Sen\nOnayladın..."
-            }
-            else{
-                confirmStatusTextView.text="Henüz\nOnaylanmadı..."
+            if (offer.confirmBacker == false && offer.confirmUser == true) {
+                confirmStatusTextView.text = "İş Sahibi\nOnayladı..."
+            } else if (offer.confirmBacker == true && offer.confirmUser == false) {
+                confirmStatusTextView.text = "Sen\nOnayladın..."
+            } else {
+                confirmStatusTextView.text = "Henüz\nOnaylanmadı..."
             }
 
             Glide.with(context)
@@ -149,18 +148,29 @@ class ActiveJobAdapter(
                 }
             }
 
-            supportButton.setOnClickListener{
-                val intent=Intent(Intent.ACTION_SENDTO,Uri.fromParts("mailto", "yunusemre-kurt@outlook.com",  null))
-                context.startActivity(Intent.createChooser(intent,"Send email..."))
+            supportButton.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_SENDTO,
+                    Uri.fromParts("mailto", "yunusemre-kurt@outlook.com", null)
+                )
+                context.startActivity(Intent.createChooser(intent, "Send email..."))
             }
 
-            buttonCopyId.setOnClickListener{
-                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            buttonCopyId.setOnClickListener {
+                val clipboard =
+                    context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("simple text", offer.offerId)
                 clipboard.setPrimaryClip(clip)
                 showToast("Teklif ID kopyalandı...")
             }
+
+            backerPhotoImageView.setOnClickListener {
+                val intent = Intent(context, ProfileActivity::class.java)
+                intent.putExtra("userId", pet.userId)
+                context.startActivity(intent)
+            }
         }
+
     }
 
     private fun showToast(message: String) {
