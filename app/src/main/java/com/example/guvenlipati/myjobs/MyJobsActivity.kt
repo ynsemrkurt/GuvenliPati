@@ -19,7 +19,7 @@ class MyJobsActivity : AppCompatActivity() {
             tabLayout.selectTab(tabLayout.getTabAt(2))
         }
         else {
-            goActiveJobFragment() // İlk açılan sayfa ActiveJobFragment olacak
+            goActiveJobFragment()
             tabLayout.selectTab(tabLayout.getTabAt(0))
         }
 
