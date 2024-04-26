@@ -116,5 +116,6 @@
     <string name="l_tfen_sisteme_kay_tl_mail_adresinizi_giriniz_nard_ndan_mail_kutunuzdaki_linkten_ifrenizi_yenileyebilirsiniz">Lütfen sisteme kayıtlı mail adresinizi giriniz...\nArdından mail kutunuzdaki linkten şifrenizi yenileyebilirsiniz....</string>
     <string name="ifremi_unuttum">Şifremi Unuttum...</string>
     <string name="g_nder">Gönder</string>
+    <string name="pofuduk">Pofuduk - Gezdirme</string>
 </resources>
 
