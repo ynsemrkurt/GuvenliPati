@@ -17,20 +17,20 @@ class AdvertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advert)
 
-        goPaymentAdvertFragment()
+        goPendingAdvertFragment()
 
 
         findViewById<TabLayout>(R.id.tabLayout).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
                 when (position) {
-                    0 -> goPaymentAdvertFragment()
+                    0 -> goPendingAdvertFragment()
 
-                    1 -> goPastAdvertFragment()
+                    1 -> goPaymentAdvertFragment()
 
                     2 -> goActiveAdvertFragment()
 
-                    3 -> goPendingAdvertFragment()
+                    3 -> goPastAdvertFragment()
                 }
             }
 

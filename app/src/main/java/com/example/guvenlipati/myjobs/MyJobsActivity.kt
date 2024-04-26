@@ -16,9 +16,10 @@ class MyJobsActivity : AppCompatActivity() {
 
         if (status) {
             goPastJobFragment()
-            tabLayout.selectTab(tabLayout.getTabAt(1))
-        } else {
-            goActiveJobFragment()
+            tabLayout.selectTab(tabLayout.getTabAt(2))
+        }
+        else {
+            goActiveJobFragment() // İlk açılan sayfa ActiveJobFragment olacak
             tabLayout.selectTab(tabLayout.getTabAt(0))
         }
 
@@ -26,7 +27,8 @@ class MyJobsActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> goActiveJobFragment()
-                    1 -> goPastJobFragment()
+                    1 -> goPendingJobFragment()
+                    2 -> goPastJobFragment()
                 }
             }
 
@@ -43,6 +45,7 @@ class MyJobsActivity : AppCompatActivity() {
         }
     }
 
+
     private fun goPastJobFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, PastJobFragment())
@@ -52,6 +55,12 @@ class MyJobsActivity : AppCompatActivity() {
     private fun goActiveJobFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, ActiveJobsFragment())
+            .commit()
+    }
+
+    private fun goPendingJobFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, PendingJobFragment())
             .commit()
     }
 }
