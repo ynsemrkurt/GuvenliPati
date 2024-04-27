@@ -5,5 +5,8 @@ data class Rating(
     var date: String = "",
     var rating: Double = 0.0,
     var userId: String = "",
-    var backerId: String = ""
+    var backerId: String = "",
+    var petName: String = "",
+    var jobType: String = "",
+    var commentTime: String = ""
 )

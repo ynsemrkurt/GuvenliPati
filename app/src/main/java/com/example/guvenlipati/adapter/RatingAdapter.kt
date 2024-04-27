@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class RatingAdapter(
     private val context: Context,
@@ -42,6 +43,7 @@ class RatingAdapter(
         dialog.setContentView(view)
         dialog.show()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_rating_job, parent, false)
@@ -117,6 +119,9 @@ class RatingAdapter(
                 val dialog = builder.create()
                 dialog.show()
 
+                val currentTime = LocalDateTime.now()
+                val formattedTime = currentTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+
                 sendButton.setOnClickListener {
                     if (ratingBar.rating == 0f) {
                         Toast.makeText(context, "Lütfen bir puan verin", Toast.LENGTH_SHORT).show()
@@ -135,6 +140,9 @@ class RatingAdapter(
                     hashMap["backerId"] = offer.offerBackerId
                     hashMap["userId"] = FirebaseAuth.getInstance().currentUser!!.uid
                     hashMap["date"] = LocalDateTime.now().toString()
+                    hashMap["petName"] = pet.petName
+                    hashMap["jobType"] = jobTypeTextView.text
+                    hashMap["commentTime"] = formattedTime.toString()
                     databaseReference.child(offer.offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             databaseReferenceOffer.updateChildren(

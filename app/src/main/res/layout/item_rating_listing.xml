@@ -33,7 +33,7 @@
                 android:id="@+id/userImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 app:cardCornerRadius="67dp"
                 app:cardElevation="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -47,49 +47,74 @@
                     android:layout_height="135dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/men_image" />
+
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/userNameTextView"
+                android:id="@+id/commentTimeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="4dp"
                 android:fontFamily="@font/alata"
-                android:text="Batın Gökçe Savran"
-                android:textColor="@color/lightblack"
-                android:textSize="17sp"
-                app:layout_constraintStart_toEndOf="@+id/userImage"
-                app:layout_constraintTop_toTopOf="@+id/userImage" />
+                android:text="27/01/2001"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ratingJobTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.272"
+                app:layout_constraintStart_toEndOf="@+id/ratingJobTextView"
+                app:layout_constraintTop_toTopOf="@+id/ratingJobTextView" />
 
             <TextView
                 android:id="@+id/commentTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="-14dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/alata"
                 android:maxLines="3"
                 android:paddingEnd="10dp"
-                android:text="Hayatımda gördüğüm en kötü bakıcı. Bu yüzden tüm karadenizlileri sikeceğim!!!"
+                android:text="Hayatımda gördüğüm en kötü bakıcı. Bu yüzden tüm antalyayı sikeceğim!!!"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/ratingBar"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                app:layout_constraintTop_toBottomOf="@+id/ratingJobTextView" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="-60dp"
-                android:layout_marginTop="-5dp"
+                android:layout_marginStart="88dp"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:progressTint="#FFE500"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                app:layout_constraintStart_toStartOf="@+id/userNameTextView"
-                app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />
+                app:layout_constraintStart_toEndOf="@+id/userImage"
+                app:layout_constraintStart_toStartOf="@+id/userImage"
+                app:layout_constraintTop_toTopOf="@+id/userImage" />
+
+            <TextView
+                android:id="@+id/ratingJobTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-16dp"
+                android:fontFamily="@font/alata"
+                android:text="@string/pofuduk"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/commentTextView"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+            <TextView
+                android:id="@+id/userNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alata"
+                android:text="Yunus Emre"
+                android:textColor="@color/lightblack"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/userImage"
+                app:layout_constraintStart_toStartOf="@+id/userImage"
+                app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
