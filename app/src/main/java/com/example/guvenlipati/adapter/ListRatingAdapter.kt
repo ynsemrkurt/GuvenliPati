@@ -45,6 +45,7 @@ class ListRatingAdapter(
             ratingBar.rating = rating!!.rating.toFloat()
             commentTextView.text = rating.comment
 
+
             Glide.with(context)
                 .load(user?.userPhoto ?: R.drawable.men_image)
                 .placeholder(R.drawable.men_image)

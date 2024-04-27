@@ -1,18 +1,15 @@
 package com.example.guvenlipati.home
 
-import JobCreateFragment
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import com.example.guvenlipati.backer.PetBackerActivity
+import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
-import com.example.guvenlipati.addPet.RegisterPetActivity
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
-import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.myjobs.MyJobsActivity
 import com.example.guvenlipati.splash.SplashActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        goHomeFragment()
+        goFragment(HomeFragment())
 
         auth = FirebaseAuth.getInstance()
 
@@ -44,38 +41,27 @@ class HomeActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout -> {
-                    FirebaseMessaging.getInstance().deleteToken()
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                logout()
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "Token silinirken bir hata oluştu.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
+                    deleteToken()
                     true
                 }
 
                 R.id.jobs -> {
-                    goAdvertActivity()
+                    goActivity(AdvertActivity())
                     true
                 }
 
                 R.id.myJobs -> {
-                    goMyJobsActivity()
+                    goActivity(MyJobsActivity())
                     true
                 }
 
                 R.id.rating -> {
-                    goRatingActivity()
+                    goActivity(RatingActivity())
                     true
                 }
 
                 R.id.settings -> {
-                    goSettingsActivity()
+                    goActivity(SettingsActivity())
                     true
                 }
 
@@ -87,121 +73,67 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_home -> {
-                    goHomeFragment()
+                    goFragment(HomeFragment())
                     true
                 }
 
                 R.id.menu_jobs -> {
-                    goJobsFragment()
+                    goFragment(JobsSplashFragment())
                     true
                 }
 
                 R.id.menu_add_friend -> {
-                    goAddPetFragment()
+                    goFragment(AddPetFragment())
                     true
                 }
 
                 R.id.menu_profile -> {
-                    goProfileFragment()
+                    goFragment(ProfileFragment())
                     true
                 }
 
                 R.id.menu_chats -> {
-                    goChatListFragment()
+                    goFragment(ChatListFragment())
                     true
                 }
+
                 else -> false
             }
         }
 
     }
 
-
-    fun goAddPetFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragmentContainerView2, AddPetFragment()
-            )
-            .commit()
-    }
-
-
-    private fun goHomeFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragmentContainerView2, HomeFragment()
-            )
-            .commit()
-    }
-
     fun goSelectAddPetFragment() {
         binding.bottomNavigation.selectedItemId = R.id.menu_add_friend
     }
 
-    fun goJobCreateActivity() {
-        startActivity(Intent(this, JobsActivity::class.java))
-    }
-
-
-    fun goRegisterPetActivity(petType: String) {
-        val intent = Intent(this, RegisterPetActivity::class.java)
-        intent.putExtra("petType", petType)
-        startActivity(intent)
-    }
-
-    fun goProfileFragment() {
+    fun goFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(
-                R.id.fragmentContainerView2, ProfileFragment()
+                R.id.fragmentContainerView2, fragment
             )
             .commit()
     }
 
-    fun goPetBackerActivity() {
-        val intent = Intent(this, PetBackerActivity::class.java)
+    fun goActivity(activity: Activity) {
+        val intent = Intent(this, activity::class.java)
         startActivity(intent)
     }
 
-    fun logout() {
-        auth.signOut()
-        val intent = Intent(this, SplashActivity::class.java)
-        startActivity(intent)
-        finish()
+    fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun goJobsFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragmentContainerView2, JobsSplashFragment()
-            )
-            .commit()
-    }
-
-    private fun goChatListFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragmentContainerView2, ChatListFragment()
-            )
-            .commit()
-    }
-
-    private fun goAdvertActivity() {
-        val intent = Intent(this, AdvertActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun goMyJobsActivity() {
-        val intent = Intent(this, MyJobsActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun goRatingActivity() {
-        val intent = Intent(this, RatingActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun goSettingsActivity() {
-        val intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
+    private fun deleteToken() {
+        FirebaseMessaging.getInstance().deleteToken()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    auth.signOut()
+                    goActivity(SplashActivity())
+                    finish()
+                } else {
+                    showToast("Çıkış Yaparken Hata Oluştu!")
+                }
+            }
     }
 }

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.adapter.HomeBackersAdapter
 import com.example.guvenlipati.adapter.HomePetsAdapter
 import com.example.guvenlipati.adapter.SelectPetsAdapter
+import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.databinding.FragmentHomeBinding
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Pet
@@ -53,10 +54,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            (activity as HomeActivity).logout()
-        }
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         databaseReferenceUsers2 =
@@ -143,8 +140,8 @@ class HomeFragment : Fragment() {
                                 }
                                 FirebaseDatabase.getInstance().getReference("ratings").addListenerForSingleValueEvent(object : ValueEventListener {
                                     override fun onDataChange(snapshot: DataSnapshot) {
-                                        var totalRating = 0.0  // Yerel değişken olarak tanımla
-                                        var sayac = 0          // Yerel değişken olarak tanımla
+                                        var totalRating = 0.0
+                                        var sayac = 0
 
                                         snapshot.children.forEach { ratingSnapshot ->
                                             val rating = ratingSnapshot.getValue(Rating::class.java) ?: return@forEach
@@ -194,11 +191,9 @@ class HomeFragment : Fragment() {
         })
 
         binding.goBackerButton.setOnClickListener {
-            (activity as HomeActivity).goPetBackerActivity()
+            (activity as HomeActivity).goActivity(PetBackerActivity())
         }
-
         permissionNotification()
-
     }
 
     private val appPermissionLauncher =
