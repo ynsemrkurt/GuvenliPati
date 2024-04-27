@@ -102,29 +102,17 @@ class SecondSignUpFragment : Fragment() {
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
-            val userProvince = binding.provinceCombo.text.toString()
-            val userTown = binding.townCombo.text.toString()
+            //Controllers
 
+            (activity as SplashActivity).controllerIf(binding.editTextUserName, "Lütfen adınızı giriniz!")
 
-            if (binding.editTextUserName.text.trim().isEmpty()) {
-                showToast("İsminizi giriniz!")
-                return@setOnClickListener
-            }
+            (activity as SplashActivity).controllerIf(binding.editTextUserSurname, "Lütfen soyadınızı giriniz!")
 
-            if (binding.editTextUserSurname.text.trim().isEmpty()) {
-                showToast("Soyadınızı giriniz!")
-                return@setOnClickListener
-            }
+            (activity as SplashActivity).controllerBool(userGender, "Lütfen cinsiyetinizi seçiniz!")
 
-            if (userGender == null) {
-                showToast("Cinsiyetinizi seçiniz!")
-                return@setOnClickListener
-            }
+            (activity as SplashActivity).controllerIf(binding.provinceCombo, "Lütfen il bilgisi seçiniz!")
 
-            if (userProvince.trim().isEmpty() || userTown.trim().isEmpty()) {
-                showToast("Lütfen konum bilgilerinizi doldurunuz!")
-                return@setOnClickListener
-            }
+            (activity as SplashActivity).controllerIf(binding.townCombo, "Lütfen ilçe bilgisi seçiniz!")
 
             if (imageUrl==""){
                 showToast("Lütfen profil fotoğrafınızı seçiniz!")
@@ -148,8 +136,8 @@ class SecondSignUpFragment : Fragment() {
             hashMap["userName"] = binding.editTextUserName.text.toString()
             hashMap["userSurname"] = binding.editTextUserSurname.text.toString()
             hashMap["userGender"] = userGender!!
-            hashMap["userProvince"] = userProvince
-            hashMap["userTown"] = userTown
+            hashMap["userProvince"] = binding.provinceCombo.text.toString()
+            hashMap["userTown"] = binding.townCombo.text.toString()
             hashMap["userBacker"] = false
             hashMap["userRegisterDate"] = "$currentDay/$currentMonth/$currentYear"
 
