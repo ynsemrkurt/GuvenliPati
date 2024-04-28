@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         app:cardElevation="5dp"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="185dp"
         android:background="@color/white"
         android:elevation="100dp"
         android:layout_margin="10dp"
@@ -27,6 +27,18 @@
             android:layout_height="match_parent"
             android:background="@color/white">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/alata"
+                android:text="İş Bilgileri"
+                android:textColor="#B01E1E1E"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/petImage"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/petImage"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 app:cardElevation="3dp"
@@ -34,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.08"
