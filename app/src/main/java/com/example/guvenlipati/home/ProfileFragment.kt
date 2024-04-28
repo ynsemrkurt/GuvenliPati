@@ -205,7 +205,7 @@ class ProfileFragment : Fragment() {
                 } else {
                     showToast("Düzenleme hatası: ${task.exception}")
                 }
-                (activity as HomeActivity).goProfileFragment()
+                (activity as HomeActivity).goFragment(ProfileFragment())
                 binding.buttonAddProfileImage.visibility = View.INVISIBLE
                 binding.editTextUserName.isEnabled = false
                 binding.editTextUserSurname.isEnabled = false
@@ -255,7 +255,7 @@ class ProfileFragment : Fragment() {
             )
             .setPositiveButton("Geri Dön") { _, _ ->
                 showToast("Değişiklikler iptal edildi.")
-                (activity as HomeActivity).goProfileFragment()
+                (activity as HomeActivity).goFragment(ProfileFragment())
             }
             .setNegativeButton("İptal") { _, _ ->
                 showToast("İptal Edildi")

@@ -2,6 +2,7 @@ package com.example.guvenlipati.job
 
 import JobCreateFragment
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,5 +46,11 @@ class JobsActivity : AppCompatActivity() {
     }
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun controllerIf(editText: EditText, message: String){
+        if (editText.text.toString().trim().isEmpty()){
+            showToast(message)
+        }
     }
 }

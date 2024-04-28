@@ -21,7 +21,9 @@ class ChatListFragment : Fragment() {
     private lateinit var binding: FragmentChatListBinding
     private lateinit var fragmentContext: Context
     private val userList = ArrayList<User>()
-    private val userMap = HashMap<String, User>() // Kullanıcıları tutmak için bir harita oluşturuyoruz
+    private val userMap = HashMap<String, User>()
+    private val databaseReference: DatabaseReference =
+        FirebaseDatabase.getInstance().getReference("chat")
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -33,80 +35,82 @@ class ChatListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentChatListBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.chatRecycleView.layoutManager =
             LinearLayoutManager(fragmentContext, RecyclerView.VERTICAL, false)
 
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        val databaseReference: DatabaseReference =
-            FirebaseDatabase.getInstance().getReference("chat")
 
         firebaseUser?.let { currentUser ->
-            databaseReference.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (isAdded) {
-                        userList.clear()
-                        userMap.clear()
+            loadChat(currentUser)
+        }
+    }
 
-                        for (dataSnapshot: DataSnapshot in snapshot.children) {
-                            val senderId = dataSnapshot.child("senderId").getValue(String::class.java)
-                            val recipientId = dataSnapshot.child("recipientId").getValue(String::class.java)
+    private fun loadChat(currentUser: FirebaseUser) {
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (isAdded) {
+                    userList.clear()
+                    userMap.clear()
 
-                            if (senderId == currentUser.uid || recipientId == currentUser.uid) {
-                                val otherUserId = if (senderId == currentUser.uid) recipientId else senderId
-                                if (otherUserId != null) {
-                                    binding.animationView2.visibility = View.GONE
-                                    FirebaseDatabase.getInstance().getReference("users").child(otherUserId)
-                                        .addListenerForSingleValueEvent(object : ValueEventListener {
-                                            override fun onDataChange(userSnapshot: DataSnapshot) {
-                                                if (isAdded) {
-                                                    val user = userSnapshot.getValue(User::class.java)
-                                                    user?.let {
-                                                        if (!userMap.containsKey(otherUserId)) {
-                                                            userList.add(it)
-                                                            userMap[otherUserId] = it
-                                                            binding.chatRecycleView.adapter =
-                                                                UserAdapter(fragmentContext, userList)
-                                                        }
-                                                    }
-                                                }
-                                            }
+                    for (dataSnapshot: DataSnapshot in snapshot.children) {
+                        val senderId =
+                            dataSnapshot.child("senderId").getValue(String::class.java)
+                        val recipientId =
+                            dataSnapshot.child("recipientId").getValue(String::class.java)
 
-                                            override fun onCancelled(error: DatabaseError) {
-                                                if (isAdded) {
-                                                    Toast.makeText(
-                                                        fragmentContext,
-                                                        "Error: " + error.message,
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
-                                            }
-                                        })
-                                }
+                        if (senderId == currentUser.uid || recipientId == currentUser.uid) {
+                            val otherUserId =
+                                if (senderId == currentUser.uid) recipientId else senderId
+                            if (otherUserId != null) {
+                                binding.animationView2.visibility = View.GONE
+                                fetchUser(otherUserId)
                             }
                         }
-                        binding.loadingCardView.visibility = View.GONE
-                        binding.scrollView.foreground = null
+                    }
+                    binding.loadingCardView.visibility = View.GONE
+                    binding.scrollView.foreground = null
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                if (isAdded) {
+                    Toast.makeText(
+                        fragmentContext,
+                        "Error: " + error.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+    }
+
+    private fun fetchUser(userId: String) {
+        FirebaseDatabase.getInstance().getReference("users").child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(userSnapshot: DataSnapshot) {
+                    if (isAdded) {
+                        val user = userSnapshot.getValue(User::class.java)
+                        user?.let {
+                            if (!userMap.containsKey(userId)) {
+                                userList.add(it)
+                                userMap[userId] = it
+                                binding.chatRecycleView.adapter =
+                                    UserAdapter(fragmentContext, userList)
+                            }
+                        }
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     if (isAdded) {
-                        Toast.makeText(
-                            fragmentContext,
-                            "Error: " + error.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        (activity as HomeActivity).showToast("Error: " + error.message)
                     }
                 }
             })
-        } ?: run {
-            if (isAdded) {
-                Toast.makeText(fragmentContext, "User is not authenticated", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        return view
     }
 }

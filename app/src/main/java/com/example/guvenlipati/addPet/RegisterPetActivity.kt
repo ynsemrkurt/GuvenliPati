@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -140,55 +141,59 @@ class RegisterPetActivity : AppCompatActivity() {
             getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
+
+        fun controllerIf(editText: EditText,message: String){
+            if (editText.text.toString().trim().isEmpty()){
+                showToast(message)
+                return
+            }
+        }
+
+        fun controllerBool(petBool: Boolean?, message: String){
+            if (petBool == null) {
+                showToast(message)
+                return
+            }
+        }
+
+        fun showProgress() {
+            binding.petRegisterButton.visibility = View.INVISIBLE
+            binding.progressCard.visibility = View.VISIBLE
+            binding.buttonPaw2.visibility = View.INVISIBLE
+        }
+
+        fun hideProgress() {
+            binding.petRegisterButton.visibility = View.VISIBLE
+            binding.progressCard.visibility = View.INVISIBLE
+            binding.buttonPaw2.visibility = View.VISIBLE
+        }
+
         binding.petRegisterButton.setOnClickListener {
             val petId = UUID.randomUUID().toString()
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("pets")
                     .child(petId)
 
-            if (binding.editTextPetName.text.toString().trim().isEmpty()) {
-                showToast("Lütfen ad giriniz!")
-                return@setOnClickListener
-            }
+            controllerIf(binding.editTextPetName,"Lütfen dostunuzun adını giriniz!")
 
-            if (binding.editTextWeight.text.toString().trim().isEmpty()) {
-                showToast("Lütfen ağırlık giriniz!")
-                return@setOnClickListener
-            }
+            controllerIf(binding.editTextAbout, "Lütfen dostunuzun ağırlığını giriniz!")
 
-            if (binding.ageCombo.text.toString().trim().isEmpty()) {
-                showToast("Lütfen yaş giriniz!")
-                return@setOnClickListener
-            }
+            controllerIf(binding.ageCombo, "Lütfen dostunuzun yaşını giriniz!")
 
-            if (binding.typeCombo.text.toString().trim().isEmpty()) {
-                showToast("Lütfen tür giriniz!")
-                return@setOnClickListener
-            }
+            controllerIf(binding.typeCombo, "Lütfen dostunuzun türünü seçiniz!")
 
-            if (petGender == null) {
-                showToast("Lütfen cinsiyet seçiniz!")
-                return@setOnClickListener
-            }
+            controllerBool(petGender,"Lütfen dostunuzun cinsiyetini seçiniz!")
 
-            if (petVaccine == null) {
-                showToast("Lütfen aşı bilgisi seçiniz!")
-                return@setOnClickListener
-            }
+            controllerBool(petVaccine, "Lütfen dostunuzun aşı bilgisini seçiniz!")
 
-            if (binding.editTextAbout.text.toString().trim().isEmpty()) {
-                showToast("Lütfen tüm alanları doldurunuz!")
-                return@setOnClickListener
-            }
+            controllerIf(binding.editTextAbout, "Lütfen bir açıklama giriniz!")
 
             if(imageUrl==""){
                 showToast("Lütfen bir fotoğraf seçiniz!")
                 return@setOnClickListener
             }
 
-            binding.petRegisterButton.visibility = View.INVISIBLE
-            binding.progressCard.visibility = View.VISIBLE
-            binding.buttonPaw2.visibility = View.INVISIBLE
+            showProgress()
 
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
@@ -206,15 +211,11 @@ class RegisterPetActivity : AppCompatActivity() {
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    binding.petRegisterButton.visibility = View.VISIBLE
-                    binding.progressCard.visibility = View.INVISIBLE
-                    binding.buttonPaw2.visibility = View.VISIBLE
+                    hideProgress()
                     showBottomSheet()
                 } else {
                     showToast("Hatalı işlem!")
-                    binding.petRegisterButton.visibility = View.VISIBLE
-                    binding.progressCard.visibility = View.INVISIBLE
-                    binding.buttonPaw2.visibility = View.VISIBLE
+                    hideProgress()
                 }
             }
         }

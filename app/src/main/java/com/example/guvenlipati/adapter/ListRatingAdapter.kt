@@ -51,6 +51,7 @@ class ListRatingAdapter(
             ratingJobTextView.text = rating.petName + "-" + rating.jobType
             commentTimeTextView.text = rating.commentTime
 
+
             Glide.with(context)
                 .load(user?.userPhoto ?: R.drawable.men_image)
                 .placeholder(R.drawable.men_image)

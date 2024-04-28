@@ -1,5 +1,6 @@
 package com.example.guvenlipati.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
+import com.example.guvenlipati.addPet.RegisterPetActivity
 import com.example.guvenlipati.databinding.FragmentAddPetBinding
 
 
@@ -18,7 +20,7 @@ class AddPetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding= FragmentAddPetBinding.inflate(inflater,container,false)
+        binding = FragmentAddPetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -26,17 +28,23 @@ class AddPetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.selectDog.setOnClickListener {
-            (requireActivity() as HomeActivity).goRegisterPetActivity("dog")
+            goRegisterPetActivity("dog")
         }
 
         binding.selectCat.setOnClickListener {
-            (requireActivity() as HomeActivity).goRegisterPetActivity("cat")
+            goRegisterPetActivity("cat")
         }
 
         binding.selectBird.setOnClickListener {
-            (requireActivity() as HomeActivity).goRegisterPetActivity("bird")
+            goRegisterPetActivity("bird")
         }
 
+    }
+
+    private fun goRegisterPetActivity(petType: String) {
+        val intent = Intent(requireActivity(), RegisterPetActivity::class.java)
+        intent.putExtra("petType", petType)
+        startActivity(intent)
     }
 
 }

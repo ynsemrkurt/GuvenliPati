@@ -1,19 +1,18 @@
 package com.example.guvenlipati.home
 
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.DialogTitle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.job.GetJobActivity
 import com.example.guvenlipati.R
+import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.databinding.FragmentJobsSplashBinding
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
@@ -28,16 +27,14 @@ import com.google.firebase.database.ValueEventListener
 class JobsSplashFragment : Fragment() {
 
     private lateinit var user: User
-    private lateinit var pet: Pet
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var binding: FragmentJobsSplashBinding
     private var petBool = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding= FragmentJobsSplashBinding.inflate(inflater,container,false)
+        binding=FragmentJobsSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -45,7 +42,8 @@ class JobsSplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
-        val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
+        val databaseReferenceUsers =
+            FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
         databaseReferenceUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -71,13 +69,12 @@ class JobsSplashFragment : Fragment() {
                         val pet = dataSnapshot.children.firstOrNull()?.getValue(Pet::class.java)
                         petBool = pet?.userId == user.userId
                         if (petBool) {
-                            (activity as HomeActivity).goJobCreateActivity()
+                            (activity as HomeActivity).goActivity(JobsActivity())
                         } else {
-                            showMaterialDialog("Dost Ekle!", "Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!", "Dost Ekle!", { (activity as HomeActivity).goSelectAddPetFragment() })
+                            showMaterialDialogPet()
                         }
                     } else {
-                        showMaterialDialog("Dost Ekle!", "Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!", "Dost Ekle!", { (activity as HomeActivity).goSelectAddPetFragment() })
-
+                        showMaterialDialogPet()
                     }
                 }
 
@@ -91,10 +88,17 @@ class JobsSplashFragment : Fragment() {
             if (::user.isInitialized) {
                 val userBackerBool = user.userBacker
                 if (!userBackerBool) {
-                    showMaterialDialog("Bakıcı Ol!", "Bakıcı profiliniz bulunmamaktadır. İş alabilmek için bakıcı profili oluşturmak zorundasınız!", "Bakıcı Ol!", { (activity as HomeActivity).goPetBackerActivity()})
+                    showMaterialDialog("Bakıcı Ol!",
+                        "Bakıcı profiliniz bulunmamaktadır. İş alabilmek için bakıcı profili oluşturmak zorundasınız!",
+                        "Bakıcı Ol!",
+                        {
+                            (activity as HomeActivity).goActivity(PetBackerActivity())
+                        },
+                        {
+                            showToast("İptal Edildi")
+                        })
                 } else {
-                    val intent = Intent(requireContext(), GetJobActivity::class.java)
-                    startActivity(intent)
+                    (activity as HomeActivity).goActivity(GetJobActivity())
                 }
             } else {
                 showToast("Kullanıcı verileri yüklenemedi.")
@@ -102,24 +106,36 @@ class JobsSplashFragment : Fragment() {
         }
     }
 
-    private fun showMaterialDialog(title: String, message: String, positiveButtonText: String, goFunction: () -> Unit) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(title)
-            .setMessage(message)
+
+    private fun showMaterialDialog(
+        title: String,
+        message: String,
+        positiveButton: String,
+        positiveAction: () -> Unit,
+        negativeAction: () -> Unit
+    ) {
+        MaterialAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message)
             .setBackground(
                 ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.background_dialog
+                    requireContext(), R.drawable.background_dialog
                 )
-            )
-            .setPositiveButton(positiveButtonText) { _, _ ->
-                goFunction()
-            }
-            .setNegativeButton("İptal") { _, _ ->
-                showToast("İptal Edildi")
-            }
-            .show()
+            ).setPositiveButton(positiveButton) { _, _ ->
+                positiveAction()
+            }.setNegativeButton("İptal") { _, _ ->
+                negativeAction()
+            }.show()
+    }
 
+    private fun showMaterialDialogPet() {
+        showMaterialDialog("Dost Ekle!",
+            "Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!",
+            "Dost Ekle!",
+            {
+                (activity as HomeActivity).goSelectAddPetFragment()
+            },
+            {
+                showToast("İptal Edildi")
+            })
     }
 
     private fun showToast(message: String) {
