@@ -52,22 +52,23 @@
 
         <ImageButton
             android:id="@+id/ratingButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="12dp"
+            android:layout_width="40dp"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="-4dp"
             android:background="@color/white"
             android:scaleType="centerCrop"
             android:src="@drawable/star_ico"
             app:layout_constraintBottom_toBottomOf="@+id/backerNameTextView"
             app:layout_constraintStart_toEndOf="@+id/backerNameTextView"
             app:layout_constraintTop_toTopOf="@+id/backerNameTextView"
-            app:layout_constraintVertical_bias="0.7" />
+            app:layout_constraintVertical_bias="0.3" />
 
         <TextView
             android:id="@+id/totalRateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="-7dp"
             android:fontFamily="@font/alata"
             android:text="4.5"
             android:maxLength="3"

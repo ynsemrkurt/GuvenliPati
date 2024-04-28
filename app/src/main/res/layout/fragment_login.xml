@@ -150,10 +150,11 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
+            android:gravity="center"
             android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
             android:text="@string/password_forgot"
             android:fontFamily="@font/alata"
             app:layout_constraintBottom_toBottomOf="parent"

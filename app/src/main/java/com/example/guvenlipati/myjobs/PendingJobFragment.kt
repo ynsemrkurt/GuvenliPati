@@ -33,7 +33,7 @@ class PendingJobFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding= FragmentPendingJobBinding.inflate(inflater)
+        binding = FragmentPendingJobBinding.inflate(inflater)
         return binding.root
     }
 
@@ -64,40 +64,42 @@ class PendingJobFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "Error loading data: ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Error loading data: ${error.message}", Toast.LENGTH_LONG)
+                    .show()
             }
         })
     }
 
     private fun fetchJobAndRelatedData(offer: Offer) {
-        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(jobSnapshot: DataSnapshot) {
-                val job = jobSnapshot.getValue(Job::class.java)
-                if (job != null) {
-                    fetchPet(job.petID, offer,job) // Teklif verisini fetchPete aktarın
+        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(jobSnapshot: DataSnapshot) {
+                    val job = jobSnapshot.getValue(Job::class.java)
+                    if (job != null) {
+                        fetchPet(offer, job) // Teklif verisini fetchPete aktarın
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {}
-        })
+                override fun onCancelled(error: DatabaseError) {}
+            })
     }
 
-    private fun fetchPet(petId: String, offer: Offer, job: Job) {
-        FirebaseDatabase.getInstance().getReference("pets").child(petId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(petSnapshot: DataSnapshot) {
-                val pet = petSnapshot.getValue(Pet::class.java)
-                if (pet != null) {
-                    petList.add(pet)
-                    offerList.add(offer)
-                    jobList.add(job)
-                    adapter.notifyDataSetChanged()
+    private fun fetchPet(offer: Offer, job: Job) {
+        FirebaseDatabase.getInstance().getReference("pets").child(job.petID)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(petSnapshot: DataSnapshot) {
+                    val pet = petSnapshot.getValue(Pet::class.java)
+                    if (pet != null) {
+                        petList.add(pet)
+                        offerList.add(offer)
+                        jobList.add(job)
+                        adapter.notifyDataSetChanged()
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {}
-        })
+                override fun onCancelled(error: DatabaseError) {}
+            })
     }
-
 
     private fun clearLists() {
         jobList.clear()
