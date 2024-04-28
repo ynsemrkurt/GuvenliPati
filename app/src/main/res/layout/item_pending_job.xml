@@ -155,7 +155,7 @@
             <ImageButton
                 android:scaleType="fitCenter"
                 android:padding="10dp"
-                android:id="@+id/buttonDeleteJob"
+                android:id="@+id/buttonDeleteOffer"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"

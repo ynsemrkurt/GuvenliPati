@@ -123,7 +123,6 @@ class PastJobFragment : Fragment() {
     }
 
     private fun allDataLoaded(): Boolean {
-        // Ensure all data is loaded before clearing loading indicators
         return jobList.size == offerList.size && petList.size == jobList.size && userList.size == offerList.size
     }
 }
