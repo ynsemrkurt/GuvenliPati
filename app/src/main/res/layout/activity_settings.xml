@@ -50,16 +50,101 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/settings_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AYARLI DA BAŞGANNN"
-            android:textSize="25sp"
-            android:fontFamily="@font/alata"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp"
+            android:text="Settings"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.049"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/password_settings_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="68dp"
+            android:text="Password Settings"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switch2" />
+
+        <EditText
+            android:id="@+id/current_password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:hint="Current Password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_settings_header" />
+
+        <EditText
+            android:id="@+id/new_password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="New Password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_password_edit_text" />
+
+        <TextView
+            android:id="@+id/notification_settings_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Notification Settings"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/settings_header"
+            app:layout_constraintTop_toBottomOf="@+id/settings_header" />
+
+        <Switch
+            android:id="@+id/switch4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:text="Uygulama Sesleri"
+            app:layout_constraintStart_toEndOf="@+id/switch3"
+            app:layout_constraintTop_toTopOf="@+id/switch3"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Titreşim    "
+            app:layout_constraintStart_toStartOf="@+id/switch3"
+            app:layout_constraintTop_toBottomOf="@+id/switch3"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switch3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:text="Bildirimler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/notification_settings_header"
+            app:layout_constraintTop_toBottomOf="@+id/notification_settings_header"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Karanlık Tema      "
+            app:layout_constraintStart_toStartOf="@+id/switch4"
+            app:layout_constraintTop_toBottomOf="@+id/switch4"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
