@@ -1,6 +1,9 @@
 package com.example.guvenlipati.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +54,9 @@ class RatingActivity : AppCompatActivity() {
                         val offer = offerSnapshot.getValue(Offer::class.java)
                         if (offer != null && offer.offerUser == firebaseUser?.uid && offer.offerStatus && !offer.ratingStatus) {
                             offerList.add(offer)
+                            binding.loadingCardView.visibility = View.VISIBLE
+                            binding.linearLayout.foreground= ColorDrawable(Color.parseColor("#FFFFFF"))
+                            binding.animationView2.visibility=View.GONE
                             FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId).addValueEventListener(object :
                                 ValueEventListener {
                                 override fun onDataChange(jobSnapshot: DataSnapshot) {
@@ -77,6 +83,8 @@ class RatingActivity : AppCompatActivity() {
                                                                         backer?.let {
                                                                             backerList.add(it)
                                                                             adapter.notifyDataSetChanged()
+                                                                            binding.loadingCardView.visibility = View.GONE
+                                                                            binding.linearLayout.foreground=null
                                                                         }
                                                                     }
                                                                     override fun onCancelled(error: DatabaseError) {}
