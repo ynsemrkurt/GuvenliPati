@@ -11,7 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="220dp"
         android:layout_margin="10dp"
         android:background="@color/white"
         android:elevation="100dp"
@@ -54,13 +54,11 @@
                 android:id="@+id/commentTimeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 android:fontFamily="@font/alata"
                 android:text="27/01/2001"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/ratingJobTextView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.272"
                 app:layout_constraintStart_toEndOf="@+id/ratingJobTextView"
                 app:layout_constraintTop_toTopOf="@+id/ratingJobTextView" />
 
@@ -69,15 +67,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="8dp"
                 android:fontFamily="@font/alata"
                 android:maxLines="3"
                 android:paddingEnd="10dp"
-                android:text="Hayatımda gördüğüm en kötü bakıcı. Bu yüzden tüm antalyayı sikeceğim!!!"
+                android:text="Hayatımda gördüğüm en kötü bakıcı. Bu yüzden düşük puan veriyorum!!!"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/ratingBar"
-                app:layout_constraintTop_toBottomOf="@+id/ratingJobTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -97,22 +94,26 @@
                 android:id="@+id/ratingJobTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-16dp"
+                android:layout_marginStart="28dp"
                 android:fontFamily="@font/alata"
                 android:text="@string/pofuduk"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/commentTextView"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                app:layout_constraintBottom_toBottomOf="@+id/userNameTextView"
+                app:layout_constraintStart_toEndOf="@+id/userNameTextView"
+                app:layout_constraintTop_toTopOf="@+id/userNameTextView"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/userNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/alata"
                 android:text="Yunus Emre"
                 android:textColor="@color/lightblack"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/userImage"
+                app:layout_constraintHorizontal_bias="0.471"
                 app:layout_constraintStart_toStartOf="@+id/userImage"
                 app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
