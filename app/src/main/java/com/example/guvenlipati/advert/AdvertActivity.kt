@@ -32,7 +32,7 @@ class AdvertActivity : AppCompatActivity() {
                 tabLayout.selectTab(tabLayout.getTabAt(2))
             }
             else -> {
-                goPaymentAdvertFragment()
+                goPendingAdvertFragment()
                 tabLayout.selectTab(tabLayout.getTabAt(0))
             }
         }

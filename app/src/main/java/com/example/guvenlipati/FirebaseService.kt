@@ -52,7 +52,7 @@ class FirebaseService : FirebaseMessagingService() {
         intentAdvert.putExtra("statusType","pending")
 
         val intentAdvert2 = Intent(this, AdvertActivity::class.java)
-        intentAdvert.putExtra("statusType","active")
+        intentAdvert2.putExtra("statusType","active")
 
         val intentMyJob = Intent(this, MyJobsActivity::class.java)
 
