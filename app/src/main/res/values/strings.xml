@@ -1,4 +1,5 @@
-<resources><string name="app_name">Onboarding ViewPager Examples</string>
+<resources>
+    <string name="app_name">Onboarding ViewPager Examples</string>
 
     <string name="title_onboarding_1">Welcome to Onboarding App !</string>
     <string name="description_onboarding_1">Here is an open-source project which shows sweet &amp; original onboarding ViewPagers that follows Material Design Guidelines</string>
