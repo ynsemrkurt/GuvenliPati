@@ -100,6 +100,8 @@ class ProfilePreviewFragment : Fragment() {
                     binding.buttonFemale.setBackgroundResource(R.drawable.sign2_edittext_bg)
                     binding.buttonFemale.setTextColor(Color.BLACK)
                 }
+                binding.previewScrollView.foreground=null
+                binding.loadingCardView.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
