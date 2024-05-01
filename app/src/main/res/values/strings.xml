@@ -131,5 +131,20 @@
     <string name="ifremi_unuttum">Şifremi Unuttum...</string>
     <string name="g_nder">Gönder</string>
     <string name="pofuduk">Pofuduk - Gezdirme</string>
+
+
+    <string name="welcome_title">Güvenli Pati\'ye Hoş Geldiniz!</string>
+    <string name="app_description">Güvenli Pati, sevimli dostlarınız için ihtiyacınız olan her şeyi tek bir platformda toplayan bir evcil hayvan bakım uygulamasıdır. Burada, evcil hayvan besleme, gezdirme ve bakım gibi çeşitli hizmetlere kolayca erişebilirsiniz. Güvenli Pati, sevimli dostunuzun bakımını en iyi şekilde yapmanız için güvenilir hizmet sağlayıcıları bir araya getirir.</string>
+    <string name="how_it_works">Nasıl Çalışır?</string>
+    <string name="how_to_use_app">Güvenli Pati\'yi kullanmak çok kolay! Yapmanız gereken tek şey uygulamayı açmak ve ihtiyacınız olan hizmeti seçmek. İster günübirlik bir evcil hayvan hizmeti arayın, ister dostunuz için düzenli yürüyüşler düzenleyin, Güvenli Pati size ve petinize uygun çözümler sunar. Tüm hizmet sağlayıcılarımız özenle seçilmiş ve denetlenmiştir, böylece dostunuzu güvenle emanet edebilirsiniz.</string>
+    <string name="our_team">Ekibimiz - BEGTECH</string>
+    <string name="team_description">Güvenli Pati, Batın, Yunus ve Burak’tan oluşan genç ve dinamik bir ekip tarafından geliştirilmiştir. Her biri kendi alanında uzman olan bu üç arkadaş, evcil hayvan sahiplerinin hayatını kolaylaştırmak için bu platformu tasarladı. İster teknik destek, ister kullanıcı deneyimi olsun, ekibimiz her zaman yardımcı olmaya hazır.</string>
+    <string name="contact_us">Bizimle İletişime Geçin</string>
+    <string name="contact_email_batin">Batın için: batinsavran00@gmail.com</string>
+    <string name="contact_email_yunus">Yunus Emre için: yunusemre-kurt@outlook.com</string>
+    <string name="contact_email_burak">Burak için: eskisemercib27@gmail.com</string>
+    <string name="commitment">Güvenli Pati, evcil hayvanınız için en iyi hizmeti sunmayı taahhüt eder. Bizimle bu yolculuğa çıkmaya hazır mısınız? Şimdi uygulamayı indirin ve hizmetlerimizi keşfedin!</string>
+
+
 </resources>
 
