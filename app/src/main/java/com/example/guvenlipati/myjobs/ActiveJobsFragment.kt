@@ -62,7 +62,7 @@ class ActiveJobsFragment : Fragment() {
                         binding.activeJobRecycleView.foreground =
                             ColorDrawable(Color.parseColor("#FFFFFF"))
                         binding.loadingCardView.visibility = View.VISIBLE
-                        fetchRelatedData(offer)
+                        fetchJob(offer)
                     }
                 }
             }
@@ -81,20 +81,13 @@ class ActiveJobsFragment : Fragment() {
         offerList.clear()
     }
 
-    private fun fetchRelatedData(offer: Offer) {
-        offerList.add(offer)
-        fetchJob(offer.offerJobId, offer.offerUser)
-    }
-
-    private fun fetchJob(jobId: String, userId: String) {
-        FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
+    private fun fetchJob(offer: Offer) {
+        FirebaseDatabase.getInstance().getReference("jobs").child(offer.offerJobId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val job = snapshot.getValue(Job::class.java)
                     if (job != null) {
-                        jobList.add(job)
-                        fetchUser(userId)
-                        fetchPet(job.petID)
+                        fetchUser(offer, job)
                     }
                     adapter.notifyDataSetChanged()
                 }
@@ -103,13 +96,12 @@ class ActiveJobsFragment : Fragment() {
             })
     }
 
-    private fun fetchUser(userId: String) {
-        FirebaseDatabase.getInstance().getReference("users").child(userId)
+    private fun fetchUser(offer: Offer, job: Job) {
+        FirebaseDatabase.getInstance().getReference("users").child(offer.offerUser)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     snapshot.getValue(User::class.java)?.let {
-                        userList.add(it)
-                        adapter.notifyDataSetChanged()
+                        fetchPet(offer, job, it)
                     }
                 }
 
@@ -117,12 +109,15 @@ class ActiveJobsFragment : Fragment() {
             })
     }
 
-    private fun fetchPet(petId: String) {
-        FirebaseDatabase.getInstance().getReference("pets").child(petId)
+    private fun fetchPet(offer: Offer, job: Job, user: User) {
+        FirebaseDatabase.getInstance().getReference("pets").child(job.petID)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     snapshot.getValue(Pet::class.java)?.let {
                         petList.add(it)
+                        jobList.add(job)
+                        userList.add(user)
+                        offerList.add(offer)
                         adapter.notifyDataSetChanged()
                         binding.activeJobRecycleView.foreground = null
                         binding.loadingCardView.visibility = View.GONE

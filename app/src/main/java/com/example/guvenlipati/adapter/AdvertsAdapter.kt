@@ -1,7 +1,6 @@
 package com.example.guvenlipati
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +25,8 @@ import com.google.firebase.database.ValueEventListener
 
 class AdvertsAdapter(
     private val context: Context,
-    private val jobList: ArrayList<Job>,
-    private val petList: ArrayList<Pet>
+    private val jobList: MutableList<Job>,
+    private val petList: MutableList<Pet>
 ) : RecyclerView.Adapter<AdvertsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
