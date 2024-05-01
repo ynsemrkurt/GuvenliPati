@@ -26,18 +26,14 @@ import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.example.guvenlipati.payment.PaymentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import java.time.LocalDateTime
 
 class OfferAdapter(
     private val context: Context,
     private val jobList: List<Job>,
     private val petList: List<Pet>,
     private val userList: List<User>,
-    private val offerList: ArrayList<Offer>,
+    private val offerList: MutableList<Offer>,
     private val backerList: List<Backer>,
     internal var ratingList: List<Double>
 ) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
@@ -216,8 +212,6 @@ class OfferAdapter(
         databaseReference.removeValue()
             .addOnSuccessListener {
                 showToast("Teklif silme işlemi başarılı.")
-                offerList.removeAt(position)
-                notifyItemRemoved(position)
             }
             .addOnFailureListener { exception ->
                 showToast("Teklif silme işlemi başarısız: ${exception.message}")
