@@ -11,7 +11,6 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.advert.AdvertActivity
 import com.example.guvenlipati.databinding.ActivityHomeBinding
 import com.example.guvenlipati.myjobs.MyJobsActivity
-import com.example.guvenlipati.onboarding.OnboardingActivity
 import com.example.guvenlipati.splash.SplashActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
@@ -27,9 +26,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        startActivity(Intent(this, OnboardingActivity::class.java))
-        finish()
 
         goFragment(HomeFragment())
 

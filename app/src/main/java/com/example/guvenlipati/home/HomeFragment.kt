@@ -24,6 +24,7 @@ import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.Rating
 import com.example.guvenlipati.models.User
+import com.example.guvenlipati.onboarding.OnboardingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -189,6 +190,10 @@ class HomeFragment : Fragment() {
                 makeText(activity, error.message, LENGTH_SHORT).show()
             }
         })
+
+        binding.imageButton.setOnClickListener{
+            (activity as HomeActivity).goActivity(OnboardingActivity())
+        }
 
         binding.goBackerButton.setOnClickListener {
             (activity as HomeActivity).goActivity(PetBackerActivity())

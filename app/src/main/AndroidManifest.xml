@@ -15,9 +15,6 @@
         android:theme="@style/Theme.GuvenliPati"
         tools:targetApi="31">
         <activity
-            android:name=".onboarding.OnboardingFinishActivity"
-            android:exported="false" />
-        <activity
             android:name=".onboarding.OnboardingActivity"
             android:exported="false" />
         <activity
