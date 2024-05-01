@@ -19,6 +19,24 @@ class AdvertActivity : AppCompatActivity() {
 
         goPendingAdvertFragment()
 
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        val statusType = intent.getStringExtra("statusType")
+
+        when (statusType) {
+            "pending" -> {
+                goPaymentAdvertFragment()
+                tabLayout.selectTab(tabLayout.getTabAt(1))
+            }
+            "active" -> {
+                goActiveAdvertFragment()
+                tabLayout.selectTab(tabLayout.getTabAt(2))
+            }
+            else -> {
+                goPaymentAdvertFragment()
+                tabLayout.selectTab(tabLayout.getTabAt(0))
+            }
+        }
+
 
         findViewById<TabLayout>(R.id.tabLayout).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
