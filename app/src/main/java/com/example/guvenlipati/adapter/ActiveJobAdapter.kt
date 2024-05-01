@@ -140,7 +140,7 @@ class ActiveJobAdapter(
                             "Hemen gel ve sende onayla...",
                             FirebaseAuth.getInstance().currentUser?.uid.toString(),
                             pet.petPhoto,
-                            1
+                            4
                         ),
                         topic
                     ).also {
