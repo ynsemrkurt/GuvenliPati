@@ -1,8 +1,12 @@
 package com.example.guvenlipati.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.ActivitySettingsBinding
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -27,6 +31,18 @@ class SettingsActivity : AppCompatActivity() {
             onBackPressed()
             finish()
         }
+        val contactUsButton = findViewById<Button>(R.id.contactUsButton)
+
+        contactUsButton.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", "yunusemre-kurt@outlook.com", null)
+            )
+            startActivity(Intent.createChooser(intent, "Send email..."))
+        }
+
+
+
     }
 
     private fun changePassword() {
