@@ -18,10 +18,7 @@
             android:name=".home.AboutUsActivity"
             android:exported="false" />
         <activity
-            android:name=".onboarding.OnBoardingFinishActivity"
-            android:exported="false" />
-        <activity
-            android:name=".onboarding.OnBoardingActivity"
+            android:name=".onboarding.OnboardingActivity"
             android:exported="false" />
         <activity
             android:name=".home.SettingsActivity"

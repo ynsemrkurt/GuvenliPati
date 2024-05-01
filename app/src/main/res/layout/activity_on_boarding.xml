@@ -6,25 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/md_white_1000">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GEÇ"
-        app:textAllCaps="true"
-        android:textSize="18sp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"/>
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:layout_below="@id/text_skip"
         android:layout_above="@id/bottom_navigation" />
 
     <RelativeLayout
@@ -46,13 +33,28 @@
             android:layout_margin="30dp"
             app:tabBackground="@drawable/onboarding_viewpager_selector_blue"/>
 
+        <Button
+            android:visibility="invisible"
+            android:id="@+id/btn_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="7dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableTint="@color/md_grey_900"
+            android:text="Bitir"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
 
         <Button
+            android:visibility="visible"
             android:id="@+id/btn_next_step"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="7dp"
             android:background="?android:attr/selectableItemBackground"
