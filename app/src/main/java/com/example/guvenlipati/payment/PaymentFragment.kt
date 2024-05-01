@@ -30,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class PaymentFragment : Fragment() {
 
@@ -230,15 +231,23 @@ class PaymentFragment : Fragment() {
         }
 
     private fun validateInputs(): Boolean {
+        val mm = binding.editTextExpDate.text.substring(0, 2).toIntOrNull() ?: 0
+        val yy = binding.editTextExpDate.text.substring(3, 5).toIntOrNull() ?: 0
+        val currentYearLastTwoDigits = Calendar.getInstance().get(Calendar.YEAR) % 100
+
         return when {
             binding.editTextCardHolderName.text.isEmpty() -> false.also { showToast("İSİM SOYİSİM BOŞ GEÇİLEMEZ") }
             binding.editTextCardNumber.text.length != 19 -> false.also { showToast("KART NUMARASINI TAM GİRİNİZ") }
             binding.editTextExpDate.text.isEmpty() -> false.also { showToast("KARTIN SON KULLANIM TARİHİ BOŞ GEÇİLEMEZ") }
+            !(mm in 1..12) -> false.also { showToast("Geçersiz ay.") }
+            !(yy > currentYearLastTwoDigits) -> false.also { showToast("Geçersiz yıl.") }
             binding.editTextCVV.text.length != 3 -> false.also { showToast("GÜVENLİK KODUNU TAM GİRİNİZ") }
             !(binding.checkBox.isChecked && binding.checkBox2.isChecked && binding.checkBox3.isChecked) -> false.also { showToast("SÖZLEŞMELERİ KABUL ETMENİZ GEREKİYOR") }
             else -> true
         }
     }
+
+
 
     private fun deleteOtherOffers(jobId: String?) {
         jobId?.let { jId ->
