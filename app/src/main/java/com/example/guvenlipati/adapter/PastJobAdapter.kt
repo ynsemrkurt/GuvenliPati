@@ -1,11 +1,14 @@
 package com.example.guvenlipati.adapter
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -102,6 +105,64 @@ class PastJobAdapter(
                 context.startActivity(intent)
             }
 
+            petPhotoImageView.setOnClickListener {
+                val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
+
+                val inflater = LayoutInflater.from(context)
+                val view2 = inflater.inflate(R.layout.item_pet_preview, null)
+                builder.setView(view2)
+
+                val petPhotoImageView = view2.findViewById<ImageView>(R.id.petPhotoImageView)
+                val petNameTextView = view2.findViewById<TextView>(R.id.petNameTextView)
+                val textViewAge = view2.findViewById<TextView>(R.id.textViewAge)
+                val petGenderTextView = view2.findViewById<TextView>(R.id.petGenderTextView)
+                val petVaccinateTextView = view2.findViewById<TextView>(R.id.petVaccinateTextView)
+                val petTypeTextView = view2.findViewById<TextView>(R.id.petTypeTextView)
+                val petWeightTextView = view2.findViewById<TextView>(R.id.petWeightTextView)
+                val petAboutTextView = view2.findViewById<TextView>(R.id.petAboutTextView)
+                val infoButton = view2.findViewById<ImageButton>(R.id.infoButton)
+
+                if (pet.petPhoto.isNotEmpty()) {
+                    Glide.with(context)
+                        .load(Uri.parse(pet.petPhoto))
+                        .into(petPhotoImageView)
+                } else {
+                    petPhotoImageView.setImageResource(R.drawable.default_pet_image_2)
+                }
+
+
+                petNameTextView.text = pet.petName
+                textViewAge.text = pet.petAge + " Yaş"
+                when (pet.petGender) {
+                    true -> {
+                        petGenderTextView.text = "Dişi"
+                    }
+
+                    false -> {
+                        petGenderTextView.text = "Erkek"
+                    }
+                }
+                when (pet.petVaccinate) {
+                    true -> {
+                        petVaccinateTextView.text = "Yapılıyor"
+                    }
+
+                    false -> {
+                        petVaccinateTextView.text = "Aşısız"
+                    }
+                }
+                petTypeTextView.text = pet.petBreed
+                petWeightTextView.text = pet.petWeight + " Kg"
+                petAboutTextView.text = pet.petAbout
+
+                infoButton.setOnClickListener {
+                    val intent = Intent(context, ProfileActivity::class.java)
+                    intent.putExtra("userId", pet.userId)
+                    context.startActivity(intent)
+                }
+                val dialog = builder.create()
+                dialog.show()
+            }
         }
     }
 
