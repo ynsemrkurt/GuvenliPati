@@ -31,7 +31,7 @@ class SettingsActivity : AppCompatActivity() {
             onBackPressed()
             finish()
         }
-        val contactUsButton = findViewById<Button>(R.id.contactUsButton)
+        val contactUsButton = binding.contactUsButton
 
         contactUsButton.setOnClickListener {
             val intent = Intent(
