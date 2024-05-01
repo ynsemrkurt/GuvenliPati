@@ -52,7 +52,6 @@ class JobsAdapter(
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         private val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
-        private val buttonJobDetails= view.findViewById<ImageButton>(R.id.buttonJobDetails)
 
         fun bind(job: Job, pet: Pet) {
             when(job.jobType){
@@ -73,7 +72,7 @@ class JobsAdapter(
 
 
 
-            buttonJobDetails.setOnClickListener {
+            itemView.setOnClickListener {
                 val intent = Intent(context, JobDetailsActivity::class.java)
                 intent.putExtra("job", job.jobId)
                 context.startActivity(intent)

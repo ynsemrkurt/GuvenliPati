@@ -139,6 +139,13 @@ class ChatingFragment : Fragment() {
             activity?.finish()
         }
 
+        binding.imagePhoto.setOnClickListener {
+            val intent = Intent(context, ProfileActivity::class.java)
+            intent.putExtra("userId", friendUserId)
+            startActivity(intent)
+        }
+
+
     }
 
     private fun messageList(friendId: String) {
