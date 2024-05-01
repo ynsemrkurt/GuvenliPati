@@ -76,7 +76,7 @@ class PendingJobFragment : Fragment() {
                 override fun onDataChange(jobSnapshot: DataSnapshot) {
                     val job = jobSnapshot.getValue(Job::class.java)
                     if (job != null) {
-                        fetchPet(offer, job) // Teklif verisini fetchPete aktarın
+                        fetchPet(offer, job)
                     }
                 }
 
