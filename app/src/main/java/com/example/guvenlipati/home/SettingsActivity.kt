@@ -48,6 +48,11 @@ class SettingsActivity : AppCompatActivity() {
             )
             startActivity(Intent.createChooser(intent, "Send email..."))
         }
+
+        binding.whoIsBEGTECH.setOnClickListener {
+            val intent=Intent(this,AboutUsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun changePassword() {

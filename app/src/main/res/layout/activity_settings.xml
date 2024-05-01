@@ -185,7 +185,7 @@
                         app:layout_constraintTop_toTopOf="@+id/backToSplash" />
 
                     <TextView
-                        android:id="@+id/whoIsBEGTECHButton"
+                        android:id="@+id/whoIsBEGTECH"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center"
