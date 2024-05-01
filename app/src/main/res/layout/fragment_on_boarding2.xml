@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
         android:scaleType="centerCrop"
-        app:lottie_rawRes="@raw/dog_and_me_anim"
+        app:lottie_rawRes="@raw/sign_background_bird"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 
@@ -27,7 +27,7 @@
         android:layout_below="@id/image_onboarding"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:text="@string/title_onboarding_1"
+        android:text="@string/title_onboarding_3"
         android:textSize="19sp"
         android:gravity="center"
         android:textStyle="bold"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_onboarding_title"
-        android:text="@string/description_onboarding_1"
+        android:text="@string/description_onboarding_3"
         android:textSize="14sp"
         android:textColor="@color/light_grey"
         android:gravity="center"
