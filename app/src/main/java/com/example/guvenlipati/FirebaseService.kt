@@ -49,11 +49,16 @@ class FirebaseService : FirebaseMessagingService() {
         intentMessage.putExtra("userId", newToken.data["userId"])
 
         val intentAdvert = Intent(this, AdvertActivity::class.java)
+        intentAdvert.putExtra("statusType","pending")
+
+        val intentAdvert2 = Intent(this, AdvertActivity::class.java)
+        intentAdvert2.putExtra("statusType","active")
 
         val intentMyJob = Intent(this, MyJobsActivity::class.java)
 
         val intentMyJobComplete = Intent(this, MyJobsActivity::class.java)
         intentMyJobComplete.putExtra("status", true)
+
 
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationId = Random.nextInt()
@@ -66,6 +71,7 @@ class FirebaseService : FirebaseMessagingService() {
         val pendingIntentMyJob = createPendingIntent(intentMyJob)
         val pendingIntentAdvert = createPendingIntent(intentAdvert)
         val pendingIntentMyJobComplete = createPendingIntent(intentMyJobComplete)
+        val pendingIntentAdvert2 = createPendingIntent(intentAdvert2)
 
 
         val profileImageUrl = newToken.data["profileImageUrl"]
@@ -108,8 +114,17 @@ class FirebaseService : FirebaseMessagingService() {
                 newToken.data["title"] ?: "",
                 newToken.data["message"] ?: ""
             )
-        }
+        }else if (notificationType=="4") {
+            notificationSystem(
+                notificationManager,
+                notificationId,
+                pendingIntentAdvert2,
+                profileImageUrl ?: "",
+                newToken.data["title"] ?: "",
+                newToken.data["message"] ?: ""
+            )
 
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
