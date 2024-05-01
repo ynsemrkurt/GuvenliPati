@@ -178,6 +178,9 @@ class PaymentFragment : Fragment() {
             }
         })
 
+        binding.backToSplash.setOnClickListener {
+            requireActivity().finish()
+        }
 
         binding.ConfirmPaymentButton.setOnClickListener {
             if (validateInputs()) {
