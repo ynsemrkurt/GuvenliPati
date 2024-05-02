@@ -212,7 +212,7 @@ class RegisterPetActivity : AppCompatActivity() {
             hashMap["petSpecies"] = petType.toString()
             hashMap["petName"] = binding.editTextPetName.text.toString()
             hashMap["petWeight"] = binding.editTextWeight.text.toString()
-            hashMap["petBirtYear"] = binding.editTextAge.text.toString()
+            hashMap["petBirthYear"] = binding.editTextAge.text.toString()
             hashMap["petBreed"] = binding.typeCombo.text.toString()
             hashMap["petGender"] = petGender!!
             hashMap["petVaccinate"] = petVaccine!!
