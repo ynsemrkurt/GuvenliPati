@@ -1,11 +1,16 @@
 package com.example.guvenlipati.home
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.ActivitySettingsBinding
 import com.google.firebase.auth.EmailAuthProvider
@@ -31,9 +36,12 @@ class SettingsActivity : AppCompatActivity() {
             onBackPressed()
             finish()
         }
-        val contactUsButton = findViewById<Button>(R.id.contactUsButton)
 
-        contactUsButton.setOnClickListener {
+        binding.notificationChange.setOnClickListener {
+            permissionNotification()
+        }
+
+        binding.contactUsButton.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_SENDTO,
                 Uri.fromParts("mailto", "yunusemre-kurt@outlook.com", null)
@@ -41,8 +49,10 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(intent, "Send email..."))
         }
 
-
-
+        binding.whoIsBEGTECH.setOnClickListener {
+            val intent=Intent(this,AboutUsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun changePassword() {
@@ -92,6 +102,19 @@ class SettingsActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
+        }
+    }
+
+    private val appPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){}
+
+    private fun permissionNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,"Bildirim izni zaten verilmiş!",Toast.LENGTH_SHORT).show()
+            } else {
+                appPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+            }
         }
     }
 }

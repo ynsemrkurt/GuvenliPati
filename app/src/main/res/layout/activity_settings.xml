@@ -2,20 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".home.SettingsActivity">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,8 +14,6 @@
         android:background="@color/white">
 
         <ImageButton
-            android:scaleType="fitCenter"
-            android:padding="15dp"
             android:id="@+id/backToSplash"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -32,197 +21,352 @@
             android:background="@drawable/button_background"
             android:backgroundTint="@color/white"
             android:elevation="3dp"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/back_ico"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/logo_transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        android:background="@color/white">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="375dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp">
-
         <TextView
-            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:fontFamily="@font/alata"
-            android:text="Şifre Ayarları :"
-            android:textColor="@color/lightblack"
-            android:textSize="19sp"
+            android:text="Ayarlar"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editTextCurrentPassword"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:autofillHints="emailAddress"
-            android:background="@drawable/edit_text_background"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/alata"
-            android:hint="Mevcut şifrenizi giriniz..."
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="15dp"
-            android:paddingEnd="0dp"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-        <EditText
-            android:id="@+id/editTextConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:autofillHints="no"
-            android:background="@drawable/edit_text_background"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/alata"
-            android:hint="@string/confirm_password_hint"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="13dp"
-            android:paddingEnd="0dp"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNewPassword" />
-
-        <EditText
-            android:id="@+id/editTextNewPassword"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="40dp"
-            android:autofillHints="password"
-            android:background="@drawable/edit_text_background"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/alata"
-            android:hint="Yeni şifre giriniz..."
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="15dp"
-            android:paddingEnd="0dp"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextCurrentPassword" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/confirmPasswordButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp"
-            android:background="@drawable/button_bg_signup"
-            android:elevation="10dp"
-            android:fontFamily="@font/alata"
-            android:paddingEnd="30dp"
-            android:text="Şifre değiştir"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword"
-            app:layout_constraintVertical_bias="0.414" />
-
-        <ImageView
-            android:id="@+id/buttonPaw"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:elevation="10dp"
-            android:src="@drawable/blue_paw_ico"
-            android:tint="#77E2FF"
-            android:contentDescription="@string/paw"
-            app:layout_constraintBottom_toBottomOf="@+id/confirmPasswordButton"
-            app:layout_constraintEnd_toEndOf="@+id/confirmPasswordButton"
-            app:layout_constraintTop_toTopOf="@+id/confirmPasswordButton"
-            tools:ignore="UseAppTint" />
+            app:layout_constraintTop_toTopOf="@+id/backToSplash" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/contactUsButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="130dp"
-            android:layout_height="49dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/button_bg_signup"
-            android:elevation="10dp"
-            android:fontFamily="@font/alata"
-            android:text="Bize Ulaşın"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/aboutUsButton"
-            style="@android:style/Widget.Button"
-            android:layout_width="130dp"
-            android:layout_height="49dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_bg_signup"
-            android:elevation="10dp"
-            android:fontFamily="@font/alata"
-            android:text="Hakkımızda"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contactUsButton" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardElevation="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/alata"
+                        android:padding="10dp"
+                        android:text="Bildirim"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/backToSplash" />
+
+                    <TextView
+                        android:id="@+id/notificationChange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/alata"
+                        android:padding="10dp"
+                        android:text="Değiştir"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/backToSplash" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#4A1E1E1E"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardElevation="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/alata"
+                        android:padding="10dp"
+                        android:text="Bize Ulaşın"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/backToSplash" />
+
+                    <TextView
+                        android:id="@+id/contactUsButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/alata"
+                        android:padding="10dp"
+                        android:text="Müşteri Hizmetleri"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/backToSplash" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#4A1E1E1E"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardElevation="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/alata"
+                        android:padding="10dp"
+                        android:text="Hakkımızda"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/backToSplash" />
+
+                    <TextView
+                        android:id="@+id/whoIsBEGTECH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/alata"
+                        android:padding="10dp"
+                        android:text="Biz Kimiz"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/backToSplash" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#4A1E1E1E"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="375dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardElevation="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/alata"
+                        android:padding="10dp"
+                        android:text="Şifreni Değiştir"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backToSplash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/backToSplash" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#4A1E1E1E"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.cardview.widget.CardView>
+
+                <EditText
+                    android:id="@+id/editTextCurrentPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="40dp"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="Mevcut şifrenizi giriniz..."
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+                <EditText
+                    android:id="@+id/editTextConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="40dp"
+                    android:autofillHints="no"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="@string/confirm_password_hint"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingStart="13dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextNewPassword" />
+
+                <EditText
+                    android:id="@+id/editTextNewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="40dp"
+                    android:autofillHints="password"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="Yeni şifre giriniz..."
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextCurrentPassword" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/confirmPasswordButton"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="80dp"
+                    android:background="@drawable/button_bg_signup"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/alata"
+                    android:paddingEnd="30dp"
+                    android:text="Şifre değiştir"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword"
+                    app:layout_constraintVertical_bias="0.414" />
+
+                <ImageView
+                    android:id="@+id/buttonPaw"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/paw"
+                    android:elevation="10dp"
+                    android:src="@drawable/blue_paw_ico"
+                    android:tint="#77E2FF"
+                    app:layout_constraintBottom_toBottomOf="@+id/confirmPasswordButton"
+                    app:layout_constraintEnd_toEndOf="@+id/confirmPasswordButton"
+                    app:layout_constraintTop_toTopOf="@+id/confirmPasswordButton"
+                    tools:ignore="UseAppTint" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
-    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
+        android:gravity="bottom"
+        android:text="Copyright © BEG Tech 2024"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </LinearLayout>
