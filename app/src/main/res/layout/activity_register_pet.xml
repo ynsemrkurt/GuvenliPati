@@ -136,6 +136,27 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:id="@+id/editTextAge"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="@string/do_um_y_l"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:maxLines="1"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.478" />
+
+                <EditText
                     android:id="@+id/editTextWeight"
                     android:layout_width="160dp"
                     android:layout_height="60dp"
@@ -167,32 +188,7 @@
                     app:layout_constraintStart_toEndOf="@+id/editTextWeight"
                     app:layout_constraintTop_toTopOf="@+id/editTextWeight" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/menuAge"
-                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
-                    android:layout_width="160dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="40dp"
-                    android:hint="@string/age"
-                    android:background="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/editTextWeight"
-                    app:layout_constraintTop_toTopOf="parent">
 
-                    <AutoCompleteTextView
-                        android:popupBackground="@color/white"
-                        android:id="@+id/ageCombo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/edit_text_background"
-                        android:inputType="none"
-                        app:simpleItemSelectedColor="#FFFFFF"
-                        app:simpleItems="@array/pet_ages_array" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
