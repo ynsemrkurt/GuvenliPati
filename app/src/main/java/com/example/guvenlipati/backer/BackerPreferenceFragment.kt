@@ -184,7 +184,7 @@ class BackerPreferenceFragment : Fragment() {
                 )
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showBottomSheet()
+                    // Başarılı işlemleri
                 } else {
                     showToast("Kayıt hatası: ${task.exception}")
                 }
@@ -195,19 +195,4 @@ class BackerPreferenceFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
-    @SuppressLint("InflateParams")
-    private fun showBottomSheet() {
-        val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.bottomsheet_add_backer, null)
-        view.findViewById<Button>(R.id.backToMain).setOnClickListener {
-            val intent=Intent(requireContext(), HomeActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-        }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
 }
