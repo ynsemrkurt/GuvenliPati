@@ -12,11 +12,16 @@ import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentRegisterBackerBinding
 import com.example.guvenlipati.home.HomeActivity
+import com.example.guvenlipati.models.Backer
+import com.example.guvenlipati.models.Pet
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -36,6 +41,7 @@ class RegisterBackerFragment : Fragment() {
     private lateinit var databaseReference2: DatabaseReference
     private var verificationStatus: Boolean = false
     private lateinit var binding: FragmentRegisterBackerBinding
+    private var tcStatus: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +70,10 @@ class RegisterBackerFragment : Fragment() {
         val progressCard = binding.progressCard
         val buttonPaws = binding.buttonPaw2
 
+        var dogJob = false
+        var catJob = false
+        var birdJob = false
+
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
         databaseReference =
@@ -72,6 +82,18 @@ class RegisterBackerFragment : Fragment() {
         databaseReference2 =
             FirebaseDatabase.getInstance().getReference("users")
                 .child(firebaseUser.uid)
+
+        binding.dogs.setOnCheckedChangeListener { _, isChecked ->
+            dogJob = isChecked
+        }
+
+        binding.cats.setOnCheckedChangeListener { _, isChecked ->
+            catJob = isChecked
+        }
+
+        binding.birds.setOnCheckedChangeListener { _, isChecked ->
+            birdJob = isChecked
+        }
 
 
         confirmBackerButton.setOnClickListener {
@@ -95,6 +117,7 @@ class RegisterBackerFragment : Fragment() {
                 val currentYear = LocalDate.now().year
                 val expInt = editTextExperience.text.toString().toDouble()
 
+
                 if (backerBirthYear != null) {
                     val backerAge = (currentYear - backerBirthYear)
 
@@ -105,6 +128,12 @@ class RegisterBackerFragment : Fragment() {
                         return@setOnClickListener
                     }
                 }
+
+                if (!binding.dogs.isChecked && !binding.cats.isChecked && !binding.birds.isChecked) {
+                    showToast("Lütfen En Az Bir Hayvan Seçiniz!")
+                    return@setOnClickListener
+                }
+
                 if (!checkBox.isChecked || !checkBox2.isChecked || !checkBox3.isChecked) {
                     showToast("Sözleşmeleri kabul etmeniz gerekmektedir!")
                     return@setOnClickListener
@@ -124,47 +153,61 @@ class RegisterBackerFragment : Fragment() {
                     return@setOnClickListener
                 }
 
+                val databaseReferenceTCKN =
+                    FirebaseDatabase.getInstance().getReference("identifies")
+                databaseReferenceTCKN.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        progressCard.visibility = View.VISIBLE
+                        buttonPaws.visibility = View.INVISIBLE
+                        confirmBackerButton.visibility = View.INVISIBLE
+                        var tcStatus = false
+                        for (dataSnapshot: DataSnapshot in snapshot.children) {
+                            val backer = dataSnapshot.getValue(Backer::class.java)
+                            if (backer?.TC == editTextID.text.toString()) {
+                                tcStatus = true
+                                break
+                            }
+                        }
+                        if (tcStatus) {
+                            showToast("Aynı TC kimlik numarası kullanılamaz!")
+                            progressCard.visibility = View.INVISIBLE
+                            buttonPaws.visibility = View.VISIBLE
+                            confirmBackerButton.visibility = View.VISIBLE
+                            return
+                        } else {
+                            val hashMap: HashMap<String, Any> = HashMap()
+                            hashMap["userID"] = auth.currentUser!!.uid
+                            hashMap["legalName"] = editTextBackerName.text.toString()
+                            hashMap["legalSurname"] = editTextBackerSurname.text.toString()
+                            hashMap["TC"] = editTextID.text.toString()
+                            hashMap["backerBirthYear"] = editTextAge.text.toString()
+                            hashMap["adress"] = editTextAdress.text.toString()
+                            hashMap["experience"] = editTextExperience.text.toString()
+                            hashMap["petNumber"] = editTextPetNumber.text.toString()
+                            hashMap["about"] = editTextBackerAbout.text.toString()
+                            hashMap["dogBacker"] = dogJob
+                            hashMap["catBacker"] = catJob
+                            hashMap["birdBacker"] = birdJob
 
+                            databaseReference2.child("userBacker").setValue(true)
 
+                            databaseReference.setValue(hashMap).addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    showBottomSheet()
+                                } else {
+                                    showToast("Hatalı işlem!")
+                                }
+                                progressCard.visibility = View.INVISIBLE
+                                buttonPaws.visibility = View.VISIBLE
+                                confirmBackerButton.visibility = View.VISIBLE
+                            }
+                        }
+                    }
 
-                progressCard.visibility = View.VISIBLE
-                buttonPaws.visibility = View.INVISIBLE
-                confirmBackerButton.visibility = View.INVISIBLE
-
-                val hashMap: HashMap<String, Any> = HashMap()
-                hashMap["userID"] = auth.currentUser!!.uid
-                hashMap["legalName"] = editTextBackerName.text.toString()
-                hashMap["legalSurname"] = editTextBackerSurname.text.toString()
-                hashMap["TC"] = editTextID.text.toString()
-                hashMap["backerBirthYear"] = editTextAge.text.toString()
-                hashMap["adress"] = editTextAdress.text.toString()
-                hashMap["experience"] = editTextExperience.text.toString()
-                hashMap["petNumber"] = editTextPetNumber.text.toString()
-                hashMap["about"] = editTextBackerAbout.text.toString()
-                hashMap["dogBacker"] = false
-                hashMap["catBacker"] = false
-                hashMap["birdBacker"] = false
-                hashMap["userAvailability"] = 0
-                hashMap["homeJob"] = false
-                hashMap["feedingJob"] = false
-                hashMap["walkingJob"] = false
-                hashMap["homeMoney"] = 0
-                hashMap["feedingMoney"] = 0
-                hashMap["walkingMoney"] = 0
-                //Müsaitlik durumu 1->Hafta İçi 2->Hafta Sonu 3->Tüm Günler
-
-                databaseReference2.child("userBacker").setValue(true)
-
-                databaseReference.setValue(hashMap).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        showBottomSheet()
-                    } else {
+                    override fun onCancelled(error: DatabaseError) {
                         showToast("Hatalı işlem!")
                     }
-                    progressCard.visibility = View.INVISIBLE
-                    buttonPaws.visibility = View.VISIBLE
-                    confirmBackerButton.visibility = View.VISIBLE
-                }
+                })
             }
         }
     }
