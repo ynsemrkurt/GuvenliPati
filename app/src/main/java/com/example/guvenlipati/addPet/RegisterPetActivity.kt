@@ -182,8 +182,6 @@ class RegisterPetActivity : AppCompatActivity() {
 
             controllerIf(binding.editTextAge, "Lütfen dostunuzun doğum yılını giriniz!")
 
-            controllerIf(binding.typeCombo, "Lütfen dostunuzun türünü seçiniz!")
-
             controllerBool(petGender,"Lütfen dostunuzun cinsiyetini seçiniz!")
 
             controllerBool(petVaccine, "Lütfen dostunuzun aşı bilgisini seçiniz!")
@@ -195,9 +193,16 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (binding.editTextAge.text.toString().toInt() > 2024){
-                showToast("Doğum yılı güncel yıldan yüksek olamaz!")
+            if(binding.typeCombo.text.toString().isEmpty()){
+                showToast("Lütfen dostunuzun türünü seçiniz!")
+                return@setOnClickListener
             }
+
+            if (binding.editTextAge.text.toString().toInt() > 2025 || binding.editTextAge.text.toString().toInt() < 1990){
+                showToast("Dostunuzun doğum yılı 1990 ve 2024 arasında olmalıdır!")
+                return@setOnClickListener
+            }
+
             showProgress()
 
 

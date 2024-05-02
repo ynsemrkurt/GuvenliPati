@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/alata"
-                        android:text="0-1 Yaş"
+                        android:text="1 Yaş"
                         android:layout_marginTop="8dp"
                         android:textColor="#B1AFAF"
                         app:layout_constraintBottom_toBottomOf="@+id/petNameTextView"

@@ -78,6 +78,12 @@ class HomePetsAdapter(
                 val petAboutTextView=view2.findViewById<TextView>(R.id.petAboutTextView)
                 val infoButton=view2.findViewById<ImageButton>(R.id.infoButton)
 
+                val petYearInt = pet.petBirthYear.toIntOrNull() ?: 2000
+                val currentDateTime = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy")
+                val currentYearInt = currentDateTime.format(formatter).toInt()
+                val petAge = (currentYearInt - petYearInt).toString()
+
                 if (pet.petPhoto.isNotEmpty()){
                     Glide.with(context)
                         .load(Uri.parse(pet.petPhoto))
@@ -87,14 +93,9 @@ class HomePetsAdapter(
                     petPhotoImageView.setImageResource(R.drawable.default_pet_image_2)
                 }
 
-                val petYearInt = pet.petBirthYear.toInt()
-                val currentDateTime = LocalDateTime.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy")
-                val currentYearInt = currentDateTime.format(formatter).toInt()
-                val petAge = currentYearInt - petYearInt
-
                 petNameTextView.text=pet.petName
                 textViewAge.text= "$petAge Yaş"
+
                 when (pet.petGender) {
                     true -> {
                         petGenderTextView.text = "Dişi"
