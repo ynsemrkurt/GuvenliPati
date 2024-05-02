@@ -1,5 +1,6 @@
 package com.example.guvenlipati.adapter
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -21,6 +22,8 @@ import com.bumptech.glide.Glide
 import com.example.guvenlipati.R
 import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Pet
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HomePetsAdapter(
     private val context: Context,
@@ -48,6 +51,7 @@ class HomePetsAdapter(
         private val petName: TextView = view.findViewById(R.id.petName)
         private val petType: TextView = view.findViewById(R.id.petType)
 
+        @SuppressLint("SetTextI18n")
         fun bind(pet: Pet, position: Int) {
             petName.text = pet.petName
             petType.text = pet.petBreed
@@ -83,9 +87,14 @@ class HomePetsAdapter(
                     petPhotoImageView.setImageResource(R.drawable.default_pet_image_2)
                 }
 
+                val petYearInt = pet.petBirthYear.toInt()
+                val currentDateTime = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy")
+                val currentYearInt = currentDateTime.format(formatter).toInt()
+                val petAge = currentYearInt - petYearInt
 
                 petNameTextView.text=pet.petName
-                textViewAge.text=pet.petAge+" Yaş"
+                textViewAge.text= "$petAge Yaş"
                 when (pet.petGender) {
                     true -> {
                         petGenderTextView.text = "Dişi"

@@ -36,6 +36,9 @@ import com.google.firebase.storage.storage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.Year
+import java.time.format.DateTimeFormatter
 
 class EditPetActivity : AppCompatActivity() {
 
@@ -44,7 +47,7 @@ class EditPetActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var petTypeCombo: AutoCompleteTextView
-    private lateinit var petAgeCombo: AutoCompleteTextView
+    private lateinit var petBirthYear: EditText
     private lateinit var vaccineImage: ImageView
     private lateinit var unVaccineImage: ImageView
     private lateinit var buttonPetVaccine: Button
@@ -70,7 +73,7 @@ class EditPetActivity : AppCompatActivity() {
         buttonPetUnVaccine = binding.buttonPetUnVaccine
         val editTextPetName = binding.editTextPetName
         val editTextPetWeight = binding.editTextWeight
-        petAgeCombo = binding.ageCombo
+        petBirthYear = binding.editTextAge
         petTypeCombo = binding.typeCombo
         val editTextAbout = binding.editTextAbout
         val editPetButton = binding.petRegisterButton
@@ -128,10 +131,16 @@ class EditPetActivity : AppCompatActivity() {
                                 .into(profilePhoto)
                         }
                     }
+                    val currentDateTime = LocalDateTime.now()
+                    val formatter = DateTimeFormatter.ofPattern("yyyy")
+                    val currentYear = currentDateTime.format(formatter).toInt()
+                    val petAge = currentYear - pet.petBirthYear.toInt()
+
                     editTextPetName.setText(pet.petName)
                     editTextPetWeight.setText(pet.petWeight)
-                    petAgeCombo.setText(pet.petAge)
+                    petBirthYear.setText(petAge)
                     petTypeCombo.setText(pet.petBreed)
+
                     if (pet.petVaccinate) {
                         selectVaccine(
                             buttonPetVaccine,
@@ -149,13 +158,6 @@ class EditPetActivity : AppCompatActivity() {
                     }
                     editTextAbout.setText(pet.petAbout)
                     petVaccine = pet.petVaccinate
-
-                    val adapter = ArrayAdapter.createFromResource(
-                        this@EditPetActivity,
-                        R.array.pet_ages_array,
-                        android.R.layout.simple_dropdown_item_1line
-                    )
-                    petAgeCombo.setAdapter(adapter)
 
                     when (pet.petSpecies) {
                         "dog" -> {
@@ -198,7 +200,10 @@ class EditPetActivity : AppCompatActivity() {
         }
 
         editPetButton.setOnClickListener {
-            if (editTextPetWeight.text.trim().isEmpty() || petAgeCombo.text.trim().isEmpty() || editTextPetName.text.trim().isEmpty() || editTextAbout.text.trim().isEmpty()) {
+            if (editTextPetWeight.text.trim().isEmpty() || petBirthYear.text.trim()
+                    .isEmpty() || editTextPetName.text.trim().isEmpty() || editTextAbout.text.trim()
+                    .isEmpty()
+            ) {
                 showToast("Lütfen boş alan bırakmayınız!")
                 return@setOnClickListener
             }
@@ -208,7 +213,7 @@ class EditPetActivity : AppCompatActivity() {
                     "petName" to editTextPetName.text.toString().trim(),
                     "petWeight" to editTextPetWeight.text.toString().trim(),
                     "petAbout" to editTextAbout.text.toString().trim(),
-                    "petAge" to petAgeCombo.text.toString().trim(),
+                    "petBirthYear" to petBirthYear.text.toString().trim(),
                     "petBreed" to petTypeCombo.text.toString().trim(),
                     "petVaccinate" to petVaccine
                 )

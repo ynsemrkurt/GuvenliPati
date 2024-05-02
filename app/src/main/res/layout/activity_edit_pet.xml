@@ -196,42 +196,32 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="2dp"
                     android:fontFamily="@font/alata"
-                    android:text="@string/age2"
+                    android:text="Doğum Yılı:"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/menuAge"
-                    app:layout_constraintStart_toStartOf="@+id/menuAge" />
+                    app:layout_constraintBottom_toTopOf="@+id/editTextAge"
+                    app:layout_constraintStart_toStartOf="@+id/editTextAge" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/menuAge"
-                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                <EditText
+                    android:id="@+id/editTextAge"
                     android:layout_width="160dp"
                     android:layout_height="60dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
+                    android:layout_gravity="center"
+                    android:autofillHints="username"
+                    android:background="@drawable/edit_text_background"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/alata"
+                    android:hint="@string/do_um_y_l"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:maxLines="1"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="17sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/editTextWeight"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.9">
-
-                    <AutoCompleteTextView
-                        android:popupBackground="@color/white"
-                        android:textColor="@color/black"
-                        android:textSize="17sp"
-                        android:paddingBottom="20dp"
-                        android:id="@+id/ageCombo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/edit_text_background"
-                        android:inputType="none"
-                        app:simpleItems="@array/pet_ages_array"
-                        tools:ignore="LabelFor" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:layout_constraintVertical_bias="0.478" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

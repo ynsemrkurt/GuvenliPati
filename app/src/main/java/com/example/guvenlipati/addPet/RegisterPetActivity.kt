@@ -33,6 +33,8 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class RegisterPetActivity : AppCompatActivity() {
@@ -178,7 +180,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
             controllerIf(binding.editTextAbout, "Lütfen dostunuzun ağırlığını giriniz!")
 
-            controllerIf(binding.ageCombo, "Lütfen dostunuzun yaşını giriniz!")
+            controllerIf(binding.editTextAge, "Lütfen dostunuzun doğum yılını giriniz!")
 
             controllerIf(binding.typeCombo, "Lütfen dostunuzun türünü seçiniz!")
 
@@ -193,7 +195,11 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (binding.editTextAge.text.toString().toInt() > 2024){
+                showToast("Doğum yılı güncel yıldan yüksek olamaz!")
+            }
             showProgress()
+
 
             val hashMap: HashMap<String, Any> = HashMap()
             hashMap["userId"] = firebaseUser.uid
@@ -201,7 +207,7 @@ class RegisterPetActivity : AppCompatActivity() {
             hashMap["petSpecies"] = petType.toString()
             hashMap["petName"] = binding.editTextPetName.text.toString()
             hashMap["petWeight"] = binding.editTextWeight.text.toString()
-            hashMap["petAge"] = binding.ageCombo.text.toString()
+            hashMap["petBirtYear"] = binding.editTextAge.text.toString()
             hashMap["petBreed"] = binding.typeCombo.text.toString()
             hashMap["petGender"] = petGender!!
             hashMap["petVaccinate"] = petVaccine!!

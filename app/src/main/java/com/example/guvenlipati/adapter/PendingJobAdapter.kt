@@ -1,5 +1,6 @@
 package com.example.guvenlipati.adapter
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -21,6 +22,8 @@ import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PendingJobAdapter(
     private val context: Context,
@@ -56,6 +59,7 @@ class PendingJobAdapter(
         private val priceTextView = view.findViewById<TextView>(R.id.priceTotalTextView)
         private val buttonDeleteOffer = view.findViewById<ImageView>(R.id.buttonDeleteOffer)
 
+        @SuppressLint("SetTextI18n")
         fun bind(job: Job, pet: Pet, offer: Offer) {
             when (job.jobType) {
                 "feedingJob" -> jobTypeTextView.text = "Besleme"
@@ -119,9 +123,14 @@ class PendingJobAdapter(
                     petPhotoImageView.setImageResource(R.drawable.default_pet_image_2)
                 }
 
+                val petYearInt = pet.petBirthYear.toInt()
+                val currentDateTime = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy")
+                val currentYearInt = currentDateTime.format(formatter).toInt()
+                val petAge = currentYearInt - petYearInt
 
-                petNameTextView.text = pet.petName
-                textViewAge.text = pet.petAge + " Yaş"
+                petNameTextView.text=pet.petName
+                textViewAge.text= "$petAge Yaş"
                 when (pet.petGender) {
                     true -> {
                         petGenderTextView.text = "Dişi"
