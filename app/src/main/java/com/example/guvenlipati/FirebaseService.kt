@@ -78,52 +78,33 @@ class FirebaseService : FirebaseMessagingService() {
 
         val notificationType = newToken.data["notificationType"]
 
-        if (notificationType == "0" || notificationType == null) {
+        fun notificationSystems(pendingIntent: PendingIntent){
             notificationSystem(
                 notificationManager,
                 notificationId,
-                pendingIntentMessage,
+                pendingIntent,
                 profileImageUrl ?: "",
                 newToken.data["title"] ?: "",
                 newToken.data["message"] ?: ""
             )
-        } else if (notificationType == "1") {
-            notificationSystem(
-                notificationManager,
-                notificationId,
-                pendingIntentAdvert,
-                profileImageUrl ?: "",
-                newToken.data["title"] ?: "",
-                newToken.data["message"] ?: ""
-            )
-        } else if (notificationType == "2") {
-            notificationSystem(
-                notificationManager,
-                notificationId,
-                pendingIntentMyJob,
-                profileImageUrl ?: "",
-                newToken.data["title"] ?: "",
-                newToken.data["message"] ?: ""
-            )
-        }else if (notificationType=="3"){
-            notificationSystem(
-                notificationManager,
-                notificationId,
-                pendingIntentMyJobComplete,
-                profileImageUrl ?: "",
-                newToken.data["title"] ?: "",
-                newToken.data["message"] ?: ""
-            )
-        }else if (notificationType=="4") {
-            notificationSystem(
-                notificationManager,
-                notificationId,
-                pendingIntentAdvert2,
-                profileImageUrl ?: "",
-                newToken.data["title"] ?: "",
-                newToken.data["message"] ?: ""
-            )
+        }
 
+        when (notificationType) {
+            "0", null -> {
+                notificationSystems(pendingIntentMessage)
+            }
+            "1" -> {
+                notificationSystems(pendingIntentAdvert)
+            }
+            "2" -> {
+                notificationSystems(pendingIntentMyJob)
+            }
+            "3" -> {
+                notificationSystems(pendingIntentMyJobComplete)
+            }
+            "4" -> {
+                notificationSystems(pendingIntentAdvert2)
+            }
         }
     }
 
