@@ -31,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
 
@@ -148,12 +150,18 @@ class AdvertDetailsFragment : Fragment() {
                                         readMoney("walkingMoney")
                                     }
                                 }
+                                val petYearInt = pet.petBirthYear.toInt()
+                                val currentDateTime = LocalDateTime.now()
+                                val formatter = DateTimeFormatter.ofPattern("yyyy")
+                                val currentYearInt = currentDateTime.format(formatter).toInt()
+                                val petAge = currentYearInt - petYearInt
+
                                 locationTextView.text = job!!.jobProvince + ", " + job!!.jobTown
                                 startDateTextView.text = job!!.jobStartDate
                                 endDateTextView.text = job!!.jobEndDate
                                 jobAboutTextView.text = job!!.jobAbout
                                 petAboutTextView.text = pet.petAbout
-                                textViewAge.text=pet.petAge+" Yaş"
+                                textViewAge.text= "$petAge Yaş"
                             }
 
                             override fun onCancelled(error: DatabaseError) {
