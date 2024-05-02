@@ -29,7 +29,7 @@ class BackerPreferenceFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= FragmentBackerPreferenceBinding.inflate(inflater, container, false)
+        binding = FragmentBackerPreferenceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -141,7 +141,9 @@ class BackerPreferenceFragment : Fragment() {
             }
 
             if (home.isChecked) {
-                if (homeMoney.text.toString().trim().isEmpty() || homeMoney.text.toString().toInt() <= 0) {
+                if (homeMoney.text.toString().trim().isEmpty() || homeMoney.text.toString()
+                        .toInt() <= 0
+                ) {
                     showToast("Lütfen Bir Tutar Giriniz!")
                     return@setOnClickListener
                 }
@@ -184,7 +186,7 @@ class BackerPreferenceFragment : Fragment() {
                 )
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showBottomSheet()
+                    // Başarılı işlemleri
                 } else {
                     showToast("Kayıt hatası: ${task.exception}")
                 }
@@ -195,19 +197,4 @@ class BackerPreferenceFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
-    @SuppressLint("InflateParams")
-    private fun showBottomSheet() {
-        val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.bottomsheet_add_backer, null)
-        view.findViewById<Button>(R.id.backToMain).setOnClickListener {
-            val intent=Intent(requireContext(), HomeActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-        }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
 }
