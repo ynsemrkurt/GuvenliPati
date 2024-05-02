@@ -211,17 +211,15 @@
                     android:background="@drawable/edit_text_background"
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/alata"
-                    android:hint="@string/do_um_y_l"
                     android:inputType="numberDecimal"
                     android:maxLength="4"
                     android:maxLines="1"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:textSize="17sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/editTextWeight"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.478" />
+                    app:layout_constraintTop_toTopOf="@+id/editTextWeight" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
