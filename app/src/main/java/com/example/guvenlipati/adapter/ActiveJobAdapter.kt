@@ -1,5 +1,6 @@
 package com.example.guvenlipati
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -29,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ActiveJobAdapter(
     private val context: Context,
@@ -79,6 +82,7 @@ class ActiveJobAdapter(
         private val buttonCopyId = view.findViewById<ImageButton>(R.id.buttonCopyId)
         private val supportButton = view.findViewById<Button>(R.id.supportButton)
 
+        @SuppressLint("SetTextI18n")
         fun bind(job: Job, pet: Pet, user: User, offer: Offer) {
             when (job.jobType) {
                 "feedingJob" -> jobTypeTextView.text = "Besleme"
@@ -197,8 +201,15 @@ class ActiveJobAdapter(
                 }
 
 
-                petNameTextView.text = pet.petName
-                textViewAge.text = pet.petAge + " Yaş"
+                val petYearInt = pet.petBirthYear.toInt()
+                val currentDateTime = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy")
+                val currentYearInt = currentDateTime.format(formatter).toInt()
+                val petAge = currentYearInt - petYearInt
+
+                petNameTextView.text=pet.petName
+                textViewAge.text= "$petAge Yaş"
+
                 when (pet.petGender) {
                     true -> {
                         petGenderTextView.text = "Dişi"
