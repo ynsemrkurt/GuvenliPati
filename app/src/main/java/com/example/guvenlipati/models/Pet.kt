@@ -3,7 +3,7 @@ package com.example.guvenlipati.models
 data class Pet(
     val petAbout: String = "",
     val petAdoptionStatus: Boolean=false,
-    val petAge: String = "",
+    val petBirthYear: String = "",
     val petBreed: String = "",
     val petGender: Boolean=false,
     val petId: String = "",
