@@ -20,6 +20,8 @@ import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PastJobAdapter(
     private val context: Context,
@@ -131,8 +133,15 @@ class PastJobAdapter(
                 }
 
 
-                petNameTextView.text = pet.petName
-                textViewAge.text = pet.petAge + " Yaş"
+                val petYearInt = pet.petBirthYear.toInt()
+                val currentDateTime = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy")
+                val currentYearInt = currentDateTime.format(formatter).toInt()
+                val petAge = currentYearInt - petYearInt
+
+                petNameTextView.text=pet.petName
+                textViewAge.text= "$petAge Yaş"
+
                 when (pet.petGender) {
                     true -> {
                         petGenderTextView.text = "Dişi"
