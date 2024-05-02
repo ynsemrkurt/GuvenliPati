@@ -29,7 +29,7 @@ class BackerPreferenceFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= FragmentBackerPreferenceBinding.inflate(inflater, container, false)
+        binding = FragmentBackerPreferenceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -141,7 +141,9 @@ class BackerPreferenceFragment : Fragment() {
             }
 
             if (home.isChecked) {
-                if (homeMoney.text.toString().trim().isEmpty() || homeMoney.text.toString().toInt() <= 0) {
+                if (homeMoney.text.toString().trim().isEmpty() || homeMoney.text.toString()
+                        .toInt() <= 0
+                ) {
                     showToast("Lütfen Bir Tutar Giriniz!")
                     return@setOnClickListener
                 }

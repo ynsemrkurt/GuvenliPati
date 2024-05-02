@@ -41,7 +41,7 @@ class RegisterBackerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding= FragmentRegisterBackerBinding.inflate(inflater,container,false)
+        binding = FragmentRegisterBackerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -79,7 +79,12 @@ class RegisterBackerFragment : Fragment() {
 
             if (auth.currentUser != null) {
 
-                if (editTextBackerName.text.trim().isEmpty() || editTextBackerSurname.text.trim().isEmpty() || editTextAdress.text.trim().isEmpty() || editTextExperience.text.trim().isEmpty() || editTextBackerAbout.text.trim().isEmpty() || editTextPetNumber.text.trim().isEmpty()) {
+                if (editTextBackerName.text.trim().isEmpty() || editTextBackerSurname.text.trim()
+                        .isEmpty() || editTextAdress.text.trim()
+                        .isEmpty() || editTextExperience.text.trim()
+                        .isEmpty() || editTextBackerAbout.text.trim()
+                        .isEmpty() || editTextPetNumber.text.trim().isEmpty()
+                ) {
                     showToast("Lütfen boş alan bırakmayınız!")
                     return@setOnClickListener
                 }
@@ -261,11 +266,12 @@ class RegisterBackerFragment : Fragment() {
             return false
         }
     }
+
     private fun showBottomSheet() {
         val dialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.bottomsheet_add_backer, null)
         view.findViewById<Button>(R.id.backToMain).setOnClickListener {
-            val intent= Intent(requireContext(), HomeActivity::class.java)
+            val intent = Intent(requireContext(), HomeActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
         }
