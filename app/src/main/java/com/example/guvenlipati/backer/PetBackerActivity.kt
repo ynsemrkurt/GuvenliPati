@@ -53,11 +53,6 @@ class PetBackerActivity : AppCompatActivity() {
             .replace(R.id.fragmentContainerView2, RegisterBackerFragment())
             .commit()
     }
-    fun goBackerPreferenceFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView2, BackerPreferenceFragment())
-            .commit()
-    }
 
     private fun backProcess() {
         MaterialAlertDialogBuilder(this)
