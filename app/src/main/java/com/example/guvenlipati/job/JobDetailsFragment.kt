@@ -35,6 +35,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 
@@ -134,13 +136,19 @@ class JobDetailsFragment : Fragment() {
                                     Glide.with(requireContext()).load(user.userPhoto)
                                         .into(circleImageProfilePhoto)
                                 }
+                                val petYearInt = pet.petBirthYear.toInt()
+                                val currentDateTime = LocalDateTime.now()
+                                val formatter = DateTimeFormatter.ofPattern("yyyy")
+                                val currentYearInt = currentDateTime.format(formatter).toInt()
+                                val petAge = currentYearInt - petYearInt
+
                                 userNameTextView.text = user.userName
                                 locationTextView.text = job!!.jobProvince + ", " + job!!.jobTown
                                 startDateTextView.text = job!!.jobStartDate
                                 endDateTextView.text = job!!.jobEndDate
                                 jobAboutTextView.text = job!!.jobAbout
                                 petAboutTextView.text = pet.petAbout
-                                textViewAge.text = pet.petAge + " Yaş"
+                                textViewAge.text = "$petAge Yaş"
                                 linearLayout.foreground = null
                                 loadingCardView.visibility = View.GONE
                             }
