@@ -131,14 +131,10 @@ class EditPetActivity : AppCompatActivity() {
                                 .into(profilePhoto)
                         }
                     }
-                    val currentDateTime = LocalDateTime.now()
-                    val formatter = DateTimeFormatter.ofPattern("yyyy")
-                    val currentYear = currentDateTime.format(formatter).toInt()
-                    val petAge = currentYear - pet.petBirthYear.toInt()
 
                     editTextPetName.setText(pet.petName)
                     editTextPetWeight.setText(pet.petWeight)
-                    petBirthYear.setText(petAge)
+                    petBirthYear.setText(pet.petBirthYear)
                     petTypeCombo.setText(pet.petBreed)
 
                     if (pet.petVaccinate) {
