@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
         android:scaleType="centerCrop"
-        app:lottie_rawRes="@raw/splash_background_anim"
+        app:lottie_rawRes="@raw/sign_background_bird"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 
