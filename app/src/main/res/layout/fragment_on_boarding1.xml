@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
         android:scaleType="centerCrop"
-        app:lottie_rawRes="@raw/login_cat_anim"
+        app:lottie_rawRes="@raw/dog_and_me_anim"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 
