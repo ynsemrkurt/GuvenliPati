@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">Güvenli Pati</string>
 
-    <string name="title_onboarding_1">Welcome to Onboarding App !</string>
-    <string name="description_onboarding_1">Here is an open-source project which shows sweet &amp; original onboarding ViewPagers that follows Material Design Guidelines</string>
+    <string name="title_onboarding_1">Evde Evcil Hayvan Bakımı</string>
+    <string name="description_onboarding_1">Evcil hayvan sahipleri, evcil hayvanlarının genel sağlığı ve refahı için düzenli veteriner kontrollerini sağlamalıdır. Beslenme ihtiyaçlarına dikkat edilmeli ve kaliteli ve besleyici bir diyet sağlanmalıdır. Eğitim ve sosyalizasyon, evcil hayvanların davranışlarını şekillendirir ve onların mutluluğunu artırır. Evcil hayvanlar için güvenli ve konforlu bir yaşam alanı sağlanmalı ve düzenli egzersiz ve aktivite zamanları ayarlanmalıdır. Hijyen, evcil hayvanların sağlığı için hayati önem taşır, bu yüzden düzenli temizlik ve bakım rutinleri uygulanmalıdır.</string>
 
-    <string name="title_onboarding_2">Try AirBnB Lottie</string>
-    <string name="description_onboarding_2">We use Lottie Animations on our Intro to make it interactive &amp; pleasant. Did you already tried it ? If no, let\'s start now. It\'s just awesome</string>
+    <string name="title_onboarding_2">Köpek Bakımı</string>
+    <string name="description_onboarding_2">Köpeklerin sağlığı ve refahı için düzenli egzersiz ve yürüyüşler sağlanmalıdır. Kaliteli köpek maması ve taze su temini sağlanmalıdır. Köpeğinizin eğitimi ve sosyalleşmesi için zaman ayırın ve temel komutları öğretin. Köpeğinizin tüy bakımını düzenli olarak yapın ve sağlık kontrolünü ihmal etmeyin. Köpeğiniz için uygun bir barınma alanı sağlayın ve onun için güvenli ve uygun oyuncaklar temin edin.</string>
 
-    <string name="title_onboarding_3">Code beautiful apps</string>
-    <string name="description_onboarding_3">Our mission is to make useful &amp; subtle apps. We love help people to save time with open-source stuffs, but we also make life easier by creating new things. Good Coding!</string>
+    <string name="title_onboarding_3">Kedi Bakımı</string>
+    <string name="description_onboarding_3">Kediler, düzenli veteriner kontrolleri ile sağlıklarını korumak için yılda en az bir kez veteriner ziyareti yapmalıdır. Beslenme ihtiyaçlarına uygun kaliteli kedi maması sağlanmalı ve taze su her zaman erişilebilir olmalıdır. Tuvalet ihtiyaçlarını karşılayabileceği temiz bir kum kabı sağlanmalı ve düzenli olarak temizlenmelidir. Kediniz için güvenli ve uyarıcı bir iç mekan oluşturun ve onun için zaman ayırarak oyunlar oynayın ve sevgi gösterin. Kedinizin tüylerini düzenli olarak fırçalayarak tüy dökümünü azaltın ve cilt sağlığını koruyun.</string>
 
-    <string name="title_onboarding_4">Last Dance</string>
-    <string name="description_onboarding_4">Our mission is to make useful &amp; subtle apps. We love help people to save time with open-source stuffs, but we also make life easier by creating new things. Good Coding!</string>
+    <string name="title_onboarding_4">Kuş Bakımı</string>
+    <string name="description_onboarding_4">Kuşlar için uygun bir kafes veya barınak sağlayın ve kafesin hijyenini düzenli olarak koruyun. Beslenme ihtiyaçlarını karşılamak için taze meyve, sebze ve uygun tohum karışımları sağlayın. Kuşlar için sosyal etkileşim önemlidir, bu yüzden onlarla düzenli olarak konuşun, oyunlar oynayın ve zaman geçirin. Tüy bakımını düzenli olarak yapın ve güvenliği için kafeste zararlı nesnelerden uzak tutun.</string>
 
     <string name="start_text_advice">By continuing on this application you agree to our Terms of Use and Privacy Policy</string>
     <string name="back_button">Back</string>
