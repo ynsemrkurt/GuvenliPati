@@ -28,11 +28,11 @@ Users can easily access reliable service providers and choose the most suitable 
 
 **BEGTECH**
 
-- [Batın Gökçe Savran](https://github.com/batinsavran/) - Frontend Developer  - [LinkedIn](https://www.linkedin.com/in/bat%C4%B1n-g%C3%B6k%C3%A7e-savran-46152b25b/)
+- [Batın Gökçe Savran](https://github.com/batinsavran/) - Android Developer  - [LinkedIn](https://www.linkedin.com/in/bat%C4%B1n-g%C3%B6k%C3%A7e-savran-46152b25b/)
   
-- [Yunus Emre Kurt](https://github.com/ynsemrkurt/) - Backend Developer - [LinkedIn](https://www.linkedin.com/in/yunus-emre-kurt-5423a929b/)
+- [Yunus Emre Kurt](https://github.com/ynsemrkurt/) - Android Developer - [LinkedIn](https://www.linkedin.com/in/yunus-emre-kurt-5423a929b/)
 
-- [Burak Eskisemerci](https://github.com/burake0) - Backend Developer - [LinkedIn](https://www.linkedin.com/in/burak-eskisemerci-315b85295/)
+- [Burak Eskisemerci](https://github.com/burake0) - Android Developer - [LinkedIn](https://www.linkedin.com/in/burak-eskisemerci-315b85295/)
 
 ## Contact
 
