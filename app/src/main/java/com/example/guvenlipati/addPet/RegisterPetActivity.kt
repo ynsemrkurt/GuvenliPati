@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.PorterDuff
-import androidx.exifinterface.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.exifinterface.media.ExifInterface
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.ActivityRegisterPetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -33,8 +33,6 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class RegisterPetActivity : AppCompatActivity() {
@@ -63,11 +61,6 @@ class RegisterPetActivity : AppCompatActivity() {
         val petType = intent.getStringExtra("petType")
         var petGender: Boolean? = null
         var petVaccine: Boolean? = null
-
-
-        binding.backToSplash.setOnClickListener{
-            showMaterialDialog()
-        }
 
 
         when (petType) {
@@ -101,6 +94,11 @@ class RegisterPetActivity : AppCompatActivity() {
             else -> {
                 finish()
             }
+        }
+
+
+        binding.backToSplash.setOnClickListener {
+            showMaterialDialog()
         }
 
 
@@ -143,82 +141,56 @@ class RegisterPetActivity : AppCompatActivity() {
             getContent.launch(Intent.createChooser(intent, "Select Profile Image"))
         }
 
-
-        fun controllerIf(editText: EditText,message: String){
-            if (editText.text.toString().trim().isEmpty()){
-                showToast(message)
-                return
-            }
-        }
-
-        fun controllerBool(petBool: Boolean?, message: String){
-            if (petBool == null) {
-                showToast(message)
-                return
-            }
-        }
-
-        fun showProgress() {
-            binding.petRegisterButton.visibility = View.INVISIBLE
-            binding.progressCard.visibility = View.VISIBLE
-            binding.buttonPaw2.visibility = View.INVISIBLE
-        }
-
-        fun hideProgress() {
-            binding.petRegisterButton.visibility = View.VISIBLE
-            binding.progressCard.visibility = View.INVISIBLE
-            binding.buttonPaw2.visibility = View.VISIBLE
-        }
-
         binding.petRegisterButton.setOnClickListener {
             val petId = UUID.randomUUID().toString()
-            databaseReference =
-                FirebaseDatabase.getInstance().getReference("pets")
-                    .child(petId)
+            databaseReference = FirebaseDatabase.getInstance().getReference("pets").child(petId)
 
-            controllerIf(binding.editTextPetName,"Lütfen dostunuzun adını giriniz!")
+            controllerIf(binding.editTextPetName, "Lütfen dostunuzun adını giriniz!")
 
             controllerIf(binding.editTextAbout, "Lütfen dostunuzun ağırlığını giriniz!")
 
             controllerIf(binding.editTextAge, "Lütfen dostunuzun doğum yılını giriniz!")
 
-            controllerBool(petGender,"Lütfen dostunuzun cinsiyetini seçiniz!")
+            controllerBool(petGender, "Lütfen dostunuzun cinsiyetini seçiniz!")
 
             controllerBool(petVaccine, "Lütfen dostunuzun aşı bilgisini seçiniz!")
 
             controllerIf(binding.editTextAbout, "Lütfen bir açıklama giriniz!")
 
-            if(imageUrl==""){
+            if (imageUrl == "") {
                 showToast("Lütfen bir fotoğraf seçiniz!")
                 return@setOnClickListener
             }
 
-            if(binding.typeCombo.text.toString().isEmpty()){
+            if (binding.typeCombo.text.toString().isEmpty()) {
                 showToast("Lütfen dostunuzun türünü seçiniz!")
                 return@setOnClickListener
             }
 
-            if (binding.editTextAge.text.toString().toInt() > 2025 || binding.editTextAge.text.toString().toInt() < 1990){
+            if (binding.editTextAge.text.toString()
+                    .toInt() > 2025 || binding.editTextAge.text.toString().toInt() < 1990
+            ) {
                 showToast("Dostunuzun doğum yılı 1990 ve 2024 arasında olmalıdır!")
                 return@setOnClickListener
             }
 
             showProgress()
 
+            val hashMap = mutableMapOf(
+                "userId" to firebaseUser.uid,
+                "petPhoto" to imageUrl,
+                "petSpecies" to petType.toString(),
+                "petName" to binding.editTextPetName.text.toString(),
+                "petWeight" to binding.editTextWeight.text.toString(),
+                "petBirthYear" to binding.editTextAge.text.toString(),
+                "petBreed" to binding.typeCombo.text.toString(),
+                "petGender" to (petGender ?: "Bilinmiyor"),
+                "petVaccinate" to (petVaccine ?: "Bilinmiyor"),
+                "petAbout" to binding.editTextAbout.text.toString(),
+                "petAdoptionStatus" to false,
+                "petId" to petId
+            )
 
-            val hashMap: HashMap<String, Any> = HashMap()
-            hashMap["userId"] = firebaseUser.uid
-            hashMap["petPhoto"] = imageUrl
-            hashMap["petSpecies"] = petType.toString()
-            hashMap["petName"] = binding.editTextPetName.text.toString()
-            hashMap["petWeight"] = binding.editTextWeight.text.toString()
-            hashMap["petBirthYear"] = binding.editTextAge.text.toString()
-            hashMap["petBreed"] = binding.typeCombo.text.toString()
-            hashMap["petGender"] = petGender!!
-            hashMap["petVaccinate"] = petVaccine!!
-            hashMap["petAbout"] = binding.editTextAbout.text.toString()
-            hashMap["petAdoptionStatus"] = false
-            hashMap["petId"]= petId
 
             databaseReference.setValue(hashMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -232,22 +204,17 @@ class RegisterPetActivity : AppCompatActivity() {
         }
     }
 
-    private fun showMaterialDialog(){
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Emin Misiniz?")
+    private fun showMaterialDialog() {
+        MaterialAlertDialogBuilder(this).setTitle("Emin Misiniz?")
             .setMessage("Eğer geri dönerseniz kaydınız silinecektir.")
             .setBackground(ContextCompat.getDrawable(this, R.drawable.background_dialog))
             .setPositiveButton("Sil") { _, _ ->
                 showToast("Kaydınız iptal edildi.")
                 finish()
-            }
-            .setNegativeButton("İptal") { _, _ ->
+            }.setNegativeButton("İptal") { _, _ ->
                 showToast("İptal Edildi")
-            }
-            .show()
+            }.show()
     }
-
-
 
 
     private fun selectMethod(selected: Button, unselected: Button) {
@@ -267,12 +234,10 @@ class RegisterPetActivity : AppCompatActivity() {
                 val inputStream = contentResolver.openInputStream(filePath!!)
                 val exif = ExifInterface(inputStream!!)
                 val orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL
+                    ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL
                 )
 
-                val originalBitmap =
-                    MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                val originalBitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
 
 
                 val rotationAngle = when (orientation) {
@@ -285,13 +250,7 @@ class RegisterPetActivity : AppCompatActivity() {
 
                 val matrix = Matrix().apply { postRotate(rotationAngle.toFloat()) }
                 val rotatedBitmap = Bitmap.createBitmap(
-                    originalBitmap,
-                    0,
-                    0,
-                    originalBitmap.width,
-                    originalBitmap.height,
-                    matrix,
-                    true
+                    originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true
                 )
 
                 val imageStream = ByteArrayOutputStream()
@@ -301,16 +260,14 @@ class RegisterPetActivity : AppCompatActivity() {
                 val imageArray = imageStream.toByteArray()
                 val imageFileName = "image_${System.currentTimeMillis()}.jpg"
                 val ref: StorageReference = strgRef.child("pets/${firebaseUser.uid}/$imageFileName")
-                ref.putBytes(imageArray)
-                    .addOnSuccessListener {
-                        showToast("Fotoğraf yüklendi!")
-                        ref.downloadUrl.addOnSuccessListener { uri ->
-                            imageUrl = uri.toString()
-                        }
+                ref.putBytes(imageArray).addOnSuccessListener {
+                    showToast("Fotoğraf yüklendi!")
+                    ref.downloadUrl.addOnSuccessListener { uri ->
+                        imageUrl = uri.toString()
                     }
-                    .addOnFailureListener {
-                        showToast("Başarısız, lütfen yeniden deneyin!")
-                    }
+                }.addOnFailureListener {
+                    showToast("Başarısız, lütfen yeniden deneyin!")
+                }
 
                 binding.circleImageProfilePhoto.setImageBitmap(rotatedBitmap)
             } catch (e: IOException) {
@@ -325,9 +282,9 @@ class RegisterPetActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun showBottomSheet(){
+    private fun showBottomSheet() {
         val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottomsheet_add_pet,null)
+        val view = layoutInflater.inflate(R.layout.bottomsheet_add_pet, null)
         view.findViewById<Button>(R.id.backToMain).setOnClickListener {
             finish()
         }
@@ -342,6 +299,32 @@ class RegisterPetActivity : AppCompatActivity() {
         showMaterialDialog()
     }
 
+    private fun controllerIf(editText: EditText, message: String) {
+        if (editText.text.toString().trim().isEmpty()) {
+            showToast(message)
+            return
+        }
+    }
+
+    private fun controllerBool(petBool: Boolean?, message: String) {
+        if (petBool == null) {
+            showToast(message)
+            return
+        }
+    }
+
+
+    private fun showProgress() {
+        binding.petRegisterButton.visibility = View.INVISIBLE
+        binding.progressCard.visibility = View.VISIBLE
+        binding.buttonPaw2.visibility = View.INVISIBLE
+    }
+
+    private fun hideProgress() {
+        binding.petRegisterButton.visibility = View.VISIBLE
+        binding.progressCard.visibility = View.INVISIBLE
+        binding.buttonPaw2.visibility = View.VISIBLE
+    }
 }
 
 
