@@ -14,9 +14,13 @@ import com.example.guvenlipati.databinding.FragmentPastAdvertBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class PastAdvertFragment : Fragment() {
 
@@ -26,15 +30,21 @@ class PastAdvertFragment : Fragment() {
     private val petList = ArrayList<Pet>()
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentPastAdvertBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+
         val currentUser = FirebaseAuth.getInstance().currentUser?.uid
+
+        setupRecyclerView()
         fetchJobs(currentUser!!)
     }
 
@@ -47,55 +57,66 @@ class PastAdvertFragment : Fragment() {
     }
 
     private fun fetchPets(job: Job) {
-        FirebaseDatabase.getInstance().getReference("pets").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(petsSnapshot: DataSnapshot) {
-                for (petSnapshot in petsSnapshot.children) {
-                    petSnapshot.getValue(Pet::class.java)?.let { pet ->
-                        if (pet.petId == job.petID) {
-                            jobList.add(job)
-                            petList.add(pet)
-                            adapter.notifyDataSetChanged()
-                            binding.loadingCardView.visibility = View.GONE
-                            binding.scrollView.foreground = null
+        FirebaseDatabase.getInstance().getReference("pets")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(petsSnapshot: DataSnapshot) {
+                    for (petSnapshot in petsSnapshot.children) {
+                        petSnapshot.getValue(Pet::class.java)?.let { pet ->
+                            if (pet.petId == job.petID) {
+                                addListAndUpdateUI(job, pet)
+                            }
                         }
                     }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                showToast("Failed to load pets: ${error.message}")
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    dbError()
+                }
+            })
     }
 
     private fun fetchJobs(userId: String) {
         val currentDate = Date()
-        FirebaseDatabase.getInstance().getReference("jobs").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(jobsSnapshot: DataSnapshot) {
-                binding.loadingCardView.visibility = View.VISIBLE
-                binding.scrollView.foreground = ColorDrawable(Color.parseColor("#FFFFFF"))
-                jobList.clear()
-                petList.clear()
-                jobsSnapshot.children.forEach { jobSnapshot ->
-                    jobSnapshot.getValue(Job::class.java)?.let { job ->
-                        job.jobStartDate.let { startDateStr ->
-                            dateFormat.parse(startDateStr)?.let { startDate ->
-                                if ((startDate.before(currentDate) || job.jobStatus == false) && job.userID == userId) {
-                                    fetchPets(job)
+        FirebaseDatabase.getInstance().getReference("jobs")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(jobsSnapshot: DataSnapshot) {
+                    binding.loadingCardView.visibility = View.VISIBLE
+                    binding.scrollView.foreground = ColorDrawable(Color.parseColor("#FFFFFF"))
+                    jobList.clear()
+                    petList.clear()
+                    jobsSnapshot.children.forEach { jobSnapshot ->
+                        jobSnapshot.getValue(Job::class.java)?.let { job ->
+                            job.jobStartDate.let { startDateStr ->
+                                dateFormat.parse(startDateStr)?.let { startDate ->
+                                    if ((startDate.before(currentDate) || !job.jobStatus) && job.userID == userId) {
+                                        fetchPets(job)
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                showToast("Failed to load jobs: ${error.message}")
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    dbError()
+                }
+            })
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    private fun dbError() {
+        Toast.makeText(
+            requireContext(),
+            "Veri Tabanı hatası lütfen daha sonra deneyiz!",
+            Toast.LENGTH_SHORT
+        ).show()
+        requireActivity().finish()
+    }
+
+    private fun addListAndUpdateUI(job: Job, pet: Pet) {
+        jobList.add(job)
+        petList.add(pet)
+        adapter.notifyDataSetChanged()
+        binding.loadingCardView.visibility = View.GONE
+        binding.scrollView.foreground = null
     }
 }
