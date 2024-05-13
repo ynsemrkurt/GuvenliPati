@@ -13,20 +13,12 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.appcompat.widget.AppCompatButton
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.messaging.FirebaseMessaging
-
 
 class LoginFragment : Fragment() {
 
@@ -44,47 +36,44 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         auth = FirebaseAuth.getInstance()
+        setupLoginButton()
+        setupLockPasswordButton()
+        setupBackToSplashButton()
+        setupForgotPasswordTextView()
+        setupBackPressedListener()
+    }
 
-
+    private fun setupLoginButton() {
         binding.loginButton.setOnClickListener {
-
-            if (binding.editTextEmail.text.toString()
-                    .isEmpty() || binding.editTextPassword.text.toString().isEmpty()
-            ) {
+            if (binding.editTextEmail.text.isEmpty() || binding.editTextPassword.text.isEmpty()) {
                 showToast("Hiçbir alan boş bırakılamaz!")
             } else {
-
                 binding.loginButton.visibility = View.INVISIBLE
                 binding.progressCard.visibility = View.VISIBLE
                 binding.buttonPaw.visibility = View.INVISIBLE
                 auth.signInWithEmailAndPassword(
                     binding.editTextEmail.text.toString(),
                     binding.editTextPassword.text.toString()
-                )
-                    .addOnCompleteListener()
-                    {
-                        if (it.isSuccessful) {
-                            (activity as SplashActivity).goHomeActivity()
-                            binding.editTextEmail.setText("")
-                            binding.editTextPassword.setText("")
-                        } else {
-                            errorEdit(binding.editTextPassword)
-                        }
+                ).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        (activity as SplashActivity).goHomeActivity()
+                        binding.editTextEmail.setText("")
+                        binding.editTextPassword.setText("")
+                    } else {
+                        errorEdit(binding.editTextPassword)
                     }
-
-                    .addOnFailureListener { exception ->
-                        showToast("Hatalı Giriş Bilgileri!")
-                    }
+                    resetButtonVisibility()
+                }.addOnFailureListener {
+                    showToast("Hatalı Giriş Bilgileri!")
+                    resetButtonVisibility()
+                }
             }
-            binding.loginButton.visibility = View.VISIBLE
-            binding.progressCard.visibility = View.INVISIBLE
-            binding.buttonPaw.visibility = View.VISIBLE
         }
+    }
 
+    private fun setupLockPasswordButton() {
         binding.lockPassword.setOnClickListener {
-
             isPasswordVisible = !isPasswordVisible
             if (isPasswordVisible) {
                 binding.editTextPassword.transformationMethod =
@@ -95,33 +84,28 @@ class LoginFragment : Fragment() {
                     PasswordTransformationMethod.getInstance()
                 binding.lockPassword.setImageResource(R.drawable.secret_password_eye_ico)
             }
-
         }
+    }
 
+    private fun setupBackToSplashButton() {
         binding.backToSplash.setOnClickListener {
             (activity as SplashActivity).goSplashFragment()
         }
+    }
 
+    private fun setupForgotPasswordTextView() {
         binding.textView.setOnClickListener {
-
             val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
-
             val inflater = LayoutInflater.from(context)
             val view2 = inflater.inflate(R.layout.item_forgot_password, null)
             builder.setView(view2)
-
             val email = view2.findViewById<EditText>(R.id.editTextMail2)
             val buttonSend = view2.findViewById<Button>(R.id.buttonSend)
-
             val dialog = builder.create()
             dialog.show()
-
             buttonSend.setOnClickListener {
-                if (email.text.toString().trim()
-                        .isEmpty()
-                ) {
+                if (email.text.toString().trim().isEmpty()) {
                     showToast("Lütfen email adresinizi giriniz!")
-                    return@setOnClickListener
                 } else {
                     auth.sendPasswordResetEmail(email.text.toString())
                         .addOnCompleteListener { task ->
@@ -135,31 +119,35 @@ class LoginFragment : Fragment() {
                         }
                 }
             }
-
             dialog.setOnCancelListener {
                 dialog.dismiss()
             }
         }
+    }
 
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner)
-        {
+    private fun setupBackPressedListener() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             (requireActivity() as SplashActivity).goSplashFragment()
         }
     }
 
-    fun showToast(message: String) {
+    private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    fun errorEdit(editText: EditText){
+    private fun errorEdit(editText: EditText) {
         editText.setTextColor(Color.RED)
-        val shake =
-            AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+        val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
         editText.startAnimation(shake)
         Handler(Looper.getMainLooper()).postDelayed({
             editText.text.clear()
             editText.setTextColor(Color.BLACK)
         }, 500)
+    }
+
+    private fun resetButtonVisibility() {
+        binding.loginButton.visibility = View.VISIBLE
+        binding.progressCard.visibility = View.INVISIBLE
+        binding.buttonPaw.visibility = View.VISIBLE
     }
 }
