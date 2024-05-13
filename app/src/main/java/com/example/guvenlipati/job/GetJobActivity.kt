@@ -1,20 +1,20 @@
 package com.example.guvenlipati.job
 
 import android.os.Bundle
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.ActivityGetJobBinding
 
 class GetJobActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityGetJobBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_get_job)
+        binding = ActivityGetJobBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val backToHome = findViewById<ImageButton>(R.id.backToHome)
-
-        backToHome.setOnClickListener{
+        binding.backToHome.setOnClickListener {
             super.onBackPressed()
         }
-
     }
 }
