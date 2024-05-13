@@ -1,17 +1,16 @@
 package com.example.guvenlipati.payment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.guvenlipati.R
 import com.example.guvenlipati.RetrofitInstance
 import com.example.guvenlipati.databinding.FragmentPaymentBinding
@@ -23,10 +22,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -249,7 +246,6 @@ class PaymentFragment : Fragment() {
             else -> true
         }
     }
-
 
 
     private fun deleteOtherOffers(jobId: String?) {

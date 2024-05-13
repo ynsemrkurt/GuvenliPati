@@ -13,7 +13,6 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentRegisterBackerBinding
 import com.example.guvenlipati.home.HomeActivity
 import com.example.guvenlipati.models.Backer
-import com.example.guvenlipati.models.Pet
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -41,7 +40,6 @@ class RegisterBackerFragment : Fragment() {
     private lateinit var databaseReference2: DatabaseReference
     private var verificationStatus: Boolean = false
     private lateinit var binding: FragmentRegisterBackerBinding
-    private var tcStatus: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

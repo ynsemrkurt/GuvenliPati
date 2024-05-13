@@ -1,4 +1,3 @@
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.databinding.FragmentJobCreateBinding
-import com.example.guvenlipati.home.HomeActivity
 import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
@@ -24,8 +22,11 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
-
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
