@@ -74,8 +74,7 @@ class PendingAdvertFragment : Fragment() {
         FirebaseDatabase.getInstance().getReference("jobs")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(jobsSnapshot: DataSnapshot) {
-                    jobList.clear()
-                    petList.clear()
+                    clearLists()
                     jobsSnapshot.children.mapNotNull { it.getValue(Job::class.java) }
                         .forEach { job ->
                             job.jobStartDate.let { startDateStr ->
@@ -93,6 +92,11 @@ class PendingAdvertFragment : Fragment() {
                     dbError()
                 }
             })
+    }
+
+    private fun clearLists() {
+        jobList.clear()
+        petList.clear()
     }
 
     private fun addListsAndUpdateUI(pet: Pet, job: Job) {
