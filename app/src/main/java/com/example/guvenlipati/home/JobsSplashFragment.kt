@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.guvenlipati.job.JobsActivity
-import com.example.guvenlipati.job.GetJobActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.databinding.FragmentJobsSplashBinding
-import com.example.guvenlipati.models.Pet
+import com.example.guvenlipati.job.GetJobActivity
+import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.models.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +33,7 @@ class JobsSplashFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding=FragmentJobsSplashBinding.inflate(inflater, container, false)
+        binding = FragmentJobsSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,70 +41,94 @@ class JobsSplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
+        fetchUserData()
+
+        binding.createAdvertsButton.setOnClickListener {
+            checkUserPetStatus()
+        }
+
+        binding.findJobButton.setOnClickListener {
+            checkUserBackerStatus()
+        }
+    }
+
+    private fun fetchUserData() {
         val databaseReferenceUsers =
             FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
         databaseReferenceUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val userData = snapshot.getValue(User::class.java)
-                    user = userData ?: User()
+                    user = snapshot.getValue(User::class.java) ?: User()
                 }
-                binding.loadingCardView.visibility = View.GONE
-                binding.linearLayout.foreground = null
+                hideLoadingView()
             }
 
             override fun onCancelled(error: DatabaseError) {
                 showToast("Veritabanı hatası: ${error.message}")
             }
         })
-
-        binding.createAdvertsButton.setOnClickListener {
-            val petQuery =
-                FirebaseDatabase.getInstance().getReference("pets").orderByChild("userId")
-                    .equalTo(user.userId)
-            petQuery.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        val pet = dataSnapshot.children.firstOrNull()?.getValue(Pet::class.java)
-                        petBool = pet?.userId == user.userId
-                        if (petBool) {
-                            (activity as HomeActivity).goActivity(JobsActivity())
-                        } else {
-                            showMaterialDialogPet()
-                        }
-                    } else {
-                        showMaterialDialogPet()
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e(TAG, "onCancelled", error.toException())
-                }
-            })
-        }
-
-        binding.findJobButton.setOnClickListener {
-            if (::user.isInitialized) {
-                val userBackerBool = user.userBacker
-                if (!userBackerBool) {
-                    showMaterialDialog("Bakıcı Ol!",
-                        "Bakıcı profiliniz bulunmamaktadır. İş alabilmek için bakıcı profili oluşturmak zorundasınız!",
-                        "Bakıcı Ol!",
-                        {
-                            (activity as HomeActivity).goActivity(PetBackerActivity())
-                        },
-                        {
-                            showToast("İptal Edildi")
-                        })
-                } else {
-                    (activity as HomeActivity).goActivity(GetJobActivity())
-                }
-            } else {
-                showToast("Kullanıcı verileri yüklenemedi.")
-            }
-        }
     }
 
+    private fun hideLoadingView() {
+        binding.loadingCardView.visibility = View.GONE
+        binding.linearLayout.foreground = null
+    }
+
+    private fun checkUserPetStatus() {
+        val petQuery =
+            FirebaseDatabase.getInstance().getReference("pets").orderByChild("userId")
+                .equalTo(user.userId)
+        petQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                petBool = dataSnapshot.exists()
+                if (petBool) {
+                    goToJobsActivity()
+                } else {
+                    showAddPetDialog()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "onCancelled", error.toException())
+            }
+        })
+    }
+
+    private fun goToJobsActivity() {
+        (activity as HomeActivity).goActivity(JobsActivity())
+    }
+
+    private fun showAddPetDialog() {
+        showMaterialDialog(
+            "Dost Ekle!",
+            "Henüz dostunuz bulunmamaktadır. İlan oluşturmak için dost profili oluşturmak zorundasınız!",
+            "Dost Ekle!",
+            {
+                (activity as HomeActivity).goSelectAddPetFragment()
+            },
+            {
+                showToast("İptal Edildi")
+            }
+        )
+    }
+
+    private fun checkUserBackerStatus() {
+        if (!user.userBacker) {
+            showMaterialDialog(
+                "Bakıcı Ol!",
+                "Bakıcı profiliniz bulunmamaktadır. İş alabilmek için bakıcı profili oluşturmak zorundasınız!",
+                "Bakıcı Ol!",
+                {
+                    (activity as HomeActivity).goActivity(PetBackerActivity())
+                },
+                {
+                    showToast("İptal Edildi")
+                }
+            )
+        } else {
+            (activity as HomeActivity).goActivity(GetJobActivity())
+        }
+    }
 
     private fun showMaterialDialog(
         title: String,
@@ -114,28 +137,21 @@ class JobsSplashFragment : Fragment() {
         positiveAction: () -> Unit,
         negativeAction: () -> Unit
     ) {
-        MaterialAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message)
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
+            .setMessage(message)
             .setBackground(
                 ContextCompat.getDrawable(
                     requireContext(), R.drawable.background_dialog
                 )
-            ).setPositiveButton(positiveButton) { _, _ ->
+            )
+            .setPositiveButton(positiveButton) { _, _ ->
                 positiveAction()
-            }.setNegativeButton("İptal") { _, _ ->
+            }
+            .setNegativeButton("İptal") { _, _ ->
                 negativeAction()
-            }.show()
-    }
-
-    private fun showMaterialDialogPet() {
-        showMaterialDialog("Dost Ekle!",
-            "Henüz dostunuz bulunmamaktadır. İlan  oluşturmak için dost profili oluşturmak zorundasınız!",
-            "Dost Ekle!",
-            {
-                (activity as HomeActivity).goSelectAddPetFragment()
-            },
-            {
-                showToast("İptal Edildi")
-            })
+            }
+            .show()
     }
 
     private fun showToast(message: String) {

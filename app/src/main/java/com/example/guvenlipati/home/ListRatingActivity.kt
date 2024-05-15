@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 
 class ListRatingActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityListRatingBinding
+    private lateinit var binding: ActivityListRatingBinding
     private val userRatingPairs = ArrayList<UserRatingPair>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +26,7 @@ class ListRatingActivity : AppCompatActivity() {
         binding = ActivityListRatingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val recyclerView: RecyclerView = binding.listRatingRecycleView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = ListRatingAdapter(this, userRatingPairs)
-        recyclerView.adapter = adapter
+        setupRecyclerView()
 
         val userId = intent.getStringExtra("userId") ?: ""
         val databaseReferenceRatings = FirebaseDatabase.getInstance().getReference("ratings")
@@ -39,30 +36,33 @@ class ListRatingActivity : AppCompatActivity() {
                 ratingsSnapshot.children.forEach { ratingSnapshot ->
                     val rating = ratingSnapshot.getValue(Rating::class.java)
                     if (rating?.backerId == userId) {
-                        binding.loadingCardView.visibility = View.VISIBLE
-                        binding.linearLayout.foreground=ColorDrawable(Color.parseColor("#FFFFFF"))
-                        binding.animationView2.visibility=View.GONE
-                        fetchUser(rating.userId) { user ->
+                        showLoadingState(true)
+                        fetchUserRating(rating.userId) { user ->
                             userRatingPairs.add(UserRatingPair(user, rating))
-                            adapter.notifyDataSetChanged()
-                            binding.loadingCardView.visibility = View.GONE
-                            binding.linearLayout.foreground=null
+                            binding.listRatingRecycleView.adapter?.notifyDataSetChanged()
+                            showLoadingState(false)
                         }
                     }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Handle onCancelled event
             }
         })
 
         binding.backToSplash.setOnClickListener {
             onBackPressed()
-            finish()
         }
     }
 
-    private fun fetchUser(userId: String, onUserFetched: (User?) -> Unit) {
+    private fun setupRecyclerView() {
+        val recyclerView: RecyclerView = binding.listRatingRecycleView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = ListRatingAdapter(this, userRatingPairs)
+    }
+
+    private fun fetchUserRating(userId: String, onUserFetched: (User?) -> Unit) {
         val databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users").child(userId)
         databaseReferenceUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(usersSnapshot: DataSnapshot) {
@@ -71,13 +71,24 @@ class ListRatingActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Handle onCancelled event
             }
         })
     }
-}
 
+    private fun showLoadingState(loading: Boolean) {
+        if (loading) {
+            binding.loadingCardView.visibility = View.VISIBLE
+            binding.linearLayout.foreground = ColorDrawable(Color.parseColor("#FFFFFF"))
+            binding.animationView2.visibility = View.GONE
+        } else {
+            binding.loadingCardView.visibility = View.GONE
+            binding.linearLayout.foreground = null
+        }
+    }
+}
 
 data class UserRatingPair(
     val user: User?,
-    val rating : Rating?
+    val rating: Rating?
 )

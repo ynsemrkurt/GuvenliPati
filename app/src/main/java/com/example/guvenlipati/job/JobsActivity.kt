@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.guvenlipati.R
-import com.example.guvenlipati.home.HomeActivity
-import com.example.guvenlipati.home.ProfileFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class JobsActivity : AppCompatActivity() {
@@ -26,11 +24,12 @@ class JobsActivity : AppCompatActivity() {
 
         val backToHome = findViewById<ImageButton>(R.id.backToHome)
 
-        backToHome?.setOnClickListener{
+        backToHome?.setOnClickListener {
             showMaterialDialog()
         }
     }
-    private fun showMaterialDialog(){
+
+    private fun showMaterialDialog() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Emin Misiniz?")
             .setMessage("Eğer geri dönerseniz iş kaydınız silinecektir.")
@@ -44,12 +43,13 @@ class JobsActivity : AppCompatActivity() {
             }
             .show()
     }
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun controllerIf(editText: EditText, message: String){
-        if (editText.text.toString().trim().isEmpty()){
+    fun controllerIf(editText: EditText, message: String) {
+        if (editText.text.toString().trim().isEmpty()) {
             showToast(message)
         }
     }

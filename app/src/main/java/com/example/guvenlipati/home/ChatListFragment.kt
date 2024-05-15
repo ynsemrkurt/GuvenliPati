@@ -14,8 +14,11 @@ import com.example.guvenlipati.databinding.FragmentChatListBinding
 import com.example.guvenlipati.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ChatListFragment : Fragment() {
     private lateinit var binding: FragmentChatListBinding

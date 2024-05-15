@@ -62,27 +62,37 @@ class SettingsActivity : AppCompatActivity() {
             return
         }
 
-        val user = mAuth.currentUser
-        if (user != null && user.email != null) {
-            val credential = EmailAuthProvider.getCredential(user.email!!, currentPassword)
-
-            user.reauthenticate(credential)
-                .addOnCompleteListener { reauthTask ->
-                    if (reauthTask.isSuccessful) {
-                        user.updatePassword(newPassword)
-                            .addOnCompleteListener { updatePasswordTask ->
-                                if (updatePasswordTask.isSuccessful) {
-                                    showToast("Şifre başarıyla değiştirildi")
-                                    finish()
-                                } else {
-                                    showToast("Şifre değiştirilirken bir hata oluştu")
-                                }
-                            }
-                    } else {
-                        showToast("Mevcut şifre yanlış")
-                    }
-                }
+        if (!arePasswordsMatching(newPassword, confirmPassword)) {
+            showToast("Şifreler uyuşmuyor")
+            return
         }
+
+        mAuth.currentUser?.let { currentUser ->
+            currentUser.email?.let { email ->
+                val credential = EmailAuthProvider.getCredential(email, currentPassword)
+
+                currentUser.reauthenticate(credential)
+                    .addOnCompleteListener { reauthTask ->
+                        if (reauthTask.isSuccessful) {
+                            currentUser.updatePassword(newPassword)
+                                .addOnCompleteListener { updatePasswordTask ->
+                                    if (updatePasswordTask.isSuccessful) {
+                                        showToast("Şifre başarıyla değiştirildi")
+                                        finish()
+                                    } else {
+                                        showToast("Şifre değiştirilirken bir hata oluştu")
+                                    }
+                                }
+                        } else {
+                            showToast("Mevcut şifre yanlış")
+                        }
+                    }
+            }
+        }
+    }
+
+    private fun arePasswordsMatching(password1: String, password2: String): Boolean {
+        return password1 == password2
     }
 
     private fun areFieldsEmpty(vararg fields: String): Boolean {

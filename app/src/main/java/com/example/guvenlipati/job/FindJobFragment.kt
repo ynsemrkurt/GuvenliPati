@@ -1,18 +1,14 @@
 package com.example.guvenlipati.job
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.JobsAdapter
-import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentFindJobBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
@@ -37,7 +33,7 @@ class FindJobFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         binding = FragmentFindJobBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -71,14 +67,20 @@ class FindJobFragment : Fragment() {
                             }
                         }
 
-                        databaseReferenceJobs.addListenerForSingleValueEvent(object : ValueEventListener {
+                        databaseReferenceJobs.addListenerForSingleValueEvent(object :
+                            ValueEventListener {
                             override fun onDataChange(jobsSnapshot: DataSnapshot) {
                                 jobList.clear()
                                 for (dataSnapshot: DataSnapshot in jobsSnapshot.children) {
                                     val job = dataSnapshot.getValue(Job::class.java)
-                                    val startDate = SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
+                                    val startDate =
+                                        SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
                                     job?.let {
-                                        if (userSnapshot.child(job.jobType).getValue(Boolean::class.java) == true && userSnapshot.child(job.petSpecies + "Backer").getValue(Boolean::class.java) == true && job.userID != FirebaseAuth.getInstance().currentUser?.uid.toString() && !startDate.before(
+                                        if (userSnapshot.child(job.jobType)
+                                                .getValue(Boolean::class.java) == true && userSnapshot.child(
+                                                job.petSpecies + "Backer"
+                                            )
+                                                .getValue(Boolean::class.java) == true && job.userID != FirebaseAuth.getInstance().currentUser?.uid.toString() && !startDate.before(
                                                 currentDate
                                             ) && job.jobStatus
                                         ) {
@@ -97,8 +99,8 @@ class FindJobFragment : Fragment() {
                                 if (jobList.isNotEmpty()) {
                                     binding.animationView2.visibility = View.GONE
                                 }
-                                binding.scrollView.foreground=null
-                                binding.loadingCardView.visibility=View.GONE
+                                binding.scrollView.foreground = null
+                                binding.loadingCardView.visibility = View.GONE
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -112,6 +114,7 @@ class FindJobFragment : Fragment() {
                     }
                 })
             }
+
             override fun onCancelled(error: DatabaseError) {
                 showToast("Hata!")
             }

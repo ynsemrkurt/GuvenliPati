@@ -1,23 +1,20 @@
 package com.example.guvenlipati.home
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toast.*
+import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.makeText
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.adapter.HomeBackersAdapter
 import com.example.guvenlipati.adapter.HomePetsAdapter
-import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.backer.PetBackerActivity
 import com.example.guvenlipati.databinding.FragmentHomeBinding
 import com.example.guvenlipati.models.Backer
@@ -42,8 +39,8 @@ class HomeFragment : Fragment() {
     private lateinit var databaseReferenceBacker: DatabaseReference
     private lateinit var binding: FragmentHomeBinding
 
-    val ratingList= mutableListOf<Double>()
-    var ratingPoint:Double=0.0
+    val ratingList = mutableListOf<Double>()
+    var ratingPoint: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -139,42 +136,49 @@ class HomeFragment : Fragment() {
                                         selectBackerList.add(it)
                                     }
                                 }
-                                FirebaseDatabase.getInstance().getReference("ratings").addListenerForSingleValueEvent(object : ValueEventListener {
-                                    override fun onDataChange(snapshot: DataSnapshot) {
-                                        var totalRating = 0.0
-                                        var sayac = 0
+                                FirebaseDatabase.getInstance().getReference("ratings")
+                                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            var totalRating = 0.0
+                                            var sayac = 0
 
-                                        snapshot.children.forEach { ratingSnapshot ->
-                                            val rating = ratingSnapshot.getValue(Rating::class.java) ?: return@forEach
-                                            if (rating.backerId == backer!!.userID) {
-                                                sayac++
-                                                totalRating += rating.rating
+                                            snapshot.children.forEach { ratingSnapshot ->
+                                                val rating =
+                                                    ratingSnapshot.getValue(Rating::class.java)
+                                                        ?: return@forEach
+                                                if (rating.backerId == backer!!.userID) {
+                                                    sayac++
+                                                    totalRating += rating.rating
+                                                }
                                             }
+
+                                            if (sayac > 0) {
+                                                ratingPoint = totalRating / sayac
+                                            } else {
+                                                ratingPoint = 0.0
+                                            }
+
+                                            ratingList.add(ratingPoint)
+
+                                            val selectBackerAdapter =
+                                                HomeBackersAdapter(
+                                                    context,
+                                                    selectBackerList,
+                                                    selectUserList,
+                                                    ratingList
+                                                )
+
+                                            binding.petRecycleViewBacker.adapter =
+                                                selectBackerAdapter
                                         }
 
-                                        if (sayac > 0) {
-                                            ratingPoint = totalRating / sayac
-                                        } else {
-                                            ratingPoint = 0.0
-                                        }
-
-                                        ratingList.add(ratingPoint)
-
-                                        val selectBackerAdapter =
-                                            HomeBackersAdapter(
-                                                context,
-                                                selectBackerList,
-                                                selectUserList,
-                                                ratingList
+                                        override fun onCancelled(error: DatabaseError) {
+                                            Log.e(
+                                                "databaseProcessRating",
+                                                "Database error: ${error.toException()}"
                                             )
-
-                                        binding.petRecycleViewBacker.adapter = selectBackerAdapter
-                                    }
-
-                                    override fun onCancelled(error: DatabaseError) {
-                                        Log.e("databaseProcessRating", "Database error: ${error.toException()}")
-                                    }
-                                })
+                                        }
+                                    })
                             }
                         }
                         binding.scrollView.foreground = null
@@ -191,7 +195,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.imageButton.setOnClickListener{
+        binding.imageButton.setOnClickListener {
             (activity as HomeActivity).goActivity(OnboardingActivity())
         }
 
@@ -202,11 +206,11 @@ class HomeFragment : Fragment() {
     }
 
     private val appPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){}
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {}
 
     private fun permissionNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                appPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+            appPermissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
         }
     }
 }

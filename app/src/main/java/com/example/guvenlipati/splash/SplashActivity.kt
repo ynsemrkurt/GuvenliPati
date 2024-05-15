@@ -2,9 +2,6 @@ package com.example.guvenlipati.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
-import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
     }
+
     fun goFirstSignUpFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
@@ -59,20 +57,21 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    fun controllerIf(editText: EditText,message: String){
-        if (editText.text.toString().trim().isEmpty()){
+    fun controllerIf(editText: EditText, message: String) {
+        if (editText.text.toString().trim().isEmpty()) {
             showToast(message)
             return
         }
     }
 
-    fun controllerBool(selectedBool: Boolean?, message: String){
-        if (selectedBool == null){
+    fun controllerBool(selectedBool: Boolean?, message: String) {
+        if (selectedBool == null) {
             showToast(message)
         }
     }
-    fun showToast(message: String){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+
+    fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 }

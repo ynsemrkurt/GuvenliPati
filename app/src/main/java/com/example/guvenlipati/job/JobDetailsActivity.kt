@@ -1,28 +1,30 @@
 package com.example.guvenlipati.job
 
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.guvenlipati.R
+import com.example.guvenlipati.databinding.ActivityJobDetailsBinding
 
 class JobDetailsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityJobDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_job_details)
+        binding = ActivityJobDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val jobId = intent.getStringExtra("job")
         val fragment = JobDetailsFragment()
-        val args = Bundle()
-        args.putString("jobId", jobId)
+        val args = Bundle().apply {
+            putString("jobId", jobId)
+        }
         fragment.arguments = args
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, fragment)
+            .replace(binding.fragmentContainerView.id, fragment)
             .commit()
 
-        findViewById<ImageButton>(R.id.backToHome).setOnClickListener {
+        binding.backToHome.setOnClickListener {
             onBackPressed()
             finish()
         }
