@@ -13,7 +13,6 @@ import com.example.guvenlipati.R
 import com.example.guvenlipati.databinding.FragmentRegisterBackerBinding
 import com.example.guvenlipati.home.HomeActivity
 import com.example.guvenlipati.models.Backer
-import com.example.guvenlipati.models.Pet
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -41,7 +40,6 @@ class RegisterBackerFragment : Fragment() {
     private lateinit var databaseReference2: DatabaseReference
     private var verificationStatus: Boolean = false
     private lateinit var binding: FragmentRegisterBackerBinding
-    private var tcStatus: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,21 +52,6 @@ class RegisterBackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val editTextBackerName = binding.editTextBackerName
-        val editTextBackerSurname = binding.editTextBackerSurname
-        val editTextID = binding.editTextID
-        val editTextAge = binding.editTextAge
-        val editTextAdress = binding.editTextAdress
-        val editTextExperience = binding.editTextExperience
-        val editTextPetNumber = binding.editTextPetNumber
-        val editTextBackerAbout = binding.editTextBackerAbout
-        val checkBox = binding.checkBox
-        val checkBox2 = binding.checkBox2
-        val checkBox3 = binding.checkBox3
-        val confirmBackerButton = binding.ConfirmBackerButton
-        val progressCard = binding.progressCard
-        val buttonPaws = binding.buttonPaw2
 
         var dogJob = false
         var catJob = false
@@ -96,32 +79,32 @@ class RegisterBackerFragment : Fragment() {
         }
 
 
-        confirmBackerButton.setOnClickListener {
-            val backerBirthYear = editTextAge.text.toString().toDoubleOrNull()
+        binding.ConfirmBackerButton.setOnClickListener {
+            val backerBirthYear = binding.editTextAge.text.toString().toDoubleOrNull()
 
             if (auth.currentUser != null) {
-
-                if (editTextBackerName.text.trim().isEmpty() || editTextBackerSurname.text.trim()
-                        .isEmpty() || editTextAdress.text.trim()
-                        .isEmpty() || editTextExperience.text.trim()
-                        .isEmpty() || editTextBackerAbout.text.trim()
-                        .isEmpty() || editTextPetNumber.text.trim().isEmpty()
+                if (binding.editTextBackerName.text.trim()
+                        .isEmpty() || binding.editTextBackerSurname.text.trim()
+                        .isEmpty() || binding.editTextAdress.text.trim()
+                        .isEmpty() || binding.editTextExperience.text.trim()
+                        .isEmpty() || binding.editTextBackerAbout.text.trim()
+                        .isEmpty() || binding.editTextPetNumber.text.trim().isEmpty()
                 ) {
                     showToast("Lütfen boş alan bırakmayınız!")
                     return@setOnClickListener
                 }
-                if (!isTCKNCorrect(editTextID.text.toString())) {
+                if (!isTCKNCorrect(binding.editTextID.text.toString())) {
                     showToast("TC kimlik numaranızı doğru giriniz!")
                     return@setOnClickListener
                 }
                 val currentYear = LocalDate.now().year
-                val expInt = editTextExperience.text.toString().toDouble()
+                val expInt = binding.editTextExperience.text.toString().toDouble()
 
 
                 if (backerBirthYear != null) {
                     val backerAge = (currentYear - backerBirthYear)
 
-                    if (backerBirthYear < currentYear - 80 || backerBirthYear > currentYear - 18 || editTextAge.text.toString()
+                    if (backerBirthYear < currentYear - 80 || backerBirthYear > currentYear - 18 || binding.editTextAge.text.toString()
                             .isEmpty() || expInt >= backerAge
                     ) {
                         showToast("Doğum yılınızı ve Deneyim Sürenizi doğru giriniz!")
@@ -134,7 +117,7 @@ class RegisterBackerFragment : Fragment() {
                     return@setOnClickListener
                 }
 
-                if (!checkBox.isChecked || !checkBox2.isChecked || !checkBox3.isChecked) {
+                if (!binding.checkBox.isChecked || !binding.checkBox2.isChecked || !binding.checkBox3.isChecked) {
                     showToast("Sözleşmeleri kabul etmeniz gerekmektedir!")
                     return@setOnClickListener
                 }
@@ -142,10 +125,10 @@ class RegisterBackerFragment : Fragment() {
                 //KPSPublic API
                 val soapRequestTask = SoapRequestTask()
                 val result = soapRequestTask.execute(
-                    editTextBackerName.text.toString(),
-                    editTextBackerSurname.text.toString(),
-                    editTextID.text.toString(),
-                    editTextAge.text.toString()
+                    binding.editTextBackerName.text.toString(),
+                    binding.editTextBackerSurname.text.toString(),
+                    binding.editTextID.text.toString(),
+                    binding.editTextAge.text.toString()
                 ).get()
 
                 if (!result) {
@@ -157,37 +140,39 @@ class RegisterBackerFragment : Fragment() {
                     FirebaseDatabase.getInstance().getReference("identifies")
                 databaseReferenceTCKN.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        progressCard.visibility = View.VISIBLE
-                        buttonPaws.visibility = View.INVISIBLE
-                        confirmBackerButton.visibility = View.INVISIBLE
+                        binding.progressCard.visibility = View.VISIBLE
+                        binding.buttonPaw2.visibility = View.INVISIBLE
+                        binding.ConfirmBackerButton.visibility = View.INVISIBLE
                         var tcStatus = false
                         for (dataSnapshot: DataSnapshot in snapshot.children) {
                             val backer = dataSnapshot.getValue(Backer::class.java)
-                            if (backer?.TC == editTextID.text.toString()) {
+                            if (backer?.TC == binding.editTextID.text.toString()) {
                                 tcStatus = true
                                 break
                             }
                         }
                         if (tcStatus) {
                             showToast("Aynı TC kimlik numarası kullanılamaz!")
-                            progressCard.visibility = View.INVISIBLE
-                            buttonPaws.visibility = View.VISIBLE
-                            confirmBackerButton.visibility = View.VISIBLE
+                            binding.progressCard.visibility = View.INVISIBLE
+                            binding.buttonPaw2.visibility = View.VISIBLE
+                            binding.ConfirmBackerButton.visibility = View.VISIBLE
                             return
                         } else {
-                            val hashMap: HashMap<String, Any> = HashMap()
-                            hashMap["userID"] = auth.currentUser!!.uid
-                            hashMap["legalName"] = editTextBackerName.text.toString()
-                            hashMap["legalSurname"] = editTextBackerSurname.text.toString()
-                            hashMap["TC"] = editTextID.text.toString()
-                            hashMap["backerBirthYear"] = editTextAge.text.toString()
-                            hashMap["adress"] = editTextAdress.text.toString()
-                            hashMap["experience"] = editTextExperience.text.toString()
-                            hashMap["petNumber"] = editTextPetNumber.text.toString()
-                            hashMap["about"] = editTextBackerAbout.text.toString()
-                            hashMap["dogBacker"] = dogJob
-                            hashMap["catBacker"] = catJob
-                            hashMap["birdBacker"] = birdJob
+
+                            val hashMap= mutableMapOf(
+                                "userID" to auth.currentUser!!.uid,
+                                "legalName" to binding.editTextBackerName.text.toString(),
+                                "legalSurname" to binding.editTextBackerSurname.text.toString(),
+                                "TC" to binding.editTextID.text.toString(),
+                                "backerBirthYear" to binding.editTextAge.text.toString(),
+                                "adress" to binding.editTextAdress.text.toString(),
+                                "experience" to binding.editTextExperience.text.toString(),
+                                "petNumber" to binding.editTextPetNumber.text.toString(),
+                                "about" to binding.editTextBackerAbout.text.toString(),
+                                "dogBacker" to dogJob,
+                                "catBacker" to catJob,
+                                "birdBacker" to birdJob
+                            )
 
                             databaseReference2.child("userBacker").setValue(true)
 
@@ -197,9 +182,9 @@ class RegisterBackerFragment : Fragment() {
                                 } else {
                                     showToast("Hatalı işlem!")
                                 }
-                                progressCard.visibility = View.INVISIBLE
-                                buttonPaws.visibility = View.VISIBLE
-                                confirmBackerButton.visibility = View.VISIBLE
+                                binding.progressCard.visibility = View.INVISIBLE
+                                binding.buttonPaw2.visibility = View.VISIBLE
+                                binding.ConfirmBackerButton.visibility = View.VISIBLE
                             }
                         }
                     }
@@ -269,11 +254,7 @@ class RegisterBackerFragment : Fragment() {
         }
 
         override fun onPostExecute(result: Boolean) {
-            if (result) {
-                verificationStatus = true
-            } else {
-                verificationStatus = false
-            }
+            verificationStatus = result
         }
 
         private fun getSoapRequestBody(
