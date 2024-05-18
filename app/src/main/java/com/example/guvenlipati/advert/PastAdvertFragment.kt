@@ -107,6 +107,7 @@ class PastAdvertFragment : Fragment() {
         binding.loadingCardView.visibility = View.VISIBLE
         binding.scrollView.foreground =
             ColorDrawable(Color.parseColor("#FFFFFF"))
+        binding.animationView2.visibility = View.GONE
         jobList.clear()
         petList.clear()
     }
@@ -117,5 +118,6 @@ class PastAdvertFragment : Fragment() {
         adapter.notifyDataSetChanged()
         binding.loadingCardView.visibility = View.GONE
         binding.scrollView.foreground = null
+        binding.animationView2.visibility = View.GONE
     }
 }
