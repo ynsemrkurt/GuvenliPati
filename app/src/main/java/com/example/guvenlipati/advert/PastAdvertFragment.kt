@@ -78,18 +78,11 @@ class PastAdvertFragment : Fragment() {
         FirebaseDatabase.getInstance().getReference("jobs")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(jobsSnapshot: DataSnapshot) {
-                    binding.loadingCardView.visibility = View.VISIBLE
-                    binding.scrollView.foreground = ColorDrawable(Color.parseColor("#FFFFFF"))
-                    jobList.clear()
-                    petList.clear()
                     jobsSnapshot.children.forEach { jobSnapshot ->
                         jobSnapshot.getValue(Job::class.java)?.let { job ->
-                            job.jobStartDate.let { startDateStr ->
-                                dateFormat.parse(startDateStr)?.let { startDate ->
-                                    if ((startDate.before(currentDate) || !job.jobStatus) && job.userID == userId) {
-                                        fetchPets(job)
-                                    }
-                                }
+                            if ((dateFormat.parse(job.jobStartDate)!!.before(currentDate) || !job.jobStatus) && job.userID == userId) {
+                                clearListAndUpdateUI()
+                                fetchPets(job)
                             }
                         }
                     }
@@ -108,6 +101,14 @@ class PastAdvertFragment : Fragment() {
             Toast.LENGTH_SHORT
         ).show()
         requireActivity().finish()
+    }
+
+    private fun clearListAndUpdateUI() {
+        binding.loadingCardView.visibility = View.VISIBLE
+        binding.scrollView.foreground =
+            ColorDrawable(Color.parseColor("#FFFFFF"))
+        jobList.clear()
+        petList.clear()
     }
 
     private fun addListAndUpdateUI(job: Job, pet: Pet) {
