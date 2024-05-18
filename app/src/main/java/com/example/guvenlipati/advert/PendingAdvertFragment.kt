@@ -55,11 +55,13 @@ class PendingAdvertFragment : Fragment() {
 
     private fun fetchPets(job: Job) {
         FirebaseDatabase.getInstance().getReference("pets")
-            .addValueEventListener(object : ValueEventListener {
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(petsSnapshot: DataSnapshot) {
                     petsSnapshot.children.mapNotNull { it.getValue(Pet::class.java) }.forEach {
                         if (it.userId == job.userID) {
-                            addListsAndUpdateUI(it, job)
+                            if (!petList.contains(it)) {
+                                addListsAndUpdateUI(it, job)
+                            }
                         }
                     }
                 }
@@ -72,7 +74,7 @@ class PendingAdvertFragment : Fragment() {
 
     private fun fetchJobs(userId: String) {
         FirebaseDatabase.getInstance().getReference("jobs")
-            .addValueEventListener(object : ValueEventListener {
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(jobsSnapshot: DataSnapshot) {
                     clearLists()
                     jobsSnapshot.children.mapNotNull { it.getValue(Job::class.java) }
@@ -100,9 +102,11 @@ class PendingAdvertFragment : Fragment() {
     }
 
     private fun addListsAndUpdateUI(pet: Pet, job: Job) {
-        petList.add(pet)
-        jobList.add(job)
-        adapter.notifyDataSetChanged()
+        if (!petList.contains(pet) && !jobList.contains(job)) {
+            petList.add(pet)
+            jobList.add(job)
+            adapter.notifyDataSetChanged()
+        }
         binding.animationView2.visibility = View.GONE
         binding.scrollView.foreground = null
         binding.loadingCardView.visibility = View.GONE
