@@ -2,6 +2,7 @@
     <style name="Base.Theme.GuvenliPati" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/alata</item>
     </style>
     <style name="Theme.GuvenliPati" parent="Base.Theme.GuvenliPati" />
 
