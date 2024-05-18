@@ -106,13 +106,14 @@ class ChatingFragment : Fragment() {
             if (message.isNotEmpty()) {
                 reference = FirebaseDatabase.getInstance().getReference("chat")
 
-                val hashMap: HashMap<String, String> = HashMap()
-                hashMap["senderId"] = firebaseUser?.uid.toString()
-                hashMap["recipientId"] = friendUserId
-                hashMap["messages"] = message
-                hashMap["currentTime"] = formattedDateTime.toString()
+                val hashMap= mutableMapOf(
+                    "senderId" to firebaseUser?.uid.toString(),
+                    "recipientId" to friendUserId,
+                    "messages" to message,
+                    "currentTime" to formattedDateTime.toString()
+                )
                 reference!!.push().setValue(hashMap)
-                binding.editTextMessage.setText("")
+                binding.editTextMessage.clearFocus()
                 scrollToBottom()
 
                 topic = "/topics/$friendUserId"
