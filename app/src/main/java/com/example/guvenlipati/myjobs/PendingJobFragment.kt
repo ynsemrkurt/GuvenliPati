@@ -58,6 +58,9 @@ class PendingJobFragment : Fragment() {
                 dataSnapshot.children.forEach { offerSnapshot ->
                     val offer = offerSnapshot.getValue(Offer::class.java)
                     if (offer != null && offer.offerBackerId == firebaseUser?.uid && !offer.priceStatus) {
+                        binding.pendingJobRecyclerView.foreground =
+                            ColorDrawable(Color.parseColor("#FFFFFF"))
+                        binding.loadingCardView.visibility = View.VISIBLE
                         fetchJobAndRelatedData(offer)
                     }
                 }
@@ -94,6 +97,9 @@ class PendingJobFragment : Fragment() {
                         offerList.add(offer)
                         jobList.add(job)
                         adapter.notifyDataSetChanged()
+                        binding.animationView2.visibility = View.GONE
+                        binding.pendingJobRecyclerView.foreground = null
+                        binding.loadingCardView.visibility = View.GONE
                     }
                 }
 
