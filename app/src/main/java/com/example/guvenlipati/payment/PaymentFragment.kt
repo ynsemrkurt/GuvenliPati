@@ -180,27 +180,73 @@ class PaymentFragment : Fragment() {
         }
 
         binding.ConfirmPaymentButton.setOnClickListener {
-            if (validateInputs()) {
-                val offerId = activity?.intent?.getStringExtra("offerId")
-                val jobId = activity?.intent?.getStringExtra("jobId")
-                val backerId = activity?.intent?.getStringExtra("backerId")
-                val petPhoto = activity?.intent?.getStringExtra("petPhoto")
 
-                val offerRef = offerId?.let { FirebaseDatabase.getInstance().getReference("offers").child(it) }
-                val jobRef = jobId?.let { FirebaseDatabase.getInstance().getReference("jobs").child(it) }
+            if (binding.editTextCardHolderName.text.trim()
+                    .isEmpty() || binding.editTextCardNumber.text.trim()
+                    .isEmpty() || binding.editTextExpDate.text.trim()
+                    .isEmpty() || binding.editTextCVV.text.trim().isEmpty()
+            ) {
+                showToast("Tüm alanları doldurunuz!")
+                return@setOnClickListener
+            }
 
-                offerRef?.updateChildren(mapOf("priceStatus" to true))?.addOnSuccessListener {
-                    jobRef?.updateChildren(mapOf("jobStatus" to false))?.addOnSuccessListener {
+            if (binding.editTextCardNumber.text.length != 19) {
+                showToast("Kart numarası 19 haneli olmalıdır!")
+                return@setOnClickListener
+            }
+
+            if (binding.editTextExpDate.text.length != 5) {
+                showToast("Son kullanma tarihi formatı hatalı!")
+                return@setOnClickListener
+            }
+            val mm = binding.editTextExpDate.text.substring(0, 2).toIntOrNull() ?: 0
+            val yy = binding.editTextExpDate.text.substring(3, 5).toIntOrNull() ?: 0
+            val currentYearLastTwoDigits = Calendar.getInstance().get(Calendar.YEAR) % 100
+
+            if (mm !in 1..12) {
+                showToast("Geçersiz ay.")
+                return@setOnClickListener
+            }
+
+            if (yy < currentYearLastTwoDigits) {
+                showToast("Geçersiz yıl.")
+                return@setOnClickListener
+            }
+
+            if (binding.editTextCVV.text.length != 3) {
+                showToast("CVV 3 haneli olmalıdır!")
+                return@setOnClickListener
+            }
+
+            if (!binding.checkBox.isChecked || !binding.checkBox2.isChecked || !binding.checkBox3.isChecked) {
+                showToast("Lütfen tüm şartları kabul ediniz!")
+                return@setOnClickListener
+            }
+
+            val offerId = activity?.intent?.getStringExtra("offerId")
+            val jobId = activity?.intent?.getStringExtra("jobId")
+            val backerId = activity?.intent?.getStringExtra("backerId")
+            val petPhoto = activity?.intent?.getStringExtra("petPhoto")
+
+            if (offerId != null && jobId != null && backerId != null && petPhoto != null) {
+                val offerRef = FirebaseDatabase.getInstance().getReference("offers").child(offerId)
+                val jobRef = FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
+
+                offerRef.updateChildren(mapOf("priceStatus" to true)).addOnSuccessListener {
+                    jobRef.updateChildren(mapOf("jobStatus" to false)).addOnSuccessListener {
                         deleteOtherOffers(jobId)
                         notifyBacker(backerId, petPhoto)
                         showBottomSheet()
+                    }.addOnFailureListener {
+                        showToast("İş güncellenirken hata oluştu")
                     }
-                }?.addOnFailureListener {
-                    showToast("ÖDEME BAŞARISIZ")
+                }.addOnFailureListener {
+                    showToast("Teklif güncellenirken hata oluştu")
                 }
+            } else {
+                showToast("Gerekli veriler eksik")
             }
         }
-
     }
 
     private fun showToast(message: String) {
@@ -224,29 +270,11 @@ class PaymentFragment : Fragment() {
     private fun sendNotification(notification: PushNotification) =
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitInstance.api.postNotification(notification)
+                RetrofitInstance.api.postNotification(notification)
             } catch (e: Exception) {
                 showToast(e.message.toString())
             }
         }
-
-    private fun validateInputs(): Boolean {
-        val mm = binding.editTextExpDate.text.substring(0, 2).toIntOrNull() ?: 0
-        val yy = binding.editTextExpDate.text.substring(3, 5).toIntOrNull() ?: 0
-        val currentYearLastTwoDigits = Calendar.getInstance().get(Calendar.YEAR) % 100
-
-        return when {
-            binding.editTextCardHolderName.text.isEmpty() -> false.also { showToast("İSİM SOYİSİM BOŞ GEÇİLEMEZ") }
-            binding.editTextCardNumber.text.length != 19 -> false.also { showToast("KART NUMARASINI TAM GİRİNİZ") }
-            binding.editTextExpDate.text.isEmpty() -> false.also { showToast("KARTIN SON KULLANIM TARİHİ BOŞ GEÇİLEMEZ") }
-            !(mm in 1..12) -> false.also { showToast("Geçersiz ay.") }
-            !(yy > currentYearLastTwoDigits) -> false.also { showToast("Geçersiz yıl.") }
-            binding.editTextCVV.text.length != 3 -> false.also { showToast("GÜVENLİK KODUNU TAM GİRİNİZ") }
-            !(binding.checkBox.isChecked && binding.checkBox2.isChecked && binding.checkBox3.isChecked) -> false.also { showToast("SÖZLEŞMELERİ KABUL ETMENİZ GEREKİYOR") }
-            else -> true
-        }
-    }
-
 
     private fun deleteOtherOffers(jobId: String?) {
         jobId?.let { jId ->
@@ -273,7 +301,13 @@ class PaymentFragment : Fragment() {
     private fun notifyBacker(backerId: String?, petPhoto: String?) {
         topic = "/topics/$backerId"
         val notification = PushNotification(
-            Notification("Teklifin Onaylandı \uD83E\uDD73", "Hemen gel ve incele...", FirebaseAuth.getInstance().currentUser?.uid.toString(), petPhoto.toString(), 2),
+            Notification(
+                "Teklifin Onaylandı \uD83E\uDD73",
+                "Hemen gel ve incele...",
+                FirebaseAuth.getInstance().currentUser?.uid.toString(),
+                petPhoto.toString(),
+                2
+            ),
             topic
         )
         sendNotification(notification)
