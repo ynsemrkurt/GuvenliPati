@@ -98,11 +98,11 @@ class ActiveJobAdapter(
             priceTextView.text = offer.offerPrice.toString() + " TL"
 
             if (offer.confirmBacker == false && offer.confirmUser == true) {
-                confirmStatusTextView.text = "İş Sahibi\nOnayladı..."
-            } else if (offer.confirmBacker == true && offer.confirmUser == false) {
-                confirmStatusTextView.text = "Sen\nOnayladın..."
+                confirmStatusTextView.text = "Onayladı..."
+            } else if (offer.confirmBacker && !offer.confirmUser) {
+                confirmStatusTextView.text = "Onayladın..."
             } else {
-                confirmStatusTextView.text = "Henüz\nOnaylanmadı..."
+                confirmStatusTextView.text = "Onaylanmadı..."
             }
 
             Glide.with(context)
@@ -124,7 +124,7 @@ class ActiveJobAdapter(
             confirmButton.setOnClickListener {
                 val databaseReference =
                     FirebaseDatabase.getInstance().getReference("offers").child(offer.offerId)
-                if (offer.confirmUser == true) {
+                if (offer.confirmUser) {
                     databaseReference.updateChildren(
                         mapOf(
                             "confirmBacker" to true,
