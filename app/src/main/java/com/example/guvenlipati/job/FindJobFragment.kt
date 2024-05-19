@@ -76,14 +76,7 @@ class FindJobFragment : Fragment() {
                                     val startDate =
                                         SimpleDateFormat("dd/MM/yyyy").parse(job?.jobStartDate)
                                     job?.let {
-                                        if (userSnapshot.child(job.jobType)
-                                                .getValue(Boolean::class.java) == true && userSnapshot.child(
-                                                job.petSpecies + "Backer"
-                                            )
-                                                .getValue(Boolean::class.java) == true && job.userID != FirebaseAuth.getInstance().currentUser?.uid.toString() && !startDate.before(
-                                                currentDate
-                                            ) && job.jobStatus
-                                        ) {
+                                        if (userSnapshot.child(job.petSpecies + "Backer").getValue(Boolean::class.java) == true && job.userID != FirebaseAuth.getInstance().currentUser?.uid.toString() && !startDate.before(currentDate) && job.jobStatus) {
                                             jobList.add(it)
                                         }
                                     }
