@@ -1,5 +1,7 @@
 package com.example.guvenlipati.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -60,6 +62,8 @@ class RatingActivity : AppCompatActivity() {
                 for (offerSnapshot in dataSnapshot.children) {
                     val offer = offerSnapshot.getValue(Offer::class.java)
                     if (offer != null && offer.offerUser == firebaseUser?.uid && offer.offerStatus && !offer.ratingStatus) {
+                        binding.loadingCardView.visibility = View.VISIBLE
+                        binding.linearLayout.foreground = ColorDrawable(Color.parseColor("#FFFFFF"))
                         offerList.add(offer)
                         fetchJobData(offer)
                     }
@@ -134,6 +138,7 @@ class RatingActivity : AppCompatActivity() {
 
     private fun updateAdapterAndUI() {
         adapter.notifyDataSetChanged()
+        binding.animationView2.visibility = View.GONE
         binding.loadingCardView.visibility = View.GONE
         binding.linearLayout.foreground = null
     }
