@@ -34,6 +34,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.time.LocalDate
 
 class EditPetActivity : AppCompatActivity() {
 
@@ -196,6 +197,14 @@ class EditPetActivity : AppCompatActivity() {
                     .isEmpty()
             ) {
                 showToast("Lütfen boş alan bırakmayınız!")
+                return@setOnClickListener
+            }
+
+            if (petBirthYear.text.toString()
+                    .toInt() > LocalDate.now().year || petBirthYear.text.toString()
+                    .toInt() < 1990
+            ) {
+                showToast("Dostunuzun doğum yılı 1990 ve ${LocalDate.now().year} arasında olmalıdır!")
                 return@setOnClickListener
             }
 

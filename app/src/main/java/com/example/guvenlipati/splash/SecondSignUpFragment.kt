@@ -95,19 +95,27 @@ class SecondSignUpFragment : Fragment() {
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
-            //Controllers
 
-            (activity as SplashActivity).controllerIf(binding.editTextUserName, "Lütfen adınızı giriniz!")
+            if (binding.editTextUserName.text.trim().toString()
+                    .isEmpty() || binding.editTextUserSurname.text.trim().toString().isEmpty()
+            ) {
+                showToast("Lütfen Ad Soyad alanları doldurunuz!")
+                return@setOnClickListener
+            }
 
-            (activity as SplashActivity).controllerIf(binding.editTextUserSurname, "Lütfen soyadınızı giriniz!")
+            if (userGender == null) {
+                showToast("Lütfen cinsiyetinizi seçiniz!")
+                return@setOnClickListener
+            }
 
-            (activity as SplashActivity).controllerBool(userGender, "Lütfen cinsiyetinizi seçiniz!")
+            if (binding.provinceCombo.text.trim().toString()
+                    .isEmpty() || binding.townCombo.text.trim().toString().isEmpty()
+            ) {
+                showToast("Lütfen il bilgisi seçiniz!")
+                return@setOnClickListener
+            }
 
-            (activity as SplashActivity).controllerIf(binding.provinceCombo, "Lütfen il bilgisi seçiniz!")
-
-            (activity as SplashActivity).controllerIf(binding.townCombo, "Lütfen ilçe bilgisi seçiniz!")
-
-            if (imageUrl==""){
+            if (imageUrl == "") {
                 showToast("Lütfen profil fotoğrafınızı seçiniz!")
                 return@setOnClickListener
             }
@@ -139,7 +147,8 @@ class SecondSignUpFragment : Fragment() {
                     FirebaseMessaging.getInstance().token.addOnSuccessListener { result ->
                         val token = result
                         databaseReference
-                            .child("userToken").setValue(token) }
+                            .child("userToken").setValue(token)
+                    }
                     (activity as SplashActivity).goHomeActivity()
                 } else {
                     showToast("Hatalı işlem!")

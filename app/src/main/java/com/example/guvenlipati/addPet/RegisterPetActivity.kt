@@ -12,7 +12,6 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,6 +32,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.time.LocalDate
 import java.util.UUID
 
 class RegisterPetActivity : AppCompatActivity() {
@@ -145,20 +145,26 @@ class RegisterPetActivity : AppCompatActivity() {
             val petId = UUID.randomUUID().toString()
             databaseReference = FirebaseDatabase.getInstance().getReference("pets").child(petId)
 
-            controllerIf(binding.editTextPetName, "Lütfen dostunuzun adını giriniz!")
+            if (binding.editTextPetName.text.trim().toString().isEmpty()) {
+                showToast("Lütfen dostunuzun adını giriniz!")
+                return@setOnClickListener
+            }
 
-            controllerIf(binding.editTextAbout, "Lütfen dostunuzun ağırlığını giriniz!")
+            if (binding.editTextWeight.text.trim().toString().isEmpty()) {
+                showToast("Lütfen dostunuzun ağırlığını giriniz!")
+                return@setOnClickListener
+            }
 
-            controllerIf(binding.editTextAge, "Lütfen dostunuzun doğum yılını giriniz!")
+            if (binding.editTextAge.text.trim().toString().isEmpty()) {
+                showToast("Lütfen dostunuzun doğum yılını giriniz!")
+                return@setOnClickListener
+            }
 
-            controllerBool(petGender, "Lütfen dostunuzun cinsiyetini seçiniz!")
-
-            controllerBool(petVaccine, "Lütfen dostunuzun aşı bilgisini seçiniz!")
-
-            controllerIf(binding.editTextAbout, "Lütfen bir açıklama giriniz!")
-
-            if (imageUrl == "") {
-                showToast("Lütfen bir fotoğraf seçiniz!")
+            if (binding.editTextAge.text.toString()
+                    .toInt() > LocalDate.now().year || binding.editTextAge.text.toString()
+                    .toInt() < 1990
+            ) {
+                showToast("Dostunuzun doğum yılı 1990 ve ${LocalDate.now().year} arasında olmalıdır!")
                 return@setOnClickListener
             }
 
@@ -167,10 +173,23 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (binding.editTextAge.text.toString()
-                    .toInt() > 2025 || binding.editTextAge.text.toString().toInt() < 1990
-            ) {
-                showToast("Dostunuzun doğum yılı 1990 ve 2024 arasında olmalıdır!")
+            if (petGender == null) {
+                showToast("Lütfen dostunuzun cinsiyetini seçiniz!")
+                return@setOnClickListener
+            }
+
+            if (petVaccine == null) {
+                showToast("Lütfen dostunuzun aşı bilgisini seçiniz!")
+                return@setOnClickListener
+            }
+
+            if (binding.editTextAbout.text.trim().toString().isEmpty()) {
+                showToast("Lütfen bir açıklama giriniz!")
+                return@setOnClickListener
+            }
+
+            if (imageUrl == "") {
+                showToast("Lütfen bir fotoğraf seçiniz!")
                 return@setOnClickListener
             }
 
@@ -297,20 +316,6 @@ class RegisterPetActivity : AppCompatActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         showMaterialDialog()
-    }
-
-    private fun controllerIf(editText: EditText, message: String) {
-        if (editText.text.toString().trim().isEmpty()) {
-            showToast(message)
-            return
-        }
-    }
-
-    private fun controllerBool(petBool: Boolean?, message: String) {
-        if (petBool == null) {
-            showToast(message)
-            return
-        }
     }
 
 
