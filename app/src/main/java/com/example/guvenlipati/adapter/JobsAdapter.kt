@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,8 +17,8 @@ import com.example.guvenlipati.models.Pet
 
 class JobsAdapter(
     private val context: Context,
-    private val jobList: ArrayList<Job>,
-    private val petList: ArrayList<Pet>
+    private val jobList: MutableList<Job>,
+    private val petList: MutableList<Pet>
 ) : RecyclerView.Adapter<JobsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
