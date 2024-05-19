@@ -1,3 +1,5 @@
+package com.example.guvenlipati.job
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.databinding.FragmentJobCreateBinding
-import com.example.guvenlipati.job.JobsActivity
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -166,18 +167,25 @@ class JobCreateFragment : Fragment() {
 
             if (auth.currentUser != null) {
 
-                (activity as JobsActivity).controllerIf(binding.editTextJobAbout, "Lütfen açıklama giriniz!")
+                if (petSelectID.trim().isEmpty()) {
+                    showToast("Lütfen dostunuzu seçiniz!")
+                    return@setOnClickListener
+                }
 
-                (activity as JobsActivity).controllerIf(binding.editTextStartDate, "Lütfen tarih seçiniz!")
-
-                (activity as JobsActivity).controllerIf(binding.editTextEndDate, "Lütfen tarih seçiniz!")
+                if (binding.editTextStartDate.text.trim()
+                        .isEmpty() || binding.editTextEndDate.text.trim().isEmpty()
+                ) {
+                    showToast("Lütfen tarih seçiniz!")
+                    return@setOnClickListener
+                }
 
                 if (checkedJobType.trim().isEmpty()) {
                     showToast("Lütfen hizmet türü seçiniz!")
                     return@setOnClickListener
                 }
-                if (petSelectID.trim().isEmpty()) {
-                    showToast("Lütfen dostunuzu seçiniz!")
+
+                if (jobAbout.text.trim().isEmpty()) {
+                    showToast("Lütfen iş hakkında bilgi giriniz!")
                     return@setOnClickListener
                 }
 
