@@ -113,7 +113,7 @@ class ChatingFragment : Fragment() {
                     "currentTime" to formattedDateTime.toString()
                 )
                 reference!!.push().setValue(hashMap)
-                binding.editTextMessage.clearFocus()
+                binding.editTextMessage.text.clear()
                 scrollToBottom()
 
                 topic = "/topics/$friendUserId"
