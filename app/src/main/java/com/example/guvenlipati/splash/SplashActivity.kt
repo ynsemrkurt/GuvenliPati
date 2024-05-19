@@ -57,19 +57,6 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    fun controllerIf(editText: EditText, message: String) {
-        if (editText.text.toString().trim().isEmpty()) {
-            showToast(message)
-            return
-        }
-    }
-
-    fun controllerBool(selectedBool: Boolean?, message: String) {
-        if (selectedBool == null) {
-            showToast(message)
-        }
-    }
-
     fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
