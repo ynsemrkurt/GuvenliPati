@@ -59,7 +59,7 @@ class FindJobFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                showToast("Hata!")
+                showToast()
             }
         })
     }
@@ -76,7 +76,7 @@ class FindJobFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                showToast("Hata!")
+                showToast()
             }
         })
     }
@@ -92,7 +92,7 @@ class FindJobFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                showToast("Hata!")
+                showToast()
             }
         })
     }
@@ -118,7 +118,8 @@ class FindJobFragment : Fragment() {
         binding.loadingCardView.visibility = View.GONE
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    private fun showToast() {
+        Toast.makeText(requireContext(), "Veri Tabanı Hatası!", Toast.LENGTH_SHORT).show()
+        requireActivity().finish()
     }
 }
