@@ -53,24 +53,28 @@ class SettingsActivity : AppCompatActivity() {
         val confirmPassword = binding.editTextConfirmPassword.text.toString()
 
         if (areFieldsEmpty(currentPassword, newPassword, confirmPassword)) {
-            showToast("Lütfen tüm alanları doldurunuz")
+            showToast("Lütfen tüm alanları doldurunuz!")
             return
         }
 
         if (!isPasswordValid(newPassword, confirmPassword)) {
-            showToast("Şifre en az 8 karakter olmalıdır ve boşluk içermemelidir")
+            showToast("Şifre en az 8 karakter olmalıdır ve boşluk içermemelidir!")
             return
         }
 
         if (!arePasswordsMatching(newPassword, confirmPassword)) {
-            showToast("Şifreler uyuşmuyor")
+            showToast("Şifreler uyuşmuyor!")
+            return
+        }
+
+        if (currentPassword == newPassword) {
+            showToast("Mevcut şifre ile yeni şifre aynı olamaz!")
             return
         }
 
         mAuth.currentUser?.let { currentUser ->
             currentUser.email?.let { email ->
                 val credential = EmailAuthProvider.getCredential(email, currentPassword)
-
                 currentUser.reauthenticate(credential)
                     .addOnCompleteListener { reauthTask ->
                         if (reauthTask.isSuccessful) {
