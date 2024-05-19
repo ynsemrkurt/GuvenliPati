@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.guvenlipati.ActiveJobAdapter
+import com.example.guvenlipati.adapter.ActiveJobAdapter
 import com.example.guvenlipati.databinding.FragmentActiveJobsBinding
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
@@ -89,7 +89,6 @@ class ActiveJobsFragment : Fragment() {
                     if (job != null) {
                         fetchUser(offer, job)
                     }
-                    adapter.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {}

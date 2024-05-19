@@ -14,12 +14,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.guvenlipati.advert.ActiveAdvertFragment
 import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.home.ListRatingActivity
@@ -30,17 +26,11 @@ import com.example.guvenlipati.models.Offer
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.PushNotification
 import com.example.guvenlipati.models.User
-import com.example.guvenlipati.payment.PaymentActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 
 class ActiveOfferAdapter(
     private val context: Context,
@@ -107,14 +97,12 @@ class ActiveOfferAdapter(
             backerNameTextView.text = user.userName + " " + user.userSurname
             priceTextView.text = offer.offerPrice.toString() + " TL"
 
-            if (offer.confirmBacker==true && offer.confirmUser==false){
-                confirmStatusTextView.text="Bakıcı\nOnayladı..."
-            }
-            else if (offer.confirmBacker==false && offer.confirmUser==true){
-                confirmStatusTextView.text="Sen\nOnayladın..."
-            }
-            else{
-                confirmStatusTextView.text="Henüz\nOnaylanmadı..."
+            if (offer.confirmBacker == true && offer.confirmUser == false) {
+                confirmStatusTextView.text = "Onayladı"
+            } else if (offer.confirmBacker == false && offer.confirmUser == true) {
+                confirmStatusTextView.text = "Onayladın"
+            } else {
+                confirmStatusTextView.text = "Onaylanmadı"
             }
 
             Glide.with(context)
@@ -179,7 +167,7 @@ class ActiveOfferAdapter(
                     context.startActivity(intent)
                 }
 
-                ratingButton.setOnClickListener{
+                ratingButton.setOnClickListener {
                     val intent = Intent(context, ListRatingActivity::class.java)
                     intent.putExtra("userId", user.userId)
                     context.startActivity(intent)
@@ -234,13 +222,17 @@ class ActiveOfferAdapter(
                 }
             }
 
-            supportButton.setOnClickListener{
-                val intent=Intent(Intent.ACTION_SENDTO,Uri.fromParts("mailto", "yunusemre-kurt@outlook.com",  null))
-                context.startActivity(Intent.createChooser(intent,"Send email..."))
+            supportButton.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_SENDTO,
+                    Uri.fromParts("mailto", "yunusemre-kurt@outlook.com", null)
+                )
+                context.startActivity(Intent.createChooser(intent, "Send email..."))
             }
 
-            buttonCopyId.setOnClickListener{
-                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            buttonCopyId.setOnClickListener {
+                val clipboard =
+                    context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("simple text", offer.offerId)
                 clipboard.setPrimaryClip(clip)
                 showToast("Teklif ID kopyalandı...")

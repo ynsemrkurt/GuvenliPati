@@ -1,4 +1,4 @@
-package com.example.guvenlipati
+package com.example.guvenlipati.adapter
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -17,6 +17,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.R
+import com.example.guvenlipati.RetrofitInstance
 import com.example.guvenlipati.chat.ChatActivity
 import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Job
@@ -51,7 +53,7 @@ class ActiveJobAdapter(
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ActiveJobAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position < jobList.size && position < petList.size && position < userList.size && position < offerList.size) {
             holder.bind(
                 jobList[position],
@@ -97,12 +99,12 @@ class ActiveJobAdapter(
             backerNameTextView.text = user.userName + " " + user.userSurname
             priceTextView.text = offer.offerPrice.toString() + " TL"
 
-            if (offer.confirmBacker == false && offer.confirmUser == true) {
-                confirmStatusTextView.text = "Onayladı..."
+            if (!offer.confirmBacker && offer.confirmUser) {
+                confirmStatusTextView.text = "Onayladı"
             } else if (offer.confirmBacker && !offer.confirmUser) {
-                confirmStatusTextView.text = "Onayladın..."
+                confirmStatusTextView.text = "Onayladın"
             } else {
-                confirmStatusTextView.text = "Onaylanmadı..."
+                confirmStatusTextView.text = "Onaylanmadı"
             }
 
             Glide.with(context)
@@ -207,8 +209,8 @@ class ActiveJobAdapter(
                 val currentYearInt = currentDateTime.format(formatter).toInt()
                 val petAge = currentYearInt - petYearInt
 
-                petNameTextView.text=pet.petName
-                textViewAge.text= "$petAge Yaş"
+                petNameTextView.text = pet.petName
+                textViewAge.text = "$petAge Yaş"
 
                 when (pet.petGender) {
                     true -> {
@@ -252,7 +254,7 @@ class ActiveJobAdapter(
     private fun sendNotification(notification: PushNotification) =
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitInstance.api.postNotification(notification)
+                RetrofitInstance.api.postNotification(notification)
             } catch (e: Exception) {
                 showToast(e.message.toString())
             }
