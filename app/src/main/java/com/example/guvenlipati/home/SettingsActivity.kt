@@ -20,6 +20,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: ActivitySettingsBinding
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
