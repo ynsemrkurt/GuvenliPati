@@ -2,6 +2,7 @@ package com.example.guvenlipati
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guvenlipati.chat.ProfileActivity
 import com.example.guvenlipati.models.Backer
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Offer
@@ -104,6 +106,12 @@ class RatingAdapter(
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(backerPhotoImageView)
 
+            backerPhotoImageView.setOnClickListener {
+                val intent = Intent(context, ProfileActivity::class.java)
+                intent.putExtra("userId", backer.userID)
+                context.startActivity(intent)
+            }
+
 
             buttonRate.setOnClickListener {
                 val builder = AlertDialog.Builder(context, R.style.TransparentDialog)
@@ -134,15 +142,16 @@ class RatingAdapter(
                     val databaseReference = FirebaseDatabase.getInstance().getReference("ratings")
                     val databaseReferenceOffer =
                         FirebaseDatabase.getInstance().getReference("offers").child(offer.offerId)
-                    val hashMap = HashMap<String, Any>()
-                    hashMap["rating"] = ratingBar.rating
-                    hashMap["comment"] = commentEditText.text.toString()
-                    hashMap["backerId"] = offer.offerBackerId
-                    hashMap["userId"] = FirebaseAuth.getInstance().currentUser!!.uid
-                    hashMap["date"] = LocalDateTime.now().toString()
-                    hashMap["petName"] = pet.petName
-                    hashMap["jobType"] = jobTypeTextView.text
-                    hashMap["commentTime"] = formattedTime.toString()
+                    val hashMap = mutableMapOf(
+                        "rating" to ratingBar.rating,
+                        "comment" to commentEditText.text.toString(),
+                        "backerId" to offer.offerBackerId,
+                        "userId" to FirebaseAuth.getInstance().currentUser!!.uid,
+                        "date" to LocalDateTime.now().toString(),
+                        "petName" to pet.petName,
+                        "jobType" to jobTypeTextView.text,
+                        "commentTime" to formattedTime.toString()
+                    )
                     databaseReference.child(offer.offerId).setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             databaseReferenceOffer.updateChildren(
