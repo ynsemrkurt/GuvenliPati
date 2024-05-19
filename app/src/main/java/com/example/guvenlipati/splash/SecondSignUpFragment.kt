@@ -91,10 +91,20 @@ class SecondSignUpFragment : Fragment() {
 
         binding.saveProfileButton.setOnClickListener {
 
+            val userNameRegex = Regex("^[a-zA-ZğüşöçĞÜŞıİÖÇ ]+$")
+            val surnameRegex = Regex("^[a-zA-ZğüşöçĞÜŞıİÖÇ ]+$")
 
             databaseReference =
                 FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.uid)
 
+            if (!userNameRegex.matches(binding.editTextUserName.text.toString())) {
+                showToast("İsminiz sadece harf içermelidir!")
+                return@setOnClickListener
+            }
+            if (!surnameRegex.matches(binding.editTextUserSurname.text.toString())) {
+                showToast("Soyadınız sadece harf içermelidir!")
+                return@setOnClickListener
+            }
 
             if (binding.editTextUserName.text.trim().toString()
                     .isEmpty() || binding.editTextUserSurname.text.trim().toString().isEmpty()
