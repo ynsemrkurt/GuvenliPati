@@ -176,13 +176,26 @@ class ProfileFragment : Fragment() {
             val province = binding.provinceCombo.text.toString().trim()
             val town = binding.townCombo.text.toString().trim()
 
+            val userNameRegex = Regex("^[a-zA-ZğüşöçĞÜŞıİÖÇ ]+$")
+            val surnameRegex = Regex("^[a-zA-ZğüşöçĞÜŞıİÖÇ ]+$")
+
             if (editTextUserName.isEmpty()) {
                 showToast("İsminizi giriniz!")
                 return@setOnClickListener
             }
 
+            if (!userNameRegex.matches(editTextUserName)) {
+                showToast("İsminiz sadece harf içermelidir!")
+                return@setOnClickListener
+            }
+
             if (editTextUserSurname.isEmpty()) {
                 showToast("Soyadınızı giriniz!")
+                return@setOnClickListener
+            }
+
+            if (!surnameRegex.matches(editTextUserSurname)) {
+                showToast("Soyadınız sadece harf içermelidir!")
                 return@setOnClickListener
             }
 
