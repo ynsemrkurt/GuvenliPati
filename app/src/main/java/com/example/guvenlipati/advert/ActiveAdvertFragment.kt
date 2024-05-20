@@ -120,6 +120,7 @@ class ActiveAdvertFragment : Fragment() {
         userList.clear()
         offerList.clear()
         backerList.clear()
+        adapter.notifyDataSetChanged()
     }
 
     private fun addLists(offer: Offer, user: User, pet: Pet, backer: Backer, job: Job) {

@@ -150,8 +150,18 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (!isAboutValid(binding.editTextPetName.text.toString())) {
+                showToast("Lütfen sadece sayılardan oluşmayan geçerli bir ad giriniz!")
+                return@setOnClickListener
+            }
+
             if (binding.editTextWeight.text.trim().toString().isEmpty()) {
                 showToast("Lütfen dostunuzun ağırlığını giriniz!")
+                return@setOnClickListener
+            }
+
+            if (binding.editTextWeight.text.trim().toString().toInt() > 100) {
+                showToast("Ağırlık 100 kg'den fazla olamaz!")
                 return@setOnClickListener
             }
 
@@ -162,9 +172,9 @@ class RegisterPetActivity : AppCompatActivity() {
 
             if (binding.editTextAge.text.toString()
                     .toInt() > LocalDate.now().year || binding.editTextAge.text.toString()
-                    .toInt() < 1990
+                    .toInt() < 2000
             ) {
-                showToast("Dostunuzun doğum yılı 1990 ve ${LocalDate.now().year} arasında olmalıdır!")
+                showToast("Dostunuzun doğum yılı 2000 ve ${LocalDate.now().year} arasında olmalıdır!")
                 return@setOnClickListener
             }
 
@@ -185,6 +195,11 @@ class RegisterPetActivity : AppCompatActivity() {
 
             if (binding.editTextAbout.text.trim().toString().isEmpty()) {
                 showToast("Lütfen bir açıklama giriniz!")
+                return@setOnClickListener
+            }
+
+            if (!isAboutValid(binding.editTextAbout.text.toString())) {
+                showToast("Lütfen geçerli bir açıklama giriniz!")
                 return@setOnClickListener
             }
 
@@ -329,6 +344,11 @@ class RegisterPetActivity : AppCompatActivity() {
         binding.petRegisterButton.visibility = View.VISIBLE
         binding.progressCard.visibility = View.INVISIBLE
         binding.buttonPaw2.visibility = View.VISIBLE
+    }
+
+
+    private fun isAboutValid(address: String): Boolean {
+        return address.any { !it.isDigit() }
     }
 }
 

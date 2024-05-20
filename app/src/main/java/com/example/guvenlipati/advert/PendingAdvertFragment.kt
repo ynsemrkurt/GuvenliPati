@@ -29,7 +29,6 @@ class PendingAdvertFragment : Fragment() {
     private val petList = mutableListOf<Pet>()
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,15 +53,14 @@ class PendingAdvertFragment : Fragment() {
     }
 
     private fun fetchPets(job: Job) {
-        FirebaseDatabase.getInstance().getReference("pets")
+        FirebaseDatabase.getInstance().getReference("pets").child(job.petID)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(petsSnapshot: DataSnapshot) {
-                    petsSnapshot.children.mapNotNull { it.getValue(Pet::class.java) }.forEach {
-                        if (it.userId == job.userID) {
-                            if (!petList.contains(it)) {
-                                addListsAndUpdateUI(it, job)
-                            }
-                        }
+                    val pet = petsSnapshot.getValue(Pet::class.java)
+                    pet?.let {
+                        addListsAndUpdateUI(it, job)
+                    } ?: run {
+                        dbError()
                     }
                 }
 
@@ -79,13 +77,11 @@ class PendingAdvertFragment : Fragment() {
                     clearLists()
                     jobsSnapshot.children.mapNotNull { it.getValue(Job::class.java) }
                         .forEach { job ->
-                            job.jobStartDate.let { startDateStr ->
-                                dateFormat.parse(startDateStr)?.let { startDate ->
-                                    if (!startDate.before(Date()) && job.userID == userId && job.jobStatus) {
-                                        loadingUI()
-                                        fetchPets(job)
-                                    }
-                                }
+                            if (!dateFormat.parse(job.jobStartDate)
+                                    .before(Date()) && job.userID == userId && job.jobStatus
+                            ) {
+                                loadingUI()
+                                fetchPets(job)
                             }
                         }
                 }
@@ -102,11 +98,9 @@ class PendingAdvertFragment : Fragment() {
     }
 
     private fun addListsAndUpdateUI(pet: Pet, job: Job) {
-        if (!petList.contains(pet) && !jobList.contains(job)) {
-            petList.add(pet)
-            jobList.add(job)
-            adapter.notifyDataSetChanged()
-        }
+        petList.add(pet)
+        jobList.add(job)
+        adapter.notifyDataSetChanged()
         binding.animationView2.visibility = View.GONE
         binding.scrollView.foreground = null
         binding.loadingCardView.visibility = View.GONE
@@ -114,13 +108,13 @@ class PendingAdvertFragment : Fragment() {
 
     private fun loadingUI() {
         binding.scrollView.foreground = ColorDrawable(android.graphics.Color.parseColor("#FFFFFF"))
-        binding.loadingCardView.visibility = View.GONE
+        binding.loadingCardView.visibility = View.VISIBLE
     }
 
     private fun dbError() {
         Toast.makeText(
             requireContext(),
-            "Veri Tabanı hatası lütfen daha sonra deneyiz!",
+            "Veri Tabanı hatası lütfen daha sonra deneyin!",
             Toast.LENGTH_SHORT
         ).show()
         requireActivity().finish()

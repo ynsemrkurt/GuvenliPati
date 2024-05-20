@@ -141,6 +141,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:maxLength="2"
                     android:id="@+id/editTextExperience"
                     android:layout_width="170dp"
                     android:layout_height="60dp"
@@ -162,6 +163,7 @@
                     app:layout_constraintVertical_bias="0.069" />
 
                 <EditText
+                    android:maxLength="2"
                     android:id="@+id/editTextPetNumber"
                     android:layout_width="170dp"
                     android:layout_height="60dp"

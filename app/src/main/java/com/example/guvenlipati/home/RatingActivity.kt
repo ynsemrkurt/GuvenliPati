@@ -62,6 +62,7 @@ class RatingActivity : AppCompatActivity() {
                 for (offerSnapshot in dataSnapshot.children) {
                     val offer = offerSnapshot.getValue(Offer::class.java)
                     if (offer != null && offer.offerUser == firebaseUser?.uid && offer.offerStatus && !offer.ratingStatus) {
+                        binding.animationView2.visibility = View.GONE
                         binding.loadingCardView.visibility = View.VISIBLE
                         binding.linearLayout.foreground = ColorDrawable(Color.parseColor("#FFFFFF"))
                         offerList.add(offer)
@@ -138,7 +139,6 @@ class RatingActivity : AppCompatActivity() {
 
     private fun updateAdapterAndUI() {
         adapter.notifyDataSetChanged()
-        binding.animationView2.visibility = View.GONE
         binding.loadingCardView.visibility = View.GONE
         binding.linearLayout.foreground = null
     }

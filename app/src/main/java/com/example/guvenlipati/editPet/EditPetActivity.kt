@@ -202,9 +202,9 @@ class EditPetActivity : AppCompatActivity() {
 
             if (petBirthYear.text.toString()
                     .toInt() > LocalDate.now().year || petBirthYear.text.toString()
-                    .toInt() < 1990
+                    .toInt() < 2000
             ) {
-                showToast("Dostunuzun doğum yılı 1990 ve ${LocalDate.now().year} arasında olmalıdır!")
+                showToast("Dostunuzun doğum yılı 2000 ve ${LocalDate.now().year} arasında olmalıdır!")
                 return@setOnClickListener
             }
 

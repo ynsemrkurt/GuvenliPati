@@ -82,6 +82,7 @@ class ActiveOfferAdapter(
         private val confirmStatusTextView = view.findViewById<TextView>(R.id.confirmStatusTextView)
         private val buttonCopyId = view.findViewById<ImageButton>(R.id.buttonCopyId)
         private val supportButton = view.findViewById<Button>(R.id.supportButton)
+        private val buttonDelete = view.findViewById<ImageButton>(R.id.buttonDelete)
 
         fun bind(job: Job, pet: Pet, user: User, offer: Offer, backer: Backer) {
             when (job.jobType) {
@@ -119,6 +120,30 @@ class ActiveOfferAdapter(
                 val intent = Intent(context, ChatActivity::class.java)
                 intent.putExtra("userId", user.userId)
                 context.startActivity(intent)
+            }
+
+            buttonDelete.setOnClickListener {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("İşi iptal et!")
+                builder.setMessage("Bu iş şuan işlem aşamasında silmek istediğinize emin misiniz?\nEğer şuan iptal ederseniz ücret iadesi gerçekleştirilemeyecek!")
+                builder.setPositiveButton("Evet") { dialog, _ ->
+                    val databaseReference =
+                        FirebaseDatabase.getInstance().getReference("offers").child(offer.offerId)
+                    databaseReference.removeValue().addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            showToast("İş başarıyla iptal edildi.")
+                            dialog.dismiss()
+                        } else {
+                            showToast("İşi iptal ederken bir hata oluştu!")
+                            dialog.dismiss()
+                        }
+                    }
+                }
+                builder.setNegativeButton("Hayır") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                val dialog = builder.create()
+                dialog.show()
             }
 
             backerPhotoImageView.setOnClickListener {
@@ -248,7 +273,7 @@ class ActiveOfferAdapter(
     private fun sendNotification(notification: PushNotification) =
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitInstance.api.postNotification(notification)
+                RetrofitInstance.api.postNotification(notification)
             } catch (e: Exception) {
                 showToast(e.message.toString())
             }

@@ -406,6 +406,7 @@
                 android:paddingRight="20dp">
 
                 <EditText
+                    android:maxLength="250"
                     android:id="@+id/editTextAbout"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"

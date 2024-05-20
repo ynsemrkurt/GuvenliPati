@@ -117,10 +117,10 @@ class ActiveJobsFragment : Fragment() {
                         jobList.add(job)
                         userList.add(user)
                         offerList.add(offer)
-                        adapter.notifyDataSetChanged()
                         binding.activeJobRecycleView.foreground = null
                         binding.loadingCardView.visibility = View.GONE
                         binding.animationView2.visibility = View.GONE
+                        adapter.notifyDataSetChanged()
                     }
                 }
 

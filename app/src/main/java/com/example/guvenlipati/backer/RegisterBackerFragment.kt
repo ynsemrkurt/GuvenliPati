@@ -93,6 +93,17 @@ class RegisterBackerFragment : Fragment() {
                     showToast("Lütfen boş alan bırakmayınız!")
                     return@setOnClickListener
                 }
+
+                if (!isAddressValid(binding.editTextAdress.text.trim().toString())){
+                    showToast("Lütfen geçerli bir adres giriniz!")
+                    return@setOnClickListener
+                }
+
+                if (!isAddressValid(binding.editTextBackerAbout.text.trim().toString())){
+                    showToast("Lütfen geçerli bir açıklama giriniz!")
+                    return@setOnClickListener
+                }
+
                 if (!isTCKNCorrect(binding.editTextID.text.toString())) {
                     showToast("TC kimlik numaranızı doğru giriniz!")
                     return@setOnClickListener
@@ -303,4 +314,9 @@ class RegisterBackerFragment : Fragment() {
         dialog.setContentView(view)
         dialog.show()
     }
+
+    private fun isAddressValid(address: String): Boolean {
+        return address.any { !it.isDigit() }
+    }
+
 }

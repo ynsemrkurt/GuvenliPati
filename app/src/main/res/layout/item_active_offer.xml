@@ -179,6 +179,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/buttonDelete"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/edit_pet_image_bg"
+                android:backgroundTint="@color/white"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/trash_ico"
+                app:tint="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"

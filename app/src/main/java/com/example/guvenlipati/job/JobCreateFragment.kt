@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
@@ -118,9 +119,14 @@ class JobCreateFragment : Fragment() {
             }
         })
 
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.MONTH, 3)
+        val maxDate = calendar.timeInMillis
+
         val constraintsBuilder =
             CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointForward.now())
+                .setEnd(maxDate)
 
         val dateRangePicker =
             MaterialDatePicker.Builder.dateRangePicker()
