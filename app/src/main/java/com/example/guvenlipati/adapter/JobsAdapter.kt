@@ -14,6 +14,10 @@ import com.bumptech.glide.Glide
 import com.example.guvenlipati.job.JobDetailsActivity
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class JobsAdapter(
     private val context: Context,
@@ -51,6 +55,8 @@ class JobsAdapter(
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         private val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
+        private val countOfferTextView = view.findViewById<TextView>(R.id.countOfferTextView)
+
 
         fun bind(job: Job, pet: Pet) {
             when(job.jobType){
@@ -69,6 +75,17 @@ class JobsAdapter(
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(petPhotoImageView)
 
+
+            val offersReference = FirebaseDatabase.getInstance().getReference("offers").child(job.jobId)
+            offersReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val offerCount = snapshot.childrenCount
+                    countOfferTextView.text = offerCount.toString()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
 
 
             itemView.setOnClickListener {
