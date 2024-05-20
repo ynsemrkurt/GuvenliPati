@@ -38,7 +38,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
-
 class JobDetailsFragment : Fragment() {
 
     private var jobId: String? = null
@@ -79,6 +78,7 @@ class JobDetailsFragment : Fragment() {
         val jobAboutTextView = binding.jobAboutTextView
         val petAboutTextView = binding.petAboutTextView
         val textViewAge = binding.textViewAge
+        val istotistikKahvesi = binding.istotistikKahvesi
         linearLayout = binding.linearLayout
         loadingCardView = binding.loadingCardView
 
@@ -150,6 +150,9 @@ class JobDetailsFragment : Fragment() {
                                 textViewAge.text = "$petAge Yaş"
                                 linearLayout.foreground = null
                                 loadingCardView.visibility = View.GONE
+
+                                // Fetch offers and update statistics
+                                fetchOffersAndUpdateStatistics()
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -246,6 +249,36 @@ class JobDetailsFragment : Fragment() {
             }
         }
     }
+
+    private fun fetchOffersAndUpdateStatistics() {
+        val offersRef = FirebaseDatabase.getInstance().reference.child("offers")
+        offersRef.orderByChild("offerJobId").equalTo(jobId!!).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val offers = mutableListOf<Int>()
+                for (offerSnapshot in snapshot.children) {
+                    val offerPrice = offerSnapshot.child("offerPrice").getValue(Int::class.java)
+                    offerPrice?.let { offers.add(it) }
+                }
+
+                if (offers.isNotEmpty()) {
+                    val minOffer = offers.minOrNull() ?: 0
+                    val maxOffer = offers.maxOrNull() ?: 0
+                    val avgOffer = if (offers.isNotEmpty()) offers.average().toInt() else 0
+
+                    val statisticsText = "Min Teklif: $minOffer  Ort Teklif: $avgOffer  Max Teklif: $maxOffer"
+                    binding.istotistikKahvesi.text = statisticsText
+                    binding.istotistikKahvesi.visibility = View.VISIBLE
+                } else {
+                    binding.istotistikKahvesi.visibility = View.GONE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                showToast("Error fetching offers: ${error.message}")
+            }
+        })
+    }
+
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
