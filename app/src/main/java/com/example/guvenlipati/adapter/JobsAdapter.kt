@@ -31,7 +31,7 @@ class JobsAdapter(
     }
 
     override fun onBindViewHolder(holder: JobsAdapter.ViewHolder, position: Int) {
-        holder.petCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
+        holder.petCard.animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim)
 
         val job = jobList[position]
 
@@ -50,7 +50,7 @@ class JobsAdapter(
         val petCard: LinearLayout = view.findViewById(R.id.petCard)
         private val petPhotoImageView = view.findViewById<ImageView>(R.id.petPhotoImageView)
         private val petNameTextView = view.findViewById<TextView>(R.id.petNameTextView)
-        private val jobTypeTextView= view.findViewById<TextView>(R.id.jobTypeTextView)
+        private val jobTypeTextView = view.findViewById<TextView>(R.id.jobTypeTextView)
         private val petTypeTextView = view.findViewById<TextView>(R.id.petTypeTextView)
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
@@ -59,7 +59,7 @@ class JobsAdapter(
 
 
         fun bind(job: Job, pet: Pet) {
-            when(job.jobType){
+            when (job.jobType) {
                 "feedingJob" -> jobTypeTextView.text = "Besleme"
                 "walkingJob" -> jobTypeTextView.text = "Gezdirme"
                 "homeJob" -> jobTypeTextView.text = "Evde Bakım"
@@ -76,10 +76,17 @@ class JobsAdapter(
                 .into(petPhotoImageView)
 
 
-            val offersReference = FirebaseDatabase.getInstance().getReference("offers").child(job.jobId)
+            val offersReference = FirebaseDatabase.getInstance().getReference("offers")
             offersReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val offerCount = snapshot.childrenCount
+                    var offerCount = 0
+                    for (offerSnapshot in snapshot.children) {
+                        val offerJobId =
+                            offerSnapshot.child("offerJobId").getValue(String::class.java)
+                        if (offerJobId == job.jobId) {
+                            offerCount++
+                        }
+                    }
                     countOfferTextView.text = offerCount.toString()
                 }
 
