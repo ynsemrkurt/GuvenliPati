@@ -14,6 +14,10 @@ import com.bumptech.glide.Glide
 import com.example.guvenlipati.job.JobDetailsActivity
 import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class JobsAdapter(
     private val context: Context,
@@ -27,7 +31,7 @@ class JobsAdapter(
     }
 
     override fun onBindViewHolder(holder: JobsAdapter.ViewHolder, position: Int) {
-        holder.petCard.animation= AnimationUtils.loadAnimation(context,R.anim.recyclerview_anim)
+        holder.petCard.animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim)
 
         val job = jobList[position]
 
@@ -46,14 +50,16 @@ class JobsAdapter(
         val petCard: LinearLayout = view.findViewById(R.id.petCard)
         private val petPhotoImageView = view.findViewById<ImageView>(R.id.petPhotoImageView)
         private val petNameTextView = view.findViewById<TextView>(R.id.petNameTextView)
-        private val jobTypeTextView= view.findViewById<TextView>(R.id.jobTypeTextView)
+        private val jobTypeTextView = view.findViewById<TextView>(R.id.jobTypeTextView)
         private val petTypeTextView = view.findViewById<TextView>(R.id.petTypeTextView)
         private val startDateTextView = view.findViewById<TextView>(R.id.startDateTextView)
         private val endDateTextView = view.findViewById<TextView>(R.id.endDateTextView)
         private val locationTextView = view.findViewById<TextView>(R.id.locationTextView)
+        private val countOfferTextView = view.findViewById<TextView>(R.id.countOfferTextView)
+
 
         fun bind(job: Job, pet: Pet) {
-            when(job.jobType){
+            when (job.jobType) {
                 "feedingJob" -> jobTypeTextView.text = "Besleme"
                 "walkingJob" -> jobTypeTextView.text = "Gezdirme"
                 "homeJob" -> jobTypeTextView.text = "Evde Bakım"
@@ -69,6 +75,24 @@ class JobsAdapter(
                 .placeholder(R.drawable.default_pet_image_2)
                 .into(petPhotoImageView)
 
+
+            val offersReference = FirebaseDatabase.getInstance().getReference("offers")
+            offersReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var offerCount = 0
+                    for (offerSnapshot in snapshot.children) {
+                        val offerJobId =
+                            offerSnapshot.child("offerJobId").getValue(String::class.java)
+                        if (offerJobId == job.jobId) {
+                            offerCount++
+                        }
+                    }
+                    countOfferTextView.text = offerCount.toString()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
 
 
             itemView.setOnClickListener {
