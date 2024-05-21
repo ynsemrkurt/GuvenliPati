@@ -200,11 +200,21 @@ class EditPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (!isStringValid(editTextPetName.text.toString())) {
+                showToast("İsim sadece sayılardan oluşamaz!")
+                return@setOnClickListener
+            }
+
             if (petBirthYear.text.toString()
                     .toInt() > LocalDate.now().year || petBirthYear.text.toString()
                     .toInt() < 2000
             ) {
                 showToast("Dostunuzun doğum yılı 2000 ve ${LocalDate.now().year} arasında olmalıdır!")
+                return@setOnClickListener
+            }
+
+            if (binding.editTextWeight.text.trim().toString().toInt() > 100) {
+                showToast("Ağırlık 100 kg'den fazla olamaz!")
                 return@setOnClickListener
             }
 
@@ -335,5 +345,9 @@ class EditPetActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun isStringValid(name: String): Boolean {
+        return name.any { !it.isDigit() }
     }
 }
