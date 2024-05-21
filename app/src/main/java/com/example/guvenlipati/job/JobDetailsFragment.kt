@@ -71,20 +71,20 @@ class JobDetailsFragment : Fragment() {
         val petWeightTextView = binding.petWeightTextView
         val circleImageProfilePhoto = binding.circleImageProfilePhoto
         val userNameTextView = binding.userNameTextView
-        val jobTypeTextView = binding.jobTypeTextView
         val locationTextView = binding.locationTextView
         val startDateTextView = binding.startDateTextView
         val endDateTextView = binding.endDateTextView
         val jobAboutTextView = binding.jobAboutTextView
         val petAboutTextView = binding.petAboutTextView
         val textViewAge = binding.textViewAge
-        val istotistikKahvesi = binding.istotistikKahvesi
         linearLayout = binding.linearLayout
         loadingCardView = binding.loadingCardView
 
         arguments?.let {
             jobId = it.getString("jobId")
         }
+
+        fetchOffersAndUpdateStatistics()
 
         val jobRef = FirebaseDatabase.getInstance().reference.child("jobs").child(jobId!!)
         identifies =
@@ -106,6 +106,7 @@ class JobDetailsFragment : Fragment() {
                         petRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 pet = snapshot.getValue(Pet::class.java)!!
+
                                 if (pet.petPhoto.isNotEmpty()) {
                                     Glide.with(requireContext()).load(pet.petPhoto)
                                         .into(petPhotoImageView)
@@ -150,9 +151,6 @@ class JobDetailsFragment : Fragment() {
                                 textViewAge.text = "$petAge Yaş"
                                 linearLayout.foreground = null
                                 loadingCardView.visibility = View.GONE
-
-                                // Fetch offers and update statistics
-                                fetchOffersAndUpdateStatistics()
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -199,49 +197,86 @@ class JobDetailsFragment : Fragment() {
             dialog.show()
 
             buttonSend.setOnClickListener {
-                if (offerPrice.text.toString().trim()
-                        .isEmpty() || offerPrice.text.toString().toInt() <= 0
-                ) {
+                val price = offerPrice.text.toString().trim()
+                if (price.isEmpty() || price.toInt() <= 0) {
                     showToast("Lütfen geçerli bir tutar giriniz!")
                     return@setOnClickListener
-                } else {
-                    val offerRef = FirebaseDatabase.getInstance().reference.child("offers")
-                    val offerId = UUID.randomUUID().toString()
-                    val hashMap = HashMap<String, Any>()
-                    hashMap["offerId"] = offerId
-                    hashMap["offerJobId"] = jobId!!
-                    hashMap["offerUser"] = job?.userID!!
-                    hashMap["offerPrice"] = offerPrice.text.toString().toInt()
-                    hashMap["offerBackerId"] = firebaseUser.uid
-                    hashMap["offerDate"] =
-                        SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
-                    hashMap["offerStatus"] = false
-                    hashMap["priceStatus"] = false
-                    hashMap["confirmUser"] = false
-                    hashMap["confirmBacker"] = false
-                    hashMap["ratingStatus"] = false
-                    offerRef.child(offerId).setValue(hashMap).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            showToast("Teklif gönderildi!")
-                            topic = "/topics/${job!!.userID}"
-                            PushNotification(
-                                Notification(
-                                    "Yeni Teklifin Var \uD83E\uDD73",
-                                    "Hemen gel ve incele...",
-                                    firebaseUser.uid,
-                                    pet.petPhoto,
-                                    1
-                                ),
-                                topic
-                            ).also {
-                                sendNotification(it)
-                            }
-                            dialog.dismiss()
-                        } else {
-                            showToast("Teklif gönderilemedi. Tekrar deneyiniz!")
-                        }
-                    }
                 }
+
+                val offersRef = FirebaseDatabase.getInstance().reference.child("offers")
+                offersRef.orderByChild("offerJobId").equalTo(jobId!!)
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            var offerExists = false
+                            var offerId = ""
+                            for (offerSnapshot in snapshot.children) {
+                                val offerBackerId = offerSnapshot.child("offerBackerId")
+                                    .getValue(String::class.java)
+                                if (offerBackerId == firebaseUser.uid) {
+                                    offerExists = true
+                                    offerId = offerSnapshot.key ?: UUID.randomUUID().toString()
+                                    break
+                                }
+                            }
+
+                            val offerData = mapOf(
+                                "offerPrice" to price.toInt()
+                            )
+
+                            if (offerExists) {
+                                offersRef.child(offerId).updateChildren(offerData)
+                                    .addOnCompleteListener {
+                                        if (it.isSuccessful) {
+                                            showToast("Teklif güncellendi!")
+                                            dialog.dismiss()
+                                        } else {
+                                            showToast("Teklif güncellenemedi. Tekrar deneyiniz!")
+                                        }
+                                    }
+                            } else {
+                                offerId = UUID.randomUUID().toString()
+                                val newOfferData = mapOf(
+                                    "offerId" to offerId,
+                                    "offerJobId" to jobId!!,
+                                    "offerUser" to job!!.userID,
+                                    "offerPrice" to price.toInt(),
+                                    "offerBackerId" to firebaseUser.uid,
+                                    "offerDate" to SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()),
+                                    "offerStatus" to false,
+                                    "priceStatus" to false,
+                                    "confirmUser" to false,
+                                    "confirmBacker" to false,
+                                    "ratingStatus" to false
+                                )
+                                offersRef.child(offerId).setValue(newOfferData)
+                                    .addOnCompleteListener {
+                                        if (it.isSuccessful) {
+                                            showToast("Teklif gönderildi!")
+                                            topic = "/topics/${job!!.userID}"
+                                            PushNotification(
+                                                Notification(
+                                                    "Yeni Teklifin Var \uD83E\uDD73",
+                                                    "Hemen gel ve incele...",
+                                                    firebaseUser.uid,
+                                                    pet.petPhoto,
+                                                    1
+                                                ),
+                                                topic
+                                            ).also {
+                                                sendNotification(it)
+                                            }
+                                            dialog.dismiss()
+                                        } else {
+                                            showToast("Teklif gönderilemedi. Tekrar deneyiniz!")
+                                        }
+                                    }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            showToast("Error: ${error.message}")
+                        }
+                    })
 
                 dialog.setOnCancelListener {
                     dialog.dismiss()
@@ -252,33 +287,34 @@ class JobDetailsFragment : Fragment() {
 
     private fun fetchOffersAndUpdateStatistics() {
         val offersRef = FirebaseDatabase.getInstance().reference.child("offers")
-        offersRef.orderByChild("offerJobId").equalTo(jobId!!).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val offers = mutableListOf<Int>()
-                for (offerSnapshot in snapshot.children) {
-                    val offerPrice = offerSnapshot.child("offerPrice").getValue(Int::class.java)
-                    offerPrice?.let { offers.add(it) }
+        offersRef.orderByChild("offerJobId").equalTo(jobId!!)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val offers = mutableListOf<Int>()
+                    for (offerSnapshot in snapshot.children) {
+                        val offerPrice = offerSnapshot.child("offerPrice").getValue(Int::class.java)
+                        offerPrice?.let { offers.add(it) }
+                    }
+
+                    if (offers.isNotEmpty()) {
+                        val minOffer = offers.minOrNull() ?: 0
+                        val maxOffer = offers.maxOrNull() ?: 0
+                        val avgOffer = if (offers.isNotEmpty()) offers.average().toInt() else 0
+
+                        val statisticsText =
+                            "Min Teklif: $minOffer  Ort Teklif: $avgOffer  Max Teklif: $maxOffer"
+                        binding.istotistikKahvesi.text = statisticsText
+                        binding.istotistikKahvesi.visibility = View.VISIBLE
+                    } else {
+                        binding.istotistikKahvesi.visibility = View.GONE
+                    }
                 }
 
-                if (offers.isNotEmpty()) {
-                    val minOffer = offers.minOrNull() ?: 0
-                    val maxOffer = offers.maxOrNull() ?: 0
-                    val avgOffer = if (offers.isNotEmpty()) offers.average().toInt() else 0
-
-                    val statisticsText = "Min Teklif: $minOffer  Ort Teklif: $avgOffer  Max Teklif: $maxOffer"
-                    binding.istotistikKahvesi.text = statisticsText
-                    binding.istotistikKahvesi.visibility = View.VISIBLE
-                } else {
-                    binding.istotistikKahvesi.visibility = View.GONE
+                override fun onCancelled(error: DatabaseError) {
+                    showToast("Error fetching offers: ${error.message}")
                 }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                showToast("Error fetching offers: ${error.message}")
-            }
-        })
+            })
     }
-
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -287,7 +323,7 @@ class JobDetailsFragment : Fragment() {
     private fun sendNotification(notification: PushNotification) =
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = RetrofitInstance.api.postNotification(notification)
+                RetrofitInstance.api.postNotification(notification)
             } catch (e: Exception) {
                 showToast(e.message.toString())
             }
