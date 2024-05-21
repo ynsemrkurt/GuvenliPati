@@ -150,6 +150,11 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (!isNameValid(binding.editTextPetName.text.trim().toString())) {
+                showToast("İsim sadece sayılardan oluşamaz!")
+                return@setOnClickListener
+            }
+
             if (!isAboutValid(binding.editTextPetName.text.toString())) {
                 showToast("Lütfen sadece sayılardan oluşmayan geçerli bir ad giriniz!")
                 return@setOnClickListener
@@ -349,6 +354,10 @@ class RegisterPetActivity : AppCompatActivity() {
 
     private fun isAboutValid(address: String): Boolean {
         return address.any { !it.isDigit() }
+    }
+
+    private fun isNameValid(name: String): Boolean {
+        return name.any { it.isDigit() }
     }
 }
 
