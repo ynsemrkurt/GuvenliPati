@@ -72,7 +72,7 @@ class PendingAdvertFragment : Fragment() {
 
     private fun fetchJobs(userId: String) {
         FirebaseDatabase.getInstance().getReference("jobs")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(jobsSnapshot: DataSnapshot) {
                     clearLists()
                     jobsSnapshot.children.mapNotNull { it.getValue(Job::class.java) }
