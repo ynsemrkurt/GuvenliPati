@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.guvenlipati.R
 import com.example.guvenlipati.adapter.SelectPetsAdapter
 import com.example.guvenlipati.databinding.FragmentJobCreateBinding
+import com.example.guvenlipati.models.Job
 import com.example.guvenlipati.models.Pet
 import com.example.guvenlipati.models.User
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -195,43 +196,77 @@ class JobCreateFragment : Fragment() {
                     return@setOnClickListener
                 }
 
-                databaseReferencePets.child(petSelectID).child("petSpecies")
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.exists()) {
-                                val petSpecies = snapshot.getValue(String::class.java)
-                                val hashMap: HashMap<String, Any> = HashMap()
-                                val jobId = UUID.randomUUID().toString()
-                                hashMap["jobId"] = jobId
-                                hashMap["jobType"] = checkedJobType
-                                hashMap["petSpecies"] = petSpecies.toString()
-                                hashMap["jobAbout"] = jobAbout.text.toString()
-                                hashMap["jobProvince"] = user.userProvince
-                                hashMap["jobStatus"] = true
-                                hashMap["userID"] = firebaseUser.uid
-                                hashMap["petID"] = petSelectID
-                                hashMap["jobTown"] = user.userTown
-                                hashMap["jobStartDate"] = editTextStartDate.text.toString()
-                                hashMap["jobEndDate"] = editTextEndDate.text.toString()
+                if (!isStringValid(jobAbout.text.trim().toString())) {
+                    showToast("Hakkında kısmı sadece sayılardan oluşamaz!")
+                    return@setOnClickListener
+                }
 
-                                val reference =
-                                    FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
-                                reference.setValue(hashMap).addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        showBottomSheet()
-                                    } else {
-                                        showToast("Hatalı işlem!")
-                                    }
+                val startDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(binding.editTextStartDate.text.toString())!!
+                val endDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(binding.editTextEndDate.text.toString())!!
+
+                val jobRef = FirebaseDatabase.getInstance().getReference("jobs")
+                jobRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var isDateConflict = false
+                        for (dataSnapShot in snapshot.children) {
+                            val job = dataSnapShot.getValue(Job::class.java)
+                            if (job?.petID == petSelectID) {
+                                val jobStartDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(job.jobStartDate)!!
+                                val jobEndDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(job.jobEndDate)!!
+                                if (startDate <= jobEndDate && endDate >= jobStartDate) {
+                                    isDateConflict = true
+                                    break
                                 }
-                            } else {
-                                showToast("Pet türü bulunamadı.")
                             }
                         }
 
-                        override fun onCancelled(error: DatabaseError) {
-                            showToast("Pet türü alınırken bir hata oluştu.")
+                        if (isDateConflict) {
+                            showToast("Seçtiğiniz tarihlerde bu dostunuz için zaten bir iş var.")
+                        } else {
+                            databaseReferencePets.child(petSelectID).child("petSpecies")
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        if (snapshot.exists()) {
+                                            val petSpecies = snapshot.getValue(String::class.java)
+                                            val hashMap: HashMap<String, Any> = HashMap()
+                                            val jobId = UUID.randomUUID().toString()
+                                            hashMap["jobId"] = jobId
+                                            hashMap["jobType"] = checkedJobType
+                                            hashMap["petSpecies"] = petSpecies.toString()
+                                            hashMap["jobAbout"] = jobAbout.text.toString()
+                                            hashMap["jobProvince"] = user.userProvince
+                                            hashMap["jobStatus"] = true
+                                            hashMap["userID"] = firebaseUser.uid
+                                            hashMap["petID"] = petSelectID
+                                            hashMap["jobTown"] = user.userTown
+                                            hashMap["jobStartDate"] = binding.editTextStartDate.text.toString()
+                                            hashMap["jobEndDate"] = binding.editTextEndDate.text.toString()
+
+                                            val reference =
+                                                FirebaseDatabase.getInstance().getReference("jobs").child(jobId)
+                                            reference.setValue(hashMap).addOnCompleteListener { task ->
+                                                if (task.isSuccessful) {
+                                                    showBottomSheet()
+                                                } else {
+                                                    showToast("Hatalı işlem!")
+                                                }
+                                            }
+                                        } else {
+                                            showToast("Pet türü bulunamadı.")
+                                        }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        showToast("Pet türü alınırken bir hata oluştu.")
+                                    }
+                                })
                         }
-                    })
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        showToast("İşler alınırken bir hata oluştu.")
+                    }
+                })
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -280,5 +315,9 @@ class JobCreateFragment : Fragment() {
         dialog.setCancelable(false)
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    private fun isStringValid(about: String): Boolean {
+        return about.any { !it.isDigit() }
     }
 }
