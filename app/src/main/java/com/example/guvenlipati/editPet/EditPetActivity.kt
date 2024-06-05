@@ -218,6 +218,11 @@ class EditPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if(!isStringValid(binding.editTextAbout.text.trim().toString())){
+                showToast("Açıklama sadece sayılardan oluşamaz!")
+                return@setOnClickListener
+            }
+
             databaseReference.updateChildren(
                 mapOf(
                     "petName" to editTextPetName.text.toString().trim(),
