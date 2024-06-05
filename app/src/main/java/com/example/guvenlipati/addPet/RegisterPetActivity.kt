@@ -155,11 +155,6 @@ class RegisterPetActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (!isAboutValid(binding.editTextPetName.text.toString())) {
-                showToast("Lütfen sadece sayılardan oluşmayan geçerli bir ad giriniz!")
-                return@setOnClickListener
-            }
-
             if (binding.editTextWeight.text.trim().toString().isEmpty()) {
                 showToast("Lütfen dostunuzun ağırlığını giriniz!")
                 return@setOnClickListener
@@ -352,12 +347,12 @@ class RegisterPetActivity : AppCompatActivity() {
     }
 
 
-    private fun isAboutValid(address: String): Boolean {
-        return address.any { !it.isDigit() }
+    private fun isAboutValid(about: String): Boolean {
+        return about.any { !it.isDigit() }
     }
 
     private fun isNameValid(name: String): Boolean {
-        return name.any { it.isDigit() }
+        return name.any { !it.isDigit() }
     }
 }
 

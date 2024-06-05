@@ -318,5 +318,4 @@ class RegisterBackerFragment : Fragment() {
     private fun isAddressValid(address: String): Boolean {
         return address.any { !it.isDigit() }
     }
-
 }
