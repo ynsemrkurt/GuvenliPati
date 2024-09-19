@@ -2,16 +2,16 @@ package com.example.guvenlipati.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.guvenlipati.R
 import com.example.guvenlipati.home.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 
-private lateinit var auth: FirebaseAuth
-
 class SplashActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -19,46 +19,38 @@ class SplashActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         if (auth.currentUser != null) {
-            goHomeActivity()
-            finish()
+            navigateToHomeActivity()
         }
     }
 
-    fun goFirstSignUpFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragmentContainerView, FirstSignUpFragment
-                    ()
-            )
-            .commit()
-    }
-
-    fun goSecondSignUpFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, SecondSignUpFragment())
-            .commit()
-    }
-
-    fun goLoginFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, LoginFragment())
-            .commit()
-    }
-
-    fun goSplashFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, SplashFragment())
-            .commit()
-    }
-
-    fun goHomeActivity() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
+    private fun navigateToHomeActivity() {
+        startActivity(Intent(this, HomeActivity::class.java))
         finish()
+    }
+
+    private fun navigateToFragment(fragment: androidx.fragment.app.Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, fragment)
+            .commit()
+    }
+
+    fun showFirstSignUpFragment() {
+        navigateToFragment(FirstSignUpFragment())
+    }
+
+    fun showSecondSignUpFragment() {
+        navigateToFragment(SecondSignUpFragment())
+    }
+
+    fun showLoginFragment() {
+        navigateToFragment(LoginFragment())
+    }
+
+    fun showSplashFragment() {
+        navigateToFragment(SplashFragment())
     }
 
     fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
 }
