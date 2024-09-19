@@ -190,7 +190,7 @@ class SecondSignUpFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         user?.delete()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                (activity as SplashActivity).goSplashFragment()
+                (activity as SplashActivity).showSplashFragment()
             }
         }
     }

@@ -19,12 +19,13 @@ class SplashActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         if (auth.currentUser != null) {
-            navigateToHomeActivity()
+            goHomeActivity()
         }
     }
 
-    private fun navigateToHomeActivity() {
-        startActivity(Intent(this, HomeActivity::class.java))
+    fun goHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
         finish()
     }
 

@@ -89,7 +89,7 @@ class LoginFragment : Fragment() {
 
     private fun setupBackToSplashButton() {
         binding.backToSplash.setOnClickListener {
-            (activity as SplashActivity).goSplashFragment()
+            (activity as SplashActivity).showSplashFragment()
         }
     }
 
@@ -127,7 +127,7 @@ class LoginFragment : Fragment() {
 
     private fun setupBackPressedListener() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            (requireActivity() as SplashActivity).goSplashFragment()
+            (requireActivity() as SplashActivity).showSplashFragment()
         }
     }
 
