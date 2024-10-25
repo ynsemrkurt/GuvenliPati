@@ -15,57 +15,43 @@ class AdvertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advert)
 
-        goFragment(PendingAdvertFragment())
+        setupInitialFragment()
+        setupTabLayout()
+        setupBackButton()
+    }
 
+    private fun setupInitialFragment() {
         val statusType = intent.getStringExtra("statusType")
-
-        when (statusType) {
-            "pending" -> {
-                goFragment(PaymentAdvertFragment())
-                selectTab(1)
-            }
-
-            "active" -> {
-                goFragment(ActiveAdvertFragment())
-                selectTab(2)
-            }
-
-            else -> {
-                goFragment(PendingAdvertFragment())
-                selectTab(0)
-            }
+        val (fragment, tabPosition) = when (statusType) {
+            "pending" -> PaymentAdvertFragment() to 1
+            "active" -> ActiveAdvertFragment() to 2
+            else -> PendingAdvertFragment() to 0
         }
+        goFragment(fragment)
+        selectTab(tabPosition)
+    }
 
-
-        findViewById<TabLayout>(R.id.tabLayout).addOnTabSelectedListener(object :
-            TabLayout.OnTabSelectedListener {
+    private fun setupTabLayout() {
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                val position = tab.position
                 goFragment(
-                    when (position) {
+                    when (tab.position) {
                         0 -> PendingAdvertFragment()
-
                         1 -> PaymentAdvertFragment()
-
                         2 -> ActiveAdvertFragment()
-
                         3 -> PastAdvertFragment()
-
                         else -> PendingAdvertFragment()
                     }
                 )
             }
 
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(p0: TabLayout.Tab?) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
 
-        findViewById<ImageButton>(R.id.backToSplash).setOnClickListener {
-            finish()
-        }
+    private fun setupBackButton() {
+        findViewById<ImageButton>(R.id.backToSplash).setOnClickListener { finish() }
     }
 
     private fun goFragment(fragment: Fragment) {
@@ -75,6 +61,6 @@ class AdvertActivity : AppCompatActivity() {
     }
 
     private fun selectTab(position: Int) {
-        tabLayout.selectTab(tabLayout.getTabAt(position))
+        tabLayout.getTabAt(position)?.select()
     }
 }
