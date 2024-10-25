@@ -10,52 +10,62 @@ import com.example.guvenlipati.home.HomeActivity
 
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardingBinding
-    private val fragments = listOf(
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityOnBoardingBinding.inflate(layoutInflater).apply { setContentView(root) }
+
+        setupViewPager()
+        setupButtonListeners()
+    }
+
+    private fun setupViewPager() = with(binding.viewPager) {
+        adapter = OnboardingAdapter(this@OnboardingActivity, createFragments())
+        offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updateButtonVisibility(position)
+            }
+        })
+    }
+
+    private fun setupButtonListeners() = with(binding) {
+        btnNextStep.setOnClickListener { navigateToNextPage() }
+        btnFinish.setOnClickListener { navigateToHomeActivity() }
+    }
+
+    private fun navigateToNextPage() {
+        val currentItem = binding.viewPager.currentItem
+        if (currentItem < createFragments().size - 1) {
+            binding.viewPager.setCurrentItem(currentItem + 1, true)
+        } else {
+            updateButtonVisibility(currentItem + 1)
+        }
+    }
+
+    private fun updateButtonVisibility(position: Int) = with(binding) {
+        if (position >= createFragments().size - 1) {
+            btnFinish.visibility = View.VISIBLE
+            btnNextStep.visibility = View.INVISIBLE
+        } else {
+            btnFinish.visibility = View.INVISIBLE
+            btnNextStep.visibility = View.VISIBLE
+        }
+    }
+
+    private fun navigateToHomeActivity() {
+        Intent(this, HomeActivity::class.java).also {
+            startActivity(it)
+            finish()
+        }
+    }
+
+    private fun createFragments() = listOf(
         OnboardingFragment.newInstance(),
         Onboarding1Fragment.newInstance(),
         Onboarding2Fragment.newInstance(),
         Onboarding3Fragment.newInstance()
     )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOnBoardingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.viewPager.adapter = OnboardingAdapter(this, fragments)
-        binding.viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
-
-        binding.btnNextStep.setOnClickListener {
-            val currentItem = binding.viewPager.currentItem
-            if (currentItem >= fragments.size - 1) {
-                binding.btnFinish.visibility = View.VISIBLE
-                binding.btnNextStep.visibility = View.INVISIBLE
-            } else {
-                binding.viewPager.setCurrentItem(currentItem + 1, true)
-            }
-        }
-
-        binding.btnFinish.setOnClickListener {
-            navigateToHomeActivity()
-        }
-
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                if (position == fragments.size - 1) {
-                    binding.btnFinish.visibility = View.VISIBLE
-                    binding.btnNextStep.visibility = View.INVISIBLE
-                } else {
-                    binding.btnFinish.visibility = View.INVISIBLE
-                    binding.btnNextStep.visibility = View.VISIBLE
-                }
-            }
-        })
-    }
-
-    private fun navigateToHomeActivity() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 }
