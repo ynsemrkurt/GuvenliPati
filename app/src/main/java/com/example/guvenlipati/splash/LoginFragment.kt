@@ -45,44 +45,48 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupLoginButton() {
-        binding.loginButton.setOnClickListener {
-            if (binding.editTextEmail.text.isEmpty() || binding.editTextPassword.text.isEmpty()) {
-                showToast("Hiçbir alan boş bırakılamaz!")
-            } else {
-                binding.loginButton.visibility = View.INVISIBLE
-                binding.progressCard.visibility = View.VISIBLE
-                binding.buttonPaw.visibility = View.INVISIBLE
-                auth.signInWithEmailAndPassword(
-                    binding.editTextEmail.text.toString(),
-                    binding.editTextPassword.text.toString()
-                ).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        (activity as SplashActivity).goHomeActivity()
-                        binding.editTextEmail.setText("")
-                        binding.editTextPassword.setText("")
-                    } else {
-                        errorEdit(binding.editTextPassword)
+        with(binding) {
+            loginButton.setOnClickListener {
+                if (editTextEmail.text.isEmpty() || editTextPassword.text.isEmpty()) {
+                    showToast("Hiçbir alan boş bırakılamaz!")
+                } else {
+                    loginButton.visibility = View.INVISIBLE
+                    progressCard.visibility = View.VISIBLE
+                    buttonPaw.visibility = View.INVISIBLE
+                    auth.signInWithEmailAndPassword(
+                        editTextEmail.text.toString(),
+                        editTextPassword.text.toString()
+                    ).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            (activity as SplashActivity).goHomeActivity()
+                            editTextEmail.setText("")
+                            editTextPassword.setText("")
+                        } else {
+                            errorEdit(editTextPassword)
+                        }
+                        resetButtonVisibility()
+                    }.addOnFailureListener {
+                        showToast("Hatalı Giriş Bilgileri!")
+                        resetButtonVisibility()
                     }
-                    resetButtonVisibility()
-                }.addOnFailureListener {
-                    showToast("Hatalı Giriş Bilgileri!")
-                    resetButtonVisibility()
                 }
             }
         }
     }
 
     private fun setupLockPasswordButton() {
-        binding.lockPassword.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-            if (isPasswordVisible) {
-                binding.editTextPassword.transformationMethod =
-                    HideReturnsTransformationMethod.getInstance()
-                binding.lockPassword.setImageResource(R.drawable.password_eye_ico)
-            } else {
-                binding.editTextPassword.transformationMethod =
-                    PasswordTransformationMethod.getInstance()
-                binding.lockPassword.setImageResource(R.drawable.secret_password_eye_ico)
+        with(binding) {
+            lockPassword.setOnClickListener {
+                isPasswordVisible = !isPasswordVisible
+                if (isPasswordVisible) {
+                    editTextPassword.transformationMethod =
+                        HideReturnsTransformationMethod.getInstance()
+                    lockPassword.setImageResource(R.drawable.password_eye_ico)
+                } else {
+                    editTextPassword.transformationMethod =
+                        PasswordTransformationMethod.getInstance()
+                    lockPassword.setImageResource(R.drawable.secret_password_eye_ico)
+                }
             }
         }
     }
@@ -146,8 +150,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun resetButtonVisibility() {
-        binding.loginButton.visibility = View.VISIBLE
-        binding.progressCard.visibility = View.INVISIBLE
-        binding.buttonPaw.visibility = View.VISIBLE
+        with(binding) {
+            loginButton.visibility = View.VISIBLE
+            progressCard.visibility = View.INVISIBLE
+            buttonPaw.visibility = View.VISIBLE
+        }
     }
 }
