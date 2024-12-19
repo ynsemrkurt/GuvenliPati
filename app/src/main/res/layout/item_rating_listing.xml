@@ -11,7 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/white"
         android:elevation="100dp"
@@ -43,8 +43,8 @@
 
                 <ImageView
                     android:id="@+id/userPhotoImageView"
-                    android:layout_width="135dp"
-                    android:layout_height="135dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/men_image" />
 
@@ -66,56 +66,54 @@
                 android:id="@+id/commentTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/alata"
                 android:maxLines="3"
                 android:paddingEnd="10dp"
                 android:text="Hayatımda gördüğüm en kötü bakıcı. Bu yüzden düşük puan veriyorum!!!"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/ratingBar"
+                app:layout_constraintStart_toStartOf="@+id/ratingJobTextView"
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
-            <RatingBar
+            <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="88dp"
+                android:layout_marginTop="-8dp"
+                android:layout_marginStart="-46dp"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:progressTint="#FFE500"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
                 app:layout_constraintStart_toEndOf="@+id/userImage"
-                app:layout_constraintStart_toStartOf="@+id/userImage"
-                app:layout_constraintTop_toTopOf="@+id/userImage" />
+                app:layout_constraintTop_toBottomOf="@+id/ratingJobTextView" />
 
             <TextView
                 android:id="@+id/ratingJobTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/alata"
                 android:text="@string/pofuduk"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/userNameTextView"
-                app:layout_constraintStart_toEndOf="@+id/userNameTextView"
-                app:layout_constraintTop_toTopOf="@+id/userNameTextView"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintStart_toStartOf="@+id/userNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />
 
             <TextView
                 android:id="@+id/userNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/alata"
                 android:text="Yunus Emre"
                 android:textColor="@color/lightblack"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/userImage"
-                app:layout_constraintHorizontal_bias="0.471"
-                app:layout_constraintStart_toStartOf="@+id/userImage"
-                app:layout_constraintTop_toBottomOf="@+id/userImage" />
+                app:layout_constraintStart_toEndOf="@+id/userImage"
+                app:layout_constraintTop_toTopOf="@+id/userImage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
